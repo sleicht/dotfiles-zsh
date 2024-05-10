@@ -4,28 +4,37 @@ tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 
 # Binaries
+brew 'asdf-vm'
 brew 'awscli'
 brew 'bash' # Latest Bash version
-brew 'bat' # Used for spatie/visit
+brew 'bat'
 brew 'coreutils' # Those that come with macOS are outdated
+brew 'curl'
+brew 'direnv'
 brew 'docker'
+brew 'eza'
+brew 'fd'
 brew 'ffmpeg'
-brew 'gh'
+brew 'fzf'
 brew 'gh'
 brew 'git'
-brew 'grep'
+brew 'gnupg'
 brew 'httpie'
-brew 'jq' # Used for spatie/visit
+brew 'jq'
 brew 'kejadlen/git-together/git-together'
 brew 'lazydocker'
 brew 'lazygit'
-brew 'mackup'
+brew 'libyaml'
+brew 'lzma'
 brew 'mackup'
 brew 'mas' # Mac App Store manager
 brew 'neovim'
 brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
+brew 'readline'
+brew 'ripgrep'
 brew 'svn' # Needed to install fonts
 brew 'vault'
+brew 'zlib'
 
 # Development
 brew 'imagemagick'
