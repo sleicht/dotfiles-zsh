@@ -19,4 +19,10 @@ alias resolve="git add . && git commit --no-edit"
 alias stash="git stash -u"
 alias unstage="git restore --staged ."
 alias wip="commit wip"
-alias suri-"git submodule update --init --recursive"
+
+alias ll="eza -hal"
+alias tree="eza -Tal"
+
+alias lg="lazygit"
+alias suri="git submodule update --init --recursive"
+alias puri="git pull && git submodule update --init --recursive"

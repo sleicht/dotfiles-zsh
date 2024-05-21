@@ -109,4 +109,8 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Prompt
 eval "$(starship init zsh)"
+
+# Version manager
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
