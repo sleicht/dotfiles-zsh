@@ -1,0 +1,45 @@
+local lspconfig = require("lspconfig")
+
+return {
+	{
+		"neovim/nvim-lspconfig",
+		opts = {
+			-- Useful for debugging formatter issues
+			format_notify = true,
+			servers = {
+				bashls = {
+					filetypes = { "sh", "zsh" },
+				},
+				-- diagnosticls = {},
+				dockerls = {},
+				helm_ls = {},
+				jsonls = {},
+				jsonnet_ls = {},
+				lua_ls = {
+					Lua = {
+						workspace = { checkThirdParty = false },
+						telemetry = { enable = false },
+					},
+				},
+				marksman = {},
+				-- This should be renamed to `ruby_lsp` once this PR gets merged
+				-- https://github.com/williamboman/mason-lspconfig.nvim/pull/395
+				ruby_lsp = {
+					-- cmd = { "bundle", "exec", "ruby-lsp" },
+					-- init_options = {
+					--   formatter = "auto",
+					-- },
+				},
+				rubocop = {
+					-- See: https://docs.rubocop.org/rubocop/usage/lsp.html
+					cmd = { "bundle", "exec", "rubocop", "--lsp" },
+					root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
+				},
+				sqlls = {},
+				terraformls = {},
+				tsserver = {},
+				yamlls = {},
+			},
+		},
+	},
+}

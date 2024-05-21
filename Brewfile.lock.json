@@ -5,13 +5,13 @@
         "revision": "0ed20f35d21ebc3f4f829689b101078718ad5ce1"
       },
       "homebrew/bundle": {
-        "revision": "0fe5895d24e8a64fc9ddff63eb5c6680164a432d"
+        "revision": "e5adcba48e9174fb7de55a7c5c18ed5feee55878"
       },
       "jorgelbg/tap": {
         "revision": "95c37690b5a0a97c290ccace9f35068e7a222da8"
       },
       "cloudfoundry/tap": {
-        "revision": "400faf63d624ed5583af9e0d44f06e680b7621cc"
+        "revision": "4a8c39b4882fd8321713a9f653dcbb4137c658c0"
       },
       "cloudfoundry/cp-core": {
         "revision": "8ed1ea67681f3442695dbdd640d64439eb71181f",
@@ -2075,7 +2075,7 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.0",
+        "HOMEBREW_VERSION": "4.3.1",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",

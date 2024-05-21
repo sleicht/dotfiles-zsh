@@ -1,0 +1,86 @@
+- clean: ["~"]
+
+- create: []
+
+- link:
+    ~/.gitignore_global: gitignore_global
+    ~/.zshrc: zshrc
+    ~/.config/starship.toml: starship.toml
+    ~/.config/nvim: nvim
+
+- brewfile:
+    - Brewfile
+
+- tap:
+    - homebrew/cask-fonts
+    - cloudfoundry/tap
+
+- brew:
+    - git
+    - asdf
+    - awscli
+    - bash # Latest Bash version
+    - bat
+    - coreutils # Those that come with macOS are outdated
+    - curl
+    - direnv
+    - docker
+    - eza
+    - fd
+    - ffmpeg
+    - fzf
+    - gh
+    - git
+    - gpg
+    - gpg2
+    - gpg-tui
+    - httpie
+    - imagemagick
+    - jq
+    - kejadlen/git-together/git-together
+    - lazydocker
+    - lazygit
+    - libyaml
+    - mas # Mac App Store manager
+    - neovim
+    - oniguruma
+    - pinentry-touchid
+    - pkg-config # https://github.com/driesvints/dotfiles/issues/20
+    - readline
+    - ripgrep
+    - s3cmd
+    - starship
+    - terraform-ls
+    - tmux
+    - vault
+    - xplr
+    - xz
+    - yarn
+    - zlib
+
+- cask:
+    - 1password
+    - adguard
+    - capacities
+    - fantastical
+    - gpg-suite-no-mail
+    - iterm2
+    - keyboard-maestro
+    - raycast
+    - setapp
+    - slack
+    - qlmarkdown
+    - quicklook-json
+    - homebrew/cask-fonts/font-open-sans
+    - homebrew/cask-fonts/font-roboto
+    - homebrew/cask-fonts/font-source-code-pro-for-powerline
+    - homebrew/cask-fonts/font-victor-mono-nerd-font
+
+- asdf:
+    - plugin: python
+    - plugin: nodejs
+    - plugin: ruby
+    - plugin: golang
+
+- shell:
+    - [cp com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist, Installing iTerm preferences]
