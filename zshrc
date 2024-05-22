@@ -80,8 +80,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # Add all Homebrew completions
-if type brew &>/dev/null
-then
+if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
   autoload -Uz compinit
@@ -101,8 +100,8 @@ fi
 
 . "$DOTFILES/aliases.zsh"
 
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew (this is done in my zprofile now)
+# eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Prompt
 eval "$(starship init zsh)"

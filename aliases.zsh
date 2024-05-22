@@ -1,5 +1,6 @@
 # Directories
-alias dotfiles="cd $DOTFILES"
+alias dotfiles="nvim $DOTFILES"
+alias sap="cd ~/sap"
 
 # Git
 alias gs="git status"
