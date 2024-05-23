@@ -21,6 +21,7 @@ alias stash="git stash -u"
 alias unstage="git restore --staged ."
 alias wip="commit wip"
 
+alias ls="eza"
 alias ll="eza -hal"
 alias tree="eza -Tal"
 
