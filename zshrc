@@ -98,7 +98,7 @@ else
   export EDITOR='nvim'
 fi
 
-. "$DOTFILES/aliases.zsh"
+. "~/.aliases"
 
 # Homebrew (this is done in my zprofile now)
 # eval "$(/opt/homebrew/bin/brew shellenv)"

@@ -15,7 +15,7 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.lsp.set_log_level("info")
 
 -- change the font
-opt.guifont = "JetBrains Mono:h18"
+opt.guifont = "JetBrains Mono:h16"
 -- change line spacing
 opt.linespace = 2
 

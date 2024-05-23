@@ -1,3 +1,7 @@
+- defaults:
+    link:
+      relink: true
+
 - clean: ["~"]
 
 - create: []
@@ -8,6 +12,7 @@
     ~/.zprofile: zprofile
     ~/.config/starship.toml: starship.toml
     ~/.config/nvim: nvim
+    ~/.aliases: aliases
 
 - brewfile:
     - Brewfile
@@ -56,6 +61,7 @@
     - terraform-ls
     - tmux
     - vault
+    - wget
     - xplr
     - xz
     - yarn
