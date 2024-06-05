@@ -23,6 +23,7 @@ alias wip="commit wip"
 
 alias ls="eza"
 alias ll="eza -hal"
+alias lt="eza --tree -hal"
 alias tree="eza -Tal"
 
 alias lg="lazygit"

@@ -35,4 +35,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_vfx_particle_density = 34.0
   vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
   vim.g.neovide_cursor_vfx_opacity = 300.0
+  vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<D-v>", function()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  end, { noremap = true, silent = true })
 end

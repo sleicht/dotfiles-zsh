@@ -73,11 +73,13 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ruby)
+plugins=(git ruby zoxide fzf asdf)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Add all Homebrew completions
 if type brew &>/dev/null; then
