@@ -2424,6 +2424,12 @@
         "options": {
           "full_name": "istat-menus"
         }
+      },
+      "flameshot": {
+        "version": "12.1.0",
+        "options": {
+          "full_name": "flameshot"
+        }
       }
     },
     "mas": {
