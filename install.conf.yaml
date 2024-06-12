@@ -13,6 +13,7 @@
     ~/.config/starship.toml: starship.toml
     ~/.config/nvim: nvim
     ~/.aliases: aliases
+    ~/.gitconfig: gitconfig
     ~/.config/lazygit/config.yml: lazygit.yml
 
 - brewfile:
@@ -21,11 +22,4 @@
 - asdf:
     - plugin: python
     - plugin: nodejs
-    - plugin: ruby
-    - plugin: golang
-
-- shell:
-    - [
-        cp com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist,
-        Installing iTerm preferences,
-      ]
+    - plugin: java
