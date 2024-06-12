@@ -1,169 +1,136 @@
+# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+#                                 
+
 format = """
-[](color_orange)\
-$os\
+[](fg:#0969da bg:#0969da)\
 $username\
-[](bg:color_yellow fg:color_orange)\
+[](fg:#0969da bg:#eac54f)\
 $directory\
-[](fg:color_yellow bg:color_aqua)\
+[](fg:#eac54f bg:#e44729)\
 $git_branch\
 $git_status\
-[](fg:color_aqua bg:color_blue)\
-$c\
-$rust\
-$golang\
-$nodejs\
-$php\
-$java\
-$kotlin\
-$haskell\
-$python\
-[](fg:color_blue bg:color_bg3)\
-$docker_context\
-$conda\
-[](fg:color_bg3 bg:color_bg1)\
+[ ](fg:#e44729)\
+"""
+
+right_format = """
+[](fg:#8250df)\
 $time\
-[ ](fg:color_bg1)\
-$line_break$character"""
+$all
+$character
+"""
 
-command_timeout = 5000
-
-palette = 'gruvbox_dark'
-
-[palettes.gruvbox_dark]
-color_fg0 = '#fbf1c7'
-color_bg1 = '#3c3836'
-color_bg3 = '#665c54'
-color_blue = '#458588'
-color_aqua = '#689d6a'
-color_green = '#98971a'
-color_orange = '#d65d0e'
-color_purple = '#b16286'
-color_red = '#cc241d'
-color_yellow = '#d79921'
-
-[os]
-disabled = false
-style = "bg:color_orange fg:color_fg0"
-
-[os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
+command_timeout = 750
 
 [username]
 show_always = true
-style_user = "bg:color_orange fg:color_fg0"
-style_root = "bg:color_orange fg:color_fg0"
-format = '[ $user ]($style)'
+style_user = "fg:#ffffff bg:#0969da"
+style_root = "fg:#ffffff bg:#0969da"
+format = '[$user ]($style)'
+disabled = false
 
 [directory]
-style = "fg:color_fg0 bg:color_yellow"
+style = "fg:#000000 bg:#eac54f"
 format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
+disabled = false
 
 [directory.substitutions]
-"Documents" = "󰈙 "
+"Documents" = " "
 "Downloads" = " "
-"Music" = "󰝚 "
+"Music" = " "
 "Pictures" = " "
-"Developer" = "󰲋 "
 
 [git_branch]
 symbol = ""
-style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+style = "fg:#ffffff bg:#e44729"
+format = '[ $symbol $branch ]($style)'
+disabled = false
 
 [git_status]
-style = "bg:color_aqua"
-format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+style = "fg:#ffffff bg:#e44729"
+format = '[$all_status$ahead_behind ]($style)'
+disabled = false
 
-[nodejs]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+# Start languages and tools #
 
 [c]
-symbol = " "
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+symbol = ""
+style = "fg:#ffffff bg:#840a2c"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
 
-[rust]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+[kubernetes]
+style = "fg:#ffffff bg:#326ce5"
+format = '[ on ﴱ ($user on )($cluster in )$context \($namespace\) ]($style)'
+disabled = true
+
+[gcloud]
+symbol = " "
+style = "fg:#ffffff bg:#0f9d58"
+format = '[ on $symbol $account(@$domain)(\($region\)) ]($style) '
+# format = '[ on $symbol account@company.iam.gserviceaccount.com(\($region\)) ]($style) ' # for testing purposes
+disabled = false
 
 [golang]
 symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-[php]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "fg:#ffffff bg:#007d9c"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
 
 [java]
-symbol = " "
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+symbol = ""
+style = "fg:#ffffff bg:#007396"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
 
-[kotlin]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+[lua]
+symbol = ""
+style = "fg:#ffffff bg:#000080"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
 
-[haskell]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+[nodejs]
+symbol = ""
+style = "fg:#ffffff bg:#5fa04e"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[package]
+symbol = ""
+style = "fg:#ffffff bg:#cb3837"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[php]
+symbol = ''
+style = "fg:#ffffff bg:#4F5B93"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
 
 [python]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+symbol = ''
+style = "fg:#000000 bg:#ffdf76"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
 
-[docker_context]
-symbol = ""
-style = "bg:color_bg3"
-format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+[rust]
+symbol = ""
+style = "fg:#ffffff bg:#a72145"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
 
-[conda]
-style = "bg:color_bg3"
-format = '[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'
+# End languages and tools #
 
 [time]
 disabled = false
-time_format = "%R"
-style = "bg:color_bg1"
-format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+time_format = "%R" # Hour:Minute Format
+style = "fg:#ffffff bg:#8250df"
+format = '[  $time ]($style)'
 
-[line_break]
-disabled = false
+[cmd_duration]
+style = "fg:#000000 bg:yellow"
+format = "[ took $duration ]($style)"
 
 [character]
-disabled = false
-success_symbol = '[](bold fg:color_green)'
-error_symbol = '[](bold fg:color_red)'
-vimcmd_symbol = '[](bold fg:color_green)'
-vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
-vimcmd_replace_symbol = '[](bold fg:color_purple)'
-vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+format = " $symbol"
