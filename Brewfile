@@ -1,5 +1,4 @@
 # Taps
-tap 'homebrew/cask-fonts'
 tap 'homebrew/bundle'
 tap 'bramstein/webfonttools'
 tap 'koekeishiya/formulae'

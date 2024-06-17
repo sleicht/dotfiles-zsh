@@ -1,3 +1,6 @@
+# Taps
+tap 'homebrew/cask-fonts'
+
 # Install other useful binaries.
 brew 'mas' # Mac App Store manager
 brew 'mackup'
