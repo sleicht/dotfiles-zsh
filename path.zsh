@@ -8,6 +8,10 @@ add_to_path() {
 # Load dotfiles binaries
 add_to_path "$DOTFILES/bin"
 
+# Ruby
+add_to_path "/opt/homebrew/opt/ruby/bin"
+add_to_path "$HOME/.rbenv/bin"
+
 # Load home bins
 add_to_path "$HOME/.bin"
 add_to_path "$HOME/local/.bin"

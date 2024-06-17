@@ -1,0 +1,74 @@
+# Install other useful binaries.
+brew 'mas' # Mac App Store manager
+brew 'mackup'
+
+# Apps
+cask 'affinity-designer'
+cask 'affinity-photo'
+cask 'affinity-publisher'
+cask 'arc'
+# cask 'apache-directory-studio'
+cask 'beyond-compare'
+# cask 'camunda-modeler'
+# cask 'citrix-workspace'
+cask 'cleanmymac'
+# cask 'confluent-cli'
+cask 'daisydisk'
+cask 'dash'
+cask 'deepl'
+cask 'dropbox'
+cask 'fantastical'
+cask 'finicky'
+cask 'fman'
+cask 'git-credential-manager'
+cask 'google-chrome'
+cask 'google-cloud-sdk'
+cask 'google-drive'
+cask 'lens'
+cask 'istat-menus'
+cask 'jetbrains-toolbox'
+cask 'jordanbaird-ice'
+cask 'jprofiler'
+cask 'karabiner-elements'
+cask 'kdrive'
+# cask 'keystore-explorer'
+cask 'lens'
+cask 'logi-options-plus'
+cask 'logseq'
+# cask 'miro'
+cask 'raindropio'
+cask 'raycast'
+cask 'roon'
+cask 'slack'
+cask 'readdle-spark'
+cask 'sublime-text'
+cask 'tidal'
+cask 'uhk-agent'
+cask 'visualvm'
+cask 'vlc'
+cask 'xld'
+
+# Fonts
+cask 'font-roboto'
+cask 'font-fira-code'
+cask 'font-fira-code-nerd-font'
+cask 'font-fira-mono-nerd-font'
+cask 'font-jetbrains-mono-nerd-font'
+cask 'font-noto-nerd-font'
+cask 'font-liberation'
+cask 'font-liberation-nerd-font'
+
+# Mac App Store
+mas 'Ampado PRO', id: 1423295407
+mas 'Bitwarden', id: 1352778147
+mas 'Barbee', id: 1548711022
+mas 'iFinance 5', id: 1500241909
+mas 'kChat', id: 6443845553
+mas 'LilyView', id: 529490330
+mas 'MacFamilyTree 10', id: 1567970985
+mas 'Microsoft Remote Desktop', id: 1295203466
+mas 'Numbers', id: 409203825
+mas 'Phiewer PRO', id: 1270923434
+mas 'Racompass', id: 1538380685
+mas 'Tailscale', id: 1475387142
+mas 'Xcode', id: 497799835

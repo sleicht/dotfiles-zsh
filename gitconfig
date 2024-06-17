@@ -3,33 +3,33 @@
 	; better branch, with number commits ahead and behind upstream, ordered by most recent commit
 	bb = "!git for-each-ref --sort='-committerdate' --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) %(color:green)%(committerdate:relative)%(color:reset) - %(color:blue)%(subject)%(color:reset) %(color:magenta)%(trailers:unfold,only,separator=%0A)%(color:reset)' refs/heads"
 
-	# View the SHA, description, and history graph of the latest 50 commits.
+	; View the SHA, description, and history graph of the latest 50 commits.
 	l = log --pretty=oneline -n 50 --graph --decorate --abbrev-commit
 
-	# View the current working tree status using the short format.
+	; View the current working tree status using the short format.
 	ss = status -s
 	; View regular status.
 	s = status
 
-	# Show the diff between the latest commit and the current state.
+	; Show the diff between the latest commit and the current state.
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-	# `git di $number` shows the diff between the state `$number` revisions ago and the current state.
+	; `git di $number` shows the diff between the state `$number` revisions ago and the current state.
 	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 
-	# Pull in remote changes for the current repository and all its submodules.
+	; Pull in remote changes for the current repository and all its submodules.
 	p = pull --recurse-submodules
 
-	# Clone a repository including all submodules.
+	; Clone a repository including all submodules.
 	c = clone --recursive
 
-	# Commit all changes.
+	; Commit all changes.
 	ca = !git add -A && git commit -av
 
-	# Cherrypick
+	; Cherrypick
 	cp = cherry-pick
 
-	# Switch to a branch, creating it if necessary.
+	; Switch to a branch, creating it if necessary.
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
 	# Show verbose output about tags, branches or remotes
@@ -38,41 +38,40 @@
 	remotes = remote -v
 	diffc = diff --word-diff=color
 
-	# List aliases.
+	; List aliases.
 	aliases = config --get-regexp alias
 
-	# Amend the currently staged files to the latest commit.
+	; Amend the currently staged files to the latest commit.
 	amend = commit --amend --reuse-message=HEAD
 
-	# Credit an author on the latest commit.
+	; Credit an author on the latest commit.
 	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 
-	# Interactive rebase with the given number of latest commits.
+	; Interactive rebase with the given number of latest commits.
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
 
-	# Remove the old tag with this name and tag the latest commit with it.
+	; Remove the old tag with this name and tag the latest commit with it.
 	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
 
-	# Find branches containing commit
+	; Find branches containing commit
 	fb = "!f() { git branch -a --contains $1; }; f"
 
-	# Find tags containing commit
+	; Find tags containing commit
 	ft = "!f() { git describe --always --contains $1; }; f"
 
-	# Find commits by source code
+	; Find commits by source code
 	fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
 
-	# Find commits by commit message
+	; Find commits by commit message
 	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
-	# Remove branches that have already been merged with main.
-	# a.k.a. ‘delete merged’
+	; Remove branches that have already been merged with main. a.k.a. ‘delete merged’
 	dm = "!git branch --merged | grep -v -P '^\\*|master|develop' | xargs -n1 -r git branch -d"
 
-	# List contributors with number of commits.
+	; List contributors with number of commits.
 	contributors = shortlog --summary --numbered
 
-	# Show the user email for the current repository.
+	; Show the user email for the current repository.
 	whoami = config user.email
 
 [apply]
@@ -91,7 +90,7 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 
-	# Treat spaces before tabs and all kinds of trailing whitespace as an error
+	# Treat spaces before tabs and all kinds of trailing whitespace as an error.
 	# [default] trailing-space: looks for spaces at the end of a line
 	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
 	whitespace = space-before-tab,-indent-with-non-tab,trailing-space
@@ -188,11 +187,10 @@
 [init]
 
 	defaultBranch = main
-[user]
-
-	name = Stephan Leicht Vogt
-	email = stephan@fanaka.ch
 
 [credential]
 
 	helper = /usr/local/share/gcm-core/git-credential-manager
+[user]
+	name = Stephan Leicht Vogt
+	email = stephan@fanaka.ch
