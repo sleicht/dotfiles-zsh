@@ -124,7 +124,11 @@ export LANG=en_US.UTF-8
 eval "$(starship init zsh)"
 
 # Version manager
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+if type brew &>/dev/null; then
+  ASDF_SH="$(brew --prefix)/opt/asdf/libexec/asdf.sh"
+
+  . $ASDF_SH
+fi
 
 # aliases
 source ~/.aliases
