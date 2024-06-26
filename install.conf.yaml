@@ -10,8 +10,12 @@
     ~/.gitignore_global: gitignore_global
     ~/.zshrc: zshrc
     ~/.zprofile: zprofile
-    ~/.config/starship.toml: starship.toml
-    ~/.config/nvim: nvim
+    ~/.config/oh-my-posh.omp.yaml:
+        create: true
+        path: oh-my-posh.omp.yaml
+    ~/.config/nvim:
+        create: true
+        path: nvim
     ~/.aliases: aliases
     ~/.gitconfig: gitconfig
     ~/.config/lazygit/config.yml: lazygit.yml
