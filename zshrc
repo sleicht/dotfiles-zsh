@@ -78,7 +78,7 @@ ZSH_CUSTOM=$DOTFILES
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ruby zoxide fzf asdf kubectl gcloud brew nvm)
+plugins=(git ruby zoxide fzf asdf kubectl gcloud brew nvm zsh-sdkman)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,20 +120,20 @@ export LANG=en_US.UTF-8
 # Homebrew (this is done in my zprofile now)
 # eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Prompt
-eval "$(starship init zsh)"
-
-# Version manager
-if type brew &>/dev/null; then
-  ASDF_SH="$(brew --prefix)/opt/asdf/libexec/asdf.sh"
-
-  . $ASDF_SH
-fi
-
 # aliases
 source ~/.aliases
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# Created by `pipx` on 2024-06-13 05:21:57
-export PATH="$PATH:/Users/stephanlv_fanaka/.local/bin"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

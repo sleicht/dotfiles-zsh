@@ -5,6 +5,10 @@ add_to_path() {
   fi
 }
 
+# Load gnubin
+add_to_path "/opt/homebrew/opt/grep/libexec/gnubin"
+add_to_path "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
+
 # Load dotfiles binaries
 add_to_path "$DOTFILES/bin"
 
