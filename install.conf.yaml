@@ -1,29 +1,38 @@
 - defaults:
     link:
-      relink: true
+        relink: true
 
-- clean: ["~"]
+- clean: [ "~" ]
 
-- create: []
+- create: [ ]
 
 - link:
     ~/.gitignore_global: gitignore_global
     ~/.zshrc: zshrc
     ~/.zprofile: zprofile
-    ~/.config/oh-my-posh.omp.yaml:
+    ~/.config/oh-my-posh.omp.json:
         create: true
-        path: oh-my-posh.omp.yaml
+        path: oh-my-posh.omp.json
     ~/.config/nvim:
         create: true
         path: nvim
-    ~/.aliases: aliases
-    ~/.gitconfig: gitconfig
-    ~/.config/lazygit/config.yml: lazygit.yml
+    ~/.aliases:
+        force: true
+        path: aliases
+#    ~/.gitconfig: should be a copy instead of a link
+#        force: true
+#        path: gitconfig
+    ~/.config/lazygit/config.yml:
+        create: true
+        path: lazygit.yml
 
 - brewfile:
     - Brewfile
 
 - asdf:
-    - plugin: python
-    - plugin: nodejs
-    - plugin: java
+    -   plugin: python
+    -   plugin: nodejs
+    -   plugin: java
+
+- shell:
+    - [ 'cp -v gitconfig ~/.gitconfig', 'Installing local git config' ]

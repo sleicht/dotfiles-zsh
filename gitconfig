@@ -187,10 +187,3 @@
 [init]
 
 	defaultBranch = main
-
-[credential]
-
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[user]
-	name = Stephan Leicht Vogt
-	email = stephan@fanaka.ch

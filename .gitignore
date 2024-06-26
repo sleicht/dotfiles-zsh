@@ -14,5 +14,8 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 
+/nvim/lua/plugins
+
 .gitconfig-*
 extra.zsh
+.aider*
