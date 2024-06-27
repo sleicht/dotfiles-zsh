@@ -48,6 +48,7 @@ cask 'sublime-text'
 cask 'tidal'
 cask 'uhk-agent'
 cask 'visualvm'
+cask 'wezterm'
 cask 'vlc'
 cask 'xld'
 
