@@ -1,0 +1,21 @@
+{
+  "entries": {
+    "tap": {
+      "homebrew/bundle": {
+        "revision": "18d741fa58d82f7ebc4b46d3a4e4d81ba4e9d9ed"
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "sonoma": {
+        "HOMEBREW_VERSION": "4.3.8",
+        "HOMEBREW_PREFIX": "/opt/homebrew",
+        "Homebrew/homebrew-core": "api",
+        "CLT": "15.3.0.0.1.1708646388",
+        "Xcode": "15.4",
+        "macOS": "14.5"
+      }
+    }
+  }
+}
