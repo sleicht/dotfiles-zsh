@@ -1,0 +1,10 @@
+- defaults:
+    brewfile:
+      stdout: true
+      stderr: true
+      include: ['tap', 'brew', 'cask', 'mas']
+
+# Installing dependencies:
+- brewfile:
+    file: Brewfile_Client
+    no-upgrade: true
