@@ -1,5 +1,4 @@
 [alias]
-
 	; better branch, with number commits ahead and behind upstream, ordered by most recent commit
 	bb = "!git for-each-ref --sort='-committerdate' --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) %(color:green)%(committerdate:relative)%(color:reset) - %(color:blue)%(subject)%(color:reset) %(color:magenta)%(trailers:unfold,only,separator=%0A)%(color:reset)' refs/heads"
 
@@ -80,15 +79,12 @@
 	whitespace = fix
 
 [branch]
-
 	# Show most recently changed branches first.
 	sort = -committerdate
 
 [core]
-
-	# Use custom `.gitignore` and `.gitattributes`.
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
+  excludesfile = ~/.gitignore_global
+  attributesFile = ~/.gitattributes_global
 
 	# Treat spaces before tabs and all kinds of trailing whitespace as an error.
 	# [default] trailing-space: looks for spaces at the end of a line
@@ -107,6 +103,9 @@
 	# https://git-scm.com/docs/git-update-index#_untracked_cache
 	untrackedCache = true
 
+	autocrlf = input
+	safecrlf = warn
+
 [color]
 
 	# Use colors in Git commands that are capable of colored output when
@@ -114,76 +113,65 @@
 	ui = auto
 
 [color "branch"]
-
 	current = yellow reverse
 	local = yellow
 	remote = green
 
 [color "diff"]
-
 	meta = yellow bold
 	frag = magenta bold # line info
 	old = red bold # deletions
 	new = green bold # additions
 
 [color "status"]
-
 	added = yellow
 	changed = green
 	untracked = cyan
 
 [commit]
-
 	# https://help.github.com/articles/signing-commits-using-gpg/
 	# gpgsign = true
 
 [diff]
-
 	# Detect copies as well as renames.
 	renames = copies
 
 [diff "bin"]
-
 	# Use `hexdump` to diff binary files.
 	textconv = hexdump -v -C
 
 [help]
-
 	# Automatically correct and execute mistyped commands.
 	autocorrect = 1
 
 [merge]
-
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
 
 [push]
-
 	# https://git-scm.com/docs/git-config#git-config-pushdefault
 	default = simple
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
 
 # URL shorthands
-
 [url "git@github.com:"]
-
 	insteadOf = "gh:"
 	pushInsteadOf = "git://github.com/"
 
 [url "git://github.com/"]
-
 	insteadOf = "github:"
 
 [url "git@gist.github.com:"]
-
 	insteadOf = "gst:"
 	pushInsteadOf = "git://gist.github.com/"
 
 [url "git://gist.github.com/"]
-
 	insteadOf = "gist:"
 
 [init]
-
 	defaultBranch = main
+
+# Allow local customizations in the .gitconfig_local file
+[include]
+  path = ~/.gitconfig_local

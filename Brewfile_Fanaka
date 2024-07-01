@@ -1,0 +1,29 @@
+# Taps
+tap "homebrew/bundle"
+
+# Apps
+cask "affinity-designer"
+cask "affinity-photo"
+cask "affinity-publisher"
+cask "cleanmymac"
+cask "daisydisk"
+cask "dropbox"
+cask "fantastical"
+cask "google-chrome"
+cask "google-drive"
+cask "kdrive"
+cask "logseq"
+cask "roon"
+cask "readdle-spark"
+cask "tidal"
+cask "xld"
+
+# Mac App Store
+mas "Ampado PRO", id: 1423295407
+mas "iFinance 5", id: 1500241909
+mas "kChat", id: 6443845553
+mas "LilyView", id: 529490330
+mas "MacFamilyTree 10", id: 1567970985
+mas "Numbers", id: 409203825
+mas "Phiewer PRO", id: 1270923434
+mas "Tailscale", id: 1475387142
