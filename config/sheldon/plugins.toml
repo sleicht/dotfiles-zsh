@@ -1,0 +1,68 @@
+shell = "zsh"
+apply = ["source"]
+
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[templates]
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
+[plugins.compinit]
+inline = '''
+if [ ! -f $HOME/.zcompdump ]; then
+  autoload -Uz compinit && compinit
+else
+  local now=$(date +"%s")
+  local updated=$(date -r $HOME/.zcompdump +"%s")
+  local threshold=$((60 * 60 * 24))
+  if [ $((${now} - ${updated})) -gt ${threshold} ]; then
+    autoload -Uz compinit && compinit
+  else
+    # if there are new functions can be omitted by giving the option -C.
+    autoload -Uz compinit && compinit -C
+  fi
+fi
+'''
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+apply = ["source"]
+
+[plugins.fzf-git]
+github = "junegunn/fzf-git.sh"
+apply = ["defer"]
+
+[plugins.enhancd]
+github = "b4b4r07/enhancd"
+apply = ["defer"]
+
+[plugins.emoji-cli]
+github = "b4b4r07/emoji-cli"
+apply = ["defer"]
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+apply = ["defer"]
+
+[plugins.zsh-sdkman]
+github = "ptavares/zsh-sdkman"
+apply = ["defer"]
+
+[plugins.zsh-abbr]
+local = "/opt/homebrew/share/zsh-abbr"
+use = ["zsh-abbr.zsh"]
+apply = ["defer"]
+
+[plugins.dotfiles]
+local = "~/.zsh.d"
+use = ["*.zsh"]
+apply = ["source"]
+
+[plugins.dotfiles-private]
+local = "~/.zsh.d.private"
+use = ["*.zsh"]
+apply = ["source"]

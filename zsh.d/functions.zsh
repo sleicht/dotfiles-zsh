@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# `.functions` provides helper functions for shell.
+# `functions.zsh` provides helper functions for shell.
 
 
 # === Commonly used functions ===

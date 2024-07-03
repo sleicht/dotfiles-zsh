@@ -2,22 +2,8 @@
 
 - clean: ['~']
 
-# See https://ohmyz.sh
-- shell:
-  - command: |
-      sh -c \
-        "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-    description: Install Oh-My-Zsh
-    stdout: true
-    stderr: true
-
 - link:
   # Terminal:
-    ~/.shell:
-      path: shell
-      create: true
-      stdout: true
-      stderr: true
     ~/.zshrc:
       path: config/zshrc
       force: true
@@ -27,16 +13,32 @@
     ~/.zshenv:
       path: config/zshenv
       force: true
+    ~/.zsh.d:
+      path: zsh.d
+      create: true
+      stdout: true
+      stderr: true
 
     ~/.hushlogin: config/hushlogin
     ~/.inputrc: config/inputrc
-    ~/.zplugrc: config/zplugrc
+    ~/.config/zsh-abbr/user-abbreviations:
+      create: true
+      path: config/zsh-abbr/user-abbreviations
+    ~/.config/sheldon/plugins.toml:
+      create: true
+      force: true
+      path: config/sheldon/plugins.toml
     ~/.config/oh-my-posh.omp.json:
       create: true
+      force: true
       path: config/oh-my-posh.omp.json
     ~/.config/bat/config:
       create: true
-      path: config/bat-config
+      force: true
+      path: config/bat/config
+    ~/.config/lsd/config.yaml:
+      create: true
+      path: config/lsd/config.yaml
     ~/.wezterm.lua:
       force: true
       path: config/wezterm.lua

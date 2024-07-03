@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
 
-# `.external` handles all complex external tools.
+# `external.zsh` handles all complex external tools.
 
 
 # === fzf ===
 # https://github.com/junegunn/fzf
-
-if [[ ! "$PATH" == */opt/fzf/bin* ]]; then
-  export PATH="$PATH:$(brew --prefix)/opt/fzf/bin"
-
-  # Enable `fzf-git`:
-  # https://github.com/junegunn/fzf-git.sh
-  source 'fzf-git.sh'  # installed via `zplug`
-
-  # Enable `fzf`:
-  eval "$(fzf --zsh)"
-fi
 
 # fzf configuration:
 export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'

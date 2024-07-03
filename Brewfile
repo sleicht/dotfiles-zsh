@@ -4,6 +4,7 @@ tap "bramstein/webfonttools"
 tap "koekeishiya/formulae"
 tap "CJ-Systems/homebrew-gitflow-cjs"
 tap "jandedobbeleer/oh-my-posh"
+tap "olets/tap"
 
 brew "asdf"
 brew "ack"
@@ -24,6 +25,7 @@ brew "docker-completion"
 brew "docker-compose"
 brew "duf"
 brew "dust"
+brew "emojify"
 brew "eza"
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew "findutils"
@@ -51,6 +53,8 @@ brew "jfrog-cli"
 brew "jq"
 brew "lazydocker"
 brew "lazygit"
+# Clone of ls with colorful output, file type icons, and more
+brew "lsd"
 # Mac App Store command-line interface
 brew "mas" if OS.mac?
 brew "mackup" if OS.mac?
@@ -62,6 +66,7 @@ brew "oh-my-posh"
 brew "openssh"
 brew "opentofu"
 brew "p7zip"
+brew "peco"
 brew "pkg-config"
 brew "pigz"
 brew "pnpm"
@@ -71,7 +76,6 @@ brew "ripgrep"
 brew "rlwrap"
 brew "screen"
 brew "ssh-copy-id"
-brew "starship"
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
@@ -84,10 +88,12 @@ brew "yarn"
 brew "zopfli"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# Next-generation plugin manager for zsh
-brew "zplug"
+# Fast, configurable, shell plugin manager
+brew "sheldon"
 # UNIX shell (command interpreter)
 brew "zsh"
+# Auto-expanding abbreviations manager for zsh, inspired by fish
+brew "zsh-abbr"
 
 ## Install font tools.
 brew "sfnt2woff"

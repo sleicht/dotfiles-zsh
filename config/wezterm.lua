@@ -36,6 +36,8 @@ config.window_frame = {
 	font = wezterm.font { family = 'Noto Sans', weight = 'Regular' },
 }
 
+config.disable_default_key_bindings = true
+
 config.keys = {
 	{ mods = 'SUPER',     key = 'k',          action = act.Multiple { act.ClearScrollback 'ScrollbackAndViewport', act.SendKey { key = 'L', mods = 'CTRL' } } },
 	{ mods = "OPT",       key = "LeftArrow",  action = act.SendKey({ mods = "ALT", key = "b" }) },
@@ -56,8 +58,9 @@ config.keys = {
 	{ mods = 'OPT',       key = 'd',          action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
 	{ mods = 'OPT',       key = 'h',          action = act.ActivatePaneDirection 'Left', },
 	{ mods = 'OPT',       key = 'l',          action = act.ActivatePaneDirection 'Right', },
-	{ mods = 'OPT',       key = 'w',          action = act.CloseCurrentTab { confirm = false } },
-	{ mods = 'OPT',       key = 'x',          action = act.CloseCurrentPane { confirm = false } }
+	{ mods = 'CMD',       key = 'w',          action = act.CloseCurrentTab { confirm = false } },
+	{ mods = 'CMD',       key = 'x',          action = act.CloseCurrentPane { confirm = false } },
+  { mods = 'CMD',       key = 't',          action = act.SpawnTab 'CurrentPaneDomain' },
 }
 
 -- and finally, return the configuration to wezterm
