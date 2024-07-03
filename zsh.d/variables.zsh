@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # shellcheck disable=SC2154
 
-# `.exports` is used to provide custom variables.
+# `variables.zsh` is used to provide custom variables.
 
 
 # === Compiler flags ===
@@ -27,9 +27,38 @@ export GEM_HOME=$HOME/.gem
 PATH=$GEM_HOME/bin:$PATH
 
 # === General ===
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
-# Editor:
-export EDITOR="$(which vim)"
+if [ "$(uname -m)" = "x86_64" ]; then
+  export ARCHFLAGS="-arch x86_64"
+  export HOMEBREW_PREFIX="/usr/local"
+  export HOMEBREW_CELLAR="/usr/local/Cellar"
+  export HOMEBREW_REPOSITORY="/usr/local/Homebrew"
+
+  export BUNDLE_USER_HOME="$XDG_DATA_HOME/bundle/x86_64"
+  export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle/x86_64/config"
+  export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle/x86_64"
+  export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/x86_64/plugin"
+elif [ "$(uname -m)" = "arm64" ]; then
+  export ARCHFLAGS="-arch arm64"
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+  export HOMEBREW_REPOSITORY="/opt/homebrew"
+
+  export BUNDLE_USER_HOME="$XDG_DATA_HOME/bundle/arm64"
+  export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle/arm64/config"
+  export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle/arm64"
+  export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/arm64/plugin"
+fi
+
+export CPU_BRAND="$(/usr/sbin/sysctl -n machdep.cpu.brand_string)"
+export X86_64_HOMEBREW_PATH="/usr/local/bin/brew"
+
+# Make nvim the default editor
+export EDITOR="$(which nvim)"
 
 # GPG:
 export GPG_TTY="$(tty)"
@@ -81,10 +110,15 @@ export NODE_REPL_MODE='sloppy'
 export PYTHONIOENCODING='UTF-8'
 
 # Increase Bash history size. Allow 32³ entries; the default is 500.
-export HISTSIZE='32768'
+export HISTSIZE=32768
+export SAVEHIST=32768
 export HISTFILESIZE="${HISTSIZE}"
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth'
+# Make some commands not show up in history
+#export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
+export HISTIGNORE="history:cd:pwd:exit:date:* --help"
+export HISTFILE=~/.zsh_history
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8'
