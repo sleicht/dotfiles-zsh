@@ -21,6 +21,9 @@
     ~/.zshrc:
       path: config/zshrc
       force: true
+    ~/.zprofile:
+      path: config/zprofile
+      force: true
     ~/.zshenv:
       path: config/zshenv
       force: true

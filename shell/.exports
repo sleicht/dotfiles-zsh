@@ -15,21 +15,16 @@ export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl/lib/pkgconfig"
 
 
 # === Path modifications ===
-
 # These lines should be the first ones!
 
 # GPG agent:
 PATH="/usr/local/opt/gpg-agent/bin:$PATH"
-
-# Adds `pipx` binary files:
-PATH="$HOME/.local/bin:$PATH"
 
 # npm:
 PATH="/usr/local/share/npm/bin:$PATH"
 
 export GEM_HOME=$HOME/.gem
 PATH=$GEM_HOME/bin:$PATH
-
 
 # === General ===
 
@@ -120,6 +115,5 @@ export ERL_AFLAGS='-kernel shell_history enabled'
 export ZSH_HIGHLIGHT_MAXLENGTH=200
 
 # === PATH ===
-
 # This should be the last line:
 export PATH
