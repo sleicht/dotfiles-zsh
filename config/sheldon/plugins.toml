@@ -26,7 +26,7 @@ fi
 
 [plugins.fzf-tab]
 github = "Aloxaf/fzf-tab"
-apply = ["source"]
+apply = ["defer"]
 
 [plugins.fzf-git]
 github = "junegunn/fzf-git.sh"
@@ -55,6 +55,12 @@ apply = ["defer"]
 [plugins.zsh-abbr]
 local = "/opt/homebrew/share/zsh-abbr"
 use = ["zsh-abbr.zsh"]
+apply = ["defer"]
+
+[plugins.ohmyzsh]
+github = "ohmyzsh/ohmyzsh"
+dir = "plugins"
+use = ["{gitfast,zoxide,asdf,kubectl,gcloud,mvn,nvm}/*.plugin.zsh"]
 apply = ["defer"]
 
 [plugins.dotfiles]
