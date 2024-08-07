@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "28207a9a4ef830c3397e01dd06a7c41989597061"
+        "revision": "b82ff8731cffa2725007a2d3907b3c626f954477"
       }
     },
     "cask": {
@@ -13,25 +13,25 @@
         }
       },
       "camunda-modeler": {
-        "version": "5.25.0",
+        "version": "5.27.0",
         "options": {
           "full_name": "camunda-modeler"
         }
       },
       "citrix-workspace": {
-        "version": "24.02.10.24",
+        "version": "24.09.0.54",
         "options": {
           "full_name": "citrix-workspace"
         }
       },
       "confluent-cli": {
-        "version": "3.64.3",
+        "version": "4.4.0",
         "options": {
           "full_name": "confluent-cli"
         }
       },
       "jprofiler": {
-        "version": "14.0.3",
+        "version": "14.0.4",
         "options": {
           "full_name": "jprofiler"
         }
@@ -43,13 +43,13 @@
         }
       },
       "lens": {
-        "version": "2024.5.271333",
+        "version": "2024.8.291605",
         "options": {
           "full_name": "lens"
         }
       },
       "miro": {
-        "version": "0.8.68",
+        "version": "0.8.72",
         "options": {
           "full_name": "miro"
         }
@@ -59,12 +59,12 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.9",
+        "HOMEBREW_VERSION": "4.3.24",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
-        "CLT": "15.3.0.0.1.1708646388",
-        "Xcode": "15.4",
-        "macOS": "14.5"
+        "CLT": "16.0.0.0.1.1724870825",
+        "Xcode": "16.0",
+        "macOS": "14.7"
       }
     }
   }

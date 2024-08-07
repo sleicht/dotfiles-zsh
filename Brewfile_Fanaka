@@ -1,6 +1,8 @@
 # Taps
 tap "homebrew/bundle"
 
+brew "trivy"
+
 # Apps
 cask "affinity-designer"
 cask "affinity-photo"
