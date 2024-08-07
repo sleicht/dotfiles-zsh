@@ -2,6 +2,7 @@
 tap "homebrew/bundle"
 tap "bramstein/webfonttools"
 tap "koekeishiya/formulae"
+tap "go-swagger/go-swagger"
 tap "CJ-Systems/homebrew-gitflow-cjs"
 tap "jandedobbeleer/oh-my-posh"
 tap "olets/tap"
@@ -42,6 +43,7 @@ brew "glab"
 brew "gnu-sed"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
+brew "go-swagger"
 brew "grep"
 brew "gs"
 brew "helm"
@@ -70,6 +72,7 @@ brew "peco"
 brew "pkg-config"
 brew "pigz"
 brew "pnpm"
+brew "podman"
 brew "pv"
 brew "rename"
 brew "ripgrep"
@@ -79,6 +82,8 @@ brew "ssh-copy-id"
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+brew "trivy"
+brew "uv"
 brew "vale"
 brew "vbindiff"
 # Install `wget` with IRI support.
@@ -113,7 +118,7 @@ cask "istat-menus" if OS.mac?
 cask "jetbrains-toolbox" if OS.mac?
 cask "jordanbaird-ice" if OS.mac?
 cask "karabiner-elements" if OS.mac?
-cask "logi-options-plus" if OS.mac?
+# cask "logi-options-plus" if OS.mac?
 cask "raindropio" if OS.mac?
 cask "raycast" if OS.mac?
 cask "slack" if OS.mac?
