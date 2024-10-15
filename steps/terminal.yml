@@ -29,6 +29,10 @@
 
     ~/.hushlogin: config/hushlogin
     ~/.inputrc: config/inputrc
+    ~/.config/aerospace/aerospace.toml:
+      create: true
+      force: true
+      path: config/aerospace/aerospace.toml
     ~/.config/zsh-abbr/user-abbreviations:
       create: true
       path: config/zsh-abbr/user-abbreviations

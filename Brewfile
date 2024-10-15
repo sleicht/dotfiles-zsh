@@ -6,6 +6,7 @@ tap "go-swagger/go-swagger"
 tap "CJ-Systems/homebrew-gitflow-cjs"
 tap "jandedobbeleer/oh-my-posh"
 tap "olets/tap"
+tap "nikitabobko/tap"
 
 brew "asdf"
 brew "ack"
@@ -106,6 +107,7 @@ brew "sfnt2woff-zopfli"
 brew "woff2"
 
 # Apps
+cask "nikitabobko/tap/aerospace" if OS.mac?
 cask "arc" if OS.mac?
 cask "beyond-compare" if OS.mac?
 cask "dash" if OS.mac?
