@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "b82ff8731cffa2725007a2d3907b3c626f954477"
+        "revision": "836b67f84a21deec9016253f41f994c2a98cea15"
       }
     },
     "cask": {
@@ -13,7 +13,7 @@
         }
       },
       "camunda-modeler": {
-        "version": "5.27.0",
+        "version": "5.28.0",
         "options": {
           "full_name": "camunda-modeler"
         }
@@ -25,7 +25,7 @@
         }
       },
       "confluent-cli": {
-        "version": "4.4.0",
+        "version": "4.7.0",
         "options": {
           "full_name": "confluent-cli"
         }
@@ -43,13 +43,13 @@
         }
       },
       "lens": {
-        "version": "2024.8.291605",
+        "version": "2024.10.101523",
         "options": {
           "full_name": "lens"
         }
       },
       "miro": {
-        "version": "0.8.72",
+        "version": "0.8.74",
         "options": {
           "full_name": "miro"
         }
@@ -59,7 +59,7 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.24",
+        "HOMEBREW_VERSION": "4.4.1",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "16.0.0.0.1.1724870825",
