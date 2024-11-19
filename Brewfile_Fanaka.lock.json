@@ -2,7 +2,174 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "18d741fa58d82f7ebc4b46d3a4e4d81ba4e9d9ed"
+        "revision": "6c98fc5c2a8df8aef41b95dbfb7d065367a2d384"
+      }
+    },
+    "brew": {
+      "trivy": {
+        "version": "0.57.1",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_sequoia": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/trivy/blobs/sha256:6194bb14e1871d97ad6ff68c887e994f4d9ea01d4ae461740e2fecf1f3b8b590",
+              "sha256": "6194bb14e1871d97ad6ff68c887e994f4d9ea01d4ae461740e2fecf1f3b8b590"
+            },
+            "arm64_sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/trivy/blobs/sha256:16d855edb61377fe885bb8866bd8f4aec1792e0b250f2f37d6db964b972a9935",
+              "sha256": "16d855edb61377fe885bb8866bd8f4aec1792e0b250f2f37d6db964b972a9935"
+            },
+            "arm64_ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/trivy/blobs/sha256:f56a934612fd7577afdd81de94abccbbfa8304f5d3f7e466492bfdfc656f07d1",
+              "sha256": "f56a934612fd7577afdd81de94abccbbfa8304f5d3f7e466492bfdfc656f07d1"
+            },
+            "sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/trivy/blobs/sha256:80ff89cfe14b3c1481e191f62a06c1416127309108da2e215c88e520eeb60fa1",
+              "sha256": "80ff89cfe14b3c1481e191f62a06c1416127309108da2e215c88e520eeb60fa1"
+            },
+            "ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/trivy/blobs/sha256:7140632abdc9e4d398c64ef1c829f8625b9882d51c6f7ae9758d17e53fe9e2e0",
+              "sha256": "7140632abdc9e4d398c64ef1c829f8625b9882d51c6f7ae9758d17e53fe9e2e0"
+            },
+            "x86_64_linux": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/trivy/blobs/sha256:ac6279f528df0fee119f4161796006d6e2adc2d49e3deae856c70a476c923533",
+              "sha256": "ac6279f528df0fee119f4161796006d6e2adc2d49e3deae856c70a476c923533"
+            }
+          }
+        }
+      }
+    },
+    "cask": {
+      "affinity-designer": {
+        "version": "2.5.5,2636",
+        "options": {
+          "full_name": "affinity-designer"
+        }
+      },
+      "affinity-photo": {
+        "version": "2.5.5,2636",
+        "options": {
+          "full_name": "affinity-photo"
+        }
+      },
+      "affinity-publisher": {
+        "version": "2.5.5,2636",
+        "options": {
+          "full_name": "affinity-publisher"
+        }
+      },
+      "cleanmymac": {
+        "version": "5.0.3,50003.0.2411121516,1731433077",
+        "options": {
+          "full_name": "cleanmymac"
+        }
+      },
+      "daisydisk": {
+        "version": "4.30",
+        "options": {
+          "full_name": "daisydisk"
+        }
+      },
+      "dropbox": {
+        "version": "212.4.5767",
+        "options": {
+          "full_name": "dropbox"
+        }
+      },
+      "fantastical": {
+        "version": "4.0",
+        "options": {
+          "full_name": "fantastical"
+        }
+      },
+      "google-chrome": {
+        "version": "131.0.6778.70",
+        "options": {
+          "full_name": "google-chrome"
+        }
+      },
+      "google-drive": {
+        "version": "100.0",
+        "options": {
+          "full_name": "google-drive"
+        }
+      },
+      "kdrive": {
+        "version": "3.6.6.20241001",
+        "options": {
+          "full_name": "kdrive"
+        }
+      },
+      "logseq": {
+        "version": "0.10.9",
+        "options": {
+          "full_name": "logseq"
+        }
+      },
+      "roon": {
+        "version": "2.0.43",
+        "options": {
+          "full_name": "roon"
+        }
+      },
+      "readdle-spark": {
+        "version": "3.17.15.91274",
+        "options": {
+          "full_name": "readdle-spark"
+        }
+      },
+      "tidal": {
+        "version": "2.38.5",
+        "options": {
+          "full_name": "tidal"
+        }
+      },
+      "xld": {
+        "version": "20240511",
+        "options": {
+          "full_name": "xld"
+        }
+      }
+    },
+    "mas": {
+      "Ampado PRO": {
+        "id": "1423295407",
+        "version": "2.2.0"
+      },
+      "iFinance 5": {
+        "id": "1500241909",
+        "version": "5.2.11"
+      },
+      "kChat": {
+        "id": "6443845553",
+        "version": "3.3.3"
+      },
+      "LilyView": {
+        "id": "529490330",
+        "version": "1.6"
+      },
+      "MacFamilyTree 10": {
+        "id": "1567970985",
+        "version": "10.4"
+      },
+      "Numbers": {
+        "id": "409203825",
+        "version": "14.2"
+      },
+      "Phiewer PRO": {
+        "id": "1270923434",
+        "version": "5.1.0"
+      },
+      "Tailscale": {
+        "id": "1475387142",
+        "version": "1.76.6"
       }
     }
   },
@@ -15,6 +182,14 @@
         "CLT": "15.3.0.0.1.1708646388",
         "Xcode": "15.4",
         "macOS": "14.5"
+      },
+      "sequoia": {
+        "HOMEBREW_VERSION": "4.4.6",
+        "HOMEBREW_PREFIX": "/opt/homebrew",
+        "Homebrew/homebrew-core": "api",
+        "CLT": "16.1.0.0.1.1729049160",
+        "Xcode": "16.1",
+        "macOS": "15.1"
       }
     }
   }
