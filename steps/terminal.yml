@@ -51,6 +51,10 @@
     ~/.config/lsd/config.yaml:
       create: true
       path: config/lsd/config.yaml
+    "~/.config/kitty/kitty.conf":
+      create: true
+      force: true
+      path: config/kitty.conf
     ~/.wezterm.lua:
       force: true
       path: config/wezterm.lua
