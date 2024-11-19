@@ -59,9 +59,9 @@
   # Git:
     ~/.gitconfig:
       force: true
-      path: config/gitconfig
-    ~/.gitignore_global: config/gitignore
-    ~/.gitattributes_global: config/gitattributes
+      path: config/git/gitconfig
+    ~/.gitignore_global: config/git/gitignore
+    ~/.gitattributes_global: config/git/gitattributes
 
   # Tools:
     ~/.config/nvim:
