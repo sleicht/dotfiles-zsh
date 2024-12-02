@@ -39,6 +39,7 @@ brew "git"
 brew "git-flow-cjs"
 brew "git-lfs"
 brew "glab"
+brew "glances"
 # Install GNU `sed`, overwriting the built-in `sed`.
 brew "gnu-sed"
 # GNU Pretty Good Privacy (PGP) package
@@ -105,6 +106,7 @@ brew "woff2"
 # Apps
 cask "nikitabobko/tap/aerospace" if OS.mac?
 cask "arc" if OS.mac?
+cask "bartender" if OS.mac?
 cask "beyond-compare" if OS.mac?
 cask "dash" if OS.mac?
 cask "deepl" if OS.mac?
@@ -127,7 +129,7 @@ cask "wezterm" if OS.mac?
 cask "vlc" if OS.mac?
 
 # Fonts
-cask "font-roboto" if OS.mac?
+# cask "font-roboto" if OS.mac?
 cask "font-fira-code" if OS.mac?
 cask "font-fira-code-nerd-font" if OS.mac?
 cask "font-fira-mono-nerd-font" if OS.mac?
@@ -138,7 +140,7 @@ cask "font-liberation-nerd-font" if OS.mac?
 
 # Mac App Store
 mas "Bitwarden", id: 1352778147
-mas "Barbee", id: 1548711022
+# mas "Barbee", id: 1548711022
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Racompass", id: 1538380685
 mas "Xcode", id: 497799835
