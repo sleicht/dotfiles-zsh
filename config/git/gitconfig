@@ -73,6 +73,10 @@
 	; Show the user email for the current repository.
 	whoami = config user.email
 
+	backup = !git push -f origin $(git rev-parse --abbrev-ref HEAD):$(git rev-parse --abbrev-ref HEAD | sed "s=feature=user/$USER=g") # creates a backup of the currently checked out feature branch on the remote in the /usr/${USER}/${feature} branch
+	cleanup = !git merged | xargs -I git branch -D {} | cat && git merged | sed s=feature=refs/heads/user/$USER=g | xargs -I git push origin --delete {} | cat
+	merged = !git branch -r | grep origin/user/$USER | sed s=origin/user/$USER=feature=g | xargs -I echo '[[ ! -z $(git log --first-parent --grep={}) ]] && echo {}' | bash
+
 [apply]
 
 	# Detect whitespace errors when applying a patch.
