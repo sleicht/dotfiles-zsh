@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "836b67f84a21deec9016253f41f994c2a98cea15"
+        "revision": "8b06f66c41d874ccd7f6c5b2f04ab22749cccc5d"
       }
     },
     "cask": {
@@ -19,13 +19,13 @@
         }
       },
       "citrix-workspace": {
-        "version": "24.09.0.54",
+        "version": "24.09.10.26",
         "options": {
           "full_name": "citrix-workspace"
         }
       },
       "confluent-cli": {
-        "version": "4.7.0",
+        "version": "4.9.0",
         "options": {
           "full_name": "confluent-cli"
         }
@@ -43,7 +43,7 @@
         }
       },
       "lens": {
-        "version": "2024.10.101523",
+        "version": "2024.10.171859",
         "options": {
           "full_name": "lens"
         }
@@ -65,6 +65,14 @@
         "CLT": "16.0.0.0.1.1724870825",
         "Xcode": "16.0",
         "macOS": "14.7"
+      },
+      "sequoia": {
+        "HOMEBREW_VERSION": "4.4.3",
+        "HOMEBREW_PREFIX": "/opt/homebrew",
+        "Homebrew/homebrew-core": "api",
+        "CLT": "16.1.0.0.1.1729049160",
+        "Xcode": "16.1",
+        "macOS": "15.1"
       }
     }
   }
