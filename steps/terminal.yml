@@ -13,16 +13,16 @@
 - link:
   # Terminal:
     ~/.profile:
-      path: config/profile
+      path: .config/profile
       force: true
     ~/.zshrc:
-      path: config/zshrc
+      path: .config/zshrc
       force: true
     ~/.zprofile:
-      path: config/zprofile
+      path: .config/zprofile
       force: true
     ~/.zshenv:
-      path: config/zshenv
+      path: .config/zshenv
       force: true
     ~/.zsh.d:
       path: zsh.d
@@ -30,53 +30,55 @@
       stdout: true
       stderr: true
 
-    ~/.hushlogin: config/hushlogin
-    ~/.inputrc: config/inputrc
+    ~/.hushlogin: .config/hushlogin
+    ~/.inputrc: .config/inputrc
     ~/.config/aerospace/aerospace.toml:
       create: true
       force: true
-      path: config/aerospace/aerospace.toml
+      path: .config/aerospace/aerospace.toml
     ~/.config/zsh-abbr/user-abbreviations:
       create: true
-      path: config/zsh-abbr/user-abbreviations
+      force: true
+      path: .config/zsh-abbr/user-abbreviations
     ~/.config/sheldon/plugins.toml:
       create: true
       force: true
-      path: config/sheldon/plugins.toml
+      path: .config/sheldon/plugins.toml
     ~/.config/oh-my-posh.omp.json:
       create: true
       force: true
-      path: config/oh-my-posh.omp.json
+      path: .config/oh-my-posh.omp.json
     ~/.config/bat/config:
       create: true
       force: true
-      path: config/bat/config
+      path: .config/bat/config
     ~/.config/lsd/config.yaml:
       create: true
-      path: config/lsd/config.yaml
+      force: true
+      path: .config/lsd/config.yaml
     "~/.config/kitty/kitty.conf":
       create: true
       force: true
-      path: config/kitty.conf
+      path: .config/kitty.conf
     "~/.config/ghostty/config":
       create: true
       force: true
-      path: config/ghostty/config
+      path: .config/ghostty/config
     "~/.config/karabiner/karabiner.json":
       create: true
       force: true
-      path: config/karabiner/karabiner.json
+      path: .config/karabiner/karabiner.json
     ~/.wezterm.lua:
       force: true
-      path: config/wezterm.lua
+      path: .config/wezterm.lua
 
 
   # Git:
     ~/.gitconfig:
       force: true
-      path: config/git/gitconfig
-    ~/.gitignore_global: config/git/gitignore
-    ~/.gitattributes_global: config/git/gitattributes
+      path: .config/git/gitconfig
+    ~/.gitignore_global: .config/git/gitignore
+    ~/.gitattributes_global: .config/git/gitattributes
 
   # Tools:
     ~/.config/nvim:
@@ -84,30 +86,31 @@
       path: nvim
     ~/.config/lazygit/config.yml:
       create: true
-      path: config/lazygit.yml
-    ~/.psqlrc: config/psqlrc
-    ~/.sqliterc: config/sqliterc
+      force: true
+      path: .config/lazygit.yml
+    ~/.psqlrc: .config/psqlrc
+    ~/.sqliterc: .config/sqliterc
 
   # Editors:
-    ~/.editorconfig: config/editorconfig
-    ~/.nanorc: config/nanorc
+    ~/.editorconfig: .config/editorconfig
+    ~/.nanorc: .config/nanorc
 
   # SSH:
 #    ~/.ssh/config:
-#      path: config/ssh_config
+#      path: .config/ssh_config
 #      force: true
 #      create: true
 
   # GPG:
     ~/.gnupg/gpg-agent.conf:
-      path: config/gpgagent
+      path: .config/gpgagent
   #    force: true
       create: true
 
 ## See https://python-poetry.org
 #- shell:
 #    - command: |
-#        cp -v config/gitconfig ~/.gitconfig
+#        cp -v .config/gitconfig ~/.gitconfig
 #      description: Installing local git config
 #      stdout: true
 #      stderr: true
