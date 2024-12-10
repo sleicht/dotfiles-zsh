@@ -49,7 +49,7 @@ github = "matthieusb/zsh-sdkman"
 apply = ["defer"]
 
 [plugins.zsh-abbr]
-local = "/opt/homebrew/share/zsh-abbr"
+local = "/run/current-system/sw/share/zsh/zsh-abbr"
 use = ["zsh-abbr.zsh"]
 apply = ["defer"]
 
