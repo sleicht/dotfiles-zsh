@@ -35,6 +35,7 @@
         _FXShowPosixPathInTitle = true;  # show full path in finder title
         AppleShowAllExtensions = true;  # show all file extensions
         FXEnableExtensionChangeWarning = false;  # disable warning when changing file extension
+        FXPreferredViewStyle = "clmv"; # Column view
         QuitMenuItem = true;  # enable quit menu item
         ShowPathbar = true;  # show path bar
         ShowStatusBar = true;  # show status bar
@@ -112,22 +113,21 @@
   # Fonts
   fonts = {
     packages = with pkgs; [
+      fira-code
+      liberation_ttf
+      roboto
       # icon fonts
       material-design-icons
       font-awesome
-
       # nerdfonts
       # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/data/fonts/nerdfonts/shas.nix
-      (nerdfonts.override {
-        fonts = [
-          # symbols icon only
-          "NerdFontsSymbolsOnly"
-          # Characters
-          "FiraCode"
-          "JetBrainsMono"
-          "Iosevka"
-        ];
-      })
+      nerd-fonts.symbols-only
+      nerd-fonts.fira-code
+      nerd-fonts.fira-mono
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.iosevka
+      nerd-fonts.noto
+      nerd-fonts.liberation
     ];
   };
 }
