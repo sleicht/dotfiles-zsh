@@ -12,18 +12,19 @@
 
 - link:
   # Terminal:
-    ~/.profile:
-      path: .config/profile
-      force: true
-    ~/.zshrc:
-      path: .config/zshrc
-      force: true
-    ~/.zprofile:
-      path: .config/zprofile
-      force: true
-    ~/.zshenv:
-      path: .config/zshenv
-      force: true
+# Handled by nix home-manager
+#    ~/.profile:
+#      path: .config/profile
+#      force: true
+#    ~/.zshrc:
+#      path: .config/zshrc
+#      force: true
+#    ~/.zprofile:
+#      path: .config/zprofile
+#      force: true
+#    ~/.zshenv:
+#      path: .config/zshenv
+#      force: true
     ~/.zsh.d:
       path: zsh.d
       create: true
