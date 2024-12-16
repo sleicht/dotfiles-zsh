@@ -20,6 +20,7 @@
   environment.systemPackages = with pkgs; [
     ack
     argocd
+    atuin
     bashInteractive
     bat # Clone of cat(1) with syntax highlighting and Git integration
     bat-extras.prettybat
@@ -27,6 +28,7 @@
     bat-extras.batpipe
     broot
     bottom
+    carapace
     docker
     duf
     dust
@@ -65,6 +67,7 @@
     nodejs_22
     ncdu
     neovim
+    nushell
     oh-my-posh
     openssh
     opentofu
