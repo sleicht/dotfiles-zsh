@@ -85,6 +85,18 @@ if command -v sheldon > /dev/null; then
   eval "$(sheldon source)"
 fi
 
+# === Advanced History ===
+if command -v atuin > /dev/null; then
+  eval "$(atuin init zsh)"
+fi
+
+# === multi-shell multi-command argument complete ===
+if command -v carapace > /dev/null; then
+  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+  zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+  source <(carapace _carapace)
+fi
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

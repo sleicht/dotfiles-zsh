@@ -17,3 +17,4 @@ Thumbs.db
 .gitconfig-*
 extra.zsh
 plugins
+.config/nushell/history.txt
