@@ -55,6 +55,10 @@
       create: true
       force: true
       path: config/kitty.conf
+    "~/.config/karabiner/karabiner.json":
+      create: true
+      force: true
+      path: config/karabiner/karabiner.json
     ~/.wezterm.lua:
       force: true
       path: config/wezterm.lua
