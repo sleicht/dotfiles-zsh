@@ -6,6 +6,7 @@ tap "CJ-Systems/homebrew-gitflow-cjs"
 tap "jandedobbeleer/oh-my-posh"
 tap "olets/tap"
 tap "nikitabobko/tap"
+tap "ggozad/formulas"
 
 brew "asdf"
 brew "ack"
@@ -67,6 +68,7 @@ brew "neovim"
 brew "oh-my-posh"
 brew "openssh"
 brew "opentofu"
+brew "ggozad/formulas/oterm"
 brew "p7zip"
 brew "peco"
 brew "pkg-config"
@@ -112,6 +114,7 @@ cask "dash" if OS.mac?
 cask "deepl" if OS.mac?
 cask "finicky" if OS.mac?
 cask "fman" if OS.mac?
+cask "ghostty"
 cask "git-credential-manager" if OS.mac?
 cask "google-cloud-sdk" if OS.mac?
 cask "istat-menus" if OS.mac?
