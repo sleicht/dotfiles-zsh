@@ -1,9 +1,5 @@
 # Oh My Zsh
 ## lib/directories
-abbr --regular '...'='../..'
-abbr --regular '....'='../../..'
-abbr --regular '.....'='../../../..'
-abbr --regular '......'='../../../../..'
 abbr --regular 'l'='lsd -lah'
 abbr --regular 'lA'='lsd -lAh'
 abbr --regular 'la'='lsd -lah'
