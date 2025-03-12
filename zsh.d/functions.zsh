@@ -239,3 +239,74 @@ function br {
         return "$code"
     fi
 }
+
+load_gitlab_projects () {
+  SEARCH=$1
+  curl "https://gitlab.sanet17.ch/api/graphql?private_token=${GITLAB_TOKEN}" -H 'content-type: application/json' --compressed -s --data "{\"query\":\"{ projects(first: 100, search: \\\"$SEARCH\\\") { nodes { sshUrlToRepo fullPath }}}\"}"
+}
+clone_repo() {
+  if [[ "$target_dir" == "." ]]; then
+    git clone "$REPOS" "$REPO_NAME"
+  else
+    mkdir -p "$(dirname "$FULL_PATH")"
+    git clone "$REPOS" "$FULL_PATH"
+  fi
+}
+clone () {
+  local target_dir="${2:-$GITLAB_BASE_PATH}"
+
+  if [[ $1 == git"@"* ]]
+  then
+    REPOS=$1
+  else
+    REPOS=$(load_gitlab_projects "$1" | jq '.data.projects.nodes | .[] | .sshUrlToRepo' -r | fzf)
+  fi
+
+  REPO_PATH=$(echo "$REPOS" | sed 's/^.*://' | sed 's/\.git$//')
+  REPO_NAME=$(basename "$REPO_PATH")
+
+  if [[ "$target_dir" == "." ]]; then
+    FULL_PATH="$(pwd)/$REPO_NAME"
+    search_dir="$(pwd)"
+  else
+    FULL_PATH="$target_dir/$REPO_PATH"
+    search_dir="$target_dir"
+  fi
+
+  if [ -n "$REPO_PATH" ]; then
+    # Check if repository exists at the exact path
+    if [ -d "$FULL_PATH" ]; then
+      echo "Repository already exists at $FULL_PATH" >&2
+    else
+      # Define fzf options once to avoid duplication
+      local fzf_opts="--select-1 --exit-0 --height=15 --prompt=\"Select existing repository: \""
+
+      # Use fd/find and fzf to search for directories with the same name
+      local existing_repo
+
+      # Try to use fd if available (faster), fall back to find
+      if command -v fd >/dev/null 2>&1; then
+        existing_repo=$(fd -t d -H "^${REPO_NAME}$" "$search_dir" 2>/dev/null | eval "fzf $fzf_opts 2>/dev/null")
+      else
+        existing_repo=$(find "$search_dir" -type d -name "$REPO_NAME" 2>/dev/null | eval "fzf $fzf_opts 2>/dev/null")
+      fi
+
+      if [ -n "$existing_repo" ] && [ -d "$existing_repo/.git" ]; then
+        # Found a valid git repository
+        echo "Repository found at $existing_repo" >&2
+        FULL_PATH="$existing_repo"
+      else
+        # No valid repository found, clone it
+        clone_repo
+      fi
+    fi
+    echo "$FULL_PATH"
+    echo "$FULL_PATH" >&2
+  fi
+}
+function ideaclone () {
+  clone "$1" "$2" | xargs -r idea
+}
+function codeclone () {
+  clone "$1" "$2" | xargs -r code
+}
