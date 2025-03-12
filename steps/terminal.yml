@@ -55,6 +55,10 @@
       create: true
       force: true
       path: config/kitty.conf
+    "~/.config/ghostty/config":
+      create: true
+      force: true
+      path: config/ghostty/config
     "~/.config/karabiner/karabiner.json":
       create: true
       force: true
