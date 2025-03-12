@@ -6,6 +6,7 @@ add_to_path() {
 }
 
 # Load gnubin
+add_to_path "/opt/homebrew/opt/findutils/libexec/gnubin"
 add_to_path "/opt/homebrew/opt/grep/libexec/gnubin"
 add_to_path "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
 
