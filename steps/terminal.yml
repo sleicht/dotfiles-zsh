@@ -12,6 +12,9 @@
 
 - link:
   # Terminal:
+    ~/.profile:
+      path: config/profile
+      force: true
     ~/.zshrc:
       path: config/zshrc
       force: true
