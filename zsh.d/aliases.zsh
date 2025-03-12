@@ -1,13 +1,14 @@
 #!/usr/bin/env zsh
 # shellcheck disable=SC2139
 
+alias cd="z"
 # Easier navigation: .., ..., ...., ....., ~ and -
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
+alias ..="z .."
+alias ...="z ../.."
+alias ....="z ../../.."
+alias .....="z ../../../.."
+alias ~="z ~" # `cd` is probably faster to type though
+alias -- -="z -"
 
 # Shortcuts
 #alias copyssh="pbcopy < $HOME/.ssh/id_ed25519.pub"
@@ -19,14 +20,13 @@ alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pas
 alias shrug="echo '¯\_(ツ)_/¯' | pbcopy | echo '=> Copied to pasteboard.'"
 
 # Directories
-alias dotfiles="cd $DOTFILES"
+alias dotfiles="z $DOTFILES"
 alias vdotfiles="nvim $DOTFILES"
-alias library="cd $HOME/Library"
-alias d="cd ~/Dropbox"
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
-alias p="cd ~/Projects"
-alias g="cd ~/git"
+alias library="z $HOME/Library"
+alias cdl="z ~/Downloads"
+alias cdt="z ~/Desktop"
+alias cp="z ~/Projects"
+alias cg="z ~/git"
 
 # Git
 alias gs="git status"
@@ -87,7 +87,7 @@ alias flush="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 ## Use syntax highlight for `cat`
-alias cat="bat --paging never --decorations never --plain"
+alias cat="bat --paging auto --decorations auto --style auto"
 
 ## Alias for df alternative duf
 alias df="duf"
