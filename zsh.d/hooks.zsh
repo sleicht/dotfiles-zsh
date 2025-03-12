@@ -7,7 +7,7 @@ fi
 #if command -v direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
 if command -v oh-my-posh > /dev/null; then eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh.omp.json)"; fi
 #if command -v mise > /dev/null; then eval "$(mise activate zsh)"; fi
-if command -v asdf > /dev/null; then . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"; fi
+if command -v asdf > /dev/null; then . "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf"; fi
 
 : "${REPOSITORIES_PATH:=$HOME/Repositories}"
 : "${GITHUB_REPOSITORIES_PATH=$REPOSITORIES_PATH/github.com}"
