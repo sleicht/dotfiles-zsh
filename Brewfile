@@ -29,6 +29,8 @@ brew "duf"
 brew "dust"
 brew "emojify"
 brew "eza"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew "findutils"
 # Command-line fuzzy finder written in Go
