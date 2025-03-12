@@ -110,6 +110,7 @@ cask "nikitabobko/tap/aerospace" if OS.mac?
 cask "arc" if OS.mac?
 cask "bartender" if OS.mac?
 cask "beyond-compare" if OS.mac?
+cask "bitwarden" if OS.mac?
 cask "dash" if OS.mac?
 cask "deepl" if OS.mac?
 cask "finicky" if OS.mac?
@@ -142,7 +143,6 @@ cask "font-liberation" if OS.mac?
 cask "font-liberation-nerd-font" if OS.mac?
 
 # Mac App Store
-mas "Bitwarden", id: 1352778147
 # mas "Barbee", id: 1548711022
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Racompass", id: 1538380685
