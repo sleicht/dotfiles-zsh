@@ -34,6 +34,7 @@
     dust
     emojify
     eza
+    fd
     findutils # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
     firebase-tools
     fzf # Command-line fuzzy finder written in Go
@@ -43,6 +44,7 @@
     zsh-forgit
     zsh-fzf-history-search
     gh # GitHub command-line tool
+#    ghostty
     git
     git-lfs
     gitflow
@@ -64,7 +66,7 @@
     moreutils # Install some other useful utilities like `sponge`.
     nano
     nanorc
-    nodejs_22
+    nodejs_20
     ncdu
     neovim
     nushell
@@ -122,7 +124,6 @@
       "kChat" = 6443845553;
       "LilyView" = 529490330;
       "MacFamilyTree 10" = 1567970985;
-      "Numbers" = 409203825;
       "Phiewer PRO" = 1270923434;
       "Tailscale" = 1475387142;
       "WhatsApp" = 310633997;
@@ -218,9 +219,7 @@
     # `brew install --cask`
     #
     casks = [
-      "google-chrome"
-      "google-drive"
-      "google-earth-pro"
+      "anytype"
       "aerospace"
       "adobe-digital-editions"
       "arc"
@@ -236,10 +235,15 @@
       "devtoys"
       "finicky"
       "fman"
+      "ghostty"
       "git-credential-manager"
+      "google-chrome"
       "google-cloud-sdk"
+      "google-drive"
+      "google-earth-pro"
       "istat-menus"
       "iterm2"
+      "istherenet"
       "jaikoz"
       "jetbrains-toolbox"
       "jprofiler"
@@ -277,6 +281,7 @@
       "vlc"
       "wezterm"
       "xld"
+      "zen-browser"
 
       # Fanaka
       "affinity-designer"
