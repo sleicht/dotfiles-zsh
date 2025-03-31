@@ -16,7 +16,7 @@ readonly BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly ARGS=( "$@" )
 
 cd "${BASEDIR}"
-for dir in {"${DOTBOT_DIR}","${DOTBOT_DIR}-asdf","${DOTBOT_DIR}-brewfile"}; do
+for dir in {"${DOTBOT_DIR}","${DOTBOT_DIR}-asdf","${DOTBOT_DIR}-brew"}; do
 	git -C "${dir}" submodule sync --quiet --recursive
 	git submodule update --init --recursive "${dir}"
 done;
@@ -29,7 +29,7 @@ run_dotbot () {
   "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" \
     -d "${BASEDIR}" \
     --plugin-dir dotbot-asdf \
-    --plugin-dir dotbot-brewfile \
+    --plugin-dir dotbot-brew \
     -c "${config}" "${ARGS[@]}"
 }
 
