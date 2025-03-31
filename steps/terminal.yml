@@ -84,6 +84,12 @@
     ~/.config/nvim:
       create: true
       path: nvim
+    ~/.config/atuin:
+      create: true
+      path: .config/atuin
+    ~/.config/nushell:
+      create: true
+      path: .config/nushell
     ~/.config/lazygit/config.yml:
       create: true
       force: true

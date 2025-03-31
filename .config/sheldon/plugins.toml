@@ -32,14 +32,6 @@ apply = ["defer"]
 github = "junegunn/fzf-git.sh"
 apply = ["defer"]
 
-[plugins.enhancd]
-github = "b4b4r07/enhancd"
-apply = ["defer"]
-
-[plugins.emoji-cli]
-github = "b4b4r07/emoji-cli"
-apply = ["defer"]
-
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 apply = ["defer"]
