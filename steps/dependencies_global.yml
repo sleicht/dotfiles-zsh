@@ -1,10 +1,8 @@
 - defaults:
-    brewfile:
-      stdout: true
-      stderr: true
-      include: ['tap', 'brew', 'cask', 'mas']
+    - brewfile:
+        - stderr: true,
+        - stdout: true,
 
-# Installing dependencies:
+# Reads brewfile for packages to install
 - brewfile:
-    file: Brewfile
-    no-upgrade: true
+    - Brewfile
