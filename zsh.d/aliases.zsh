@@ -25,7 +25,6 @@ alias vdotfiles="nvim $DOTFILES"
 alias library="z $HOME/Library"
 alias cdl="z ~/Downloads"
 alias cdt="z ~/Desktop"
-alias cp="z ~/Projects"
 alias cg="z ~/git"
 
 # Git
