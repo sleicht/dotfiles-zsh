@@ -60,7 +60,7 @@
       fi
 
       # Add any additional configurations here
-      export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin
+      export PATH=$HOME/.npm-global/bin:/run/current-system/sw/bin:$HOME/.nix-profile/bin:$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$PATH
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
