@@ -119,12 +119,10 @@
       "Xcode" = 497799835;
 
       # Fanaka
-      "Ampado PRO" = 1423295407;
       "iFinance 5" = 1500241909;
       "kChat" = 6443845553;
       "LilyView" = 529490330;
       "MacFamilyTree 10" = 1567970985;
-      "Phiewer PRO" = 1270923434;
       "Tailscale" = 1475387142;
       "WhatsApp" = 310633997;
     };
@@ -134,6 +132,7 @@
       "nikitabobko/tap"
       "rcmdnk/file"
       "cj-systems/gitflow-cjs"
+      "alvinunreal/tmuxai"
     ];
 
     # `brew install`
@@ -197,6 +196,7 @@
 #      "screen"
 #      "ssh-copy-id"
 #      "tmux"
+      "tmuxai"
 #      "tree" # Display directories as trees (with optional color/HTML output)
 #      "trivy"
 #      "uv"
@@ -255,6 +255,7 @@
       "logi-options+"
       "logitech-options"
       "logseq"
+      "mouseless@preview"
       "ngrok"
       "nvidia-geforce-now"
       "ollama"
