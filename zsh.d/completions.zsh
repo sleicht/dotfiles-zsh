@@ -4,11 +4,12 @@ elif [ "$(uname -m)" = "arm64" ]; then
   : "${HOMEBREW_PREFIX:=/opt/homebrew}"
 fi
 
-: "${XDG_DATA_HOME:=$HOME/.local/share}"
-: "${RUSTUP_HOME:=$XDG_DATA_HOME/rustup}"
+#: "${XDG_DATA_HOME:=$HOME/.local/share}"
+#: "${RUSTUP_HOME:=$XDG_DATA_HOME/rustup}"
 
-FPATH="$HOMEBREW_PREFIX/share/zsh-abbr":$FPATH
-fpath=("$RUSTUP_HOME" "$HOMEBREW_PREFIX/opt/zsh-completions/share/zsh-completions" $fpath)
+#FPATH="/run/current-system/sw/share/zsh/zsh-abbr":$FPATH
+#FPATH="$HOMEBREW_PREFIX/share/zsh-abbr":$FPATH
+#fpath=("$RUSTUP_HOME" "$HOMEBREW_PREFIX/opt/zsh-completions/share/zsh-completions" $fpath)
 _cache_hosts=(`ruby -ne 'if /^Host\s+(.+)$/; print $1.strip, "\n"; end' $HOME/.ssh/config`)
 
 autoload -Uz colors
