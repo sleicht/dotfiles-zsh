@@ -44,7 +44,6 @@
     zsh-forgit
     zsh-fzf-history-search
     gh # GitHub command-line tool
-#    ghostty
     git
     git-lfs
     gitflow
@@ -132,96 +131,26 @@
       "nikitabobko/tap"
       "rcmdnk/file"
       "cj-systems/gitflow-cjs"
-      "alvinunreal/tmuxai"
     ];
 
     # `brew install`
     brews = [
-      # "aria2"  # download tool
-#      "ack"
       "archey4"
-#      "argocd"
-#      "bash" # Latest Bash version
-#      "bat" # Clone of cat(1) with syntax highlighting and Git integration
-#      "bat-extras" # Bash scripts that integrate bat with various command-line tools
-#      "broot"
-#      "bottom"
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
       "coreutils" # GNU File, Shell, and Text utilities
-#      "docker"
-#      "docker-completion"
-#      "docker-compose"
-#      "duf"
-#      "dust"
-#      "emojify"
-#      "eza"
-#      "findutils" # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
-#      "fzf" # Command-line fuzzy finder written in Go
-#      "gh" # GitHub command-line tool
-#      "git" # Distributed revision control system
-#      "gnu-getopt" # dependency of git-flow-cjs
-#      "git-flow-cjs"
-#      "git-lfs"
-#      "glab"
-#      "gnu-sed" # Install GNU `sed`, overwriting the built-in `sed`.
-#      "gnupg" # GNU Pretty Good Privacy (PGP) package
-#      "grep"
-#      "gs"
-#      "helm"
-#      "htop"
-#      "httpie" # http client
-#      "imagemagick"
-#      "jfrog-cli"
-#      "jq" # Lightweight and flexible command-line JSON processor
-#      "lazydocker"
-#      "lazygit"
-#      "lsd" # Clone of ls with colorful output, file type icons, and more
-#      "mas" # if OS.mac? # Mac App Store command-line interface
-#      "mackup" # if OS.mac?
-#      "moreutils" # Install some other useful utilities like `sponge`.
-#      "ncdu"
-#      "neovim"
-#      "oh-my-posh"
-#      "openssh"
-#      "opentofu"
-#      "p7zip"
-#      "peco"
-#      "pkg-config"
-#      "pigz"
-#      "podman"
-#      "pv"
-#      "rename"
-#      "ripgrep"
-#      "rlwrap"
-#      "screen"
-#      "ssh-copy-id"
-#      "tmux"
-      "tmuxai"
-#      "tree" # Display directories as trees (with optional color/HTML output)
-#      "trivy"
-#      "uv"
-#      "vale"
-#      "vbindiff"
-#      "wget" # Install `wget` with IRI support.
       "yabai"
-#      "zopfli"
-#      "zoxide" # Shell extension to navigate your filesystem faster
-#      "sheldon" # Fast, configurable, shell plugin manager
-#      "zsh" # UNIX shell (command interpreter)
-#      "zsh-abbr" # Auto-expanding abbreviations manager for zsh, inspired by fish
       ### Install font tools.
       "sfnt2woff"
       "sfnt2woff-zopfli"
       "woff2"
-#      "zsh-fast-syntax-highlighting"
     ];
 
     # `brew install --cask`
     #
     casks = [
-      "anytype"
       "aerospace"
       "adobe-digital-editions"
+      "anytype"
       "arc"
       "balenaetcher"
       "bartender"
@@ -246,7 +175,6 @@
       "istherenet"
       "jaikoz"
       "jetbrains-toolbox"
-      "jprofiler"
       "karabiner-elements"
       "kdrive"
       "kitty"
@@ -282,7 +210,7 @@
       "vlc"
       "wezterm"
       "xld"
-      "zen-browser"
+      "zen"
 
       # Fanaka
       "affinity-designer"
