@@ -40,9 +40,9 @@ apply = ["defer"]
 github = "zsh-users/zsh-autosuggestions"
 apply = ["defer"]
 
-[plugins.zsh-sdkman]
-github = "ptavares/zsh-sdkman"
-apply = ["defer"]
+#[plugins.zsh-sdkman]
+#github = "ptavares/zsh-sdkman"
+#apply = ["defer"]
 
 [plugins.zsh-abbr]
 local = "/opt/homebrew/share/zsh-abbr"
