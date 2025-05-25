@@ -102,10 +102,10 @@
     ~/.nanorc: .config/nanorc
 
   # SSH:
-#    ~/.ssh/config:
-#      path: .config/ssh_config
-#      force: true
-#      create: true
+    ~/.ssh/config:
+      path: .config/ssh_config
+      force: true
+      create: true
 
   # GPG:
     ~/.gnupg/gpg-agent.conf:

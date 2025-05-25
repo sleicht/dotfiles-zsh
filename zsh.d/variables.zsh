@@ -10,7 +10,7 @@
 # see: `brew info openssl` for more information.
 export LDFLAGS="-L$(brew --prefix)/opt/openssl/lib"
 export CPPFLAGS="-I$(brew --prefix)/opt/openssl/include"
-export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
+#export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
 export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl/lib/pkgconfig"
 
 
@@ -54,8 +54,8 @@ elif [ "$(uname -m)" = "arm64" ]; then
   export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/arm64/plugin"
 fi
 
-export CPU_BRAND="$(/usr/sbin/sysctl -n machdep.cpu.brand_string)"
-export X86_64_HOMEBREW_PATH="/usr/local/bin/brew"
+#export CPU_BRAND="$(/usr/sbin/sysctl -n machdep.cpu.brand_string)"
+#export X86_64_HOMEBREW_PATH="/usr/local/bin/brew"
 
 # Make nvim the default editor
 export EDITOR="$(which nvim)"
