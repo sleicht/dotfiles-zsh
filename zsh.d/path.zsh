@@ -19,5 +19,5 @@ add_to_path "$HOME/.rbenv/bin"
 
 # Load home bins
 add_to_path "$HOME/.bin"
-add_to_path "$HOME/local/.bin"
+add_to_path "$HOME/.local/.bin"
 add_to_path "$HOME/.rd/bin"
