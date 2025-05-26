@@ -185,13 +185,16 @@ alias python='python3'
 alias pip='pip3'
 
 # Shortcuts to connect to the kubernetes clusters, so you only have to write pddev and don't need to select from the menu
-alias ctgc="$HOME/git/infrastructure/devops-scripts/bin/connect-to-gke-cluster.sh"
-alias pddev="$HOME/git/infrastructure/devops-scripts/bin/connect-to-gke-cluster.sh pddev"
-alias pdacc="$HOME/git/infrastructure/devops-scripts/bin/connect-to-gke-cluster.sh pdacc"
-alias pdprd="$HOME/git/infrastructure/devops-scripts/bin/connect-to-gke-cluster.sh pdprd"
+alias ctgc="$HOME/git/infrastructure/devops-scripts/bin/sh/connect-to-gke-cluster.sh"
+alias pddev="$HOME/git/infrastructure/devops-scripts/bin/sh/connect-to-gke-cluster.sh pddev"
+alias pdacc="$HOME/git/infrastructure/devops-scripts/bin/sh/connect-to-gke-cluster.sh pdacc"
+alias pdprd="$HOME/git/infrastructure/devops-scripts/bin/sh/connect-to-gke-cluster.sh pdprd"
 
 ## Shortcuts for the sanitas google secret management scrip
-alias sgsm="$HOME/git/infrastructure/devops-scripts/bin/secret-management.sh"
+alias sgsm="$HOME/git/infrastructure/devops-scripts/bin/sh/secret-management.sh"
 
 ## Disable Proxy for Bitwarden CLI
 alias bw="ALL_PROXY='' HTTP_PROXY='' http_proxy='' HTTPS_PROXY='' https_proxy='' bw"
+
+## Google Cloud Auth
+alias gal="gcloud auth login --update-adc && source ~/.zsh.d/Z_carapace.zsh"
