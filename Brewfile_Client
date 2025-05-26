@@ -6,6 +6,7 @@ cask "apache-directory-studio" if OS.mac?
 cask "camunda-modeler" if OS.mac?
 cask "citrix-workspace" if OS.mac?
 cask "confluent-cli" if OS.mac?
+cask "insomnia" if OS.mac?
 cask "jprofiler" if OS.mac?
 cask "keystore-explorer" if OS.mac?
 cask "lens" if OS.mac?
