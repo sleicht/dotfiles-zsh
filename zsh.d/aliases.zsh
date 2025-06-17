@@ -198,3 +198,6 @@ alias bw="ALL_PROXY='' HTTP_PROXY='' http_proxy='' HTTPS_PROXY='' https_proxy=''
 
 ## Google Cloud Auth
 alias gal="gcloud auth login --update-adc && source ~/.zsh.d/Z_carapace.zsh"
+
+## Chromium with disabled security for local testing
+alias nocors="open -na \"Google Chrome Beta\" --args --disable-web-security --disable-site-isolation-trials --user-data-dir=$HOME/.chrome_beta/"
