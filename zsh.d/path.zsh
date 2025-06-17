@@ -17,6 +17,10 @@ add_to_path "$DOTFILES/bin"
 add_to_path "/opt/homebrew/opt/ruby/bin"
 add_to_path "$HOME/.rbenv/bin"
 
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+add_to_path "$PNPM_HOME"
+
 # Load home bins
 add_to_path "$HOME/.bin"
 add_to_path "$HOME/.local/.bin"
