@@ -52,7 +52,7 @@ apply = ["defer"]
 [plugins.ohmyzsh]
 github = "ohmyzsh/ohmyzsh"
 dir = "plugins"
-use = ["{gitfast,zoxide,asdf,kubectl,gcloud,mvn,nvm}/*.plugin.zsh"]
+use = ["{gitfast,zoxide,asdf,kubectl,gcloud,mvn}/*.plugin.zsh"]
 apply = ["defer"]
 
 [plugins.dotfiles]
