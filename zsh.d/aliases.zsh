@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 # shellcheck disable=SC2139
 
-alias cd="z"
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="z .."
 alias ...="z ../.."
