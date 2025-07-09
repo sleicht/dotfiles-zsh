@@ -92,12 +92,6 @@ export BAT_THEME="$SOBOLE_SYNTAX_THEME"
 
 # === Version managers ===
 
-# nvm:
-export NVM_DIR="$HOME/.nvm"
-if [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ]; then
-  source "$(brew --prefix)/opt/nvm/nvm.sh"
-fi
-
 # === Histories ===
 # Enable persistent REPL history for `node`.
 export NODE_REPL_HISTORY="$HOME/.node_history"
