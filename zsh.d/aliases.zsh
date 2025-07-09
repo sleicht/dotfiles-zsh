@@ -85,9 +85,7 @@ alias flush="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 ## Use syntax highlight for `cat` (only in interactive shells)
-if [[ -o interactive ]]; then
-  alias cat="bat --paging auto --decorations auto --style auto"
-fi
+alias catt="bat --paging auto --decorations auto --style auto"
 
 ## Alias for df alternative duf
 alias df="duf"
