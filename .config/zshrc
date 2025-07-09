@@ -70,7 +70,6 @@ fi
 #   kubectl
 #   gcloud
 #   mvn
-#   nvm
 # )
 #
 # # Sourcing the Oh-My-ZSH source:
