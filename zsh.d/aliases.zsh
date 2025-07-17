@@ -200,3 +200,7 @@ alias gal="gcloud auth login --update-adc && source ~/.zsh.d/Z_carapace.zsh"
 alias nocors="open -na \"Google Chrome Beta\" --args --disable-web-security --disable-site-isolation-trials --user-data-dir=$HOME/.chrome_beta/"
 
 alias claude="$HOME/.claude/local/claude"
+
+## Anyconnect
+alias vpnconnect="/opt/cisco/secureclient/bin/Cisco\ Secure\ Client\ -\ AnyConnect\ VPN\ Service.app/Contents/MacOS/vpn connect VPN.SANITAS.DEVLOP"
+alias vpndisconnect="/opt/cisco/secureclient/bin/Cisco\ Secure\ Client\ -\ AnyConnect\ VPN\ Service.app/Contents/MacOS/vpn disconnect"
