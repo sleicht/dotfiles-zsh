@@ -198,3 +198,5 @@ alias gal="gcloud auth login --update-adc && source ~/.zsh.d/Z_carapace.zsh"
 
 ## Chromium with disabled security for local testing
 alias nocors="open -na \"Google Chrome Beta\" --args --disable-web-security --disable-site-isolation-trials --user-data-dir=$HOME/.chrome_beta/"
+
+alias claude="$HOME/.claude/local/claude"
