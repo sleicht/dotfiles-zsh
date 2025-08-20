@@ -1,5 +1,4 @@
 # Taps
-tap "homebrew/bundle"
 
 # Apps
 cask "apache-directory-studio" if OS.mac?
