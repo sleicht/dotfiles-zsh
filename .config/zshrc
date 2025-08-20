@@ -85,11 +85,6 @@ if command -v sheldon > /dev/null; then
   eval "$(sheldon source)"
 fi
 
-# === Advanced History ===
-if command -v atuin > /dev/null; then
-  eval "$(atuin init zsh)"
-fi
-
 # === multi-shell multi-command argument complete ===
 if command -v carapace > /dev/null; then
   export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
