@@ -22,6 +22,7 @@ brew "bat"
 brew "bat-extras"
 brew "broot"
 brew "bottom"
+brew "bun"
 brew "rsteube/tap/carapace"
 # GNU File, Shell, and Text utilities
 brew "coreutils"

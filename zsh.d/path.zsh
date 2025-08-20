@@ -25,6 +25,10 @@ add_to_path "$PNPM_HOME"
 export VOLTA_HOME="$HOME/.volta"
 add_to_path "$VOLTA_HOME/bin"
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+add_to_path "$BUN_INSTALL/bin"
+
 # Load home bins
 add_to_path "$HOME/.bin"
 add_to_path "$HOME/.local/.bin"

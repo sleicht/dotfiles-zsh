@@ -37,3 +37,6 @@ zstyle ':completion:*:sudo:*' command-path $HOMEBREW_PREFIX/sbin $HOMEBREW_PREFI
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
