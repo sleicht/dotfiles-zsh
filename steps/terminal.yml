@@ -112,7 +112,7 @@
   # SSH:
     ~/.ssh/config:
       path: .config/ssh_config
-      force: true
+      force: false
       create: true
 
   # GPG:
