@@ -44,6 +44,10 @@
       create: true
       force: true
       path: .config/sheldon/plugins.toml
+    ~/.config/zgenom/zgenomrc.zsh:
+      create: true
+      force: true
+      path: .config/zgenom/zgenomrc.zsh
     ~/.config/oh-my-posh.omp.json:
       create: true
       force: true

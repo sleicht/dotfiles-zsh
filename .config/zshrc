@@ -79,15 +79,15 @@ fi
 : "${XDG_DATA_HOME:=$HOME/.local/share}"
 
 # === Plugin management ===
-if command -v sheldon > /dev/null; then
-  export SHELDON_CONFIG_DIR="$XDG_CONFIG_HOME/sheldon"
-  export SHELDON_DATA_DIR="$XDG_DATA_HOME/sheldon"
-  eval "$(sheldon source)"
-fi
+# if command -v sheldon > /dev/null; then
+#   export SHELDON_CONFIG_DIR="$XDG_CONFIG_HOME/sheldon"
+#   export SHELDON_DATA_DIR="$XDG_DATA_HOME/sheldon"
+#   eval "$(sheldon source)"
+# fi
 
-# === multi-shell multi-command argument complete ===
-if command -v carapace > /dev/null; then
-  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
-  zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-  source <(carapace _carapace)
-fi
+# === zgenom ===
+# https://github.com/jandamm/zgenom
+source "${HOME}/.zgenom/zgenom.zsh"
+export ZGENOM_CONFIG_DIR="$XDG_CONFIG_HOME/zgenom"
+source "${ZGENOM_CONFIG_DIR}/zgenomrc.zsh"
+if [ -x "$(command -v atuin)" ]; then eval "$(atuin init zsh)"; fi
