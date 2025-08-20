@@ -1,0 +1,23 @@
+{
+  "enableAllProjectMcpServers": false,
+  "env": {},
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:openapiprocessor.io)",
+      "Bash(./mvnw:*)",
+      "Bash(grep:*)",
+      "Bash(awk:*)",
+      "Bash(sed:*)",
+      "Bash(python3:*)",
+      "Bash(find:*)",
+      "mcp__git-mcp-server__git_status",
+      "mcp__git-mcp-server__git_add"
+    ],
+    "deny": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  }
+}

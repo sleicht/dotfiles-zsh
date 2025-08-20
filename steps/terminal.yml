@@ -87,6 +87,10 @@
     ~/.config/atuin:
       create: true
       path: .config/atuin
+    ~/.claude:
+      create: true
+      glob: true
+      path: .config/claude/**
     ~/.config/nushell:
       create: true
       path: .config/nushell
