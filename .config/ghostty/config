@@ -13,3 +13,4 @@ minimum-contrast = 1.05
 mouse-hide-while-typing = true
 theme = Dracula
 keybind = shift+enter=text:\n
+macos-option-as-alt = true
