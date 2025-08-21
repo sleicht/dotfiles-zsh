@@ -1,18 +1,17 @@
 ---
-allowed-tools: Bash(git rebase:*), Bash(git log:*), Bash(git show:*), Bash(git branch:*), mcp__git-mcp-server__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git-mcp-server__git_show, mcp__git-mcp-server__git_diff, mcp__git-mcp-server__git_branch, mcp__git-mcp-server__git_commit
+allowed-tools: Bash(git filter-branch:*), Bash(git log:*), Bash(git show:*), Bash(git rev-parse:*), Bash(FILTER_BRANCH_SQUELCH_WARNING:*), mcp__git-mcp-server__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git-mcp-server__git_show, mcp__git-mcp-server__git_diff, mcp__git-mcp-server__git_branch
 description: Rewrite git commit message
 ---
 
 # Rewrite Git Commit Message Command
 
-This command will analyze the specified commit, create an improved commit message following Conventional Commits specification, and then actually rewrite the commit message in git history.
+This command will analyze the specified commit, create an improved commit message following Conventional Commits specification, and then actually rewrite the commit message in git history using git filter-branch.
 
 ## Process:
 1. Use `git show` to analyze the commit changes
-2. Create an improved commit message following Conventional Commits specification[merge_request_md.md](merge_request_md.md)
-3. Check if the commit has been pushed to remote branches (safety check)
-4. If safe, use `git commit --amend` to actually rewrite the commit message
-5. Confirm the change was successful
+2. Create an improved commit message following Conventional Commits specification
+3. Use `git filter-branch` to reliably rewrite the commit message (supports any commit in history)
+4. Confirm the change was successful
 
 The ruleset for writing messages comes from "conventional commits".
 The message should not be too long and have maximum 10 bullet points.
@@ -216,11 +215,28 @@ Refs: 676104e, a215868
 
 After analyzing the commit and creating an improved message following the specification above, you MUST:
 
-1. **Safety Check**: Use `git branch -r --contains <commit-hash>` to verify the commit hasn't been pushed to remote branches
-2. **Rewrite**: If safe, use `git commit --amend -m "improved message"` to actually change the commit message
-3. **Verify**: Use `git log` to confirm the message was updated successfully
-4. **Report**: Show the old and new commit messages to the user
+1. **Analyze**: Use `git show <commit-ref>` to examine the commit changes
+2. **Get Target Commit Hash**: Use `git rev-parse <commit-ref>` to get the actual commit hash
+3. **Determine Range**: Calculate the appropriate commit range for filter-branch
+4. **Filter Branch**: Use `git filter-branch` with `--msg-filter` to rewrite the commit message
+5. **Verify**: Use `git log` to confirm the message was updated successfully
+6. **Report**: Show the old and new commit messages to the user
 
-**Warning**: Only rewrite commit messages for commits that haven't been pushed to shared branches, or ensure all team members are aware of the rewrite.
+**Filter-branch command pattern:**
+```bash
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter 'if [ "$GIT_COMMIT" = "<TARGET_COMMIT_HASH>" ]; then echo "<NEW_MESSAGE>"; else cat; fi' <RANGE>
+```
 
-Here is the commit hash: $ARGUMENTS
+**Examples of commit references and ranges:**
+- `HEAD`: Most recent commit → Range: `HEAD~1..HEAD`
+- `HEAD~1`: One commit back → Range: `HEAD~2..HEAD`
+- `HEAD~2`: Two commits back → Range: `HEAD~3..HEAD`
+- `<commit-hash>`: Specific commit → Range determined by position from HEAD
+
+**Important Notes:**
+- Always use `FILTER_BRANCH_SQUELCH_WARNING=1` to suppress warnings
+- Use `-f` flag to force overwrite refs
+- The range should start one commit before the target and end at HEAD
+- Multi-line commit messages should use proper shell escaping
+
+Here is the commit reference: $ARGUMENTS
