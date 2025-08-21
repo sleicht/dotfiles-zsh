@@ -1,9 +1,14 @@
 ---
-allowed-tools: Bash(git status:*)
+allowed-tools: Bash(git log:*), Bash(git show:*), Bash(git branch:*),  mcp__git-mcp-server__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git-mcp-server__git_show, mcp__git-mcp-server__git_diff, mcp__git-mcp-server__git_branch
 description: Write the commit message
 ---
 
-Please write a commit message. The ruleset for writing messages are coming from "conventional commits". Here the specification:
+Please write a commit message.
+The ruleset for writing messages are coming from "conventional commits".
+The message should not be too long and have maximum 10 bullet points.
+
+Here the specification for "conventional commits":
+
 Conventional Commits 1.0.0
 
 Summary

@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git commit:*), Bash(git rebase:*), Bash(git log:*), Bash(git show:*)
+allowed-tools: Bash(git rebase:*), Bash(git log:*), Bash(git show:*), Bash(git branch:*), mcp__git-mcp-server__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git-mcp-server__git_show, mcp__git-mcp-server__git_diff, mcp__git-mcp-server__git_branch, mcp__git-mcp-server__git_commit
 description: Rewrite git commit message
 ---
 
@@ -9,12 +9,15 @@ This command will analyze the specified commit, create an improved commit messag
 
 ## Process:
 1. Use `git show` to analyze the commit changes
-2. Create an improved commit message following Conventional Commits specification
+2. Create an improved commit message following Conventional Commits specification[merge_request_md.md](merge_request_md.md)
 3. Check if the commit has been pushed to remote branches (safety check)
 4. If safe, use `git commit --amend` to actually rewrite the commit message
 5. Confirm the change was successful
 
-The ruleset for writing messages comes from "conventional commits". Here the specification:
+The ruleset for writing messages comes from "conventional commits".
+The message should not be too long and have maximum 10 bullet points.
+
+Here the specification for "conventional commits":
 
 Conventional Commits 1.0.0
 
