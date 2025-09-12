@@ -76,6 +76,7 @@
     peco
     pinentry_mac
     podman
+    rbenv
     ripgrep
     screen
     sheldon # Fast, configurable, shell plugin manager

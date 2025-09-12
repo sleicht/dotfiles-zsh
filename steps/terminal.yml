@@ -89,6 +89,9 @@
     ~/.gitattributes_global: .config/git/gitattributes
 
   # Tools:
+    ~/.zgenom:
+      create: true
+      path: zgenom
     ~/.config/nvim:
       create: true
       path: nvim
