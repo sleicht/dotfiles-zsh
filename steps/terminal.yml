@@ -110,6 +110,7 @@
     ~/.psqlrc: .config/psqlrc
     ~/.sqliterc: .config/sqliterc
     ~/.aider.conf.yml: .config/aider.conf.yml
+    ~/.finicky.js: .config/finicky.js
 
   # Editors:
     ~/.editorconfig: .config/editorconfig
