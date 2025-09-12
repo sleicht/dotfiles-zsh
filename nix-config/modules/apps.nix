@@ -168,6 +168,7 @@
       "fman"
       "ghostty"
       "git-credential-manager"
+      "gitbutler"
       "google-chrome"
       "google-cloud-sdk"
       "google-drive"
