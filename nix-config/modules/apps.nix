@@ -65,7 +65,7 @@
     moreutils # Install some other useful utilities like `sponge`.
     nano
     nanorc
-    nodejs_20
+    nodejs_22
     ncdu
     neovim
     nushell
@@ -79,6 +79,7 @@
     ripgrep
     screen
     sheldon # Fast, configurable, shell plugin manager
+    shellcheck
     ssh-copy-id
     tmux
     tree # Display directories as trees (with optional color/HTML output)
@@ -177,7 +178,6 @@
       "jetbrains-toolbox"
       "karabiner-elements"
       "kdrive"
-      "kitty"
       "kobo"
       "lens"
       "logi-options+"
@@ -207,6 +207,7 @@
       "ubersicht"
       "uhk-agent"
       "visualvm"
+      "vivaldi"
       "vlc"
       "wezterm"
       "xld"
