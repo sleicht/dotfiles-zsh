@@ -19,6 +19,7 @@ add_to_path "$DOTFILES/bin"
 # Ruby
 add_to_path "/opt/homebrew/opt/ruby/bin"
 add_to_path "$HOME/.rbenv/bin"
+add_to_path "$HOME/.gem/ruby/3.4.0/bin"
 
 # npm
 add_to_path "$HOME/.npm-global/bin/"
