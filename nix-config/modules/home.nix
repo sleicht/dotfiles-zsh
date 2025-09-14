@@ -54,13 +54,13 @@
           . "$HOME/.dotfiles/.config/zshenv"
       fi
     '';
-    initExtra = ''
+    initContent = ''
       if [ -f "$HOME/.dotfiles/.config/zshrc" ]; then
           . "$HOME/.dotfiles/.config/zshrc"
       fi
 
       # Add any additional configurations here
-      export PATH=$HOME/.npm-global/bin:/run/current-system/sw/bin:$HOME/.nix-profile/bin:$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$PATH
+      export PATH=$HOME/.nix-profile/bin:$HOME/bin:$PATH
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi

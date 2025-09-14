@@ -20,6 +20,8 @@
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
 
+    primaryUser = "stephanlv_fanaka";
+
     defaults = {
       menuExtraClock.Show24Hour = true;  # show 24 hour clock
 
