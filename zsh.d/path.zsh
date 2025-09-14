@@ -10,12 +10,18 @@ add_to_path "/opt/homebrew/opt/findutils/libexec/gnubin"
 add_to_path "/opt/homebrew/opt/grep/libexec/gnubin"
 add_to_path "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
 
+# Load nix system
+add_to_path "/run/current-system/sw/bin"
+
 # Load dotfiles binaries
 add_to_path "$DOTFILES/bin"
 
 # Ruby
 add_to_path "/opt/homebrew/opt/ruby/bin"
 add_to_path "$HOME/.rbenv/bin"
+
+# npm
+add_to_path "$HOME/.npm-global/bin/"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
