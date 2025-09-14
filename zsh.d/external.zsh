@@ -58,3 +58,7 @@ z () {
   # I need this function to setup custom code completion for `zoxide`.
   \__zoxide_z "$@"
 }
+
+# === mise ===
+# https://mise.jdx.dev/
+eval "$(mise activate zsh)"

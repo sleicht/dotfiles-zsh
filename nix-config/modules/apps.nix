@@ -50,7 +50,6 @@
     git-town
     glab
     gnused # Install GNU `sed`, overwriting the built-in `sed`.
-    gnupg # GNU Pretty Good Privacy (PGP) package
     gnugrep
     kubernetes-helm
     htop
@@ -71,12 +70,12 @@
     nushell
     oh-my-posh
     openssh
+    openssl
     opentofu
     p7zip
     peco
     pinentry_mac
     podman
-    rbenv
     ripgrep
     screen
     sheldon # Fast, configurable, shell plugin manager
@@ -140,6 +139,12 @@
       "archey4"
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
       "coreutils" # GNU File, Shell, and Text utilities
+      "gnupg" # GNU Pretty Good Privacy (PGP) package
+      "libyaml"
+      "gmp"
+      "mise"
+      "rust"
+      "rbenv"
       "yabai"
       ### Install font tools.
       "sfnt2woff"
