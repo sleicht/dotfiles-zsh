@@ -137,11 +137,13 @@
     # `brew install`
     brews = [
       "archey4"
+      "bats-core"
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
       "coreutils" # GNU File, Shell, and Text utilities
       "gnupg" # GNU Pretty Good Privacy (PGP) package
       "libyaml"
       "gmp"
+      "mas"
       "mise"
       "rust"
       "rbenv"
@@ -149,6 +151,7 @@
       ### Install font tools.
       "sfnt2woff"
       "sfnt2woff-zopfli"
+      "tailscale"
       "woff2"
     ];
 
