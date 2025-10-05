@@ -1,6 +1,10 @@
 # Taps
 tap "homebrew/bundle"
 
+brew "bats-core"
+brew "exercism"
+brew "mas"
+brew "tailscale"
 brew "trivy"
 
 # Apps
