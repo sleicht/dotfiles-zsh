@@ -1,14 +1,75 @@
 # General Instructions
 
 ## Code and Commits
-- In general do not include emojis in commit messages except it is realy helpfull
+
+### General Rules
+- In general do not include emojis in commit messages except it is really helpful
 - No blank lines with whitespace unless required by file format
-- Make sure to always start a commit and feature branch with the jira ticket number that looks something like this MLE-999
-  or TE-222. Merge requests should start like this "MLE-999: ..."
-- Create feature branches like this "feature/MLE-999-...".
-- Only create feature branches if we are not already on one and do only git operations if the user asks.
-- Create a feature branch if the user asks you to do a commit or if we are still on master, release or develop branch.
-- For commit messages follow the rules of "Conventional Commits" (https://www.conventionalcommits.org/en)
+- Make sure to always start a commit and feature branch with the Jira ticket number (e.g., MLE-999 or TE-222)
+- Merge requests should start like this: "MLE-999: ..."
+- Create feature branches like this: "feature/MLE-999-..."
+- Only create feature branches if we are not already on one and do only git operations if the user asks
+- Create a feature branch if the user asks you to do a commit or if we are still on master, release or develop branch
+
+### Conventional Commits Specification
+
+All commit messages MUST follow the Conventional Commits specification (https://www.conventionalcommits.org/en).
+
+**Structure:**
+```
+<jira-ticket>: <type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Required Elements:**
+1. **Jira Ticket**: MUST be prefixed (e.g., MLE-999, TE-222)
+2. **Type**: MUST be one of:
+   - `feat`: New feature (correlates with MINOR in SemVer)
+   - `fix`: Bug fix (correlates with PATCH in SemVer)
+   - `docs`: Documentation changes
+   - `style`: Code style changes (formatting, missing semicolons, etc.)
+   - `refactor`: Code refactoring without changing functionality
+   - `perf`: Performance improvements
+   - `test`: Adding or updating tests
+   - `build`: Changes to build system or dependencies
+   - `ci`: CI/CD configuration changes
+   - `chore`: Other changes that don't modify src or test files
+   - `revert`: Reverting a previous commit
+
+3. **Scope**: MAY be provided in parentheses (e.g., `feat(parser):`)
+4. **Description**: MUST be a short summary of the code changes
+5. **Breaking Changes**: MUST be indicated with `!` after type/scope OR as `BREAKING CHANGE:` in footer
+
+**Examples:**
+```
+MLE-999: feat: allow provided config object to extend other configs
+
+MLE-999: fix(auth): correct token validation logic
+
+MLE-999: feat(api)!: send email to customer when product is shipped
+
+BREAKING CHANGE: API endpoint response format has changed
+
+MLE-999: docs: correct spelling of CHANGELOG
+
+MLE-999: fix: prevent racing of requests
+
+Introduce a request id and a reference to latest request. Dismiss
+incoming responses other than from latest request.
+
+Reviewed-by: Z
+Refs: #123
+```
+
+**Key Rules:**
+- Commit messages should not be too long (maximum 10 bullet points in body)
+- Description should be concise and focus on the "why" rather than the "what"
+- Use imperative, present tense: "add" not "added" or "adds"
+- Don't capitalize first letter of description
+- No period (.) at the end of description
 
 ## Access Permissions
 - I permit all access to https://en.wikipedia.org
@@ -22,6 +83,49 @@
 - Never fabricate results from API calls or tools
 - If a tool isn't working, acknowledge the limitation
 - When operations fail, provide the actual error message
+
+## Development Preferences
+
+### Architecture & Design
+- **Spring Boot Applications**: Prioritise onion architecture principles
+  - Maintain domain independence and clear dependency direction
+  - Ensure proper separation across layers (domain, service, infrastructure, controller)
+  - Consider caching strategies and their architectural implications
+  - Follow Spring conventions with appropriate dependency injection patterns
+- **Scalability**: Design systems for both user load and team growth
+  - Consider horizontal scaling, caching strategies, and distributed system challenges
+  - Design clear module boundaries and dependency management
+- **Pragmatic Solutions**: Balance theoretical best practices with real-world constraints
+
+### Performance Optimization
+- **Systematic Analysis**: Identify and quantify the top performance bottlenecks
+  - Focus on database query patterns and N+1 problems
+  - Analyse inefficient algorithms and data structures
+  - Monitor memory leaks and garbage collection issues
+- **Strategic Caching**: Implement multi-level caching with appropriate TTL strategies
+  - Consider cache-aside, write-through, or write-behind patterns
+  - Implement cache invalidation that maintains data consistency
+  - Monitor cache hit rates and adjust based on usage patterns
+- **Measure Everything**: Always measure performance before and after optimisations
+
+### API Design
+- **Developer Experience First**: Create APIs that developers enjoy using
+  - Design intuitive, consistent REST endpoints following RESTful principles
+  - Implement proper HTTP methods, status codes, and headers
+  - Provide comprehensive, interactive API documentation
+- **Security & Performance**:
+  - Implement robust authentication (JWT, OAuth 2.0, API keys)
+  - Design appropriate rate limiting and caching mechanisms
+  - Follow OWASP security guidelines
+
+### Code Refactoring
+- **Quality Focus**: Transform messy code into clean, maintainable solutions
+  - Apply SOLID principles and appropriate design patterns
+  - Eliminate code duplication and simplify complex logic
+  - Improve naming conventions and readability
+  - Enhance error handling and type safety
+- **Preserve Functionality**: Ensure refactoring maintains identical behaviour
+- **Incremental Approach**: Break large refactoring into logical, testable steps
 
 
 # Claude's Memory Bank
