@@ -1,5 +1,4 @@
 {
-  "enableAllProjectMcpServers": false,
   "env": {},
   "includeCoAuthoredBy": false,
   "permissions": {
@@ -16,8 +15,11 @@
     ],
     "deny": []
   },
+  "enableAllProjectMcpServers": false,
+  "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
-  }
+  },
+  "alwaysThinkingEnabled": true
 }

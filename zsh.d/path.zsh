@@ -21,13 +21,13 @@ add_to_path "$HOME/.rbenv/bin"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 add_to_path "$PNPM_HOME"
 
-# volta
-export VOLTA_HOME="$HOME/.volta"
-add_to_path "$VOLTA_HOME/bin"
-
 # bun
 export BUN_INSTALL="$HOME/.bun"
 add_to_path "$BUN_INSTALL/bin"
+
+# volta
+export VOLTA_HOME="$HOME/.volta"
+add_to_path "$VOLTA_HOME/bin"
 
 # Load home bins
 add_to_path "$HOME/.bin"

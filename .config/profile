@@ -1,5 +1,7 @@
 export PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
-#. ~/.bin/san-proxy.sh
+. ~/.bin/san-proxy.sh
 . "$HOME/.local/bin/env"
 
 #export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
