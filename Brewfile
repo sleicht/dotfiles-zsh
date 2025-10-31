@@ -21,7 +21,6 @@ brew "bat"
 brew "bat-extras"
 brew "broot"
 brew "bottom"
-brew "bun"
 brew "rsteube/tap/carapace"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
@@ -126,7 +125,7 @@ cask "finicky" if OS.mac?
 cask "fman" if OS.mac?
 cask "ghostty"
 cask "git-credential-manager" if OS.mac?
-cask "google-cloud-sdk" if OS.mac?
+cask "gcloud-cli" if OS.mac?
 cask "istat-menus" if OS.mac?
 cask "jetbrains-toolbox" if OS.mac?
 cask "jordanbaird-ice" if OS.mac?
