@@ -1,11 +1,12 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__git-mcp-server__git_diff",
+      "mcp__git-mcp-server__git_log"
+    ]
+  },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "docker-toolkit"
-  ],
-  "permissions": {
-    "allow": [
-      "mcp__git-mcp-server__git_diff"
-    ]
-  }
+  ]
 }
