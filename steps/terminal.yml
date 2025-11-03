@@ -105,6 +105,7 @@
       path: .config/lazygit.yml
     ~/.psqlrc: .config/psqlrc
     ~/.sqliterc: .config/sqliterc
+    ~/.aider.conf.yml: .config/aider.conf.yml
 
   # Editors:
     ~/.editorconfig: .config/editorconfig
