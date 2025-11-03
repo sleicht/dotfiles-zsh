@@ -382,12 +382,8 @@ weak-model: vertex_ai/claude-haiku-4-5@20251001
 #  - zzz
 
 ## specify a read-only file (can be used multiple times)
-#read: xxx
-## Specify multiple values like this:
-#read:
-#  - xxx
-#  - yyy
-#  - zzz
+read:
+  - AIDER.md
 
 ## Use VI editing mode in the terminal (default: False)
 #vim: false
