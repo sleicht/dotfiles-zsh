@@ -32,4 +32,5 @@ add_to_path "$VOLTA_HOME/bin"
 # Load home bins
 add_to_path "$HOME/.bin"
 add_to_path "$HOME/.local/.bin"
+add_to_path "$HOME/.cargo/bin"
 add_to_path "$HOME/.rd/bin"
