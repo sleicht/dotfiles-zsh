@@ -23,4 +23,10 @@ Create a GitLab merge request by:
 3. Write to MERGE_REQUEST.md
 4. Push branch to remote if needed (with --set-upstream)
 5. Create MR using: `glab mr create --title "<title>" --description "$(cat MERGE_REQUEST.md)" --target-branch develop --source-branch <current-branch> --web`
-6. Report the MR number and URL to the user
+6. Verify MR creation using: `glab mr list --source-branch <current-branch> --per-page 1`
+7. Report the MR number and URL to the user
+
+**Important Notes:**
+- The `--web` flag in `glab mr create` automatically opens the MR in the browser
+- Do NOT call `glab mr view` after creation - the MR is already opened
+- Use `glab mr list` with `--per-page 1` to limit output to one result
