@@ -9,7 +9,7 @@ if ! zgenom saved; then
     echo "Creating a zgenom save"
 
     # Add this if you experience issues with missing completions or errors mentioning compdef.
-    # zgenom compdef
+    zgenom compdef
 
     # Ohmyzsh base library
     zgenom ohmyzsh
