@@ -242,7 +242,7 @@ function br {
 
 load_gitlab_projects () {
   SEARCH=$1
-  curl "https://gitlab.sanet17.ch/api/graphql?private_token=${GITLAB_TOKEN}" -H 'content-type: application/json' --compressed -s --data "{\"query\":\"{ projects(first: 100, search: \\\"$SEARCH\\\") { nodes { sshUrlToRepo fullPath }}}\"}"
+  glab api graphql --hostname gitlab.sanet17.ch -f query="{ projects(first: 100, search: \"$SEARCH\") { nodes { sshUrlToRepo fullPath }}}"
 }
 clone_repo() {
   if [[ "$target_dir" == "." ]]; then
