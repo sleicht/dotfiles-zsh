@@ -75,7 +75,10 @@
     ~/.wezterm.lua:
       force: true
       path: .config/wezterm.lua
-
+    "~/.config/btop/btop.conf":
+      create: true
+      force: true
+      path: .config/btop/btop.conf
 
   # Git:
     ~/.gitconfig:
