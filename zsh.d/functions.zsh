@@ -310,3 +310,37 @@ function ideaclone () {
 function codeclone () {
   clone "$1" "$2" | xargs -r code
 }
+function run-mr-code-reviewer() {
+    local project_id=$1
+    local mr_id=$2
+    local dry_run=${3:-true}
+
+    if [[ -z $project_id || -z $mr_id ]]; then
+        echo "Usage: run_pipeline <gitlab_project_id> <merge_request_id> [dry-run]"
+        return 1
+    fi
+
+    local glab_command=(glab ci run --repo https://gitlab.sanet17.ch/ml-engineering/merge-request-code-checker
+                          --branch "master" --input "gitlab-project-id:${project_id}"
+                          --input "merge-request-iid:${mr_id}"
+                          --input "severity-threshold:low"
+                          --input "dry-run:${dry_run}"
+    )
+
+    echo "Running MR Code Reviewer for project_id=$project_id, mr_id=$mr_id, dry-run=$dry_run..."
+
+    local response pipeline_url
+    response=$("${glab_command[@]}")
+
+    # Extract the weburl from the response using grep and sed
+    pipeline_url=$(echo "$response" | grep -o 'weburl: https://[^[:space:]]*')
+    pipeline_url=${pipeline_url#weburl: }
+
+    if [[ -n "$pipeline_url" ]]; then
+        echo "MR Code Reviewer pipeline is running: $pipeline_url"
+    else
+        echo "Error: Could not extract pipeline URL from response. Full response:"
+        echo "$response"
+        return 2
+    fi
+}
