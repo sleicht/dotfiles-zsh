@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git filter-branch:*), Bash(git log:*), Bash(git show:*), Bash(git rev-parse:*), Bash(FILTER_BRANCH_SQUELCH_WARNING:*), mcp__git-mcp-server__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git-mcp-server__git_show, mcp__git-mcp-server__git_diff, mcp__git-mcp-server__git_branch
+allowed-tools: Bash(git filter-branch:*), Bash(git log:*), Bash(git show:*), Bash(git rev-parse:*), Bash(FILTER_BRANCH_SQUELCH_WARNING:*), mcp__git-mcp-server__git_set_working_dir, mcp__git__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git__git_log, mcp__git-mcp-server__git_show, mcp__git__git_show, mcp__git-mcp-server__git_diff, mcp__git__git_diff, mcp__git-mcp-server__git_branch, mcp__git__git_branch
 description: Rewrite git commit message
 ---
 

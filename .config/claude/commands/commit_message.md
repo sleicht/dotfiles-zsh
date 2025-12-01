@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git log:*), Bash(git show:*), Bash(git branch:*),  mcp__git-mcp-server__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git-mcp-server__git_show, mcp__git-mcp-server__git_diff, mcp__git-mcp-server__git_branch
+allowed-tools: Bash(git log:*), Bash(git show:*), Bash(git branch:*),  mcp__git-mcp-server__git_set_working_dir, mcp__git__git_set_working_dir, mcp__git-mcp-server__git_log, mcp__git__git_log, mcp__git-mcp-server__git_show, mcp__git__git_show, mcp__git-mcp-server__git_diff, mcp__git__git_diff, mcp__git-mcp-server__git_branch, mcp__git__git_branch
 description: Write the commit message
 ---
 

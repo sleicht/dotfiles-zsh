@@ -11,7 +11,9 @@
       "Bash(python3:*)",
       "Bash(find:*)",
       "mcp__git-mcp-server__git_status",
-      "mcp__git-mcp-server__git_add"
+      "mcp__git__git_status",
+      "mcp__git-mcp-server__git_add",
+      "mcp__git__git_add"
     ],
     "deny": []
   },
