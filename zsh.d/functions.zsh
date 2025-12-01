@@ -242,7 +242,7 @@ function br {
 
 load_gitlab_projects () {
   SEARCH=$1
-  glab api graphql --hostname gitlab.sanet17.ch -f query="{ projects(first: 100, search: \"$SEARCH\") { nodes { sshUrlToRepo fullPath }}}"
+  glab api graphql --hostname gitlab.sanet17.ch -f query="{ projects(first: 100, search: \"$SEARCH\") { nodes { id sshUrlToRepo fullPath }}}"
 }
 clone_repo() {
   if [[ "$target_dir" == "." ]]; then
@@ -311,13 +311,39 @@ function codeclone () {
   clone "$1" "$2" | xargs -r code
 }
 function run-mr-code-reviewer() {
-    local project_id=$1
+    local project_input=$1
     local mr_id=$2
-    local dry_run=${3:-true}
+    local dry_run=${3:-false}
 
-    if [[ -z $project_id || -z $mr_id ]]; then
-        echo "Usage: run_pipeline <gitlab_project_id> <merge_request_id> [dry-run]"
+    if [[ -z $project_input || -z $mr_id ]]; then
+        echo "Usage: run-mr-code-reviewer <project_search_or_id> <merge_request_id> [dry-run]"
+        echo "  project_search_or_id: Either a numeric project ID or a search string to find the project"
+        echo "  merge_request_id: The merge request IID"
+        echo "  dry-run: true or false (default: false)"
         return 1
+    fi
+
+    local project_id
+
+    # Check if project_input is a number (project ID) or a search string
+    if [[ "$project_input" =~ ^[0-9]+$ ]]; then
+        # It's already a numeric project ID
+        project_id=$project_input
+    else
+        # It's a search string, use load_gitlab_projects to find the project
+        echo "Searching for project matching '$project_input'..."
+        local project_data
+        project_data=$(load_gitlab_projects "$project_input" | jq -r '.data.projects.nodes | .[] | "\(.id) \(.fullPath)"' | fzf --prompt="Select project: ")
+
+        if [[ -z "$project_data" ]]; then
+            echo "Error: No project selected or found"
+            return 1
+        fi
+
+        # Extract the numeric project ID from the gid format (gid://gitlab/Project/1407)
+        local gid
+        gid=$(echo "$project_data" | awk '{print $1}')
+        project_id=$(echo "$gid" | grep -o '[0-9]*$')
     fi
 
     local glab_command=(glab ci run --repo https://gitlab.sanet17.ch/ml-engineering/merge-request-code-checker
