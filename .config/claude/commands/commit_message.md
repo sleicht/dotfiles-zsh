@@ -210,17 +210,21 @@ Refs: 676104e, a215868
 
 ## Execution Instructions
 
-When generating a commit message, you MUST follow these steps:
+**CRITICAL**: This command uses ONLY MCP git tools. Do NOT use `Bash(git:*)` commands.
 
-1. **Analyze the Commit**: Use `mcp__git__git_show` with the commit reference to examine:
-   - The commit metadata (author, date, hash)
-   - The full diff of changes
-   - The current commit message
+You MUST follow these steps using ONLY the MCP tools:
 
-2. **Understand Context**: Use `mcp__git__git_log` to:
+1. **Analyze the Commit**: Use **`mcp__git__git_show`** (NOT git show) with the commit reference:
+   - Pass `object: $ARGUMENTS` parameter
+   - Examines commit metadata (author, date, hash)
+   - Shows the full diff of changes
+   - Displays the current commit message
+
+2. **Understand Context**: Use **`mcp__git__git_log`** (NOT git log):
    - Review recent commit messages for style consistency
+   - Pass `maxCount: 10` to limit results
    - Understand the project's commit message patterns
-   - Ensure the new message fits the repository's conventions
+   - Ensure new message fits repository conventions
 
 3. **Generate Message**: Create an improved commit message that:
    - Follows the Conventional Commits specification exactly
@@ -239,11 +243,63 @@ When generating a commit message, you MUST follow these steps:
    [optional footers]
    ```
 
-**Input Format:**
-The commit reference ($ARGUMENTS) can be:
+**PROHIBITED**: Do NOT use:
+- `Bash(git show:*)`
+- `Bash(git log:*)`
+- `Bash(git diff:*)`
+- Any other `git` command via Bash tool
+
+**REQUIRED**: You MUST use:
+- `mcp__git__git_show` for analyzing commits
+- `mcp__git__git_log` for reviewing history
+
+## Correct MCP Tool Usage
+
+**Example: Analyzing commit HEAD~1**
+
+```typescript
+// CORRECT - Using MCP git tool
+mcp__git__git_show({
+  object: "HEAD~1",
+  path: "."
+})
+
+// WRONG - Using Bash
+Bash({
+  command: "git show HEAD~1"
+}) // ❌ DO NOT USE
+```
+
+**Example: Reviewing commit history**
+
+```typescript
+// CORRECT - Using MCP git tool
+mcp__git__git_log({
+  maxCount: 10,
+  path: "."
+})
+
+// WRONG - Using Bash
+Bash({
+  command: "git log -10"
+}) // ❌ DO NOT USE
+```
+
+## Input Format
+
+The commit reference (`$ARGUMENTS`) is passed directly to `mcp__git__git_show`:
+
+```typescript
+mcp__git__git_show({
+  object: $ARGUMENTS,  // e.g., "HEAD", "HEAD~1", "abc1234"
+  path: "."
+})
+```
+
+Valid values for `$ARGUMENTS`:
 - `HEAD` - Most recent commit
 - `HEAD~1`, `HEAD~2` - Previous commits
-- `<commit-hash>` - Specific commit by hash
+- `<commit-hash>` - Specific commit by full or short hash
 - `<branch-name>` - Latest commit on a branch
 
 ## Usage Examples
@@ -278,5 +334,17 @@ authentication security.
 - Add comprehensive error handling for invalid tokens
 - Update tests to cover new validation logic
 ```
+
+## Troubleshooting
+
+**If you find yourself using `Bash(git:*)` commands:**
+1. STOP immediately
+2. Review the "Execution Instructions" section
+3. Use the corresponding MCP git tool instead:
+   - `git show` → `mcp__git__git_show`
+   - `git log` → `mcp__git__git_log`
+   - `git diff` → `mcp__git__git_diff`
+
+**Remember**: This command is designed to work with MCP tools for better integration and error handling.
 
 Here is the commit reference: $ARGUMENTS
