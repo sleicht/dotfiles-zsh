@@ -214,19 +214,27 @@ Refs: 676104e, a215868
 
 You MUST follow these steps using ONLY the MCP tools:
 
-1. **Analyze the Commit**: Use **`mcp__git__git_show`** (NOT git show) with the commit reference:
+1. **Initialize Repository Context** (REQUIRED FIRST): Use **`mcp__git__git_set_working_dir`**:
+   - Pass `path: "."`
+   - Pass `includeMetadata: true`
+   - This validates the git repository and sets the session working directory
+   - Returns repository metadata (current branch, status, recent commits)
+
+2. **Analyze the Commit**: Use **`mcp__git__git_show`** (NOT git show) with the commit reference:
    - Pass `object: $ARGUMENTS` parameter
+   - Do NOT pass `path` parameter (uses session working directory)
    - Examines commit metadata (author, date, hash)
    - Shows the full diff of changes
    - Displays the current commit message
 
-2. **Understand Context**: Use **`mcp__git__git_log`** (NOT git log):
-   - Review recent commit messages for style consistency
+3. **Understand Context**: Use **`mcp__git__git_log`** (NOT git log):
    - Pass `maxCount: 10` to limit results
+   - Do NOT pass `path` parameter (uses session working directory)
+   - Review recent commit messages for style consistency
    - Understand the project's commit message patterns
    - Ensure new message fits repository conventions
 
-3. **Generate Message**: Create an improved commit message that:
+4. **Generate Message**: Create an improved commit message that:
    - Follows the Conventional Commits specification exactly
    - Includes the Jira ticket prefix (MLE-999 or TE-222)
    - Uses appropriate type (feat, fix, docs, etc.)
@@ -234,7 +242,7 @@ You MUST follow these steps using ONLY the MCP tools:
    - Includes body with max 10 bullet points if needed
    - Maintains consistency with the project's commit style
 
-4. **Output Format**: Print the complete message to stdout in this format:
+5. **Output Format**: Print the complete message to stdout in this format:
    ```
    MLE-999: <type>[optional scope]: <description>
 
@@ -250,18 +258,29 @@ You MUST follow these steps using ONLY the MCP tools:
 - Any other `git` command via Bash tool
 
 **REQUIRED**: You MUST use:
+- `mcp__git__git_set_working_dir` FIRST to initialize
 - `mcp__git__git_show` for analyzing commits
 - `mcp__git__git_log` for reviewing history
 
 ## Correct MCP Tool Usage
 
-**Example: Analyzing commit HEAD~1**
+**Step 1: Initialize working directory (REQUIRED FIRST)**
 
 ```typescript
-// CORRECT - Using MCP git tool
+// CORRECT - Initialize repository context
+mcp__git__git_set_working_dir({
+  path: ".",
+  includeMetadata: true
+})
+```
+
+**Step 2: Analyze commit**
+
+```typescript
+// CORRECT - Using MCP git tool (path omitted after init)
 mcp__git__git_show({
-  object: "HEAD~1",
-  path: "."
+  object: "HEAD~1"
+  // Note: path parameter OMITTED - uses session working directory
 })
 
 // WRONG - Using Bash
@@ -270,13 +289,13 @@ Bash({
 }) // ❌ DO NOT USE
 ```
 
-**Example: Reviewing commit history**
+**Step 3: Review commit history**
 
 ```typescript
-// CORRECT - Using MCP git tool
+// CORRECT - Using MCP git tool (path omitted after init)
 mcp__git__git_log({
-  maxCount: 10,
-  path: "."
+  maxCount: 10
+  // Note: path parameter OMITTED - uses session working directory
 })
 
 // WRONG - Using Bash
@@ -287,12 +306,19 @@ Bash({
 
 ## Input Format
 
-The commit reference (`$ARGUMENTS`) is passed directly to `mcp__git__git_show`:
+After calling `mcp__git__git_set_working_dir`, the commit reference (`$ARGUMENTS`) is passed to `mcp__git__git_show`:
 
 ```typescript
+// First: Initialize (path required)
+mcp__git__git_set_working_dir({
+  path: ".",
+  includeMetadata: true
+})
+
+// Then: Analyze commit (path omitted)
 mcp__git__git_show({
-  object: $ARGUMENTS,  // e.g., "HEAD", "HEAD~1", "abc1234"
-  path: "."
+  object: $ARGUMENTS  // e.g., "HEAD", "HEAD~1", "abc1234"
+  // Note: path parameter OMITTED
 })
 ```
 

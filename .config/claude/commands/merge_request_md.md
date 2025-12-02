@@ -11,38 +11,36 @@ This command generates a comprehensive GitLab merge request title and descriptio
 
 Follow these steps to create the merge request documentation:
 
-1. **Check Repository Status**: Use `mcp__git__git_status` to:
-   - Understand current branch state
-   - Identify staged and unstaged changes
-   - Check for untracked files
+1. **Initialize Repository Context** (REQUIRED FIRST): Use `mcp__git__git_set_working_dir`:
+   - Pass `path: "."`
+   - Pass `includeMetadata: true`
+   - This validates the git repository, sets the session working directory, and returns repository metadata
+   - The metadata includes current branch, status, and recent commits
 
-2. **Analyze Changes**: Based on `$ARGUMENTS`:
+2. **Analyze Changes**: Based on `$ARGUMENTS` (path parameter omitted - uses session working directory):
    - If `$ARGUMENTS` is "HEAD" or empty: Use `mcp__git__git_show` to analyze the latest commit
    - If `$ARGUMENTS` is a commit range: Use `mcp__git__git_diff` to see the full diff
    - If `$ARGUMENTS` is a branch: Use `mcp__git__git_diff` comparing against the target branch
 
-3. **Get Current Branch**: Use `mcp__git__git_branch` with operation "show-current" to:
-   - Identify the current branch name
-   - Use it as the source branch for the MR
-
-4. **Review Commit History**: Use `mcp__git__git_log` to:
+3. **Review Commit History**: Use `mcp__git__git_log` (path parameter omitted):
    - See recent commits on the current branch
    - Understand the scope of changes
    - Extract commit messages for context
+   - Pass `maxCount: 10` to limit results
 
-5. **Check for Template**: Use `Read` tool to:
+4. **Check for Template**: Use `Read` tool to:
    - Check if `.gitlab/merge_request_templates/Feature_to_Develop.md` exists
    - Read the template structure if available
    - Follow the template format
 
-6. **Generate MR Content**: Create a title and description that:
+5. **Generate MR Content**: Create a title and description that:
    - Follows the Jira ticket prefix pattern (MLE-999 or TE-222)
    - Uses format: `<TICKET>: <type>: <concise description>`
    - Includes comprehensive summary of changes
    - Provides test instructions
    - Lists checklist items
 
-7. **Write Output**: Use `Write` tool to:
+6. **Write Output**: Use `Write` tool to:
    - Write the complete MR content to `MERGE_REQUEST.md`
    - Ensure proper markdown formatting
    - Include all required sections

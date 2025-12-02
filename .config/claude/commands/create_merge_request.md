@@ -20,28 +20,25 @@ Creates a GitLab merge request by:
 
 Follow these steps in order:
 
-### 1. Check Repository Status
+### 1. Initialize Repository Context (REQUIRED FIRST)
 
-Use MCP git tools to understand the current state:
-
-- **`mcp__git__git_status`**: Check current repository state
-  - Identify staged and unstaged changes
-  - Check for untracked files
-
-- **`mcp__git__git_branch`** with operation "show-current": Get the current branch name
-  - This will be the source branch for the MR
-  - Store for later use in glab command
+Use **`mcp__git__git_set_working_dir`**:
+- Pass `path: "."`
+- Pass `includeMetadata: true`
+- This validates the git repository, sets the session working directory, and returns repository metadata
+- The metadata includes current branch, status, and recent commits - use this context for subsequent operations
 
 ### 2. Analyze Changes
 
-Based on `$ARGUMENTS` (defaults to HEAD if not specified):
+Based on `$ARGUMENTS` (defaults to HEAD if not specified). Note: path parameter omitted - uses session working directory:
 
 - **If empty or "HEAD"**: Use `mcp__git__git_show` to analyze the latest commit
 - **If commit range**: Use `mcp__git__git_diff` to see full changes
 - **If branch name**: Use `mcp__git__git_diff` comparing against target branch
 
 Additionally:
-- **`mcp__git__git_log`**: Review recent commits for context
+- **`mcp__git__git_log`**: Review recent commits for context (path parameter omitted)
+  - Pass `maxCount: 10` to limit results
   - Understand the full scope of changes
   - Extract commit messages
   - Identify patterns and related work

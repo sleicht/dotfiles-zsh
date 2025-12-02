@@ -212,23 +212,31 @@ Refs: 676104e, a215868
 
 After analyzing the commit and creating an improved message following the specification above, you MUST follow these steps:
 
-### 1. Analyze the Commit
+### 1. Initialize Repository Context (REQUIRED FIRST)
 
-Use MCP git tools to understand the commit:
+Use **`mcp__git__git_set_working_dir`**:
+- Pass `path: "."`
+- Pass `includeMetadata: true`
+- This validates the git repository, sets the session working directory, and returns repository metadata
+
+### 2. Analyze the Commit
+
+Use MCP git tools to understand the commit (path parameter omitted - uses session working directory):
 
 - **`mcp__git__git_show`** with the commit reference to examine:
   - The commit metadata (author, date, hash)
   - The full diff of changes
   - The current commit message (to improve upon)
 
-### 2. Understand Context
+### 3. Understand Context
 
-- **`mcp__git__git_log`**: Review recent commits to:
+- **`mcp__git__git_log`**: Review recent commits (path parameter omitted):
+  - Pass `maxCount: 10` to limit results
   - Understand commit message style and patterns
   - Ensure consistency with repository conventions
   - See the commit history context
 
-### 3. Get Target Commit Hash
+### 4. Get Target Commit Hash
 
 Use `Bash` tool with `git rev-parse`:
 
@@ -238,7 +246,7 @@ git rev-parse <commit-ref>
 
 This resolves the reference (HEAD, HEAD~1, etc.) to the actual commit hash needed for filter-branch.
 
-### 4. Generate Improved Message
+### 5. Generate Improved Message
 
 Create an improved commit message that:
 - Follows the Conventional Commits specification exactly
@@ -248,7 +256,7 @@ Create an improved commit message that:
 - Includes body with max 10 bullet points if needed
 - Maintains consistency with repository style
 
-### 5. Determine Commit Range
+### 6. Determine Commit Range
 
 Calculate the appropriate range for filter-branch based on the commit reference:
 
@@ -258,7 +266,7 @@ Calculate the appropriate range for filter-branch based on the commit reference:
 - `HEAD~2`: Two commits back → Range: `HEAD~3..HEAD~2`
 - `<commit-hash>`: Specific commit → Range determined by position from HEAD
 
-### 6. Rewrite the Commit Message
+### 7. Rewrite the Commit Message
 
 Use `Bash` tool with `git filter-branch`:
 
@@ -282,14 +290,14 @@ EOF
 else cat; fi' <RANGE>
 ```
 
-### 7. Verify the Change
+### 8. Verify the Change
 
-Use **`mcp__git__git_log`** or **`mcp__git__git_show`** to:
+Use **`mcp__git__git_log`** or **`mcp__git__git_show`** (path parameter omitted) to:
 - Confirm the commit message was updated successfully
 - Show the new message to verify correctness
 - Check that only the intended commit was modified
 
-### 8. Report Results
+### 9. Report Results
 
 Show the user:
 - The old commit message
