@@ -1,32 +1,158 @@
 ---
-allowed-tools: mcp__git__git_set_working_dir, mcp__git__git_log, mcp__git__git_show, mcp__git__git_diff, mcp__git__git_branch, mcp__git__git_status, Read
+allowed-tools: mcp__git__git_set_working_dir, mcp__git__git_log, mcp__git__git_show, mcp__git__git_diff, mcp__git__git_branch, mcp__git__git_status, mcp__git__git_push, Read, Write(MERGE_REQUEST.md), Bash(glab:*)
 description: Create and submit GitLab merge request
 ---
-Create a GitLab merge request by:
-1. Writing a comprehensive merge request description to `MERGE_REQUEST.md` following the template at `.gitlab/merge_request_templates/Feature_to_Develop.md` if it exists
-2. Pushing the current branch to remote with upstream tracking if not already pushed
-3. Creating the merge request in GitLab using `glab mr create` with the description from MERGE_REQUEST.md
-4. Opening the merge request in the browser
 
-**Requirements:**
-- Target branch should be `develop` unless otherwise specified
-- Use the current branch as source branch
-- Include comprehensive summary, test instructions, and checklist items
-- Handle the case where the branch is already pushed
-- Return the merge request URL and number
+# Create and Submit GitLab Merge Request
 
-**Changes to include:** $ARGUMENTS (default: HEAD if not specified)
+This command creates a comprehensive merge request in GitLab by generating the MR description, pushing the branch, and creating the MR via `glab` CLI.
 
-**Steps:**
-1. Check git status and current branch
-2. Generate comprehensive MR description following the template
-3. Write to MERGE_REQUEST.md
-4. Push branch to remote if needed (with --set-upstream)
-5. Create MR using: `glab mr create --title "<title>" --description "$(cat MERGE_REQUEST.md)" --target-branch develop --source-branch <current-branch> --web`
-6. Verify MR creation using: `glab mr list --source-branch <current-branch> --per-page 1`
-7. Report the MR number and URL to the user
+## Overview
 
-**Important Notes:**
-- The `--web` flag in `glab mr create` automatically opens the MR in the browser
-- Do NOT call `glab mr view` after creation - the MR is already opened
-- Use `glab mr list` with `--per-page 1` to limit output to one result
+Creates a GitLab merge request by:
+1. Analyzing changes using MCP git tools
+2. Writing a comprehensive MR description to `MERGE_REQUEST.md`
+3. Pushing the current branch to remote if needed
+4. Creating the merge request using `glab mr create`
+5. Opening the MR in the browser
+
+## Execution Instructions
+
+Follow these steps in order:
+
+### 1. Check Repository Status
+
+Use MCP git tools to understand the current state:
+
+- **`mcp__git__git_status`**: Check current repository state
+  - Identify staged and unstaged changes
+  - Check for untracked files
+
+- **`mcp__git__git_branch`** with operation "show-current": Get the current branch name
+  - This will be the source branch for the MR
+  - Store for later use in glab command
+
+### 2. Analyze Changes
+
+Based on `$ARGUMENTS` (defaults to HEAD if not specified):
+
+- **If empty or "HEAD"**: Use `mcp__git__git_show` to analyze the latest commit
+- **If commit range**: Use `mcp__git__git_diff` to see full changes
+- **If branch name**: Use `mcp__git__git_diff` comparing against target branch
+
+Additionally:
+- **`mcp__git__git_log`**: Review recent commits for context
+  - Understand the full scope of changes
+  - Extract commit messages
+  - Identify patterns and related work
+
+### 3. Check for MR Template
+
+Use `Read` tool to:
+- Check if `.gitlab/merge_request_templates/Feature_to_Develop.md` exists
+- Read the template if available
+- Follow the template structure in the generated description
+
+### 4. Generate MR Description
+
+Create comprehensive content including:
+- **Title**: `<TICKET>: <type>: <concise description>` (e.g., "MLE-999: feat: add user authentication")
+- **Summary**: Bullet points explaining the changes
+- **Test Plan**: Step-by-step testing instructions
+- **Checklist**: Tasks for reviewers
+
+Use `Write` tool to:
+- Write the complete content to `MERGE_REQUEST.md`
+- Ensure proper markdown formatting
+
+### 5. Push Branch to Remote
+
+Check if push is needed and execute:
+
+```bash
+# Check if branch has upstream
+git rev-parse --abbrev-ref @{upstream} 2>/dev/null
+
+# If no upstream, push with set-upstream
+git push --set-upstream origin <current-branch>
+
+# If upstream exists but behind, just push
+git push
+```
+
+Use `Bash` tool for git push operations.
+
+Alternatively, use **`mcp__git__git_push`** with:
+- `setUpstream: true` if branch not yet tracked
+- `branch: <current-branch>`
+- `remote: "origin"`
+
+### 6. Create Merge Request
+
+Use `Bash` tool to run `glab mr create`:
+
+```bash
+glab mr create \
+  --title "<title>" \
+  --description "$(cat MERGE_REQUEST.md)" \
+  --target-branch develop \
+  --source-branch <current-branch> \
+  --web
+```
+
+**Important**: The `--web` flag automatically opens the MR in browser.
+
+### 7. Verify and Report
+
+Use `Bash` tool to verify MR creation:
+
+```bash
+glab mr list --source-branch <current-branch> --per-page 1
+```
+
+Report to the user:
+- MR number
+- MR URL
+- Confirmation that browser was opened
+
+## Requirements
+
+- **Target branch**: `develop` (unless otherwise specified)
+- **Source branch**: Current branch
+- **Content**: Comprehensive summary, test instructions, checklist items
+- **Output**: MR URL and number
+
+## Input Format
+
+**Changes to include:** `$ARGUMENTS` (default: HEAD if not specified)
+
+The argument can be:
+- Empty or "HEAD" - Latest commit
+- `<branch-name>` - Compare against branch
+- `<commit-hash>` - Specific commit
+- `<ref1>..<ref2>` - Range of commits
+
+## Usage Examples
+
+**Example 1: Create MR for current branch**
+```
+/create_merge_request HEAD
+```
+
+**Example 2: Create MR with all changes since develop**
+```
+/create_merge_request develop..HEAD
+```
+
+**Example 3: Create MR (default to HEAD)**
+```
+/create_merge_request
+```
+
+## Important Notes
+
+- The `--web` flag automatically opens the MR in browser
+- Do NOT call `glab mr view` after creation - MR is already opened
+- Use `glab mr list` with `--per-page 1` to limit output
+- If branch is already pushed, skip the push step
+- Handle errors gracefully (e.g., if glab is not installed or authenticated)

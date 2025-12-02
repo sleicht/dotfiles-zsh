@@ -7,12 +7,10 @@ description: Write the commit message
 
 This command will analyze the specified commit, create an improved commit message following Conventional Commits specification.
 
-## Process:
-1. Use `git show` to analyze the commit changes
-2. Create an improved commit message following Conventional Commits specification
-3. Print out the message
+## Overview
 
-The ruleset for writing messages comes from "conventional commits".
+This command analyzes git commits and generates improved commit messages following the Conventional Commits specification. See the "Execution Instructions" section below for detailed steps.
+
 The message should not be too long and have maximum 10 bullet points.
 
 Here the specification for "conventional commits":
@@ -210,13 +208,75 @@ revert: let us never again speak of the noodle incident
 Refs: 676104e, a215868
 ```
 
-**Examples of commit references and ranges:**
-- `HEAD`: Most recent commit → Range: `HEAD~1..HEAD`
-- `HEAD~1`: One commit back → Range: `HEAD~2..HEAD~1`
-- `HEAD~2`: Two commits back → Range: `HEAD~3..HEAD~2`
-- `<commit-hash>`: Specific commit
+## Execution Instructions
 
-**Important Notes:**
-- Multi-line commit messages should use proper shell escaping
+When generating a commit message, you MUST follow these steps:
+
+1. **Analyze the Commit**: Use `mcp__git__git_show` with the commit reference to examine:
+   - The commit metadata (author, date, hash)
+   - The full diff of changes
+   - The current commit message
+
+2. **Understand Context**: Use `mcp__git__git_log` to:
+   - Review recent commit messages for style consistency
+   - Understand the project's commit message patterns
+   - Ensure the new message fits the repository's conventions
+
+3. **Generate Message**: Create an improved commit message that:
+   - Follows the Conventional Commits specification exactly
+   - Includes the Jira ticket prefix (MLE-999 or TE-222)
+   - Uses appropriate type (feat, fix, docs, etc.)
+   - Provides concise description in imperative mood
+   - Includes body with max 10 bullet points if needed
+   - Maintains consistency with the project's commit style
+
+4. **Output Format**: Print the complete message to stdout in this format:
+   ```
+   MLE-999: <type>[optional scope]: <description>
+
+   [optional body paragraphs]
+
+   [optional footers]
+   ```
+
+**Input Format:**
+The commit reference ($ARGUMENTS) can be:
+- `HEAD` - Most recent commit
+- `HEAD~1`, `HEAD~2` - Previous commits
+- `<commit-hash>` - Specific commit by hash
+- `<branch-name>` - Latest commit on a branch
+
+## Usage Examples
+
+**Example 1: Analyze most recent commit**
+```
+/commit_message HEAD
+```
+
+**Example 2: Analyze specific commit**
+```
+/commit_message abc1234
+```
+
+**Example 3: Analyze commit from two commits back**
+```
+/commit_message HEAD~2
+```
+
+## Expected Output
+
+The command should output a formatted commit message like:
+
+```
+MLE-999: feat(auth): add JWT token validation
+
+Implement token expiry checking and signature verification to enhance
+authentication security.
+
+- Add token expiry validation middleware
+- Implement signature verification using RS256
+- Add comprehensive error handling for invalid tokens
+- Update tests to cover new validation logic
+```
 
 Here is the commit reference: $ARGUMENTS
