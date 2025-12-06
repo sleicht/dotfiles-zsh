@@ -43,6 +43,10 @@ export default {
       browser: "Google Chrome"
     },
     {
+      match: (url) => url.host.endsWith("skills.google"),
+      browser: "Google Chrome"
+    },
+    {
       match: (url) => url.host.endsWith("gitlab.com"),
       browser: "Google Chrome"
     },
