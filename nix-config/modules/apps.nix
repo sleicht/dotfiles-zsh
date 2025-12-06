@@ -153,6 +153,8 @@
       "sfnt2woff-zopfli"
       "tailscale"
       "woff2"
+      "qemu"
+      "qqqa"
     ];
 
     # `brew install --cask`
@@ -192,7 +194,6 @@
       "kobo"
       "lens"
       "logi-options+"
-      "logitech-options"
       "logseq"
       "mouseless@preview"
       "ngrok"
@@ -240,6 +241,7 @@
       "readdle-spark"
       "tidal"
       "xld"
+      "virtualbox"
     ];
   };
 }
