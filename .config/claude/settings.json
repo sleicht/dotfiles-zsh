@@ -3,19 +3,31 @@
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
-      "WebFetch(domain:openapiprocessor.io)",
-      "Bash(./mvnw:*)",
       "Bash(grep:*)",
       "Bash(awk:*)",
       "Bash(sed:*)",
       "Bash(python3:*)",
       "Bash(find:*)",
-      "mcp__git-mcp-server__git_status",
+      "Bash(rg:*)",
+      "Bash(ls:*)",
+      "Bash(just compile:*)",
+      "Bash(./mvnw:*)",
+      "mcp__git__git_set_working_dir",
+      "mcp__git__git_add",
+      "mcp__git__git_diff",
+      "mcp__git__git_log",
+      "mcp__git__git_show",
       "mcp__git__git_status",
-      "mcp__git-mcp-server__git_add",
-      "mcp__git__git_add"
+      "Bash(just test:*)",
+      "Bash(just unit:*)",
+      "WebFetch(domain:openapiprocessor.io)",
+      "WebFetch(domain:errorprone.info)",
+      "WebFetch(domain:github.com)"
     ],
-    "deny": []
+    "deny": [
+      "Bash(git:*)"
+    ],
+    "defaultMode": "plan"
   },
   "enableAllProjectMcpServers": false,
   "hooks": {},
@@ -23,5 +35,9 @@
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
   },
-  "alwaysThinkingEnabled": false
+  "enabledPlugins": {
+    "code-review@claude-code-plugins": true,
+    "plugin-dev@claude-code-plugins": true
+  },
+  "alwaysThinkingEnabled": true
 }
