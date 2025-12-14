@@ -3,6 +3,11 @@
 
 # `variables.zsh` is used to provide custom variables.
 
+# === Dotfiles location ===
+export DOTFILES="${HOME}/.dotfiles"
+
+# === Syntax theme ===
+export SOBOLE_SYNTAX_THEME="gruvbox-dark"
 
 # === Compiler flags ===
 
@@ -124,12 +129,7 @@ export LESS_TERMCAP_md="${yellow}"
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X'
 
-# Avoid issues with `gpg` as installed via Homebrew.
-# https://stackoverflow.com/a/42265848/96656
-GPG_TTY=$(tty)
-export GPG_TTY
-
-# Hide the “default interactive shell is now zsh” warning on macOS.
+# Hide the "default interactive shell is now zsh" warning on macOS.
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Erlang and Elixir shell history:
