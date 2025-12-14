@@ -90,4 +90,4 @@ fi
 source "${HOME}/.zgenom/zgenom.zsh"
 export ZGENOM_CONFIG_DIR="$XDG_CONFIG_HOME/zgenom"
 source "${ZGENOM_CONFIG_DIR}/zgenomrc.zsh"
-if [ -x "$(command -v atuin)" ]; then eval "$(atuin init zsh)"; fi
+# Atuin is initialized in zsh.d/atuin.zsh
