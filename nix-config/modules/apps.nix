@@ -129,6 +129,7 @@
 
     taps = [
       "homebrew/services"
+      "mediosz/tap"
       "nikitabobko/tap"
       "rcmdnk/file"
       "cj-systems/gitflow-cjs"
@@ -171,6 +172,7 @@
       "cardhop"
       "cheatsheet"
       "claude"
+      "claude-code"
       "dash"
       "deepl"
       "devtoys"
@@ -212,6 +214,7 @@
       "stats"
       "steam"
       "sublime-text"
+      "swipeaerospace"
       "tabby"
       "the-unarchiver"
       "ticktick"
