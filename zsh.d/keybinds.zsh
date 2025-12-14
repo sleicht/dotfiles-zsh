@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 bindkey -e
 
 bindkey '' predict-on

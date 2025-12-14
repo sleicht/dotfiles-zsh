@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Add directories to the PATH and prevent to add the same directory multiple times upon shell reload.
 add_to_path() {
   if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then

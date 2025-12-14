@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 if [ "$(uname -m)" = "x86_64" ]; then
   : "${HOMEBREW_PREFIX:=/usr/local}"
 elif [ "$(uname -m)" = "arm64" ]; then
