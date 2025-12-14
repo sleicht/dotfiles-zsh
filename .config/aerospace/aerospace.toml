@@ -135,6 +135,11 @@ alt-shift-5 = 'move-node-to-workspace 5'
 #alt-shift-8 = 'move-node-to-workspace 8'
 #alt-shift-9 = 'move-node-to-workspace 9'
 #alt-shift-0 = 'move-node-to-workspace 10'
+alt-shift-i = 'move-node-to-workspace I' # IDE
+alt-shift-m = 'move-node-to-workspace M' # Mail
+alt-shift-s = 'move-node-to-workspace S' # Social
+alt-shift-t = 'move-node-to-workspace T' # Terminal
+alt-shift-w = 'move-node-to-workspace W' # Web browser
 
 alt-shift-c = 'reload-config'
 
