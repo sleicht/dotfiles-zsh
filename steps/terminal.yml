@@ -41,10 +41,6 @@
       create: true
       force: true
       path: .config/zsh-abbr/user-abbreviations
-    ~/.config/sheldon/plugins.toml:
-      create: true
-      force: true
-      path: .config/sheldon/plugins.toml
     ~/.config/zgenom/zgenomrc.zsh:
       create: true
       force: true
