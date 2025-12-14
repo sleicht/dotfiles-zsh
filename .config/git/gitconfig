@@ -65,7 +65,7 @@
   fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
   ; Remove branches that have already been merged with main. a.k.a. ‘delete merged’
-  dm = "!git branch --merged | grep -v -P '^\\*|master|develop' | xargs -n1 -r git branch -d"
+  dm = "!git branch --merged | grep -v -P '^\\*|main|master|develop' | xargs -n1 -r git branch -d"
 
   ; List contributors with number of commits.
   contributors = shortlog --summary --numbered
