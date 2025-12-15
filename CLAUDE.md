@@ -29,7 +29,7 @@ To install the dotfiles:
 
 ```bash
 # Clone the repository
-git clone --recursive git@github.com:yourusername/dotfiles-zsh.git ~/.dotfiles
+git clone --recursive git@github.com:sleicht/dotfiles-zsh.git ~/.dotfiles
 
 # Run the installation
 cd ~/.dotfiles && ./install

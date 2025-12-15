@@ -2,13 +2,7 @@
 
 ## Introduction
 
-This repository serves as my way to help me setup and maintain my Mac. It takes the effort out of installing everything manually. Everything needed to install my preferred setup of macOS is detailed in this readme. Feel free to explore, learn and copy parts for your own dotfiles. Enjoy!
-
-📖 - [Read the blog post](https://driesvints.com/blog/getting-started-with-dotfiles)
-📺 - [Watch the screencast on Laracasts](https://laracasts.com/series/guest-spotlight/episodes/1)
-💡 - [Learn how to build your own dotfiles](https://github.com/driesvints/dotfiles#your-own-dotfiles)
-
-If you find this repo useful, [consider sponsoring me](https://github.com/sponsors/driesvints) (a little bit)! ❤️
+This repository contains my ZSH dotfiles for macOS configuration. It automates the setup and maintenance of my Mac, taking the effort out of installing everything manually. Everything needed to install my preferred macOS setup is detailed in this readme. Feel free to explore, learn and copy parts for your own dotfiles. Enjoy!
 
 ## A Fresh macOS Setup
 
@@ -34,24 +28,23 @@ After backing up your old Mac you may now follow these install instructions to s
    2.2. Otherwise [generate a new public and private SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) by running:
 
    ```zsh
-   curl https://raw.githubusercontent.com/driesvints/dotfiles/HEAD/ssh.sh | sh -s "<your-email-address>"
+   curl https://raw.githubusercontent.com/sleicht/dotfiles-zsh/HEAD/ssh.sh | sh -s "<your-email-address>"
    ```
 
 3. Clone this repo to `~/.dotfiles` with:
 
     ```zsh
-    git clone --recursive git@github.com:driesvints/dotfiles.git ~/.dotfiles
+    git clone --recursive git@github.com:sleicht/dotfiles-zsh.git ~/.dotfiles
     ```
 
 4. Run the installation with:
 
     ```zsh
-    cd ~/.dotfiles && ./fresh.sh
+    cd ~/.dotfiles && ./install
     ```
 
-5. Start `Herd.app` and run its install process
-6. After mackup is synced with your cloud storage, restore preferences by running `mackup restore`
-7. Restart your computer to finalize the process
+5. After mackup is synced with your cloud storage, restore preferences by running `mackup restore`
+6. Restart your computer to finalize the process
 
 Your Mac is now ready to use!
 
