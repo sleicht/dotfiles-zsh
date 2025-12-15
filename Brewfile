@@ -119,6 +119,7 @@ cask "arc" if OS.mac?
 cask "bartender" if OS.mac?
 cask "beyond-compare" if OS.mac?
 cask "bitwarden" if OS.mac?
+cask "claude-code"
 cask "dash" if OS.mac?
 cask "deepl" if OS.mac?
 cask "finicky" if OS.mac?
