@@ -57,8 +57,8 @@ fi
 #export CPU_BRAND="$(/usr/sbin/sysctl -n machdep.cpu.brand_string)"
 #export X86_64_HOMEBREW_PATH="/usr/local/bin/brew"
 
-# Make nvim the default editor
-export EDITOR="$(which nvim)"
+# Make Sublime Text the default editor
+export EDITOR="subl -w"
 
 # GPG:
 export GPG_TTY="$(tty)"
