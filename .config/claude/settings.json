@@ -37,7 +37,8 @@
   },
   "enabledPlugins": {
     "code-review@claude-code-plugins": true,
-    "plugin-dev@claude-code-plugins": true
+    "plugin-dev@claude-code-plugins": true,
+    "git-conventional-commits@dotfiles-marketplace": true
   },
   "alwaysThinkingEnabled": true
 }

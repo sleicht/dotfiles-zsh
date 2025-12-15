@@ -1,5 +1,4 @@
 ---
-allowed-tools: mcp__git__git_set_working_dir, mcp__git__git_log, mcp__git__git_show, mcp__git__git_diff, mcp__git__git_branch, mcp__git__git_status, mcp__git__git_push, Read, Write(MERGE_REQUEST.md), Bash(glab:*)
 description: Create and submit GitLab merge request
 ---
 

@@ -4,11 +4,11 @@
 
 This repository serves as my way to help me setup and maintain my Mac. It takes the effort out of installing everything manually. Everything needed to install my preferred setup of macOS is detailed in this readme. Feel free to explore, learn and copy parts for your own dotfiles. Enjoy!
 
-📖 - [Read the blog post](https://driesvints.com/blog/getting-started-with-dotfiles)  
-📺 - [Watch the screencast on Laracasts](https://laracasts.com/series/guest-spotlight/episodes/1)  
+📖 - [Read the blog post](https://driesvints.com/blog/getting-started-with-dotfiles)
+📺 - [Watch the screencast on Laracasts](https://laracasts.com/series/guest-spotlight/episodes/1)
 💡 - [Learn how to build your own dotfiles](https://github.com/driesvints/dotfiles#your-own-dotfiles)
 
-If you find this repo useful, [consider sponsoring me](https://github.com/sponsors/driesvints) (a little bit)! ❤️ 
+If you find this repo useful, [consider sponsoring me](https://github.com/sponsors/driesvints) (a little bit)! ❤️
 
 ## A Fresh macOS Setup
 
@@ -29,8 +29,8 @@ If you're migrating from an existing Mac, you should first make sure to backup a
 After backing up your old Mac you may now follow these install instructions to setup a new one.
 
 1. Update macOS to the latest version through system preferences
-2. Setup an SSH key by using one of the two following methods  
-   2.1. If you use 1Password, install it with the 1Password [SSH agent](https://developer.1password.com/docs/ssh/get-started/#step-3-turn-on-the-1password-ssh-agent) and sync your SSH keys locally.  
+2. Setup an SSH key by using one of the two following methods
+   2.1. If you use 1Password, install it with the 1Password [SSH agent](https://developer.1password.com/docs/ssh/get-started/#step-3-turn-on-the-1password-ssh-agent) and sync your SSH keys locally.
    2.2. Otherwise [generate a new public and private SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) by running:
 
    ```zsh
@@ -73,7 +73,7 @@ Check out the [`Brewfile`](./Brewfile) file and adjust the apps you want to inst
 
 Check out the [`aliases.zsh`](./aliases.zsh) file and add your own aliases. If you need to tweak your `$PATH` check out the [`path.zsh`](./path.zsh) file. These files get loaded in because the `$ZSH_CUSTOM` setting points to the `.dotfiles` directory. You can adjust the [`.zshrc`](./.zshrc) file to your liking to tweak your Oh My Zsh setup. More info about how to customize Oh My Zsh can be found [here](https://github.com/robbyrussell/oh-my-zsh/wiki/Customization).
 
-When installing these dotfiles for the first time you'll need to backup all of your settings with Mackup. Install Mackup and backup your settings with the commands below. Your settings will be synced to iCloud so you can use them to sync between computers and reinstall them when reinstalling your Mac. If you want to save your settings to a different directory or different storage than iCloud, [checkout the documentation](https://github.com/lra/mackup/blob/master/doc/README.md#storage). Also make sure your `.zshrc` file is symlinked from your dotfiles repo to your home directory. 
+When installing these dotfiles for the first time you'll need to backup all of your settings with Mackup. Install Mackup and backup your settings with the commands below. Your settings will be synced to iCloud so you can use them to sync between computers and reinstall them when reinstalling your Mac. If you want to save your settings to a different directory or different storage than iCloud, [checkout the documentation](https://github.com/lra/mackup/blob/master/doc/README.md#storage). Also make sure your `.zshrc` file is symlinked from your dotfiles repo to your home directory.
 
 ```zsh
 brew install mackup
@@ -83,6 +83,46 @@ mackup backup
 You can tweak the shell theme, the Oh My Zsh settings and much more. Go through the files in this repo and tweak everything to your liking.
 
 Enjoy your own Dotfiles!
+
+## Claude Code Plugin
+
+This dotfiles repository includes a custom Claude Code plugin for managing git commits and GitLab merge requests following Conventional Commits specification with Jira ticket prefixes.
+
+### Available Commands
+
+The plugin provides four slash commands:
+
+- **`/commit_message`** - Generate improved commit messages following Conventional Commits
+- **`/rewrite_commit_message`** - Rewrite commit messages in git history (destructive)
+- **`/merge_request_md`** - Generate merge request title and description
+- **`/create_merge_request`** - Create and submit GitLab merge requests
+
+### Plugin Location
+
+The plugin is located at `.config/claude/plugins/git-conventional-commits/` and is automatically synced to `~/.claude/plugins/` via Dotbot's glob pattern for `.config/claude/**`.
+
+### Requirements
+
+- **MCP Git Server**: Configured in Claude Code settings for safe git operations
+- **GitLab CLI (`glab`)**: Required for merge request commands
+  ```bash
+  brew install glab
+  glab auth login
+  ```
+
+### Commit Message Format
+
+All commands enforce Jira ticket prefixes and Conventional Commits:
+
+```
+MLE-999: feat(scope): description
+
+Optional body with details
+
+Optional footers
+```
+
+For complete documentation, see [.config/claude/plugins/git-conventional-commits/README.md](marketplace/.claude-plugin/git-conventional-commits/README.md)
 
 ## Thanks To...
 

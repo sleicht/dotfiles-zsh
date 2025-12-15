@@ -1,23 +1,6 @@
----
-allowed-tools: mcp__git__git_set_working_dir, mcp__git__git_log, mcp__git__git_show, mcp__git__git_diff, mcp__git__git_branch
-description: Write the commit message
----
+# Conventional Commits 1.0.0
 
-# Write Git Commit Message Command
-
-This command will analyze the specified commit, create an improved commit message following Conventional Commits specification.
-
-## Overview
-
-This command analyzes git commits and generates improved commit messages following the Conventional Commits specification. See the "Execution Instructions" section below for detailed steps.
-
-The message should not be too long and have maximum 10 bullet points.
-
-Here the specification for "conventional commits":
-
-Conventional Commits 1.0.0
-
-Summary
+## Summary
 
 The Conventional Commits specification is a lightweight convention on top of commit messages.
 It provides an easy set of rules for creating an explicit commit history;
@@ -55,7 +38,7 @@ Additional types are not mandated by the Conventional Commits specification, and
 <br /><br />
 A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis, e.g., `feat(parser): add ability to parse arrays`.
 
-Examples
+## Examples
 
 Commit message with description and breaking change footer
 ```
@@ -105,9 +88,9 @@ Reviewed-by: Z
 Refs: #123
 ```
 
-Specification
+## Specification
 
-The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
+The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 1. Commits MUST be prefixed with the jira ticket number that looks something like this MLE-999 or TE-222.
 2. Commits MUST be prefixed with a type, which consists of a noun, `feat`, `fix`, etc., followed
@@ -138,7 +121,7 @@ The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL N
 16. The units of information that make up Conventional Commits MUST NOT be treated as case sensitive by implementors, with the exception of BREAKING CHANGE which MUST be uppercase.
 17. BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in a footer.
 
-Why Use Conventional Commits
+## Why Use Conventional Commits
 
 * Automatically generating CHANGELOGs.
 * Automatically determining a semantic version bump (based on the types of commits landed).
@@ -147,53 +130,53 @@ Why Use Conventional Commits
 * Making it easier for people to contribute to your projects, by allowing them to explore
   a more structured commit history.
 
-FAQ
+## FAQ
 
-How should I deal with commit messages in the initial development phase?
+### How should I deal with commit messages in the initial development phase?
 
 We recommend that you proceed as if you've already released the product. Typically *somebody*, even if it's your fellow software developers, is using your software. They'll want to know what's fixed, what breaks etc.
 
-Are the types in the commit title uppercase or lowercase?
+### Are the types in the commit title uppercase or lowercase?
 
 Any casing may be used, but it's best to be consistent.
 
-What do I do if the commit conforms to more than one of the commit types?
+### What do I do if the commit conforms to more than one of the commit types?
 
 Go back and make multiple commits whenever possible. Part of the benefit of Conventional Commits is its ability to drive us to make more organized commits and PRs.
 
-Doesn’t this discourage rapid development and fast iteration?
+### Doesn't this discourage rapid development and fast iteration?
 
 It discourages moving fast in a disorganized way. It helps you be able to move fast long term across multiple projects with varied contributors.
 
-Might Conventional Commits lead developers to limit the type of commits they make because they'll be thinking in the types provided?
+### Might Conventional Commits lead developers to limit the type of commits they make because they'll be thinking in the types provided?
 
 Conventional Commits encourages us to make more of certain types of commits such as fixes. Other than that, the flexibility of Conventional Commits allows your team to come up with their own types and change those types over time.
 
-How does this relate to SemVer?
+### How does this relate to SemVer?
 
 `fix` type commits should be translated to `PATCH` releases. `feat` type commits should be translated to `MINOR` releases. Commits with `BREAKING CHANGE` in the commits, regardless of type, should be translated to `MAJOR` releases.
 
-How should I version my extensions to the Conventional Commits Specification, e.g. `@jameswomack/conventional-commit-spec`?
+### How should I version my extensions to the Conventional Commits Specification, e.g. `@jameswomack/conventional-commit-spec`?
 
 We recommend using SemVer to release your own extensions to this specification (and
 encourage you to make these extensions!)
 
-What do I do if I accidentally use the wrong commit type?
+### What do I do if I accidentally use the wrong commit type?
 
-When you used a type that's of the spec but not the correct type, e.g. `fix` instead of `feat`
+**When you used a type that's of the spec but not the correct type, e.g. `fix` instead of `feat`**
 
 Prior to merging or releasing the mistake, we recommend using `git rebase -i` to edit the commit history. After release, the cleanup will be different according to what tools and processes you use.
 
-When you used a type *not* of the spec, e.g. `feet` instead of `feat`
+**When you used a type *not* of the spec, e.g. `feet` instead of `feat`**
 
 In a worst case scenario, it's not the end of the world if a commit lands that does not meet the Conventional Commits specification. It simply means that commit will be missed by tools that are based on the spec.
 
-Do all my contributors need to use the Conventional Commits specification?
+### Do all my contributors need to use the Conventional Commits specification?
 
 No! If you use a squash based workflow on Git lead maintainers can clean up the commit messages as they're merged—adding no workload to casual committers.
 A common workflow for this is to have your git system automatically squash commits from a pull request and present a form for the lead maintainer to enter the proper git commit message for the merge.
 
-How does Conventional Commits handle revert commits?
+### How does Conventional Commits handle revert commits?
 
 Reverting code can be complicated: are you reverting multiple commits? if you revert a feature, should the next release instead be a patch?
 
@@ -207,170 +190,3 @@ revert: let us never again speak of the noodle incident
 
 Refs: 676104e, a215868
 ```
-
-## Execution Instructions
-
-**CRITICAL**: This command uses ONLY MCP git tools. Do NOT use `Bash(git:*)` commands.
-
-You MUST follow these steps using ONLY the MCP tools:
-
-1. **Initialize Repository Context** (REQUIRED FIRST): Use **`mcp__git__git_set_working_dir`**:
-   - Pass `path: "."`
-   - Pass `includeMetadata: true`
-   - This validates the git repository and sets the session working directory
-   - Returns repository metadata (current branch, status, recent commits)
-
-2. **Analyze the Commit**: Use **`mcp__git__git_show`** (NOT git show) with the commit reference:
-   - Pass `object: $ARGUMENTS` parameter
-   - Do NOT pass `path` parameter (uses session working directory)
-   - Examines commit metadata (author, date, hash)
-   - Shows the full diff of changes
-   - Displays the current commit message
-
-3. **Understand Context**: Use **`mcp__git__git_log`** (NOT git log):
-   - Pass `maxCount: 10` to limit results
-   - Do NOT pass `path` parameter (uses session working directory)
-   - Review recent commit messages for style consistency
-   - Understand the project's commit message patterns
-   - Ensure new message fits repository conventions
-
-4. **Generate Message**: Create an improved commit message that:
-   - Follows the Conventional Commits specification exactly
-   - Includes the Jira ticket prefix (MLE-999 or TE-222)
-   - Uses appropriate type (feat, fix, docs, etc.)
-   - Provides concise description in imperative mood
-   - Includes body with max 10 bullet points if needed
-   - Maintains consistency with the project's commit style
-
-5. **Output Format**: Print the complete message to stdout in this format:
-   ```
-   MLE-999: <type>[optional scope]: <description>
-
-   [optional body paragraphs]
-
-   [optional footers]
-   ```
-
-**PROHIBITED**: Do NOT use:
-- `Bash(git show:*)`
-- `Bash(git log:*)`
-- `Bash(git diff:*)`
-- Any other `git` command via Bash tool
-
-**REQUIRED**: You MUST use:
-- `mcp__git__git_set_working_dir` FIRST to initialize
-- `mcp__git__git_show` for analyzing commits
-- `mcp__git__git_log` for reviewing history
-
-## Correct MCP Tool Usage
-
-**Step 1: Initialize working directory (REQUIRED FIRST)**
-
-```typescript
-// CORRECT - Initialize repository context
-mcp__git__git_set_working_dir({
-  path: ".",
-  includeMetadata: true
-})
-```
-
-**Step 2: Analyze commit**
-
-```typescript
-// CORRECT - Using MCP git tool (path omitted after init)
-mcp__git__git_show({
-  object: "HEAD~1"
-  // Note: path parameter OMITTED - uses session working directory
-})
-
-// WRONG - Using Bash
-Bash({
-  command: "git show HEAD~1"
-}) // ❌ DO NOT USE
-```
-
-**Step 3: Review commit history**
-
-```typescript
-// CORRECT - Using MCP git tool (path omitted after init)
-mcp__git__git_log({
-  maxCount: 10
-  // Note: path parameter OMITTED - uses session working directory
-})
-
-// WRONG - Using Bash
-Bash({
-  command: "git log -10"
-}) // ❌ DO NOT USE
-```
-
-## Input Format
-
-After calling `mcp__git__git_set_working_dir`, the commit reference (`$ARGUMENTS`) is passed to `mcp__git__git_show`:
-
-```typescript
-// First: Initialize (path required)
-mcp__git__git_set_working_dir({
-  path: ".",
-  includeMetadata: true
-})
-
-// Then: Analyze commit (path omitted)
-mcp__git__git_show({
-  object: $ARGUMENTS  // e.g., "HEAD", "HEAD~1", "abc1234"
-  // Note: path parameter OMITTED
-})
-```
-
-Valid values for `$ARGUMENTS`:
-- `HEAD` - Most recent commit
-- `HEAD~1`, `HEAD~2` - Previous commits
-- `<commit-hash>` - Specific commit by full or short hash
-- `<branch-name>` - Latest commit on a branch
-
-## Usage Examples
-
-**Example 1: Analyze most recent commit**
-```
-/commit_message HEAD
-```
-
-**Example 2: Analyze specific commit**
-```
-/commit_message abc1234
-```
-
-**Example 3: Analyze commit from two commits back**
-```
-/commit_message HEAD~2
-```
-
-## Expected Output
-
-The command should output a formatted commit message like:
-
-```
-MLE-999: feat(auth): add JWT token validation
-
-Implement token expiry checking and signature verification to enhance
-authentication security.
-
-- Add token expiry validation middleware
-- Implement signature verification using RS256
-- Add comprehensive error handling for invalid tokens
-- Update tests to cover new validation logic
-```
-
-## Troubleshooting
-
-**If you find yourself using `Bash(git:*)` commands:**
-1. STOP immediately
-2. Review the "Execution Instructions" section
-3. Use the corresponding MCP git tool instead:
-   - `git show` → `mcp__git__git_show`
-   - `git log` → `mcp__git__git_log`
-   - `git diff` → `mcp__git__git_diff`
-
-**Remember**: This command is designed to work with MCP tools for better integration and error handling.
-
-Here is the commit reference: $ARGUMENTS

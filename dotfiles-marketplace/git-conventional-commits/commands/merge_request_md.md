@@ -1,6 +1,5 @@
 ---
-allowed-tools: mcp__git__git_set_working_dir, mcp__git__git_log, mcp__git__git_show, mcp__git__git_diff, mcp__git__git_branch, mcp__git__git_status, Read, Write(MERGE_REQUEST.md)
-description: Create merge request title&description
+description: Generate GitLab merge request title and description
 ---
 
 # Create GitLab Merge Request Title & Description
