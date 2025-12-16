@@ -4,7 +4,13 @@
       "mcp__git__git_diff",
       "mcp__git__git_log",
       "Bash(cat:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "WebFetch(domain:nikitabobko.github.io)",
+      "Bash(du:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(file:*)",
+      "Bash(git log:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
