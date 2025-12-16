@@ -20,7 +20,6 @@
   environment.systemPackages = with pkgs; [
     ack
     argocd
-    atuin
     bashInteractive
     bat # Clone of cat(1) with syntax highlighting and Git integration
     bat-extras.prettybat
@@ -139,6 +138,7 @@
     # `brew install`
     brews = [
       "archey4"
+      "atuin"
       "bats-core"
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
       "coreutils" # GNU File, Shell, and Text utilities
