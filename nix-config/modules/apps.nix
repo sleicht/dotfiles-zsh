@@ -133,6 +133,7 @@
       "nikitabobko/tap"
       "rcmdnk/file"
       "cj-systems/gitflow-cjs"
+      "neurosnap/tap"
     ];
 
     # `brew install`
@@ -156,6 +157,7 @@
       "woff2"
       "qemu"
       "qqqa"
+      "zmx"
     ];
 
     # `brew install --cask`
