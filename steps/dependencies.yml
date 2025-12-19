@@ -5,4 +5,6 @@
 
 # Reads brewfile for packages to install
 - brewfile:
-    - Brewfile_Fanaka
+    - Brewfile
+    - Brewfile_Client
+#    - Brewfile_Fanaka

@@ -34,6 +34,4 @@ run_dotbot () {
 }
 
 run_dotbot 'steps/terminal.yml' || true
-run_dotbot 'steps/dependencies_global.yml' || true
-#run_dotbot 'steps/dependencies_fanaka.yml' || true
-run_dotbot 'steps/dependencies_client.yml' || true
+run_dotbot 'steps/dependencies.yml' || true
