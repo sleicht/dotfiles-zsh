@@ -56,7 +56,10 @@ You MUST follow these steps using ONLY the MCP tools:
    - Includes body with max 10 bullet points if needed
    - Maintains consistency with the project's commit style
 
-5. **Output Format**: Print the complete message to stdout in this format:
+5. **Write to File**: Use the **Write tool** to save the commit message:
+   - Write to `.commit-message.txt` in the current directory
+   - This will overwrite the file if it already exists
+   - Format the message as:
    ```
    MLE-999: <type>[optional scope]: <description>
 
@@ -64,6 +67,7 @@ You MUST follow these steps using ONLY the MCP tools:
 
    [optional footers]
    ```
+   - After writing, inform the user that the message has been saved to `.commit-message.txt`
 
 **PROHIBITED**: Do NOT use:
 - Bash for git show commands
@@ -75,6 +79,7 @@ You MUST follow these steps using ONLY the MCP tools:
 - `mcp__git__git_set_working_dir` FIRST to initialize
 - `mcp__git__git_show` for analyzing commits
 - `mcp__git__git_log` for reviewing history
+- `Write` tool to save the commit message to `.commit-message.txt`
 
 ## Correct MCP Tool Usage
 
@@ -161,8 +166,9 @@ Valid values for `$ARGUMENTS`:
 
 ## Expected Output
 
-The command should output a formatted commit message like:
+The command will write the commit message to `.commit-message.txt` and inform the user:
 
+**File: `.commit-message.txt`**
 ```
 MLE-999: feat(auth): add JWT token validation
 
@@ -173,6 +179,11 @@ authentication security.
 - Implement signature verification using RS256
 - Add comprehensive error handling for invalid tokens
 - Update tests to cover new validation logic
+```
+
+**Console Output:**
+```
+Commit message has been written to .commit-message.txt
 ```
 
 ## Troubleshooting

@@ -1,6 +1,6 @@
 {
   "name": "git-conventional-commits",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Git commit and merge request helpers following Conventional Commits with Jira ticket prefixes",
   "author": {
     "name": "Stephan Leicht Vogt"

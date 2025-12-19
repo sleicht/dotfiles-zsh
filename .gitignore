@@ -19,3 +19,4 @@ Thumbs.db
 .gitconfig-*
 extra.zsh
 .aider*
+.commit-message.txt
