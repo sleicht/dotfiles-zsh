@@ -153,6 +153,5 @@ cask "font-liberation-nerd-font" if OS.mac?
 
 # Mac App Store
 # mas "Barbee", id: 1548711022
-mas "Microsoft Remote Desktop", id: 1295203466
 mas "Racompass", id: 1538380685
 mas "Xcode", id: 497799835
