@@ -38,7 +38,8 @@
   "enabledPlugins": {
     "code-review@claude-code-plugins": true,
     "plugin-dev@claude-code-plugins": true,
-    "git-conventional-commits@dotfiles-marketplace": true
+    "git-conventional-commits@dotfiles-marketplace": true,
+    "typescript-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true
 }
