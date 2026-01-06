@@ -10,7 +10,7 @@ This command will analyze the specified commit, create an improved commit messag
 
 This command analyzes git commits and generates improved commit messages following the Conventional Commits specification. See the "Execution Instructions" section below for detailed steps.
 
-The message should not be too long and have maximum 10 bullet points.
+The message should be concise and focus on business value, not implementation details.
 
 For the complete Conventional Commits specification, see: `${CLAUDE_PLUGIN_ROOT}/docs/conventional-commits-spec.md`
 
@@ -19,8 +19,11 @@ For the complete Conventional Commits specification, see: `${CLAUDE_PLUGIN_ROOT}
 1. Commits MUST be prefixed with the Jira ticket number (e.g., MLE-999 or TE-222)
 2. Commits MUST follow Conventional Commits format: `<jira-ticket>: <type>[optional scope]: <description>`
 3. Types include: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
-4. Maximum 10 bullet points in the body
+4. Maximum 10 bullet points in the body (prefer 2-3 high-level points)
 5. Breaking changes MUST be indicated with an exclamation mark (!) after type/scope OR as BREAKING CHANGE: in footer
+6. Focus on WHY and business value, not HOW (implementation details are in the diff)
+7. Avoid listing low-level code changes (e.g., "add method X", "update function Y")
+8. Keep body concise - explain the problem solved and user impact
 
 ## Execution Instructions
 
@@ -53,7 +56,11 @@ You MUST follow these steps using ONLY the MCP tools:
    - Includes the Jira ticket prefix (MLE-999 or TE-222)
    - Uses appropriate type (feat, fix, docs, etc.)
    - Provides concise description in imperative mood
-   - Includes body with max 10 bullet points if needed
+   - **Body should focus on WHY, not WHAT**:
+     - Explain the business reason or problem being solved
+     - Describe user impact or benefit
+     - Avoid listing implementation details visible in the diff
+     - Prefer 2-3 high-level bullet points over detailed lists
    - Maintains consistency with the project's commit style
 
 5. **Write to File**: Use the **Write tool** to save the commit message:
@@ -172,13 +179,11 @@ The command will write the commit message to `.commit-message.txt` and inform th
 ```
 MLE-999: feat(auth): add JWT token validation
 
-Implement token expiry checking and signature verification to enhance
-authentication security.
+Enhance authentication security to prevent unauthorized access from
+expired or tampered tokens.
 
-- Add token expiry validation middleware
-- Implement signature verification using RS256
-- Add comprehensive error handling for invalid tokens
-- Update tests to cover new validation logic
+- Validates token expiry and signature using RS256
+- Adds comprehensive error handling for edge cases
 ```
 
 **Console Output:**

@@ -10,7 +10,7 @@ This command will analyze the specified commit, create an improved commit messag
 
 This command analyzes a commit, creates an improved message following Conventional Commits specification, and rewrites the commit message in git history. See "Execution Instructions" below for detailed steps.
 
-The message should not be too long and have maximum 10 bullet points.
+The message should be concise and focus on business value, not implementation details.
 
 For the complete Conventional Commits specification, see: `${CLAUDE_PLUGIN_ROOT}/docs/conventional-commits-spec.md`
 
@@ -19,8 +19,11 @@ For the complete Conventional Commits specification, see: `${CLAUDE_PLUGIN_ROOT}
 1. Commits MUST be prefixed with the Jira ticket number (e.g., MLE-999 or TE-222)
 2. Commits MUST follow Conventional Commits format: `<jira-ticket>: <type>[optional scope]: <description>`
 3. Types include: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
-4. Maximum 10 bullet points in the body
+4. Maximum 10 bullet points in the body (prefer 2-3 high-level points)
 5. Breaking changes MUST be indicated with an exclamation mark (!) after type/scope OR as BREAKING CHANGE: in footer
+6. Focus on WHY and business value, not HOW (implementation details are in the diff)
+7. Avoid listing low-level code changes (e.g., "add method X", "update function Y")
+8. Keep body concise - explain the problem solved and user impact
 
 ## Execution Instructions
 
@@ -31,24 +34,26 @@ After analyzing the commit and creating an improved message following the specif
 Use **`mcp__git__git_set_working_dir`**:
 - Pass `path: "."`
 - Pass `includeMetadata: true`
-- This validates the git repository, sets the session working directory, and returns repository metadata
+- This validates the git repository and sets the session working directory
+- Returns repository metadata (current branch, status, recent commits)
 
 ### 2. Analyze the Commit
 
-Use MCP git tools to understand the commit (path parameter omitted - uses session working directory):
-
-- **`mcp__git__git_show`** with the commit reference to examine:
-  - The commit metadata (author, date, hash)
-  - The full diff of changes
-  - The current commit message (to improve upon)
+Use **`mcp__git__git_show`** with the commit reference:
+- Pass `object: $ARGUMENTS` parameter
+- Do NOT pass `path` parameter (uses session working directory)
+- Examines commit metadata (author, date, hash)
+- Shows the full diff of changes
+- Displays the current commit message
 
 ### 3. Understand Context
 
-- **`mcp__git__git_log`**: Review recent commits (path parameter omitted):
-  - Pass `maxCount: 10` to limit results
-  - Understand commit message style and patterns
-  - Ensure consistency with repository conventions
-  - See the commit history context
+Use **`mcp__git__git_log`**:
+- Pass `maxCount: 10` to limit results
+- Do NOT pass `path` parameter (uses session working directory)
+- Review recent commit messages for style consistency
+- Understand the project's commit message patterns
+- Ensure new message fits repository conventions
 
 ### 4. Get Target Commit Hash
 
@@ -67,8 +72,12 @@ Create an improved commit message that:
 - Includes the Jira ticket prefix (MLE-999 or TE-222)
 - Uses appropriate type (feat, fix, docs, etc.)
 - Provides concise description in imperative mood
-- Includes body with max 10 bullet points if needed
-- Maintains consistency with repository style
+- **Body should focus on WHY, not WHAT**:
+  - Explain the business reason or problem being solved
+  - Describe user impact or benefit
+  - Avoid listing implementation details visible in the diff
+  - Prefer 2-3 high-level bullet points over detailed lists
+- Maintains consistency with the project's commit style
 
 ### 6. Determine Commit Range
 

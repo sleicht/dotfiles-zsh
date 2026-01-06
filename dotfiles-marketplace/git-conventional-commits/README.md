@@ -15,7 +15,8 @@ All commands enforce:
 - Jira ticket prefixes (e.g., MLE-999, TE-222)
 - Conventional Commits specification
 - Consistent commit message style
-- Maximum 10 bullet points in commit body
+- Focus on business value and "WHY" over implementation details
+- Concise messages (prefer 2-3 high-level bullet points)
 
 ## Installation
 
@@ -59,19 +60,17 @@ Analyses a commit and generates an improved commit message following Conventiona
 ```
 
 **Output:**
-Displays the improved commit message without modifying git history.
+Writes the improved commit message to `.commit-message.txt` without modifying git history.
 
 **Example Output:**
 ```
 MLE-999: feat(auth): add JWT token validation
 
-Implement token expiry checking and signature verification to enhance
-authentication security.
+Enhance authentication security to prevent unauthorized access from
+expired or tampered tokens.
 
-- Add token expiry validation middleware
-- Implement signature verification using RS256
-- Add comprehensive error handling for invalid tokens
-- Update tests to cover new validation logic
+- Validates token expiry and signature using RS256
+- Adds comprehensive error handling for edge cases
 ```
 
 ### `/rewrite_commit_message`
@@ -104,7 +103,7 @@ Generates a comprehensive merge request title and description, writing it to `ME
 **Output:**
 Creates `MERGE_REQUEST.md` with:
 - Title following Jira ticket convention
-- Summary of changes
+- Summary focused on business value and user impact
 - Test plan
 - Checklist
 
@@ -124,7 +123,7 @@ Generates merge request description, pushes changes, and creates a GitLab merge 
 
 **Output:**
 - Creates and pushes branch to remote
-- Generates comprehensive MR description
+- Generates comprehensive MR description focused on business value
 - Creates merge request in GitLab
 - Opens MR in browser
 - Returns MR number and URL

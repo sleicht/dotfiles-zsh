@@ -53,7 +53,11 @@ Use `Read` tool to:
 
 Create comprehensive content including:
 - **Title**: `<TICKET>: <type>: <concise description>` (e.g., "MLE-999: feat: add user authentication")
-- **Summary**: Bullet points explaining the changes
+- **Summary**: Bullet points focused on WHY:
+  - Explain the business reason or problem being solved
+  - Describe user impact or benefit
+  - Avoid listing low-level implementation details
+  - Keep summary concise and focused on value
 - **Test Plan**: Step-by-step testing instructions
 - **Checklist**: Tasks for reviewers
 
@@ -127,6 +131,30 @@ The argument can be:
 - `<branch-name>` - Compare against branch
 - `<commit-hash>` - Specific commit
 - `<ref1>..<ref2>` - Range of commits
+
+## Output Format
+
+The `MERGE_REQUEST.md` file should contain:
+
+```markdown
+# <TICKET>: <type>: <title>
+
+## Summary
+- Business reason or problem being solved
+- User impact and benefits
+- High-level approach (avoid implementation details)
+
+## Test Plan
+- Step-by-step testing instructions
+- Expected outcomes
+- Edge cases to verify
+
+## Checklist
+- [ ] Tests added/updated
+- [ ] Documentation updated
+- [ ] No breaking changes (or documented)
+- [ ] Code reviewed
+```
 
 ## Usage Examples
 
