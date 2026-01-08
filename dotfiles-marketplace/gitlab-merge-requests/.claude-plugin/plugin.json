@@ -1,11 +1,9 @@
 {
   "name": "gitlab-merge-requests",
-  "displayName": "GitLab Merge Requests",
   "version": "1.0.0",
   "description": "Create GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy",
-  "author": "Stephan Leicht Vogt",
-  "tags": ["gitlab", "merge-request", "glab", "conventional-commits"],
-  "dependencies": {
-    "external": ["glab"]
-  }
+  "author": {
+    "name": "Stephan Leicht Vogt"
+  },
+  "keywords": ["gitlab", "merge-request", "glab", "conventional-commits"]
 }

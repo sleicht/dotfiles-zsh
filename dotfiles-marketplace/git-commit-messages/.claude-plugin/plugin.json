@@ -1,8 +1,9 @@
 {
   "name": "git-commit-messages",
-  "displayName": "Git Commit Messages",
   "version": "1.0.0",
   "description": "Generate and rewrite git commit messages following Conventional Commits specification with Jira ticket prefixes",
-  "author": "Stephan Leicht Vogt",
-  "tags": ["git", "commit", "conventional-commits", "jira"]
+  "author": {
+    "name": "Stephan Leicht Vogt"
+  },
+  "keywords": ["git", "commit", "conventional-commits", "jira"]
 }
