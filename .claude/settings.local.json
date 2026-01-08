@@ -3,7 +3,8 @@
     "allow": [
       "mcp__git__git_diff",
       "mcp__git__git_log",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(tree:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
