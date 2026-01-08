@@ -11,7 +11,6 @@ keybind = global:ctrl+1=toggle_quick_terminal
 macos-titlebar-style = tabs
 minimum-contrast = 1.05
 mouse-hide-while-typing = true
-keybind = shift+enter=text:\x1b\r
 macos-option-as-alt = true
 
 #theme = Dracula
