@@ -5,9 +5,14 @@
   },
   "plugins": [
     {
-      "name": "git-conventional-commits",
-      "source": "./git-conventional-commits",
-      "description": "Git commit and merge request helpers following Conventional Commits with Jira ticket prefixes"
+      "name": "git-commit-messages",
+      "source": "./git-commit-messages",
+      "description": "Generate and rewrite git commit messages following Conventional Commits specification with Jira ticket prefixes"
+    },
+    {
+      "name": "gitlab-merge-requests",
+      "source": "./gitlab-merge-requests",
+      "description": "Create GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy"
     }
   ]
 }
