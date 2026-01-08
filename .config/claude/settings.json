@@ -38,11 +38,12 @@
   "enabledPlugins": {
     "code-review@claude-code-plugins": true,
     "plugin-dev@claude-code-plugins": true,
-    "git-conventional-commits@dotfiles-marketplace": true,
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "git-commit-messages@dotfiles-marketplace": true,
+    "gitlab-merge-requests@dotfiles-marketplace": true
   },
   "alwaysThinkingEnabled": true
 }
