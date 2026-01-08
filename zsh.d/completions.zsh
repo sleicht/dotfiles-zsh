@@ -40,3 +40,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+if command -v phantom > /dev/null; then
+  eval "$(phantom completion zsh)"
+fi
