@@ -1,6 +1,6 @@
 # Git Commit Messages Plugin
 
-A Claude Code plugin that generates and rewrites git commit messages following the Conventional Commits specification with Jira ticket prefixes.
+An OpenCode plugin that generates and rewrites git commit messages following the Conventional Commits specification with Jira ticket prefixes.
 
 ## Features
 
@@ -25,23 +25,29 @@ If this plugin is part of your dotfiles setup, it should be automatically instal
 ### Manual Installation
 
 ```bash
-# Create plugins directory if it doesn't exist
-mkdir -p ~/.claude/plugins
+# Create OpenCode directories if they don't exist
+mkdir -p ~/.config/opencode/command
+mkdir -p ~/.config/opencode/skill
 
-# Clone or symlink the plugin
-ln -s /path/to/dotfiles/dotfiles-marketplace/git-commit-messages ~/.claude/plugins/git-commit-messages
+# Symlink the commands
+ln -s /path/to/dotfiles/dotfiles-marketplace/git-commit-messages/.opencode/command/commit_message.md ~/.config/opencode/command/
+ln -s /path/to/dotfiles/dotfiles-marketplace/git-commit-messages/.opencode/command/rewrite_commit_message.md ~/.config/opencode/command/
+
+# Symlink the skill
+ln -s /path/to/dotfiles/dotfiles-marketplace/git-commit-messages/.opencode/skill/conventional-commits ~/.config/opencode/skill/
 ```
 
-### Installation in Other Projects
+### Project-Level Installation
 
-To use this plugin in other projects:
+To use this plugin in a specific project:
 
 ```bash
-# Option 1: Copy the plugin directory
-cp -r /path/to/dotfiles/dotfiles-marketplace/git-commit-messages ~/.claude/plugins/
+# Create project-level OpenCode directories
+mkdir -p .opencode/command
+mkdir -p .opencode/skill
 
-# Option 2: Create a symlink (recommended)
-ln -s /path/to/dotfiles/dotfiles-marketplace/git-commit-messages ~/.claude/plugins/git-commit-messages
+# Copy or symlink the commands and skill
+cp -r /path/to/dotfiles/dotfiles-marketplace/git-commit-messages/.opencode/* .opencode/
 ```
 
 ## Commands
@@ -52,9 +58,9 @@ Analyses a commit and generates an improved commit message following Conventiona
 
 **Usage:**
 ```bash
-/commit_message HEAD          # Analyze most recent commit
-/commit_message HEAD~1        # Analyze previous commit
-/commit_message abc1234       # Analyze specific commit by hash
+/commit_message HEAD          # Analyse most recent commit
+/commit_message HEAD~1        # Analyse previous commit
+/commit_message abc1234       # Analyse specific commit by hash
 ```
 
 **Output:**
@@ -82,7 +88,7 @@ Analyses a commit, generates an improved message, and rewrites the commit messag
 /rewrite_commit_message abc1234       # Rewrite specific commit
 ```
 
-**⚠️ Warning:** This command rewrites git history!
+**Warning:** This command rewrites git history!
 - If the commit has been pushed to remote, you'll need to force-push
 - Force-pushing can affect other developers
 - Only use on commits that haven't been shared, or coordinate with your team
@@ -137,11 +143,9 @@ MLE-999: docs: correct spelling of CHANGELOG
 
 For the complete specification, see: [docs/conventional-commits-spec.md](docs/conventional-commits-spec.md)
 
-## Requirements
+## Skill: conventional-commits
 
-### MCP Git Server
-
-This plugin uses Model Context Protocol (MCP) git tools for safe and consistent git operations. Ensure the git MCP server is configured in your Claude Code settings.
+This plugin includes a skill that provides the complete Conventional Commits specification. The skill is automatically available when using the commands and can also be invoked directly for reference.
 
 ## Configuration
 
@@ -153,49 +157,47 @@ By default, the plugin expects Jira ticket prefixes matching patterns like:
 
 If your project uses different ticket prefixes, you may need to customise the command prompts.
 
-## Development
-
-### Plugin Structure
+## Plugin Structure
 
 ```
 dotfiles-marketplace/git-commit-messages/
-├── .claude-plugin/
-│   └── plugin.json                 # Plugin manifest
-├── README.md                        # This file
-├── commands/                        # Slash commands
+├── .opencode/
+│   ├── command/
+│   │   ├── commit_message.md
+│   │   └── rewrite_commit_message.md
+│   └── skill/
+│       └── conventional-commits/
+│           └── SKILL.md
+├── .claude-plugin/               # Legacy Claude Code format
+│   └── plugin.json
+├── commands/                     # Legacy Claude Code format
 │   ├── commit_message.md
 │   └── rewrite_commit_message.md
-└── docs/                            # Documentation
-    └── conventional-commits-spec.md
+├── docs/
+│   └── conventional-commits-spec.md
+└── README.md
 ```
-
-### Updating Commands
-
-To modify a command:
-1. Edit the corresponding `.md` file in `commands/`
-2. Commands use YAML frontmatter for configuration (allowed-tools, description)
-3. Use `${CLAUDE_PLUGIN_ROOT}` to reference plugin resources
 
 ## Troubleshooting
 
 ### Commands not appearing
 
-1. Verify plugin is installed in `~/.claude/plugins/`
-2. Check that `plugin.json` is valid JSON
-3. Restart Claude Code if necessary
+1. Verify commands are in `~/.config/opencode/command/` (global) or `.opencode/command/` (project)
+2. Check that the markdown files have valid frontmatter
+3. Restart OpenCode if necessary
 
-### MCP git tools not working
+### Skill not loading
 
-1. Ensure git MCP server is configured in Claude Code settings
-2. Verify you're in a git repository
-3. Check that you have appropriate git permissions
+1. Verify skill is in `~/.config/opencode/skill/conventional-commits/` (global) or `.opencode/skill/conventional-commits/` (project)
+2. Check that `SKILL.md` exists and has valid frontmatter
+3. Skill name must match directory name (lowercase, hyphenated)
 
 ## Related Plugins
 
 For GitLab merge request functionality, see the companion plugin:
 - **@dotfiles-marketplace/gitlab-merge-requests** - Create GitLab merge requests following Conventional Commits philosophy
 
-## License
+## Licence
 
 This plugin is part of the dotfiles repository and follows the same licence.
 
