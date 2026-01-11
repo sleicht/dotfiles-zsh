@@ -1,0 +1,149 @@
+---
+description: Rewrite git commit message in history following Conventional Commits
+---
+
+# Rewrite Git Commit Message Command
+
+This command analyses the specified commit, creates an improved commit message following Conventional Commits specification, and then rewrites the commit message in git history using git filter-branch.
+
+## Overview
+
+This command analyses a commit, creates an improved message following Conventional Commits specification, and rewrites the commit message in git history. The message should be concise and focus on business value, not implementation details.
+
+Load the `conventional-commits` skill for the complete specification.
+
+## Key Requirements
+
+1. Commits MUST be prefixed with the Jira ticket number (e.g., MLE-999 or TE-222)
+2. Commits MUST follow Conventional Commits format: `<jira-ticket>: <type>[optional scope]: <description>`
+3. Types include: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+4. Maximum 10 bullet points in the body (prefer 2-3 high-level points)
+5. Breaking changes MUST be indicated with an exclamation mark (!) after type/scope OR as BREAKING CHANGE: in footer
+6. Focus on WHY and business value, not HOW (implementation details are in the diff)
+7. Avoid listing low-level code changes (e.g., "add method X", "update function Y")
+8. Keep body concise - explain the problem solved and user impact
+
+## Execution Instructions
+
+You MUST follow these steps:
+
+### 1. Analyse the Commit
+
+Use `git show` with the commit reference:
+- Examine commit metadata (author, date, hash)
+- View the full diff of changes
+- Display the current commit message
+
+### 2. Understand Context
+
+Use `git log`:
+- Review recent commit messages for style consistency
+- Understand the project's commit message patterns
+- Ensure new message fits repository conventions
+
+### 3. Get Target Commit Hash
+
+Use `git rev-parse`:
+
+```bash
+git rev-parse <commit-ref>
+```
+
+This resolves the reference (HEAD, HEAD~1, etc.) to the actual commit hash needed for filter-branch.
+
+### 4. Generate Improved Message
+
+Create an improved commit message that:
+- Follows the Conventional Commits specification exactly
+- Includes the Jira ticket prefix (MLE-999 or TE-222)
+- Uses appropriate type (feat, fix, docs, etc.)
+- Provides concise description in imperative mood
+- **Body should focus on WHY, not WHAT**:
+  - Explain the business reason or problem being solved
+  - Describe user impact or benefit
+  - Avoid listing implementation details visible in the diff
+  - Prefer 2-3 high-level bullet points over detailed lists
+- Maintains consistency with the project's commit style
+
+### 5. Determine Commit Range
+
+Calculate the appropriate range for filter-branch based on the commit reference:
+
+**Examples of commit references and ranges:**
+- `HEAD`: Most recent commit -> Range: `HEAD~1..HEAD`
+- `HEAD~1`: One commit back -> Range: `HEAD~2..HEAD~1`
+- `HEAD~2`: Two commits back -> Range: `HEAD~3..HEAD~2`
+- `<commit-hash>`: Specific commit -> Range determined by position from HEAD
+
+### 6. Rewrite the Commit Message
+
+Use `git filter-branch`:
+
+```bash
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter 'if [ "$GIT_COMMIT" = "<TARGET_COMMIT_HASH>" ]; then echo "<NEW_MESSAGE>"; else cat; fi' <RANGE>
+```
+
+**Important Notes:**
+- Always use `FILTER_BRANCH_SQUELCH_WARNING=1` to suppress warnings
+- Use `-f` flag to force overwrite refs
+- The range should start one commit before the target and end at HEAD
+- Multi-line commit messages require proper shell escaping (use `echo -e` or heredoc)
+
+**For multi-line messages, use this pattern:**
+```bash
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter 'if [ "$GIT_COMMIT" = "<TARGET_COMMIT_HASH>" ]; then cat <<EOF
+<line 1>
+<line 2>
+<line 3>
+EOF
+else cat; fi' <RANGE>
+```
+
+### 7. Verify the Change
+
+Use `git log` or `git show` to:
+- Confirm the commit message was updated successfully
+- Show the new message to verify correctness
+- Check that only the intended commit was modified
+
+### 8. Report Results
+
+Show the user:
+- The old commit message
+- The new commit message
+- Confirmation of successful rewrite
+- Warning about force-push if already pushed to remote
+
+## Input Format
+
+The commit reference can be:
+- `HEAD` - Most recent commit
+- `HEAD~1`, `HEAD~2` - Previous commits
+- `<commit-hash>` - Specific commit by hash
+- `<branch-name>` - Latest commit on a branch
+
+## Usage Examples
+
+**Example 1: Rewrite most recent commit**
+```
+/rewrite_commit_message HEAD
+```
+
+**Example 2: Rewrite specific commit**
+```
+/rewrite_commit_message abc1234
+```
+
+**Example 3: Rewrite commit from two commits back**
+```
+/rewrite_commit_message HEAD~2
+```
+
+## Important Warnings
+
+**This command rewrites git history!**
+- If the commit has been pushed to remote, you'll need to force-push
+- Force-pushing can affect other developers working on the same branch
+- Only use on commits that haven't been shared, or coordinate with your team
+
+Here is the commit reference: $ARGUMENTS
