@@ -121,11 +121,14 @@
   },
   "enabledPlugins": {
     "code-review@claude-code-plugins": true,
-    "plugin-dev@claude-code-plugins": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "firebase@claude-plugins-official": true,
+    "gitlab@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
+    "plugin-dev@claude-code-plugins": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
     "git-commit-messages@dotfiles-marketplace": true,
     "gitlab-merge-requests@dotfiles-marketplace": true
   },
