@@ -1,16 +1,19 @@
 {
   "permissions": {
     "allow": [
-      "mcp__git__git_diff",
-      "mcp__git__git_log",
       "Bash(cat:*)",
-      "Bash(tree:*)",
-      "WebFetch(domain:nikitabobko.github.io)",
       "Bash(du:*)",
-      "Bash(wc:*)",
-      "Bash(head:*)",
       "Bash(file:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(head:*)",
+      "Bash(opencode --version:*)",
+      "Bash(opencode models:*)",
+      "Bash(tree:*)",
+      "Bash(wc:*)",
+      "WebFetch(domain:nikitabobko.github.io)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "mcp__git__git_diff",
+      "mcp__git__git_log"
     ]
   },
   "enableAllProjectMcpServers": true,
