@@ -5,9 +5,9 @@
   #  Install all apps and packages here.
   #
   #  NOTE: Your can find all available options in:
-  #    https://daiderd.com/nix-darwin/manual/index.html
+  #    https://nix-darwin.github.io/nix-darwin/manual/index.html
   #
-  # TODO Fell free to modify this file to fit your needs.
+  # TODO Feel free to modify this file to fit your needs.
   #
   ##########################################################################
 
@@ -36,9 +36,8 @@
     fd
     findutils # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
     firebase-tools
-    fzf # Command-line fuzzy finder written in Go
+    fzf # Command-line fuzzy finder written in Go (includes built-in zsh integration)
     fzf-git-sh
-    fzf-zsh
     zsh-fzf-tab
     zsh-forgit
     zsh-fzf-history-search
@@ -141,31 +140,30 @@
       "ast-grep"
       "atuin"
       "bats-core"
-      "curl" # no not install curl via nixpkgs, it's not working well on macOS!
       "coreutils" # GNU File, Shell, and Text utilities
+      "curl" # no not install curl via nixpkgs, it's not working well on macOS!
+      "gmp"
       "gnupg" # GNU Pretty Good Privacy (PGP) package
       "libyaml"
-      "gmp"
       "mas"
       "mise"
-      "rust"
+      "qemu"
+      "qqqa"
       "rbenv"
-      "yabai"
-      ### Install font tools.
-      "sfnt2woff"
+      "rust"
+      "sfnt2woff" ### Install font tools.
       "sfnt2woff-zopfli"
       "tailscale"
       "woff2"
-      "qemu"
-      "qqqa"
+      "yabai"
       "zmx"
     ];
 
     # `brew install --cask`
     #
     casks = [
-      "aerospace"
       "adobe-digital-editions"
+      "aerospace"
       "anytype"
       "arc"
       "balenaetcher"
@@ -181,39 +179,24 @@
       "devtoys"
       "finicky"
       "fman"
+      "gcloud-cli"
       "ghostty"
       "git-credential-manager"
       "gitbutler"
       "glide-browser"
-      "google-chrome"
-      "gcloud-cli"
-      "google-drive"
-      "google-earth-pro"
       "istat-menus"
-      "iterm2"
       "istherenet"
       "jaikoz"
       "jetbrains-toolbox"
       "karabiner-elements"
-      "kdrive"
-      "kobo"
       "lens"
       "logi-options+"
-      "logseq"
       "mouseless@preview"
       "ngrok"
-      "nvidia-geforce-now"
       "ollama-app"
       "ollamac"
-      "onlyoffice"
-      "orbstack"
       "opencode-desktop"
-      "path-finder"
-      "protonvpn"
-      "raindropio"
       "raycast"
-      "readdle-spark"
-      "roon"
       "slack"
       "stats"
       "steam"
@@ -222,14 +205,9 @@
       "tabby"
       "the-unarchiver"
       "ticktick"
-      "tidal"
-      "ubersicht"
       "uhk-agent"
       "visualvm"
-      "vivaldi"
-      "vlc"
       "wezterm"
-      "xld"
       "zen"
 
       # Fanaka
@@ -242,13 +220,23 @@
       "fantastical"
       "google-chrome"
       "google-drive"
+      "google-earth-pro"
       "kdrive"
+      "kobo"
       "logseq"
-      "roon"
+      "nvidia-geforce-now"
+      "onlyoffice"
+      "orbstack"
+      "path-finder"
+      "raindropio"
       "readdle-spark"
+      "roon"
       "tidal"
-      "xld"
+      "ubersicht"
       "virtualbox"
+      "vivaldi"
+      "vlc"
+      "xld"
     ];
   };
 }
