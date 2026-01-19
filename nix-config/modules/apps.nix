@@ -138,6 +138,7 @@
     # `brew install`
     brews = [
       "archey4"
+      "ast-grep"
       "atuin"
       "bats-core"
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
