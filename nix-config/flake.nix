@@ -57,6 +57,7 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
+        ./modules/apps-fanaka.nix
 
         ./modules/host-users.nix
 

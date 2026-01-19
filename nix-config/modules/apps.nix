@@ -115,14 +115,6 @@
       "Microsoft Remote Desktop" = 1295203466;
       "Racompass" = 1538380685;
       "Xcode" = 497799835;
-
-      # Fanaka
-      "iFinance 5" = 1500241909;
-      "kChat" = 6443845553;
-      "LilyView" = 529490330;
-      "MacFamilyTree 10" = 1567970985;
-      "Tailscale" = 1475387142;
-      "WhatsApp" = 310633997;
     };
 
     taps = [
@@ -209,34 +201,6 @@
       "visualvm"
       "wezterm"
       "zen"
-
-      # Fanaka
-      "affinity-designer"
-      "affinity-photo"
-      "affinity-publisher"
-      "cleanmymac"
-      "daisydisk"
-      "dropbox"
-      "fantastical"
-      "google-chrome"
-      "google-drive"
-      "google-earth-pro"
-      "kdrive"
-      "kobo"
-      "logseq"
-      "nvidia-geforce-now"
-      "onlyoffice"
-      "orbstack"
-      "path-finder"
-      "raindropio"
-      "readdle-spark"
-      "roon"
-      "tidal"
-      "ubersicht"
-      "virtualbox"
-      "vivaldi"
-      "vlc"
-      "xld"
     ];
   };
 }
