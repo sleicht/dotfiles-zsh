@@ -13,7 +13,11 @@
       "WebFetch(domain:nikitabobko.github.io)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "mcp__git__git_diff",
-      "mcp__git__git_log"
+      "mcp__git__git_log",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "WebFetch(domain:discourse.nixos.org)",
+      "Bash(nix search:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
