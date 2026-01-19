@@ -13,15 +13,17 @@
 
   # Install packages from nix's official package repository.
   #
-  # The packages installed here are available to all users, and are reproducible across machines, and are rollbackable.
-  # But on macOS, it's less stable than homebrew.
-  #
-  # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
+  # Packages here are reproducible, rollbackable, and available to all users.
+  # For GUI apps, we use Homebrew casks which handle macOS app bundles better
+  # and have a larger selection of macOS-specific applications.
   environment.systemPackages = with pkgs; [
     ack
     argocd
+    ast-grep # Fast and polyglot tool for code searching, linting, rewriting
+    atuin # Shell history sync with optional encryption
     bashInteractive
     bat # Clone of cat(1) with syntax highlighting and Git integration
+    bats # Bash Automated Testing System
     bat-extras.prettybat
     bat-extras.batdiff
     bat-extras.batpipe
@@ -59,6 +61,7 @@
     lsd # Clone of ls with colorful output, file type icons, and more
     mas # Mac App Store command-line interface
     mackup
+    mise # Runtime version manager (formerly rtx)
     moreutils # Install some other useful utilities like `sponge`.
     nano
     nanorc
@@ -74,6 +77,7 @@
     peco
     pinentry_mac
     podman
+    qemu # Machine emulator and virtualizer
     ripgrep
     screen
     sheldon # Fast, configurable, shell plugin manager
@@ -83,6 +87,7 @@
     tree # Display directories as trees (with optional color/HTML output)
     trivy
     wget
+    woff2 # Webfont compression
     zoxide
     zsh # UNIX shell (command interpreter)
     zsh-abbr # Auto-expanding abbreviations manager for zsh, inspired by fish
@@ -127,27 +132,20 @@
     ];
 
     # `brew install`
+    # Packages here either aren't in nixpkgs, need better macOS integration,
+    # or have specific reasons to use brew (noted in comments).
     brews = [
       "archey4"
-      "ast-grep"
-      "atuin"
-      "bats-core"
       "coreutils" # GNU File, Shell, and Text utilities
-      "curl" # no not install curl via nixpkgs, it's not working well on macOS!
-      "gmp"
-      "gnupg" # GNU Pretty Good Privacy (PGP) package
-      "libyaml"
-      "mas"
-      "mise"
-      "qemu"
+      "curl" # Do not install curl via nixpkgs, it's not working well on macOS!
+      "gnupg" # GNU Pretty Good Privacy (PGP) - better macOS keychain integration
       "qqqa"
       "rbenv"
-      "rust"
-      "sfnt2woff" ### Install font tools.
+      "rust" # Better toolchain management via rustup
+      "sfnt2woff" # Font tools
       "sfnt2woff-zopfli"
-      "tailscale"
-      "woff2"
-      "yabai"
+      "tailscale" # Better macOS daemon integration via brew
+      "yabai" # Needs brew for SIP-related features
       "zmx"
     ];
 
