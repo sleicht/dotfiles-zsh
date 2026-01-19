@@ -206,6 +206,7 @@
       "ollamac"
       "onlyoffice"
       "orbstack"
+      "opencode-desktop"
       "path-finder"
       "protonvpn"
       "raindropio"
