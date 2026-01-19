@@ -37,7 +37,6 @@
     eza
     fd
     findutils # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
-    firebase-tools
     fzf # Command-line fuzzy finder written in Go (includes built-in zsh integration)
     fzf-git-sh
     zsh-fzf-tab
@@ -138,6 +137,7 @@
       "archey4"
       "coreutils" # GNU File, Shell, and Text utilities
       "curl" # Do not install curl via nixpkgs, it's not working well on macOS!
+      "firebase-cli" # Firebase CLI - better Node.js compatibility via Homebrew
       "gnupg" # GNU Pretty Good Privacy (PGP) - better macOS keychain integration
       "qqqa"
       "rbenv"
