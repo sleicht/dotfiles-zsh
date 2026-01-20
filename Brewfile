@@ -10,6 +10,7 @@ tap "vet-run/vet"
 
 brew "ack"
 brew "archey4"
+brew "ast-grep"
 brew "argocd"
 brew "asdf"
 brew "atuin"
@@ -125,7 +126,7 @@ cask "istat-menus" if OS.mac?
 cask "jetbrains-toolbox" if OS.mac?
 cask "jordanbaird-ice" if OS.mac?
 cask "karabiner-elements" if OS.mac?
-cask "logi-options-plus" if OS.mac?
+cask "logi-options+" if OS.mac?
 cask "raindropio" if OS.mac?
 cask "raycast" if OS.mac?
 cask "slack" if OS.mac?

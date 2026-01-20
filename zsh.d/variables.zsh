@@ -129,7 +129,7 @@ export MANPAGER='less -X'
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# Hide the “default interactive shell is now zsh” warning on macOS.
+# Hide the "default interactive shell is now zsh" warning on macOS.
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Erlang and Elixir shell history:
