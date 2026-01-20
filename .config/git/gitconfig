@@ -208,3 +208,4 @@
 [phantom]
 	editor = idea
 	ai = claude --ide
+	worktreesDirectory = ../
