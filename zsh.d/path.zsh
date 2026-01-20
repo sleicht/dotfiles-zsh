@@ -34,3 +34,6 @@ add_to_path "$HOME/.bin"
 add_to_path "$HOME/.local/.bin"
 add_to_path "$HOME/.cargo/bin"
 add_to_path "$HOME/.rd/bin"
+
+# opencode
+add_to_path "$HOME/.opencode/bin"
