@@ -3,24 +3,37 @@
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
-      "Bash(grep:*)",
+      "Bash([ -f .commit-message.txt ])",
+      "Bash([ -f .gitlab/merge_request_templates/Feature_to_Develop.md ])",
       "Bash(awk:*)",
-      "Bash(sed:*)",
+      "Bash(cat:*)",
       "Bash(find:*)",
-      "Bash(rg:*)",
+      "Bash(grep:*)",
       "Bash(ls:*)",
+      "Bash(rg:*)",
+      "Bash(sed:*)",
+      "Bash(test:*)",
       "Bash(just compile:*)",
+      "Bash(just test:*)",
       "Bash(just unit:*)",
-      "mcp__git__git_set_working_dir",
+      "mcp__git-mcp-server__git_diff",
+      "mcp__git-mcp-server__git_log",
+      "mcp__git-mcp-server__git_set_working_dir",
+      "mcp__git-mcp-server__git_show",
       "mcp__git__git_add",
+      "mcp__git__git_branch",
       "mcp__git__git_diff",
       "mcp__git__git_log",
+      "mcp__git__git_set_working_dir",
       "mcp__git__git_show",
-      "mcp__git__git_status"
+      "mcp__git__git_status",
+      "mcp__ide__getDiagnostics",
+      "WebFetch(domain:errorprone.info)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:openapiprocessor.io)"
     ],
     "deny": [
       "Bash(git:*)",
-
       "Bash(rm -rf /:*)",
       "Bash(rm -rf /)",
       "Bash(sudo rm -rf /:*)",
@@ -30,15 +43,12 @@
       "Bash(mkfs:*)",
       "Bash(fdisk:*)",
       "Bash(parted:*)",
-
       "Bash(*:|:&*)",
       "Bash(*fork*bomb:*)",
-
       "Bash(> /dev/sda:*)",
       "Bash(> /dev/nvme:*)",
       "Bash(> /dev/sd:*)",
       "Bash(cat /dev/urandom >:*)",
-
       "Bash(* | nc -l:*)",
       "Bash(* | netcat -l:*)",
       "Bash(* | socat:*)",
@@ -48,7 +58,6 @@
       "Bash(curl * | bash:*)",
       "Bash(wget * | sh:*)",
       "Bash(wget * | bash:*)",
-
       "Bash(sudo passwd:*)",
       "Bash(passwd:*)",
       "Bash(sudo useradd:*)",
@@ -58,7 +67,6 @@
       "Bash(sudo groupdel:*)",
       "Bash(sudo adduser:*)",
       "Bash(sudo deluser:*)",
-
       "Bash(sudo chmod 777 /:*)",
       "Bash(sudo chown * /:*)",
       "Bash(sudo rm /etc/:*)",
@@ -66,11 +74,9 @@
       "Bash(sudo rm /bin/:*)",
       "Bash(sudo rm /usr/:*)",
       "Bash(sudo > /etc/:*)",
-
       "Bash(env | base64:*)",
       "Bash(printenv | base64:*)",
       "Bash(set | base64:*)",
-
       "Bash(history | grep -i password:*)",
       "Bash(history | grep -i token:*)",
       "Bash(history | grep -i secret:*)",
@@ -80,38 +86,33 @@
       "Bash(find / -name id_rsa:*)",
       "Bash(find / -name *.key:*)",
       "Bash(find / -name *.pem:*)",
-
       "Bash(shutdown:*)",
       "Bash(reboot:*)",
       "Bash(halt:*)",
       "Bash(poweroff:*)",
       "Bash(init 0:*)",
       "Bash(init 6:*)",
-
       "Bash(rm /var/log/:*)",
       "Bash(rm -rf /var/log/:*)",
       "Bash(> /var/log/:*)",
       "Bash(echo > /var/log/:*)",
       "Bash(truncate -s 0 /var/log/:*)",
-
       "Bash(chmod -R 777 /:*)",
       "Bash(chmod 777 /etc/:*)",
       "Bash(chmod 777 /bin/:*)",
       "Bash(chmod 777 /usr/:*)",
       "Bash(chown -R * /:*)",
-
       "Bash(*bitcoin-cli:*)",
       "Bash(*ethereum:*)",
       "Bash(*wallet.dat:*)",
       "Bash(*privatekey:*)",
-
       "Bash(find / -type f -delete:*)",
       "Bash(find / -type d -delete:*)",
       "Bash(rm -rf /home/:*)",
       "Bash(rm -rf /var/:*)",
       "Bash(rm -rf /opt/:*)"
     ],
-    "defaultMode": "plan"
+    "defaultMode": "default"
   },
   "enableAllProjectMcpServers": false,
   "hooks": {},
