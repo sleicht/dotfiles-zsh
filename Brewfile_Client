@@ -2,18 +2,18 @@
 tap "derailed/k9s"
 tap "jandedobbeleer/oh-my-posh"
 
-brew "pinentry-mac"
-brew "rust"
 brew "autoconf"
-brew "dive"
-brew "pre-commit"
-brew "volta"
 brew "btop"
-brew "qqqa"
 brew "derailed/k9s/k9s"
+brew "dive"
 brew "intelli-shell"
 brew "opencode"
+brew "pinentry-mac"
+brew "pre-commit"
+brew "qqqa"
 brew "rbenv"
+brew "rust"
+brew "volta"
 
 # Apps
 cask "apache-directory-studio" if OS.mac?
@@ -22,6 +22,7 @@ cask "bruno" if OS.mac?
 cask "camunda-modeler" if OS.mac?
 cask "citrix-workspace" if OS.mac?
 cask "confluent-cli" if OS.mac?
+cask "dda" if OS.mac?
 cask "google-chrome@beta" if OS.mac?
 cask "gpg-suite" if OS.mac?
 cask "homerow" if OS.mac?
@@ -40,7 +41,7 @@ cask "opencode-desktop" if OS.mac?
 cask "openlens" if OS.mac?
 cask "oracle-jdk" if OS.mac?
 cask "podman-desktop" if OS.mac?
-cask "wooshy" if OS.mac?
 cask "visual-studio-code" if OS.mac?
 cask "voiceink" if OS.mac?
+cask "wooshy" if OS.mac?
 cask "yubico-authenticator" if OS.mac?
