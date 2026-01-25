@@ -48,10 +48,13 @@ Plans:
   3. User can run `chezmoi apply` and dotfiles are updated without breaking shell
   4. User has migrated core shell files (.zshrc, .zshenv, .zprofile, zsh.d/*.zsh) to chezmoi
   5. User understands new workflow (edit with `chezmoi edit`, apply changes, not direct file editing)
-**Plans**: TBD
+**Plans**: 4 plans in 3 waves
 
 Plans:
-- TBD (will be created during planning)
+- [ ] 02-01-PLAN.md - Install chezmoi and initialise source directory
+- [ ] 02-02-PLAN.md - Migrate core shell files (.zshrc, .zshenv, .zprofile, zsh.d/*)
+- [ ] 02-03-PLAN.md - Migrate git configuration files
+- [ ] 02-04-PLAN.md - Verify shell, set up git remote, update Dotbot (checkpoint)
 
 ### Phase 3: Templating & Machine Detection
 **Goal**: Enable cross-platform support and machine-specific configurations through templating
@@ -121,7 +124,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Preparation & Safety Net | 4/4 | Complete ✓ | 2026-01-25 |
-| 2. chezmoi Foundation | 0/TBD | Not started | - |
+| 2. chezmoi Foundation | 0/4 | Not started | - |
 | 3. Templating & Machine Detection | 0/TBD | Not started | - |
 | 4. Package Management Migration | 0/TBD | Not started | - |
 | 5. Tool Version Migration (mise) | 0/TBD | Not started | - |
