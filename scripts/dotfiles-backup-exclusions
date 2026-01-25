@@ -47,6 +47,15 @@ __pycache__/
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
+.tox/
+.nox/
+pip-wheel-metadata/
+# Python version managers install full interpreters + site-packages
+.python/
+.pyenv/versions/
+.local/share/mise/installs/python/
+# Catch-all for site-packages regardless of location
+**/site-packages/
 
 # Ruby
 .bundle/
