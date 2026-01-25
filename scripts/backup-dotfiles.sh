@@ -135,38 +135,93 @@ check_exclusions_file() {
   success "Exclusions file found: $pattern_count patterns"
 }
 
+# Build find exclusions from the exclusions file
+# Converts rsync patterns to find -path/-name arguments
+build_find_exclusions() {
+  local exclusions=()
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    # Skip comments and empty lines
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    [[ -z "${line// /}" ]] && continue
+
+    # Trim whitespace
+    line="${line#"${line%%[![:space:]]*}"}"
+    line="${line%"${line##*[![:space:]]}"}"
+
+    # Convert pattern to find exclusion
+    if [[ "$line" == **/* ]]; then
+      # **/pattern/ - match anywhere (already has **)
+      local pattern="${line#\*\*/}"
+      pattern="${pattern%/}"
+      exclusions+=("! -path */${pattern}/*")
+    elif [[ "$line" == *.* && "$line" != */* ]]; then
+      # *.ext or similar file pattern (no slashes)
+      exclusions+=("! -name ${line}")
+    elif [[ "$line" == */ ]]; then
+      # directory/ - match this directory anywhere
+      local dir="${line%/}"
+      if [[ "$dir" == .* ]]; then
+        # Hidden directory like .cache/ - match anywhere
+        exclusions+=("! -path */${dir}/*")
+      else
+        # Regular directory - could be at home level or nested
+        exclusions+=("! -path */${dir}/*")
+      fi
+    else
+      # Plain pattern - treat as directory or file anywhere
+      exclusions+=("! -path */${line}/*")
+      exclusions+=("! -name ${line}")
+    fi
+  done < "$EXCLUSIONS"
+
+  # Return as newline-separated for easier processing
+  printf '%s\n' "${exclusions[@]}"
+}
+
 # Scan for large files that might slow backup
 scan_large_files() {
   section "Pre-flight: Large File Scan"
 
   info "Scanning for files larger than 100MB..."
-  info "(This helps identify unexpected large files)"
+  info "(Using exclusions from $EXCLUSIONS)"
   echo ""
 
-  # Find large files, excluding obvious large directories
-  # Use a subshell to handle potential errors gracefully
+  # Build exclusion arguments from the exclusions file
+  local find_args=()
+  find_args+=("$SOURCE_DIR")
+  find_args+=(-maxdepth 5)
+  find_args+=(-type f)
+  find_args+=("-size" "+${LARGE_FILE_THRESHOLD}c")
+
+  # Read exclusions and add to find arguments
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    [[ -z "${line// /}" ]] && continue
+
+    line="${line#"${line%%[![:space:]]*}"}"
+    line="${line%"${line##*[![:space:]]}"}"
+
+    if [[ "$line" == **/* ]]; then
+      local pattern="${line#\*\*/}"
+      pattern="${pattern%/}"
+      find_args+=("!" "-path" "*/${pattern}/*")
+    elif [[ "$line" == *.* && "$line" != */* ]]; then
+      find_args+=("!" "-name" "$line")
+    elif [[ "$line" == */ ]]; then
+      local dir="${line%/}"
+      find_args+=("!" "-path" "*/${dir}/*")
+    else
+      find_args+=("!" "-path" "*/${line}/*")
+    fi
+  done < "$EXCLUSIONS"
+
+  # Also exclude .git objects (always huge)
+  find_args+=("!" "-path" "*/.git/objects/*")
+
+  # Run find with constructed arguments
   local large_files
-  large_files=$(find "$SOURCE_DIR" \
-    -maxdepth 4 \
-    -type f \
-    -size +${LARGE_FILE_THRESHOLD}c \
-    ! -path "$SOURCE_DIR/Library/*" \
-    ! -path "$SOURCE_DIR/Applications/*" \
-    ! -path "$SOURCE_DIR/Downloads/*" \
-    ! -path "$SOURCE_DIR/Movies/*" \
-    ! -path "$SOURCE_DIR/Music/*" \
-    ! -path "$SOURCE_DIR/Pictures/*" \
-    ! -path "$SOURCE_DIR/.docker/*" \
-    ! -path "$SOURCE_DIR/.orbstack/*" \
-    ! -path "$SOURCE_DIR/.cargo/*" \
-    ! -path "$SOURCE_DIR/.rustup/*" \
-    ! -path "$SOURCE_DIR/.gradle/*" \
-    ! -path "$SOURCE_DIR/.m2/*" \
-    ! -path "$SOURCE_DIR/.Trash/*" \
-    ! -path "$SOURCE_DIR/.cache/*" \
-    ! -path "*/.git/objects/*" \
-    ! -path "*/node_modules/*" \
-    2>/dev/null | head -20 || true)
+  large_files=$(find "${find_args[@]}" 2>/dev/null | head -20 || true)
 
   if [ -n "$large_files" ]; then
     echo -e "${YELLOW}Large files found (>100MB):${NC}"
