@@ -21,7 +21,7 @@ after-startup-command = [
 ]
 
 # Start AeroSpace at login
-start-at-login = true
+start-at-login = false
 
 # In i3, all workspaces are phantom
 persistent-workspaces = ["1"]
