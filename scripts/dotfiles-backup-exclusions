@@ -36,6 +36,7 @@ node_modules/
 .node-gyp/
 .yarn/cache/
 .pnpm-store/
+.local/share/pnpm/
 
 # Bun
 .bun/install/cache/
