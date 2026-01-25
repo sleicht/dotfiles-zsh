@@ -1,0 +1,154 @@
+# Dotfiles Backup Exclusions
+# ===========================
+# Used by backup-dotfiles.sh via rsync --exclude-from flag
+# Patterns follow rsync exclude syntax (directory/ matches directories only)
+#
+# Purpose: Exclude caches, temporary files, large binaries, and sensitive
+# files from the main dotfiles backup. Sensitive files (.ssh, .gnupg, etc.)
+# should be backed up via separate secure methods.
+#
+# Last updated: 2026-01-25
+
+# ============================================================================
+# Standard Caches and Temporary Files
+# ============================================================================
+
+# System caches
+.cache/
+.Trash/
+.DS_Store
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ============================================================================
+# Programming Language Caches
+# ============================================================================
+
+# Node.js
+node_modules/
+.npm/_cacache/
+.node-gyp/
+.yarn/cache/
+.pnpm-store/
+
+# Python
+*.pyc
+__pycache__/
+.venv/
+.env/
+*.egg-info/
+.eggs/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Ruby
+.bundle/
+vendor/bundle/
+
+# Rust
+.cargo/registry/
+.cargo/git/
+.rustup/
+
+# Java/Kotlin
+.gradle/
+.m2/
+.kotlin/
+
+# Go
+go/pkg/
+go/bin/
+
+# ============================================================================
+# Shell Compiled Files
+# ============================================================================
+
+# Zsh compiled files (regenerated on shell start)
+*.zwc
+*.zwc.old
+
+# ============================================================================
+# Large Binary/Data Directories
+# ============================================================================
+
+# macOS system directories (too large, not dotfiles)
+Library/
+Applications/
+Downloads/
+Movies/
+Music/
+Pictures/
+Documents/
+Desktop/
+
+# Mobile development
+.android/
+
+# Container/VM runtimes
+.docker/
+.orbstack/
+.colima/
+.lima/
+
+# Cloud/virtualization caches
+.vagrant.d/boxes/
+
+# IDE data directories
+.vscode-server/
+.idea/
+
+# ============================================================================
+# Sensitive Files (backed up separately via secure method)
+# ============================================================================
+
+# SSH keys and config
+.ssh/
+
+# GPG keys
+.gnupg/
+
+# Cloud provider credentials
+.aws/
+.gcloud/
+.azure/
+
+# Kubernetes (may contain tokens)
+.kube/
+
+# Password managers and keychains
+.password-store/
+.1password/
+
+# ============================================================================
+# Application-specific Caches
+# ============================================================================
+
+# Homebrew caches
+.homebrew/
+
+# Git (LFS cache can be large)
+.git-lfs/
+
+# Electron apps
+.electron/
+.electron-gyp/
+
+# Browsers (cache only, profiles may be wanted separately)
+.mozilla/firefox/*.default/cache2/
+.config/google-chrome/Default/Cache/
+.config/chromium/Default/Cache/
+
+# Package manager caches
+.cpan/
+.gem/cache/
+.composer/cache/
+
+# Terraform/infrastructure
+.terraform/
