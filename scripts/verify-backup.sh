@@ -33,14 +33,14 @@ fi
 
 # Critical files that MUST exist in backup
 CRITICAL_FILES=(
-  # Git configuration (symlinked to ~/.gitconfig)
-  ".config/git/gitconfig"
-  ".config/git/gitignore"
-  # Shell plugin manager (zgenom, not sheldon)
+  # Git configuration (symlinks in home directory)
+  ".gitconfig"
+  ".gitignore_global"
+  # Shell plugin manager (zgenom)
   ".config/zgenom/zgenomrc.zsh"
-  "zgenom"
+  ".zgenom"
   # Shell customisations
-  "zsh.d"
+  ".zsh.d"
   # Dotfiles repository itself
   ".dotfiles"
 )
@@ -48,7 +48,7 @@ CRITICAL_FILES=(
 # Key directories to validate
 KEY_DIRECTORIES=(
   ".config"
-  "zsh.d"
+  ".zsh.d"
 )
 
 # Counters
