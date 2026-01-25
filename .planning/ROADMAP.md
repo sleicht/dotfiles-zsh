@@ -12,7 +12,7 @@ This roadmap guides the migration from a complex multi-tool setup (Dotbot symlin
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Preparation & Safety Net** - Create backups, recovery scripts, and test environment
+- [x] **Phase 1: Preparation & Safety Net** - Create backups, recovery scripts, and test environment
 - [ ] **Phase 2: chezmoi Foundation** - Initialize chezmoi and migrate core shell configuration
 - [ ] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
 - [ ] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
@@ -33,10 +33,10 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 4 plans in 2 waves
 
 Plans:
-- [ ] 01-01-PLAN.md - Create backup infrastructure (exclusions + backup script)
-- [ ] 01-02-PLAN.md - Create recovery infrastructure (restore + verify scripts)
-- [ ] 01-03-PLAN.md - Create Linux test environment (Docker/OrbStack)
-- [ ] 01-04-PLAN.md - Execute backup and verify safety net (checkpoint)
+- [x] 01-01-PLAN.md - Create backup infrastructure (exclusions + backup script)
+- [x] 01-02-PLAN.md - Create recovery infrastructure (restore + verify scripts)
+- [x] 01-03-PLAN.md - Create Linux test environment (Docker/OrbStack)
+- [x] 01-04-PLAN.md - Execute backup and verify safety net (checkpoint)
 
 ### Phase 2: chezmoi Foundation
 **Goal**: Establish core dotfiles management with chezmoi without complexity
@@ -120,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Preparation & Safety Net | 0/4 | Ready to execute | - |
+| 1. Preparation & Safety Net | 4/4 | Complete ✓ | 2026-01-25 |
 | 2. chezmoi Foundation | 0/TBD | Not started | - |
 | 3. Templating & Machine Detection | 0/TBD | Not started | - |
 | 4. Package Management Migration | 0/TBD | Not started | - |

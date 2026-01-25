@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Preparation
 
-- [ ] **PREP-01**: Create complete backup of current dotfiles state before migration
-- [ ] **PREP-02**: Create emergency recovery scripts that restore working shell if migration breaks
-- [ ] **PREP-03**: Set up Linux test environment (Docker/VM) for cross-platform validation
+- [x] **PREP-01**: Create complete backup of current dotfiles state before migration
+- [x] **PREP-02**: Create emergency recovery scripts that restore working shell if migration breaks
+- [x] **PREP-03**: Set up Linux test environment (Docker/VM) for cross-platform validation
 
 ### chezmoi Migration
 
@@ -68,9 +68,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PREP-01 | Phase 1 | Pending |
-| PREP-02 | Phase 1 | Pending |
-| PREP-03 | Phase 1 | Pending |
+| PREP-01 | Phase 1 | Complete |
+| PREP-02 | Phase 1 | Complete |
+| PREP-03 | Phase 1 | Complete |
 | CHEM-01 | Phase 2 | Pending |
 | CHEM-02 | Phase 3 | Pending |
 | CHEM-03 | Phase 3 | Pending |
