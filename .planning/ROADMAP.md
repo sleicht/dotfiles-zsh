@@ -30,10 +30,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User can run emergency recovery script and restore working shell within 2 minutes
   3. User has working Linux test environment (Docker or VM) to validate cross-platform changes
   4. User can verify backup completeness (all critical files present and restorable)
-**Plans**: TBD
+**Plans**: 4 plans in 2 waves
 
 Plans:
-- TBD (will be created during planning)
+- [ ] 01-01-PLAN.md - Create backup infrastructure (exclusions + backup script)
+- [ ] 01-02-PLAN.md - Create recovery infrastructure (restore + verify scripts)
+- [ ] 01-03-PLAN.md - Create Linux test environment (Docker/OrbStack)
+- [ ] 01-04-PLAN.md - Execute backup and verify safety net (checkpoint)
 
 ### Phase 2: chezmoi Foundation
 **Goal**: Establish core dotfiles management with chezmoi without complexity
@@ -117,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Preparation & Safety Net | 0/TBD | Not started | - |
+| 1. Preparation & Safety Net | 0/4 | Ready to execute | - |
 | 2. chezmoi Foundation | 0/TBD | Not started | - |
 | 3. Templating & Machine Detection | 0/TBD | Not started | - |
 | 4. Package Management Migration | 0/TBD | Not started | - |
