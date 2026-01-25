@@ -13,7 +13,7 @@
 set -euo pipefail
 
 # Configuration - override with environment variables
-BACKUP_DRIVE="${BACKUP_DRIVE:-/Volumes/Backup}"
+BACKUP_DRIVE="${BACKUP_DRIVE:-/Volumes/PortableSSD/home_backup}"
 BACKUP_DIR="$BACKUP_DRIVE/dotfiles-backup"
 
 # Colours for output (disabled if not terminal)

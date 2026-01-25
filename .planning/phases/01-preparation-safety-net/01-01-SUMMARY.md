@@ -101,7 +101,7 @@ None - no external service configuration required.
 
 ## Next Phase Readiness
 - Backup infrastructure complete, ready for initial backup (01-02)
-- External drive must be mounted at `/Volumes/Backup` (or override via `BACKUP_DRIVE` env var)
+- External drive must be mounted at `/Volumes/PortableSSD/home_backup` (or override via `BACKUP_DRIVE` env var)
 - User should run `./scripts/backup-dotfiles.sh` to preview, then `./scripts/backup-dotfiles.sh --execute` for actual backup
 
 ---

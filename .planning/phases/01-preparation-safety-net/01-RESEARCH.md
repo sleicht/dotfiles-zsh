@@ -90,13 +90,13 @@ brew install --cask docker  # Traditional Docker Desktop
 rsync -av \
   --exclude-from="$HOME/.dotfiles-backup-exclusions" \
   "$HOME/." \
-  /Volumes/Backup/dotfiles-backup/
+  /Volumes/PortableSSD/home_backup/dotfiles-backup/
 
 # Step 2: Copy dereferenced symlinks separately
 rsync -avL \
   --include='.*' --exclude='*' \
   "$HOME/" \
-  /Volumes/Backup/dotfiles-backup/_symlinks_resolved/
+  /Volumes/PortableSSD/home_backup/dotfiles-backup/_symlinks_resolved/
 ```
 
 **Why this works:** `-a` includes `-l` (preserve symlinks), while `-L` dereferences them. Running both captures structure AND content.
@@ -183,7 +183,7 @@ restore_category "Git configs" "$BACKUP/.config/git" "$HOME/.config/git"
 # Source: macOS mount detection patterns
 # https://discussions.apple.com/thread/2392483
 
-BACKUP_DRIVE="/Volumes/Backup"
+BACKUP_DRIVE="/Volumes/PortableSSD/home_backup"
 
 if [ ! -d "$BACKUP_DRIVE" ]; then
   cat <<EOF
@@ -328,7 +328,7 @@ Verified patterns from official sources:
 
 set -euo pipefail  # Exit on error, undefined vars, pipe failures
 
-BACKUP_DRIVE="/Volumes/Backup"
+BACKUP_DRIVE="/Volumes/PortableSSD/home_backup"
 BACKUP_DIR="$BACKUP_DRIVE/dotfiles-backup"
 EXCLUSIONS="$HOME/.dotfiles/.dotfiles-backup-exclusions"
 DRY_RUN=true  # Start with dry run
@@ -382,7 +382,7 @@ fi
 
 set -euo pipefail
 
-BACKUP_DIR="/Volumes/Backup/dotfiles-backup"
+BACKUP_DIR="/Volumes/PortableSSD/home_backup/dotfiles-backup"
 
 # Verify backup exists
 [ ! -d "$BACKUP_DIR" ] && {

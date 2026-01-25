@@ -17,7 +17,7 @@
 set -euo pipefail
 
 # Configuration - override with environment variables
-BACKUP_DRIVE="${BACKUP_DRIVE:-/Volumes/Backup}"
+BACKUP_DRIVE="${BACKUP_DRIVE:-/Volumes/PortableSSD/home_backup}"
 BACKUP_DIR="$BACKUP_DRIVE/dotfiles-backup"
 SOURCE_DIR="$HOME"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -41,7 +41,7 @@ for arg in "$@"; do
       echo "  --help       Show this help message"
       echo ""
       echo "Environment variables:"
-      echo "  BACKUP_DRIVE   Target drive path (default: /Volumes/Backup)"
+      echo "  BACKUP_DRIVE   Target drive path (default: /Volumes/PortableSSD/home_backup)"
       exit 0
       ;;
   esac
