@@ -37,6 +37,9 @@ node_modules/
 .yarn/cache/
 .pnpm-store/
 
+# Bun
+.bun/install/cache/
+
 # Python
 *.pyc
 __pycache__/
@@ -96,6 +99,15 @@ Music/
 Pictures/
 Documents/
 Desktop/
+
+# Cloud sync directories (synced separately, often huge)
+Dropbox/
+SynologyDrive/
+kDrive/
+fanaka.space/
+Google Drive/
+OneDrive/
+iCloud Drive/
 
 # Mobile development
 .android/
