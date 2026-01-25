@@ -81,6 +81,26 @@ brew bundle
   - `.zshenv`, `.zprofile`: Environment variable setup
   - `zsh.d/*.zsh`: Modular configuration files loaded by sheldon
 
+## Git Operations
+
+**Prefer Git MCP server tools over Bash git commands.**
+
+Use MCP tools for common operations:
+- `mcp__git__git_status` instead of `git status`
+- `mcp__git__git_add` instead of `git add`
+- `mcp__git__git_commit` instead of `git commit`
+- `mcp__git__git_diff` instead of `git diff`
+- `mcp__git__git_log` instead of `git log`
+- `mcp__git__git_branch` instead of `git branch`
+- `mcp__git__git_checkout` instead of `git checkout`
+- `mcp__git__git_push` instead of `git push`
+- `mcp__git__git_pull` instead of `git pull`
+- `mcp__git__git_stash` instead of `git stash`
+- `mcp__git__git_merge` instead of `git merge`
+- `mcp__git__git_rebase` instead of `git rebase`
+
+Fall back to Bash git commands only for operations not available in the MCP server (e.g., `git submodule`, complex scripted operations).
+
 ## Guidelines for Code Changes
 
 - When modifying shell configuration, ensure changes are modular and placed in appropriate files under `zsh.d/`
