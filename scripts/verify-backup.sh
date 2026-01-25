@@ -33,11 +33,15 @@ fi
 
 # Critical files that MUST exist in backup
 CRITICAL_FILES=(
-  ".zshrc"
-  ".zshenv"
-  ".zprofile"
-  ".config/git/config"
-  ".config/sheldon/plugins.toml"
+  # Git configuration (symlinked to ~/.gitconfig)
+  ".config/git/gitconfig"
+  ".config/git/gitignore"
+  # Shell plugin manager (zgenom, not sheldon)
+  ".config/zgenom/zgenomrc.zsh"
+  "zgenom"
+  # Shell customisations
+  "zsh.d"
+  # Dotfiles repository itself
   ".dotfiles"
 )
 

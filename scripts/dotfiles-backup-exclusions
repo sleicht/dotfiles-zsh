@@ -174,3 +174,5 @@ iCloud Drive/
 
 # Terraform/infrastructure
 .terraform/
+
+tmp/
