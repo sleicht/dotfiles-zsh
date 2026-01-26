@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Preparation & Safety Net** - Create backups, recovery scripts, and test environment
 - [x] **Phase 2: chezmoi Foundation** - Initialize chezmoi and migrate core shell configuration
-- [ ] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
+- [x] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
 - [ ] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
 - [ ] **Phase 5: Tool Version Migration (mise)** - Replace asdf with mise for runtime version management
 - [ ] **Phase 6: Security & Secrets** - Implement secret management and security hardening
@@ -69,10 +69,10 @@ Plans:
 **Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 03-01-PLAN.md - Create config infrastructure (.chezmoi.yaml.tmpl + .chezmoidata.yaml)
-- [ ] 03-02-PLAN.md - Template git config for machine-specific email
-- [ ] 03-03-PLAN.md - Template shell paths for cross-platform support
-- [ ] 03-04-PLAN.md - Verify templates on Linux and complete phase (checkpoint)
+- [x] 03-01-PLAN.md - Create config infrastructure (.chezmoi.yaml.tmpl + .chezmoidata.yaml)
+- [x] 03-02-PLAN.md - Template git config for machine-specific email
+- [x] 03-03-PLAN.md - Template shell paths for cross-platform support
+- [x] 03-04-PLAN.md - Verify templates on Linux and complete phase (checkpoint)
 
 ### Phase 4: Package Management Migration
 **Goal**: Automate package installation via chezmoi and remove Nix completely
@@ -128,7 +128,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Preparation & Safety Net | 4/4 | Complete | 2026-01-25 |
 | 2. chezmoi Foundation | 4/4 | Complete | 2026-01-26 |
-| 3. Templating & Machine Detection | 0/4 | Planned | - |
+| 3. Templating & Machine Detection | 4/4 | Complete | 2026-01-26 |
 | 4. Package Management Migration | 0/TBD | Not started | - |
 | 5. Tool Version Migration (mise) | 0/TBD | Not started | - |
 | 6. Security & Secrets | 0/TBD | Not started | - |

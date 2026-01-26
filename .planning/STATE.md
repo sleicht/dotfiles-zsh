@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Cross-platform dotfiles that "just work" — one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 3: Templating & Machine Detection
+**Current focus:** Phase 4: Package Management Migration
 
 ## Current Position
 
-Phase: 3 of 6 (Templating & Machine Detection)
-Plan: 4 of 4 (complete)
-Status: Phase complete
-Last activity: 2026-01-26 — Completed 03-04-PLAN.md
+Phase: 4 of 6 (Package Management Migration)
+Plan: 0 of TBD (not yet planned)
+Status: Ready to plan
+Last activity: 2026-01-26 — Phase 3 complete
 
 Progress: [█████░░░░░] 50% (3/6 phases complete)
 
@@ -90,7 +90,7 @@ Recent decisions affecting current work:
 **Phase 3: Templating & Machine Detection** (2026-01-26)
 - Created .chezmoi.yaml.tmpl with interactive prompts for machine type and emails
 - Created .chezmoidata.yaml for static package data structure
-- Machine identity captured: personal machine, stephan.leicht@gmail.com
+- Machine identity captured: personal machine, stephan@fanaka.ch
 - OS detection working: osid=darwin on macOS, osid=linux-ubuntu on Linux
 - Created templated .gitconfig_local with machine-type-based email selection
 - Established pattern for sensitive file handling with private_ prefix (600 permissions)
@@ -110,12 +110,12 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-26 22:45:00 UTC
-Stopped at: Completed Phase 3 (03-04-PLAN.md)
+Last session: 2026-01-26
+Stopped at: Phase 3 complete, ready for Phase 4 planning
 Resume file: None
 
 ### Next Action
 
-Begin Phase 4: Package Management Data Structure
+Plan Phase 4: Package Management Migration
 
-Run: `/gsd:execute-phase 4` to start Phase 4
+Run: `/gsd:discuss-phase 4` or `/gsd:plan-phase 4`

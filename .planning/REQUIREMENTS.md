@@ -16,9 +16,9 @@ Requirements for initial release. Each maps to roadmap phases.
 ### chezmoi Migration
 
 - [x] **CHEM-01**: Initialize chezmoi and migrate all Dotbot symlinks with working shell
-- [ ] **CHEM-02**: Add OS detection templating (macOS vs Linux conditionals)
-- [ ] **CHEM-03**: Add machine-specific templating (hostname-based work vs personal detection)
-- [ ] **CHEM-04**: Template tool configurations (git, mise, sheldon, etc.)
+- [x] **CHEM-02**: Add OS detection templating (macOS vs Linux conditionals)
+- [x] **CHEM-03**: Add machine-specific templating (hostname-based work vs personal detection)
+- [x] **CHEM-04**: Template tool configurations (git, mise, sheldon, etc.)
 
 ### Package Management
 
@@ -72,9 +72,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PREP-02 | Phase 1 | Complete |
 | PREP-03 | Phase 1 | Complete |
 | CHEM-01 | Phase 2 | Complete |
-| CHEM-02 | Phase 3 | Pending |
-| CHEM-03 | Phase 3 | Pending |
-| CHEM-04 | Phase 3 | Pending |
+| CHEM-02 | Phase 3 | Complete |
+| CHEM-03 | Phase 3 | Complete |
+| CHEM-04 | Phase 3 | Complete |
 | PKGM-01 | Phase 4 | Pending |
 | PKGM-02 | Phase 4 | Pending |
 | PKGM-03 | Phase 4 | Pending |
