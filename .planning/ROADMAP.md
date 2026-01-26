@@ -66,10 +66,13 @@ Plans:
   3. User has working templates for git config, tool configs (mise, sheldon, etc.) that adapt to OS and machine
   4. User can verify templates with `chezmoi execute-template` before applying
   5. User can test configuration on Linux VM without breaking macOS setup
-**Plans**: TBD
+**Plans**: 4 plans in 3 waves
 
 Plans:
-- TBD (will be created during planning)
+- [ ] 03-01-PLAN.md - Create config infrastructure (.chezmoi.yaml.tmpl + .chezmoidata.yaml)
+- [ ] 03-02-PLAN.md - Template git config for machine-specific email
+- [ ] 03-03-PLAN.md - Template shell paths for cross-platform support
+- [ ] 03-04-PLAN.md - Verify templates on Linux and complete phase (checkpoint)
 
 ### Phase 4: Package Management Migration
 **Goal**: Automate package installation via chezmoi and remove Nix completely
@@ -123,9 +126,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Preparation & Safety Net | 4/4 | Complete ✓ | 2026-01-25 |
-| 2. chezmoi Foundation | 4/4 | Complete ✓ | 2026-01-26 |
-| 3. Templating & Machine Detection | 0/TBD | Not started | - |
+| 1. Preparation & Safety Net | 4/4 | Complete | 2026-01-25 |
+| 2. chezmoi Foundation | 4/4 | Complete | 2026-01-26 |
+| 3. Templating & Machine Detection | 0/4 | Planned | - |
 | 4. Package Management Migration | 0/TBD | Not started | - |
 | 5. Tool Version Migration (mise) | 0/TBD | Not started | - |
 | 6. Security & Secrets | 0/TBD | Not started | - |
