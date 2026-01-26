@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 ## Current Position
 
 Phase: 3 of 6 (Templating & Machine Detection)
-Plan: 2 of TBD (in progress)
+Plan: 3 of 4 (in progress)
 Status: In progress
-Last activity: 2026-01-26 — Completed 03-02-PLAN.md
+Last activity: 2026-01-26 — Completed 03-03-PLAN.md
 
-Progress: [████░░░░░░] 33% (2/6 phases complete, 2 plans in Phase 3)
+Progress: [████░░░░░░] 33% (2/6 phases complete, 3 plans in Phase 3)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 9 min
+- Total plans completed: 11
+- Average duration: 8 min
 - Total execution time: 1.5 hours
 
 **By Phase:**
@@ -29,11 +29,11 @@ Progress: [████░░░░░░] 33% (2/6 phases complete, 2 plans in 
 |-------|-------|-------|----------|
 | 01-preparation | 4 | 12 min | 3 min |
 | 02-chezmoi-foundation | 4 | 75 min | 19 min |
-| 03-templating-machine-detection | 2 | 5 min | 2.5 min |
+| 03-templating-machine-detection | 3 | 8 min | 2.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 (10min), 02-04 (25min), 03-01 (3min), 03-02 (2min)
-- Trend: Phase 3 plans are fast (templating tasks)
+- Last 5 plans: 02-04 (25min), 03-01 (3min), 03-02 (2min), 03-03 (3min)
+- Trend: Phase 3 plans are fast (templating and verification tasks)
 
 *Updated after each plan completion*
 
@@ -63,6 +63,9 @@ Recent decisions affecting current work:
 - 03-01: Always call promptString functions - chezmoi handles value provision
 - 03-02: Use private_ prefix for .gitconfig_local to set 600 permissions (contains email)
 - 03-02: Template selects email based on machine_type: work_email for client, personal_email otherwise
+- 03-03: Use {{- if eq .chezmoi.os "darwin" }} for OS-conditional path configuration
+- 03-03: Wrap macOS-specific Homebrew paths in darwin conditionals (GNU tools, Homebrew Ruby)
+- 03-03: Keep cross-platform tools unconditional (nix, rbenv, npm, pnpm, volta, cargo)
 
 ### Completed Phases
 
@@ -92,6 +95,9 @@ Recent decisions affecting current work:
 - 03-02: Created templated .gitconfig_local with machine-type-based email selection
 - 03-02: Established pattern for sensitive file handling with private_ prefix
 - 03-02: Git email automatically set based on machine type (personal email on this machine)
+- 03-03: Converted path.zsh to template with OS conditionals (completed during 03-02)
+- 03-03: macOS gets GNU tools paths, Linux will not get macOS-specific Homebrew paths
+- 03-03: Verified template renders correctly and shell starts without errors
 
 ### Pending Todos
 
@@ -103,12 +109,12 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-26 23:11:14 UTC
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-01-26 22:11:36 UTC
+Stopped at: Completed 03-03-PLAN.md
 Resume file: None
 
 ### Next Action
 
-Continue Phase 3: Execute or plan next plans in phase
+Continue Phase 3: One more plan remaining (03-04: Linux testing)
 
-Run: `/gsd:plan-phase 3` for next plan or `/gsd:execute-phase 3`
+Run: `/gsd:execute-phase 3` to complete phase
