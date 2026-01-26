@@ -24,11 +24,15 @@
 #    ~/.zshenv:
 #      path: .config/zshenv
 #      force: true
-    ~/.zsh.d:
-      path: zsh.d
-      create: true
-      stdout: true
-      stderr: true
+  # === MIGRATED TO CHEZMOI (Phase 2) ===
+  # ~/.zsh.d now managed by chezmoi
+  # See: ~/.local/share/chezmoi/dot_zsh.d/
+  #  ~/.zsh.d:
+  #    path: zsh.d
+  #    create: true
+  #    stdout: true
+  #    stderr: true
+  # === END MIGRATED ===
 
     ~/.hushlogin: .config/hushlogin
     ~/.inputrc: .config/inputrc
@@ -77,11 +81,15 @@
       path: .config/btop/btop.conf
 
   # Git:
-    ~/.gitconfig:
-      force: true
-      path: .config/git/gitconfig
-    ~/.gitignore_global: .config/git/gitignore
-    ~/.gitattributes_global: .config/git/gitattributes
+  # === MIGRATED TO CHEZMOI (Phase 2) ===
+  # Git config now managed by chezmoi
+  # See: ~/.local/share/chezmoi/dot_git*
+  #  ~/.gitconfig:
+  #    force: true
+  #    path: .config/git/gitconfig
+  #  ~/.gitignore_global: .config/git/gitignore
+  #  ~/.gitattributes_global: .config/git/gitattributes
+  # === END MIGRATED ===
 
   # Tools:
     ~/.zgenom:
