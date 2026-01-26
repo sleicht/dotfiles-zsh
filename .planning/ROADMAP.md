@@ -13,7 +13,7 @@ This roadmap guides the migration from a complex multi-tool setup (Dotbot symlin
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Preparation & Safety Net** - Create backups, recovery scripts, and test environment
-- [ ] **Phase 2: chezmoi Foundation** - Initialize chezmoi and migrate core shell configuration
+- [x] **Phase 2: chezmoi Foundation** - Initialize chezmoi and migrate core shell configuration
 - [ ] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
 - [ ] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
 - [ ] **Phase 5: Tool Version Migration (mise)** - Replace asdf with mise for runtime version management
@@ -51,10 +51,10 @@ Plans:
 **Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 02-01-PLAN.md - Install chezmoi and initialise source directory
-- [ ] 02-02-PLAN.md - Migrate core shell files (.zshrc, .zshenv, .zprofile, zsh.d/*)
-- [ ] 02-03-PLAN.md - Migrate git configuration files
-- [ ] 02-04-PLAN.md - Verify shell, set up git remote, update Dotbot (checkpoint)
+- [x] 02-01-PLAN.md - Install chezmoi and initialise source directory
+- [x] 02-02-PLAN.md - Migrate core shell files (.zshrc, .zshenv, .zprofile, zsh.d/*)
+- [x] 02-03-PLAN.md - Migrate git configuration files
+- [x] 02-04-PLAN.md - Verify shell, set up git remote, update Dotbot (checkpoint)
 
 ### Phase 3: Templating & Machine Detection
 **Goal**: Enable cross-platform support and machine-specific configurations through templating
@@ -124,7 +124,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Preparation & Safety Net | 4/4 | Complete ✓ | 2026-01-25 |
-| 2. chezmoi Foundation | 0/4 | Not started | - |
+| 2. chezmoi Foundation | 4/4 | Complete ✓ | 2026-01-26 |
 | 3. Templating & Machine Detection | 0/TBD | Not started | - |
 | 4. Package Management Migration | 0/TBD | Not started | - |
 | 5. Tool Version Migration (mise) | 0/TBD | Not started | - |
