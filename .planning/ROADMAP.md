@@ -84,10 +84,13 @@ Plans:
   3. User can verify Nix is completely removed (no nix-config/, nix-darwin, Home Manager, or Nix binaries)
   4. User can install dotfiles on fresh system and get all required packages without manual intervention
   5. User has OS-specific package installation working correctly on macOS and Linux
-**Plans**: TBD
+**Plans**: 4 plans in 3 waves
 
 Plans:
-- TBD (will be created during planning)
+- [ ] 04-01-PLAN.md — Consolidate all package lists into .chezmoidata.yaml
+- [ ] 04-02-PLAN.md — Create chezmoi run scripts (Homebrew bootstrap, install, cleanup)
+- [ ] 04-03-PLAN.md — Remove Nix from repository and prepare system removal
+- [ ] 04-04-PLAN.md — Verify package management and Nix removal (checkpoint)
 
 ### Phase 5: Tool Version Migration (mise)
 **Goal**: Replace asdf with mise for runtime version management (node, python, go, rust)
@@ -129,6 +132,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Preparation & Safety Net | 4/4 | Complete | 2026-01-25 |
 | 2. chezmoi Foundation | 4/4 | Complete | 2026-01-26 |
 | 3. Templating & Machine Detection | 4/4 | Complete | 2026-01-26 |
-| 4. Package Management Migration | 0/TBD | Not started | - |
+| 4. Package Management Migration | 0/4 | Planned | - |
 | 5. Tool Version Migration (mise) | 0/TBD | Not started | - |
 | 6. Security & Secrets | 0/TBD | Not started | - |
