@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 ## Current Position
 
 Phase: 4 of 6 (Package Management Migration)
-Plan: 0 of TBD (not yet planned)
-Status: Ready to plan
-Last activity: 2026-01-26 — Phase 3 complete
+Plan: 3 of 4 complete (04-01, 04-02, 04-03 done)
+Status: In progress — Wave 3 (verification) next
+Last activity: 2026-01-27 — Completed 04-03-PLAN.md
 
-Progress: [█████░░░░░] 50% (3/6 phases complete)
+Progress: [██████░░░░] 60% (15/25 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 8 min
-- Total execution time: 1.6 hours
+- Total plans completed: 15
+- Average duration: 7 min
+- Total execution time: 1.8 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [█████░░░░░] 50% (3/6 phases complete)
 | 01-preparation | 4 | 12 min | 3 min |
 | 02-chezmoi-foundation | 4 | 75 min | 19 min |
 | 03-templating-machine-detection | 4 | 13 min | 3.3 min |
+| 04-package-management-migration | 3 | 16 min | 5.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (3min), 03-02 (2min), 03-03 (3min), 03-04 (5min)
-- Trend: Phase 3 completed efficiently (all templating and verification tasks)
+- Last 5 plans: 03-04 (5min), 04-01 (2min), 04-02 (7min), 04-03 (7min)
+- Trend: Phase 4 progressing (package automation + Nix removal)
 
 *Updated after each plan completion*
 
@@ -68,6 +69,16 @@ Recent decisions affecting current work:
 - 03-03: Keep cross-platform tools unconditional (nix, rbenv, npm, pnpm, volta, cargo)
 - 03-04: Docker container with read-only chezmoi mount for Linux verification
 - 03-04: Templates verified working on Ubuntu 24.04 (0 macOS paths in Linux output)
+- 04-01: Structured packages as common (all machines) vs client-specific vs fanaka-specific
+- 04-01: Excluded asdf (being replaced by mise in Phase 5)
+- 04-01: Merged Nix-managed Homebrew packages from apps.nix as most up-to-date source
+- 04-01: Deduplicated CJ-Systems/homebrew-gitflow-cjs tap (case-sensitive variants)
+- 04-02: Use run_once_before_ for Homebrew bootstrap (runs once, before other scripts)
+- 04-02: Use run_onchange_after_ with SHA256 hash for package scripts (only re-run when .chezmoidata.yaml changes)
+- 04-02: Map 'personal' machine_type to fanaka package sections (else clause handles non-client machines)
+- 04-02: Log removed packages to ~/.local/state/homebrew-cleanup.log with timestamps
+- 04-03: Print Nix removal instructions rather than auto-executing root commands
+- 04-03: Remove Nix PATH from both chezmoi template and legacy dotfiles path.zsh
 
 ### Completed Phases
 
@@ -100,6 +111,22 @@ Recent decisions affecting current work:
 - User verified shell works, git email correct, chezmoi data complete
 - Requirements covered: TEMP-01, TEMP-02
 
+**Phase 4: Package Management Migration** (2026-01-27 - in progress)
+- Plan 04-01: Consolidated all packages from 5 sources into .chezmoidata.yaml
+- 171 total packages: 82 common brews, 22 common casks, 12 client brews, 28 client casks, 3 fanaka brews, 17 fanaka casks
+- 16 taps, 7 fonts, 2 common MAS apps, 8 fanaka MAS apps
+- Single source of truth for Homebrew packages replacing 3 separate Brewfiles
+- Plan 04-02: Created Homebrew automation via chezmoi run scripts
+- Four templates created: Homebrew bootstrap, Brewfile generator, package installer, package cleanup
+- One-command bootstrap achieved: `chezmoi apply` installs Homebrew + all packages
+- Change-triggered installation: scripts only re-run when .chezmoidata.yaml changes
+- Cleanup audit trail: removed packages logged to ~/.local/state/homebrew-cleanup.log
+- Plan 04-03: Removed Nix completely from repository
+- Deleted nix-config/ directory (12 files) from git
+- Cleaned Nix references from chezmoi templates (path.zsh, .zshrc)
+- Created run_once_after_remove-nix-references.sh.tmpl with safe manual removal instructions
+- Nix system state documented: daemon running, /nix volume exists, hooks in /etc/zshrc
+
 ### Pending Todos
 
 None.
@@ -110,12 +137,12 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-26
-Stopped at: Phase 3 complete, ready for Phase 4 planning
+Last session: 2026-01-27
+Stopped at: Completed 04-03-PLAN.md (Remove Nix from Repository)
 Resume file: None
 
 ### Next Action
 
-Plan Phase 4: Package Management Migration
+Continue Phase 4: Package Management Migration
 
-Run: `/gsd:discuss-phase 4` or `/gsd:plan-phase 4`
+Next plan: 04-04 (Verify Package Management — checkpoint)
