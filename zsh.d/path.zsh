@@ -12,9 +12,6 @@ add_to_path "/opt/homebrew/opt/findutils/libexec/gnubin"
 add_to_path "/opt/homebrew/opt/grep/libexec/gnubin"
 add_to_path "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
 
-# Load nix system
-add_to_path "/run/current-system/sw/bin"
-
 # Load dotfiles binaries
 add_to_path "$DOTFILES/bin"
 
