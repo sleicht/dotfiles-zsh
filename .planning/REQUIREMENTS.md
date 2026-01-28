@@ -29,8 +29,8 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Tool Version Management (mise)
 
 - [ ] **MISE-01**: Install mise, configure global settings, migrate all .tool-versions, remove asdf
-- [ ] **MISE-02**: Configure mise environment variable management (replace direnv functionality)
-- [ ] **MISE-03**: Set up mise task runner for common development tasks
+- [ ] **MISE-02**: Configure mise environment variable management (replace direnv functionality) — covered by config.toml `[env]` section in Plan 05-01
+- [ ] **MISE-03**: Set up mise task runner for common development tasks — deferred to v2 (not in scope for Phase 5)
 
 ### Security
 
@@ -42,6 +42,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
+
+### Tool Version Management (mise)
+
+- **MISE-03**: Set up mise task runner for common development tasks (deferred from Phase 5)
 
 ### Performance Optimisation
 
@@ -79,18 +83,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PKGM-02 | Phase 4 | Pending |
 | PKGM-03 | Phase 4 | Pending |
 | MISE-01 | Phase 5 | Pending |
-| MISE-02 | Phase 5 | Pending |
-| MISE-03 | Phase 5 | Pending |
+| MISE-02 | Phase 5 | Covered (config.toml [env] section) |
+| MISE-03 | v2 | Deferred |
 | SECU-01 | Phase 6 | Pending |
 | SECU-02 | Phase 6 | Pending |
 | SECU-03 | Phase 6 | Pending |
 | SECU-04 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 17 total
-- Mapped to phases: 17
+- v1 requirements: 16 total (MISE-03 moved to v2)
+- Mapped to phases: 16
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-25*
-*Last updated: 2026-01-25 after initial definition*
+*Last updated: 2026-01-29 after Phase 5 planning revision*

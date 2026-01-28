@@ -52,7 +52,12 @@ No specific requirements — open to standard approaches.
 <deferred>
 ## Deferred Ideas
 
-None — discussion stayed within phase scope.
+### MISE-03: Task runner setup (deferred to v2)
+- mise supports a `[tasks]` section for defining project tasks
+- Not discussed during phase context gathering
+- Task runner is an advanced/optional feature
+- Project Makefiles and npm scripts work fine currently
+- Revisit in v2 if task automation becomes a pain point
 
 </deferred>
 
