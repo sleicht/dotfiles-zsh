@@ -102,10 +102,14 @@ Plans:
   3. User can verify asdf is completely removed (no asdf binary, plugins, or shell initialization)
   4. User can run `mise install` in any project and get correct tool versions automatically
   5. User experiences faster tool switching (mise 10-50x faster than asdf for common operations)
-**Plans**: TBD
+**Plans**: 5 plans in 3 waves
 
 Plans:
-- TBD (will be created during planning)
+- [ ] 05-01-PLAN.md — Create chezmoi-managed mise global configuration
+- [ ] 05-02-PLAN.md — Enable mise shell integration and completions
+- [ ] 05-03-PLAN.md — Remove Homebrew runtime conflicts
+- [ ] 05-04-PLAN.md — Install all globally-defined mise tools
+- [ ] 05-05-PLAN.md — Verify complete mise migration (checkpoint)
 
 ### Phase 6: Security & Secrets
 **Goal**: Implement secure secret management and harden file permissions
@@ -132,6 +136,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Preparation & Safety Net | 4/4 | Complete | 2026-01-25 |
 | 2. chezmoi Foundation | 4/4 | Complete | 2026-01-26 |
 | 3. Templating & Machine Detection | 4/4 | Complete | 2026-01-26 |
-| 4. Package Management Migration | 0/4 | Planned | - |
-| 5. Tool Version Migration (mise) | 0/TBD | Not started | - |
+| 4. Package Management Migration | 4/4 | Complete | 2026-01-28 |
+| 5. Tool Version Migration (mise) | 0/5 | Planned | - |
 | 6. Security & Secrets | 0/TBD | Not started | - |
