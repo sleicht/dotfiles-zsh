@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Preparation & Safety Net** - Create backups, recovery scripts, and test environment
 - [x] **Phase 2: chezmoi Foundation** - Initialize chezmoi and migrate core shell configuration
 - [x] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
-- [ ] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
+- [x] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
 - [ ] **Phase 5: Tool Version Migration (mise)** - Replace asdf with mise for runtime version management
 - [ ] **Phase 6: Security & Secrets** - Implement secret management and security hardening
 
@@ -87,10 +87,10 @@ Plans:
 **Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 04-01-PLAN.md — Consolidate all package lists into .chezmoidata.yaml
-- [ ] 04-02-PLAN.md — Create chezmoi run scripts (Homebrew bootstrap, install, cleanup)
-- [ ] 04-03-PLAN.md — Remove Nix from repository and prepare system removal
-- [ ] 04-04-PLAN.md — Verify package management and Nix removal (checkpoint)
+- [x] 04-01-PLAN.md — Consolidate all package lists into .chezmoidata.yaml
+- [x] 04-02-PLAN.md — Create chezmoi run scripts (Homebrew bootstrap, install, cleanup)
+- [x] 04-03-PLAN.md — Remove Nix from repository and prepare system removal
+- [x] 04-04-PLAN.md — Verify package management and Nix removal (checkpoint)
 
 ### Phase 5: Tool Version Migration (mise)
 **Goal**: Replace asdf with mise for runtime version management (node, python, go, rust)

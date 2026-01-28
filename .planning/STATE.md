@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 
 ## Current Position
 
-Phase: 4 of 6 (Package Management Migration)
-Plan: 3 of 4 complete (04-01, 04-02, 04-03 done)
-Status: In progress — Wave 3 (verification) next
-Last activity: 2026-01-27 — Completed 04-03-PLAN.md
+Phase: 5 of 6 (Tool Version Migration)
+Plan: 0 of TBD (not yet planned)
+Status: Ready to plan
+Last activity: 2026-01-28 — Phase 4 complete
 
-Progress: [██████░░░░] 60% (15/25 plans complete)
+Progress: [██████░░░░] 64% (16/25 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
-- Average duration: 7 min
-- Total execution time: 1.8 hours
+- Total plans completed: 16
+- Average duration: 10 min
+- Total execution time: 2.6 hours
 
 **By Phase:**
 
@@ -30,11 +30,11 @@ Progress: [██████░░░░] 60% (15/25 plans complete)
 | 01-preparation | 4 | 12 min | 3 min |
 | 02-chezmoi-foundation | 4 | 75 min | 19 min |
 | 03-templating-machine-detection | 4 | 13 min | 3.3 min |
-| 04-package-management-migration | 3 | 16 min | 5.3 min |
+| 04-package-management-migration | 4 | 61 min | 15.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-04 (5min), 04-01 (2min), 04-02 (7min), 04-03 (7min)
-- Trend: Phase 4 progressing (package automation + Nix removal)
+- Last 5 plans: 04-01 (2min), 04-02 (7min), 04-03 (7min), 04-04 (45min)
+- Trend: Phase 4 complete (verification checkpoint took longer due to fixes)
 
 *Updated after each plan completion*
 
@@ -79,6 +79,10 @@ Recent decisions affecting current work:
 - 04-02: Log removed packages to ~/.local/state/homebrew-cleanup.log with timestamps
 - 04-03: Print Nix removal instructions rather than auto-executing root commands
 - 04-03: Remove Nix PATH from both chezmoi template and legacy dotfiles path.zsh
+- 04-04: Always use brew bundle --global to interact with chezmoi-managed ~/.Brewfile
+- 04-04: Run brew commands from ~ to avoid confusion with old Brewfiles in subdirectories
+- 04-04: Added mise to common_brews and made activation unconditional
+- 04-04: Fixed /opt/homebrew/share permissions for oh-my-zsh completion security
 
 ### Completed Phases
 
@@ -111,7 +115,7 @@ Recent decisions affecting current work:
 - User verified shell works, git email correct, chezmoi data complete
 - Requirements covered: TEMP-01, TEMP-02
 
-**Phase 4: Package Management Migration** (2026-01-27 - in progress)
+**Phase 4: Package Management Migration** (2026-01-27 to 2026-01-28 - complete)
 - Plan 04-01: Consolidated all packages from 5 sources into .chezmoidata.yaml
 - 171 total packages: 82 common brews, 22 common casks, 12 client brews, 28 client casks, 3 fanaka brews, 17 fanaka casks
 - 16 taps, 7 fonts, 2 common MAS apps, 8 fanaka MAS apps
@@ -126,6 +130,11 @@ Recent decisions affecting current work:
 - Cleaned Nix references from chezmoi templates (path.zsh, .zshrc)
 - Created run_once_after_remove-nix-references.sh.tmpl with safe manual removal instructions
 - Nix system state documented: daemon running, /nix volume exists, hooks in /etc/zshrc
+- Plan 04-04: Verified complete package management migration
+- brew bundle check --global passes (all 171+ packages satisfied)
+- Fixed 5 issues during verification: deprecated taps, missing packages, permissions, mise
+- Shell works correctly in new terminals
+- User approved migration complete
 
 ### Pending Todos
 
@@ -137,12 +146,12 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-27
-Stopped at: Completed 04-03-PLAN.md (Remove Nix from Repository)
+Last session: 2026-01-28
+Stopped at: Completed 04-04-PLAN.md (Verify Package Management)
 Resume file: None
 
 ### Next Action
 
-Continue Phase 4: Package Management Migration
+Continue to Phase 5: Tool Version Migration
 
-Next plan: 04-04 (Verify Package Management — checkpoint)
+Next steps: Review Phase 5 requirements and create implementation plan
