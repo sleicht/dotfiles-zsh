@@ -84,6 +84,9 @@ Recent decisions affecting current work:
 - 04-04: Added mise to common_brews and made activation unconditional
 - 04-04: Fixed /opt/homebrew/share permissions for oh-my-zsh completion security
 - 05-01: Global mise config with multi-language support (node, python, go, rust, java, ruby, terraform)
+- 05-01: Use private_dot_config prefix for ~/.config directory (correct permissions)
+- 05-01: Store tool versions in .chezmoidata.yaml for potential machine-specific overrides
+- 05-01: Enable idiomatic version files for node and python only
 - 05-02: mise activate over shims for zero runtime overhead in interactive shells
 - 05-02: run_once_after pattern for one-time completion generation
 
