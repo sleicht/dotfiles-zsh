@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Cross-platform dotfiles that "just work" — one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 4: Package Management Migration
+**Current focus:** Phase 5: Tool Version Migration
 
 ## Current Position
 
 Phase: 5 of 6 (Tool Version Migration)
-Plan: 0 of TBD (not yet planned)
-Status: Ready to plan
-Last activity: 2026-01-28 — Phase 4 complete
+Plan: 2 of 5 (shell activation complete)
+Status: Executing
+Last activity: 2026-01-29 — Completed 05-02-PLAN.md (Shell Activation)
 
-Progress: [██████░░░░] 64% (16/25 plans complete)
+Progress: [███████░░░] 72% (18/25 plans complete)
 
 ## Performance Metrics
 
@@ -83,6 +83,9 @@ Recent decisions affecting current work:
 - 04-04: Run brew commands from ~ to avoid confusion with old Brewfiles in subdirectories
 - 04-04: Added mise to common_brews and made activation unconditional
 - 04-04: Fixed /opt/homebrew/share permissions for oh-my-zsh completion security
+- 05-01: Global mise config with multi-language support (node, python, go, rust, java, ruby, terraform)
+- 05-02: mise activate over shims for zero runtime overhead in interactive shells
+- 05-02: run_once_after pattern for one-time completion generation
 
 ### Completed Phases
 
@@ -146,12 +149,12 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-28
-Stopped at: Completed 04-04-PLAN.md (Verify Package Management)
+Last session: 2026-01-29
+Stopped at: Completed 05-02-PLAN.md (Shell Activation)
 Resume file: None
 
 ### Next Action
 
-Continue to Phase 5: Tool Version Migration
+Continue to 05-03: Tool Migration
 
-Next steps: Review Phase 5 requirements and create implementation plan
+Next steps: Execute 05-03-PLAN.md to migrate tool version management to mise
