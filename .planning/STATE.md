@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 ## Current Position
 
 Phase: 5 of 6 (Tool Version Migration)
-Plan: 2 of 5 (shell activation complete)
+Plan: 4 of 5 (tool installation complete)
 Status: Executing
-Last activity: 2026-01-29 — Completed 05-02-PLAN.md (Shell Activation)
+Last activity: 2026-01-29 — Completed 05-04-PLAN.md (Tool Installation)
 
-Progress: [███████░░░] 72% (18/25 plans complete)
+Progress: [████████░░] 80% (20/25 plans complete)
 
 ## Performance Metrics
 
@@ -89,6 +89,13 @@ Recent decisions affecting current work:
 - 05-01: Enable idiomatic version files for node and python only
 - 05-02: mise activate over shims for zero runtime overhead in interactive shells
 - 05-02: run_once_after pattern for one-time completion generation
+- 05-03: Remove rbenv, rust, volta from client_brews (mise manages these)
+- 05-03: Remove rbenv, rust from fanaka_brews (mise manages these)
+- 05-03: Keep python@3.x in Homebrew as build dependencies (versioned paths don't conflict)
+- 05-03: Use run_once_after_ for cleanup scripts
+- 05-04: All 7 runtimes verified installed (node lts, python 3.12, go 1.22, rust stable, java temurin-21, ruby 3, terraform 1.9)
+- 05-04: Rust installed via rustup (mise standard approach) with binaries in ~/.cargo/bin
+- 05-04: Auto-install verified working with directory-based version switching
 
 ### Completed Phases
 
@@ -153,11 +160,11 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 05-02-PLAN.md (Shell Activation)
+Stopped at: Completed 05-04-PLAN.md (Tool Installation)
 Resume file: None
 
 ### Next Action
 
-Continue to 05-03: Tool Migration
+Continue to 05-05: Legacy Tool Cleanup
 
-Next steps: Execute 05-03-PLAN.md to migrate tool version management to mise
+Next steps: Execute 05-05-PLAN.md to remove legacy version managers (asdf, nvm, rbenv, etc.)
