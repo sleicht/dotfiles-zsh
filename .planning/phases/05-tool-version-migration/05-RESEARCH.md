@@ -81,7 +81,7 @@ node = 'lts'              # Latest LTS version
 python = ['3.11', '3.12'] # Multiple versions available
 go = '1.22'
 rust = 'stable'
-java = '21'               # LTS version
+java = '25'               # LTS version
 ruby = '3'
 terraform = '1.9'
 
@@ -303,7 +303,7 @@ node = 'lts'              # Latest LTS
 python = ['3.11', '3.12'] # Multiple versions
 go = '1.22'               # Specific minor
 rust = 'stable'           # Keyword
-java = '21'               # LTS major
+java = '25'               # LTS major
 ruby = '3'                # Prefix match (latest 3.x)
 
 [settings]
