@@ -97,41 +97,43 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PREP-01 | — | Pending |
-| PREP-02 | — | Pending |
-| PREP-03 | — | Pending |
-| BASE-01 | — | Pending |
-| BASE-02 | — | Pending |
-| BASE-03 | — | Pending |
-| BASE-04 | — | Pending |
-| CLI-01 | — | Pending |
-| CLI-02 | — | Pending |
-| CLI-03 | — | Pending |
-| CLI-04 | — | Pending |
-| TERM-01 | — | Pending |
-| TERM-02 | — | Pending |
-| TERM-03 | — | Pending |
-| WM-01 | — | Pending |
-| DEV-01 | — | Pending |
-| DEV-02 | — | Pending |
-| DEV-03 | — | Pending |
-| DEV-04 | — | Pending |
-| DEV-05 | — | Pending |
-| DEV-06 | — | Pending |
-| SEC-01 | — | Pending |
-| SEC-02 | — | Pending |
-| SHELL-01 | — | Pending |
-| CLAUDE-01 | — | Pending |
-| CLAUDE-02 | — | Pending |
-| CLEAN-01 | — | Pending |
-| CLEAN-02 | — | Pending |
-| CLEAN-03 | — | Pending |
+| PREP-01 | Phase 7 | Pending |
+| PREP-02 | Phase 7 | Pending |
+| PREP-03 | Phase 7 | Pending |
+| BASE-01 | Phase 8 | Pending |
+| BASE-02 | Phase 8 | Pending |
+| BASE-03 | Phase 8 | Pending |
+| BASE-04 | Phase 8 | Pending |
+| CLI-01 | Phase 8 | Pending |
+| CLI-02 | Phase 8 | Pending |
+| CLI-03 | Phase 8 | Pending |
+| CLI-04 | Phase 8 | Pending |
+| TERM-01 | Phase 9 | Pending |
+| TERM-02 | Phase 9 | Pending |
+| TERM-03 | Phase 9 | Pending |
+| WM-01 | Phase 8 | Pending |
+| DEV-01 | Phase 10 | Pending |
+| DEV-02 | Phase 10 | Pending |
+| DEV-03 | Phase 8 | Pending |
+| DEV-04 | Phase 8 | Pending |
+| DEV-05 | Phase 10 | Pending |
+| DEV-06 | Phase 10 | Pending |
+| SEC-01 | Phase 10 | Pending |
+| SEC-02 | Phase 8 | Pending |
+| SHELL-01 | Phase 8 | Pending |
+| CLAUDE-01 | Phase 11 | Pending |
+| CLAUDE-02 | Phase 11 | Pending |
+| CLEAN-01 | Phase 12 | Pending |
+| CLEAN-02 | Phase 12 | Pending |
+| CLEAN-03 | Phase 12 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 30 total
-- Mapped to phases: 0
-- Unmapped: 30
+- Mapped to phases: 30
+- Unmapped: 0
+
+All requirements mapped to phases 7-12. 100% coverage achieved.
 
 ---
 *Requirements defined: 2026-02-08*
-*Last updated: 2026-02-08 after initial definition*
+*Last updated: 2026-02-08 after roadmap creation*
