@@ -1,19 +1,32 @@
 {
   "permissions": {
     "allow": [
+      "Bash(brew list:*)",
+      "Bash(brew uses:*)",
       "Bash(cat:*)",
+      "Bash(chezmoi:*)",
       "Bash(du:*)",
       "Bash(file:*)",
-      "Bash(git log:*)",
       "Bash(head:*)",
+      "Bash(mise current:*)",
+      "Bash(mise doctor:*)",
+      "Bash(mise settings:*)",
+      "Bash(mise use:*)",
       "Bash(nix search:*)",
+      "Bash(node --version:*)",
+      "Bash(phantom --version:*)",
+      "Bash(source ~/.zgenom/zgenom.zsh)",
       "Bash(test:*)",
       "Bash(tree:*)",
       "Bash(wc:*)",
+      "Bash(zgenom reset:*)",
+      "WebFetch(domain:codeload.github.com)",
       "WebFetch(domain:discourse.nixos.org)",
+      "WebFetch(domain:github.com)",
       "WebFetch(domain:nikitabobko.github.io)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebSearch",
+      "mcp__git__git_commit",
       "mcp__git__git_diff",
       "mcp__git__git_log",
       "mcp__plugin_context7_context7__query-docs",
@@ -23,5 +36,9 @@
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "docker-toolkit"
-  ]
+  ],
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": false
+  }
 }

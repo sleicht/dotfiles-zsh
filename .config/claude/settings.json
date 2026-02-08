@@ -28,7 +28,6 @@
       "mcp__git__git_status"
     ],
     "deny": [
-      "Bash(git:*)",
       "Bash(rm -rf /:*)",
       "Bash(rm -rf /)",
       "Bash(sudo rm -rf /:*)",
