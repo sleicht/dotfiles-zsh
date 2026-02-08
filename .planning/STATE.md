@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Cross-platform dotfiles that "just work" — one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 5: Tool Version Migration
+**Current focus:** Phase 6: Security & Secrets
 
 ## Current Position
 
-Phase: 5 of 6 (Tool Version Migration)
-Plan: 5 of 5 (phase complete)
-Status: Phase Complete
-Last activity: 2026-02-08 — Completed 05-05-PLAN.md (Final Verification)
+Phase: 6 of 6 (Security & Secrets)
+Plan: 2 of 5 (in progress)
+Status: In Progress
+Last activity: 2026-02-08 — Completed 06-02-PLAN.md (Permission Verification)
 
-Progress: [████████░░] 84% (21/25 plans complete)
+Progress: [█████████░] 88% (22/25 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
-- Average duration: 10 min
-- Total execution time: 2.6 hours
+- Total plans completed: 22
+- Average duration: 8 min
+- Total execution time: 2.8 hours
 
 **By Phase:**
 
@@ -31,10 +31,12 @@ Progress: [████████░░] 84% (21/25 plans complete)
 | 02-chezmoi-foundation | 4 | 75 min | 19 min |
 | 03-templating-machine-detection | 4 | 13 min | 3.3 min |
 | 04-package-management-migration | 4 | 61 min | 15.3 min |
+| 05-tool-version-migration | 5 | 33 min | 6.6 min |
+| 06-security-secrets | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-01 (2min), 04-02 (7min), 04-03 (7min), 04-04 (45min)
-- Trend: Phase 4 complete (verification checkpoint took longer due to fixes)
+- Last 5 plans: 05-02 (3min), 05-03 (5min), 05-04 (21min), 05-05 (4min), 06-02 (3min)
+- Trend: Phase 5 complete, Phase 6 progressing quickly
 
 *Updated after each plan completion*
 
@@ -100,6 +102,10 @@ Recent decisions affecting current work:
 - 05-05: Fixed phantom completion error (suppress broken shebang gracefully)
 - 05-05: User updated Java from temurin-21 to temurin-25
 - 05-05: Known limitation: phantom and firebase-cli broken due to Homebrew node removal
+- 06-02: SSH config requires 600 permissions on macOS (not 644)
+- 06-02: Use run_after_ (not run_once_after_) for permission verification on every apply
+- 06-02: Permission fixes logged to ~/.local/state/chezmoi/permission-fixes.log
+- 06-02: All chezmoi source files audited - no hardcoded secrets found
 
 ### Completed Phases
 
@@ -175,6 +181,16 @@ Recent decisions affecting current work:
 - User confirmed mise working in new terminal
 - Requirements covered: All Phase 5 success criteria from ROADMAP.md
 
+**Phase 6: Security & Secrets** (2026-02-08 - in progress)
+- Plan 06-02: Created permission verification post-apply hook
+- run_after_10-verify-permissions.sh.tmpl runs on every chezmoi apply
+- Verifies and auto-fixes permissions on 13 sensitive file patterns
+- Cross-platform stat detection (macOS vs Linux)
+- Logs all fixes to ~/.local/state/chezmoi/permission-fixes.log with timestamps
+- Audited all chezmoi source files - no hardcoded secrets found
+- All sensitive files use private_ prefix correctly
+- SSH and GPG excluded from chezmoi (will be managed in Plans 03/04)
+
 ### Pending Todos
 
 None.
@@ -186,15 +202,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 05-05-PLAN.md (Final Verification) - Phase 5 Complete
-Resume file: None
+Stopped at: Completed 06-02-PLAN.md (Permission Verification)
+Resume file: .planning/phases/06-security-secrets/06-02-SUMMARY.md
 
 ### Next Action
 
-Begin Phase 6: Documentation & Cleanup
+Continue Phase 6: Security & Secrets
 
 Next steps:
-1. Update README.md with new chezmoi-based installation instructions
-2. Document Dotbot deprecation
-3. Final migration verification
-4. Clean up any remaining legacy files
+1. Plan 06-03: SSH config templating
+2. Plan 06-04: Bitwarden integration for secrets
+3. Plan 06-05: GPG key management
