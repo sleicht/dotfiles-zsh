@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
 - [x] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
 - [x] **Phase 5: Tool Version Migration (mise)** - Replace asdf with mise for runtime version management
-- [ ] **Phase 6: Security & Secrets** - Implement secret management and security hardening
+- [x] **Phase 6: Security & Secrets** - Implement secret management and security hardening
 
 ## Phase Details
 
@@ -124,11 +124,11 @@ Plans:
 **Plans**: 5 plans in 4 waves
 
 Plans:
-- [ ] 06-01-PLAN.md — Install security tools and configure leak prevention
-- [ ] 06-02-PLAN.md — Create permission verification post-apply hook
-- [ ] 06-03-PLAN.md — Configure age encryption and encrypt SSH keys
-- [ ] 06-04-PLAN.md — Integrate Bitwarden for secret templating
-- [ ] 06-05-PLAN.md — Deploy global git hooks and verify phase (checkpoint)
+- [x] 06-01-PLAN.md — Install security tools and configure leak prevention
+- [x] 06-02-PLAN.md — Create permission verification post-apply hook
+- [x] 06-03-PLAN.md — Configure age encryption and encrypt SSH keys
+- [x] 06-04-PLAN.md — Integrate Bitwarden for secret templating
+- [x] 06-05-PLAN.md — Deploy global git hooks and verify phase (checkpoint)
 
 ## Progress
 
@@ -142,4 +142,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Templating & Machine Detection | 4/4 | Complete | 2026-01-26 |
 | 4. Package Management Migration | 4/4 | Complete | 2026-01-28 |
 | 5. Tool Version Migration (mise) | 5/5 | Complete | 2026-02-08 |
-| 6. Security & Secrets | 0/5 | In progress | - |
+| 6. Security & Secrets | 5/5 | Complete | 2026-02-08 |

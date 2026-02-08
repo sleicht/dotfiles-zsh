@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Cross-platform dotfiles that "just work" — one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 6: Security & Secrets
+**Current focus:** Migration complete
 
 ## Current Position
 
 Phase: 6 of 6 (Security & Secrets)
-Plan: 5 of 5 (awaiting user verification)
-Status: Checkpoint - Human Verify
-Last activity: 2026-02-08 — Completed 06-05-PLAN.md Task 1 (Global Git Hooks)
+Plan: 5 of 5
+Status: COMPLETE - All phases finished
+Last activity: 2026-02-08 — Phase 6 verified and approved by user
 
-Progress: [██████████] 100% (25/25 plans complete, awaiting final verification)
+Progress: [██████████] 100% (25/25 plans complete)
 
 ## Performance Metrics
 
@@ -36,7 +36,7 @@ Progress: [██████████] 100% (25/25 plans complete, awaiting 
 
 **Recent Trend:**
 - Last 5 plans: 06-01 (6min), 06-02 (3min), 06-03 (3min), 06-04 (8min), 06-05 (7min)
-- Trend: Phase 6 complete (awaiting verification)
+- Trend: All phases complete
 
 *Updated after each plan completion*
 
@@ -119,6 +119,8 @@ Recent decisions affecting current work:
 - 06-05: Used executable_ prefix in chezmoi source for hook executability
 - 06-05: Warn-only on commit (exit 0), blocking on push (exit 1)
 - 06-05: Delegation to repo-local .git/hooks/{name} for pre-commit framework compatibility
+- 06-05: Removed ~/.zsh.d.private/extra.zsh that conflicted with Bitwarden-templated gitconfig_local
+- 06-05: OPENCODE env vars moved to chezmoi-managed variables.zsh
 
 ### Completed Phases
 
@@ -194,7 +196,7 @@ Recent decisions affecting current work:
 - User confirmed mise working in new terminal
 - Requirements covered: All Phase 5 success criteria from ROADMAP.md
 
-**Phase 6: Security & Secrets** (2026-02-08 - awaiting final verification)
+**Phase 6: Security & Secrets** (2026-02-08 - complete)
 - Plan 06-01: Installed security tooling foundation
 - age 1.3.1, bitwarden-cli 2026.1.0, gitleaks 8.30.0, pre-commit 4.5.1
 - Configured gitleaks with chezmoi template allowlists (.tmpl syntax, age keys)
@@ -218,6 +220,10 @@ Recent decisions affecting current work:
 - Hooks delegate to repo-local .git/hooks/ if present (pre-commit framework compatible)
 - core.hooksPath = ~/.config/git/hooks set in gitconfig
 - Tested: secret detection works (warns on commit, would block on push)
+- All 5 ROADMAP success criteria verified and approved by user
+- Out-of-band fix: removed ~/.zsh.d.private/extra.zsh (was overwriting Bitwarden-templated ~/.gitconfig_local)
+- OPENCODE env vars moved to chezmoi-managed dot_zsh.d/variables.zsh
+- Requirements covered: SECU-01, SECU-02, SECU-03, SECU-04
 
 ### Pending Todos
 
@@ -230,16 +236,20 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: 06-05 checkpoint (awaiting user verification of Phase 6 success criteria)
-Resume file: .planning/phases/06-security-secrets/06-05-SUMMARY.md
+Stopped at: Migration complete - all 6 phases finished
+Resume file: N/A
 
 ### Next Action
 
-User must verify all 5 Phase 6 ROADMAP success criteria:
-1. Secret templating from Bitwarden (SECU-01)
-2. Age encryption for sensitive files (SECU-02)
-3. Secret leak prevention (SECU-03)
-4. Permission verification (SECU-04)
-5. Secret rotation workflow
+Migration roadmap complete. All 25 plans across 6 phases executed successfully.
 
-After verification: Phase 6 and entire migration roadmap complete.
+Total execution time: 3.10 hours across 25 plans (average 7.4 min/plan).
+
+The dotfiles stack has been fully migrated from Nix/Dotbot/Zgenom/asdf to chezmoi/mise/Homebrew/Sheldon with:
+- chezmoi managing all dotfiles with cross-platform templates
+- mise managing 7 runtime versions (node, python, go, rust, java, ruby, terraform)
+- Homebrew managing 171+ CLI tools and casks
+- Bitwarden integration for secret templating
+- Age encryption for SSH keys (bootstrap chain)
+- Gitleaks scanning in both dotfiles repo and globally via git hooks
+- Automated permission verification on every chezmoi apply

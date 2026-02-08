@@ -56,7 +56,7 @@ completed: 2026-02-08
 - **Duration:** 7 min
 - **Started:** 2026-02-08T11:20:24Z
 - **Completed:** 2026-02-08T11:26:54Z
-- **Tasks:** 1 of 2 (checkpoint pending user verification)
+- **Tasks:** 2 of 2
 - **Files modified:** 3
 
 ## Accomplishments
@@ -71,8 +71,9 @@ completed: 2026-02-08
 Each task was committed atomically:
 
 1. **Task 1: Deploy global git hooks via chezmoi** - `414d093` (feat) - in chezmoi source repo
+2. **Task 2: Verify all Phase 6 success criteria** - user-verified (checkpoint:human-verify)
 
-**Plan metadata:** pending (checkpoint reached)
+**Plan metadata:** `e267701` + final commit (docs: complete plan)
 
 ## Files Created/Modified
 - `~/.local/share/chezmoi/private_dot_config/git/hooks/executable_pre-commit` - Global pre-commit hook with gitleaks warn-only scanning
@@ -88,7 +89,13 @@ Each task was committed atomically:
 
 ## Deviations from Plan
 
-None - plan executed exactly as written.
+### Out-of-Band Fix (during verification)
+
+**[Rule 1 - Bug] Removed ~/.zsh.d.private/extra.zsh overwriting ~/.gitconfig_local**
+- **Found during:** Task 2 (user verification of Bitwarden integration)
+- **Issue:** Legacy `~/.zsh.d.private/extra.zsh` was overwriting `~/.gitconfig_local` on every shell startup, undoing Bitwarden-templated values from chezmoi
+- **Fix:** Removed `~/.zsh.d.private/extra.zsh`; moved OPENCODE env vars from that file to chezmoi-managed `dot_zsh.d/variables.zsh`
+- **Impact:** Bitwarden integration (SECU-01) now works correctly end-to-end
 
 ## Issues Encountered
 - Full `chezmoi apply` fails without Bitwarden unlock (06-04 templates need BW_SESSION). Worked around by applying only specific paths: `chezmoi apply ~/.gitconfig ~/.config/git/hooks/`
@@ -100,8 +107,8 @@ None - hooks are deployed and working.
 
 ## Next Phase Readiness
 - All Phase 6 plans (06-01 through 06-05) are complete
-- User verification of all 5 ROADMAP success criteria pending (Task 2 checkpoint)
-- After user approval, Phase 6 and the entire migration roadmap are complete
+- All 5 ROADMAP success criteria verified and approved by user
+- Phase 6 complete. Entire 6-phase dotfiles migration roadmap complete.
 
 ## Self-Check: PASSED
 
