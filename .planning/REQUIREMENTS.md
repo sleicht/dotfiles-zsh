@@ -22,14 +22,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Package Management
 
-- [ ] **PKGM-01**: Implement automated Homebrew installation via run_onchange scripts
-- [ ] **PKGM-02**: Consolidate Brewfile_Client and Brewfile_Fanaka into .chezmoidata format
-- [ ] **PKGM-03**: Remove Nix completely (nix-config/, nix-darwin, Home Manager, Nix itself)
+- [x] **PKGM-01**: Implement automated Homebrew installation via run_onchange scripts
+- [x] **PKGM-02**: Consolidate Brewfile_Client and Brewfile_Fanaka into .chezmoidata format
+- [x] **PKGM-03**: Remove Nix completely (nix-config/, nix-darwin, Home Manager, Nix itself)
 
 ### Tool Version Management (mise)
 
-- [ ] **MISE-01**: Install mise, configure global settings, migrate all .tool-versions, remove asdf
-- [ ] **MISE-02**: Configure mise environment variable management (replace direnv functionality) — covered by config.toml `[env]` section in Plan 05-01
+- [x] **MISE-01**: Install mise, configure global settings, migrate all .tool-versions, remove asdf
+- [x] **MISE-02**: Configure mise environment variable management (replace direnv functionality) — covered by config.toml `[env]` section in Plan 05-01
 - [ ] **MISE-03**: Set up mise task runner for common development tasks — deferred to v2 (not in scope for Phase 5)
 
 ### Security
@@ -79,11 +79,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHEM-02 | Phase 3 | Complete |
 | CHEM-03 | Phase 3 | Complete |
 | CHEM-04 | Phase 3 | Complete |
-| PKGM-01 | Phase 4 | Pending |
-| PKGM-02 | Phase 4 | Pending |
-| PKGM-03 | Phase 4 | Pending |
-| MISE-01 | Phase 5 | Pending |
-| MISE-02 | Phase 5 | Covered (config.toml [env] section) |
+| PKGM-01 | Phase 4 | Complete |
+| PKGM-02 | Phase 4 | Complete |
+| PKGM-03 | Phase 4 | Complete |
+| MISE-01 | Phase 5 | Complete |
+| MISE-02 | Phase 5 | Complete |
 | MISE-03 | v2 | Deferred |
 | SECU-01 | Phase 6 | Pending |
 | SECU-02 | Phase 6 | Pending |
@@ -97,4 +97,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-25*
-*Last updated: 2026-01-29 after Phase 5 planning revision*
+*Last updated: 2026-02-08 after Phase 5 completion*

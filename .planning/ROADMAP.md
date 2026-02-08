@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: chezmoi Foundation** - Initialize chezmoi and migrate core shell configuration
 - [x] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
 - [x] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
-- [ ] **Phase 5: Tool Version Migration (mise)** - Replace asdf with mise for runtime version management
+- [x] **Phase 5: Tool Version Migration (mise)** - Replace asdf with mise for runtime version management
 - [ ] **Phase 6: Security & Secrets** - Implement secret management and security hardening
 
 ## Phase Details
@@ -105,11 +105,11 @@ Plans:
 **Plans**: 5 plans in 3 waves
 
 Plans:
-- [ ] 05-01-PLAN.md — Create chezmoi-managed mise global configuration
-- [ ] 05-02-PLAN.md — Enable mise shell integration and completions
-- [ ] 05-03-PLAN.md — Remove Homebrew runtime conflicts
-- [ ] 05-04-PLAN.md — Install all globally-defined mise tools
-- [ ] 05-05-PLAN.md — Verify complete mise migration (checkpoint)
+- [x] 05-01-PLAN.md — Create chezmoi-managed mise global configuration
+- [x] 05-02-PLAN.md — Enable mise shell integration and completions
+- [x] 05-03-PLAN.md — Remove Homebrew runtime conflicts
+- [x] 05-04-PLAN.md — Install all globally-defined mise tools
+- [x] 05-05-PLAN.md — Verify complete mise migration (checkpoint)
 
 ### Phase 6: Security & Secrets
 **Goal**: Implement secure secret management and harden file permissions
@@ -137,5 +137,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. chezmoi Foundation | 4/4 | Complete | 2026-01-26 |
 | 3. Templating & Machine Detection | 4/4 | Complete | 2026-01-26 |
 | 4. Package Management Migration | 4/4 | Complete | 2026-01-28 |
-| 5. Tool Version Migration (mise) | 0/5 | Planned | - |
+| 5. Tool Version Migration (mise) | 5/5 | Complete | 2026-02-08 |
 | 6. Security & Secrets | 0/TBD | Not started | - |
