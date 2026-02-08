@@ -1,145 +1,25 @@
-# Roadmap: Dotfiles Stack Migration
+# Roadmap: Dotfiles Stack
 
-## Overview
+## Completed Milestones
 
-This roadmap guides the migration from a complex multi-tool setup (Dotbot symlinks, Nix packages, asdf version management) to a modern, streamlined approach using chezmoi for dotfiles templating and mise for tool version management. The migration follows a "foundation first, complexity later" approach with six phases that progress from safety nets to working shell, then layer in templating, package management, tool versioning, and finally security. Each phase delivers a verifiable, working system with clear rollback points.
+<details>
+<summary>v1.0.0 Dotfiles Stack Migration (Shipped: 2026-02-08) -- 6 phases, 25 plans, 3.10 hours</summary>
 
-## Phases
+Complete migration from Nix/Dotbot/Zgenom/asdf to chezmoi/mise/Homebrew/Sheldon with cross-platform templating and Bitwarden secret management. See `.planning/milestones/v1.0.0-ROADMAP.md` for full details.
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+</details>
 
-Decimal phases appear between their surrounding integers in numeric order.
+## Current Milestone
 
-- [x] **Phase 1: Preparation & Safety Net** - Create backups, recovery scripts, and test environment
-- [x] **Phase 2: chezmoi Foundation** - Initialize chezmoi and migrate core shell configuration
-- [x] **Phase 3: Templating & Machine Detection** - Add cross-platform and machine-specific templating
-- [x] **Phase 4: Package Management Migration** - Migrate to automated Homebrew installation and remove Nix
-- [x] **Phase 5: Tool Version Migration (mise)** - Replace asdf with mise for runtime version management
-- [x] **Phase 6: Security & Secrets** - Implement secret management and security hardening
+No active milestone. See `.planning/MILESTONES.md` for history.
 
-## Phase Details
+### Candidates for v2.0.0
 
-### Phase 1: Preparation & Safety Net
-**Goal**: Establish safety mechanisms before touching any live configurations
-**Depends on**: Nothing (first phase)
-**Requirements**: PREP-01, PREP-02, PREP-03
-**Success Criteria** (what must be TRUE):
-  1. User has complete backup of current dotfiles state (all files, symlinks, and configurations archived)
-  2. User can run emergency recovery script and restore working shell within 2 minutes
-  3. User has working Linux test environment (Docker or VM) to validate cross-platform changes
-  4. User can verify backup completeness (all critical files present and restorable)
-**Plans**: 4 plans in 2 waves
+- **MISE-03**: Set up mise task runner for common development tasks (deferred from v1)
+- **PERF-01**: Profile shell startup with zprof and establish baseline
+- **PERF-02**: Implement lazy loading for non-critical tool initialisation
+- **PERF-03**: Add eval caching for expensive startup commands
+- **PERF-04**: Achieve < 300ms total shell startup time
 
-Plans:
-- [x] 01-01-PLAN.md - Create backup infrastructure (exclusions + backup script)
-- [x] 01-02-PLAN.md - Create recovery infrastructure (restore + verify scripts)
-- [x] 01-03-PLAN.md - Create Linux test environment (Docker/OrbStack)
-- [x] 01-04-PLAN.md - Execute backup and verify safety net (checkpoint)
-
-### Phase 2: chezmoi Foundation
-**Goal**: Establish core dotfiles management with chezmoi without complexity
-**Depends on**: Phase 1
-**Requirements**: CHEM-01
-**Success Criteria** (what must be TRUE):
-  1. User can open new terminal and shell works correctly (all aliases, functions, completions available)
-  2. User has chezmoi source directory (`~/.local/share/chezmoi`) under Git version control with remote
-  3. User can run `chezmoi apply` and dotfiles are updated without breaking shell
-  4. User has migrated core shell files (.zshrc, .zshenv, .zprofile, zsh.d/*.zsh) to chezmoi
-  5. User understands new workflow (edit with `chezmoi edit`, apply changes, not direct file editing)
-**Plans**: 4 plans in 3 waves
-
-Plans:
-- [x] 02-01-PLAN.md - Install chezmoi and initialise source directory
-- [x] 02-02-PLAN.md - Migrate core shell files (.zshrc, .zshenv, .zprofile, zsh.d/*)
-- [x] 02-03-PLAN.md - Migrate git configuration files
-- [x] 02-04-PLAN.md - Verify shell, set up git remote, update Dotbot (checkpoint)
-
-### Phase 3: Templating & Machine Detection
-**Goal**: Enable cross-platform support and machine-specific configurations through templating
-**Depends on**: Phase 2
-**Requirements**: CHEM-02, CHEM-03, CHEM-04
-**Success Criteria** (what must be TRUE):
-  1. User can run `chezmoi apply` on macOS and Linux and get platform-appropriate configurations
-  2. User can switch between machines (client/personal) and get machine-specific settings automatically
-  3. User has working templates for git config, tool configs (mise, sheldon, etc.) that adapt to OS and machine
-  4. User can verify templates with `chezmoi execute-template` before applying
-  5. User can test configuration on Linux VM without breaking macOS setup
-**Plans**: 4 plans in 3 waves
-
-Plans:
-- [x] 03-01-PLAN.md - Create config infrastructure (.chezmoi.yaml.tmpl + .chezmoidata.yaml)
-- [x] 03-02-PLAN.md - Template git config for machine-specific email
-- [x] 03-03-PLAN.md - Template shell paths for cross-platform support
-- [x] 03-04-PLAN.md - Verify templates on Linux and complete phase (checkpoint)
-
-### Phase 4: Package Management Migration
-**Goal**: Automate package installation via chezmoi and remove Nix completely
-**Depends on**: Phase 3
-**Requirements**: PKGM-01, PKGM-02, PKGM-03
-**Success Criteria** (what must be TRUE):
-  1. User can run `chezmoi apply` and all Homebrew packages install/update automatically
-  2. User has consolidated machine-specific package lists in `.chezmoidata` format (no separate Brewfiles)
-  3. User can verify Nix is completely removed (no nix-config/, nix-darwin, Home Manager, or Nix binaries)
-  4. User can install dotfiles on fresh system and get all required packages without manual intervention
-  5. User has OS-specific package installation working correctly on macOS and Linux
-**Plans**: 4 plans in 3 waves
-
-Plans:
-- [x] 04-01-PLAN.md — Consolidate all package lists into .chezmoidata.yaml
-- [x] 04-02-PLAN.md — Create chezmoi run scripts (Homebrew bootstrap, install, cleanup)
-- [x] 04-03-PLAN.md — Remove Nix from repository and prepare system removal
-- [x] 04-04-PLAN.md — Verify package management and Nix removal (checkpoint)
-
-### Phase 5: Tool Version Migration (mise)
-**Goal**: Replace asdf with mise for runtime version management (node, python, go, rust)
-**Depends on**: Phase 4
-**Requirements**: MISE-01, MISE-02, MISE-03
-**Success Criteria** (what must be TRUE):
-  1. User can run `mise use node@22` and node is immediately available in shell
-  2. User has all existing .tool-versions files working with mise (no asdf commands needed)
-  3. User can verify asdf is completely removed (no asdf binary, plugins, or shell initialization)
-  4. User can run `mise install` in any project and get correct tool versions automatically
-  5. User experiences faster tool switching (mise 10-50x faster than asdf for common operations)
-**Plans**: 5 plans in 3 waves
-
-Plans:
-- [x] 05-01-PLAN.md — Create chezmoi-managed mise global configuration
-- [x] 05-02-PLAN.md — Enable mise shell integration and completions
-- [x] 05-03-PLAN.md — Remove Homebrew runtime conflicts
-- [x] 05-04-PLAN.md — Install all globally-defined mise tools
-- [x] 05-05-PLAN.md — Verify complete mise migration (checkpoint)
-
-### Phase 6: Security & Secrets
-**Goal**: Implement secure secret management and harden file permissions
-**Depends on**: Phase 5
-**Requirements**: SECU-01, SECU-02, SECU-03, SECU-04
-**Success Criteria** (what must be TRUE):
-  1. User can template secrets from Bitwarden into chezmoi-managed configs without committing secrets to git
-  2. User has sensitive files encrypted with age (if any need to be in git)
-  3. User cannot commit secrets accidentally (pre-commit hooks with gitleaks block pushes containing secrets)
-  4. User can verify all credential files have correct permissions (600 for private keys, tokens, etc.)
-  5. User can rotate secrets via Bitwarden and re-run `chezmoi apply` to update configurations
-**Plans**: 5 plans in 4 waves
-
-Plans:
-- [x] 06-01-PLAN.md — Install security tools and configure leak prevention
-- [x] 06-02-PLAN.md — Create permission verification post-apply hook
-- [x] 06-03-PLAN.md — Configure age encryption and encrypt SSH keys
-- [x] 06-04-PLAN.md — Integrate Bitwarden for secret templating
-- [x] 06-05-PLAN.md — Deploy global git hooks and verify phase (checkpoint)
-
-## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Preparation & Safety Net | 4/4 | Complete | 2026-01-25 |
-| 2. chezmoi Foundation | 4/4 | Complete | 2026-01-26 |
-| 3. Templating & Machine Detection | 4/4 | Complete | 2026-01-26 |
-| 4. Package Management Migration | 4/4 | Complete | 2026-01-28 |
-| 5. Tool Version Migration (mise) | 5/5 | Complete | 2026-02-08 |
-| 6. Security & Secrets | 5/5 | Complete | 2026-02-08 |
+---
+*Last updated: 2026-02-08*

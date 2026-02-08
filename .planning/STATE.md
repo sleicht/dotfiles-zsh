@@ -2,228 +2,42 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-25)
+See: .planning/PROJECT.md (updated 2026-02-08)
 
-**Core value:** Cross-platform dotfiles that "just work" — one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Migration complete
+**Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 6 of 6 (Security & Secrets)
-Plan: 5 of 5
-Status: COMPLETE - All phases finished
-Last activity: 2026-02-08 — Phase 6 verified and approved by user
+Milestone: v1.0.0 complete (shipped 2026-02-08)
+Status: Between milestones
+Last activity: 2026-02-08 -- v1.0.0 milestone archived
 
-Progress: [██████████] 100% (25/25 plans complete)
+Progress: [##########] 100% (v1.0.0: 25/25 plans across 6 phases)
 
-## Performance Metrics
+## Milestone Summary
 
-**Velocity:**
-- Total plans completed: 25
-- Average duration: 8 min
-- Total execution time: 3.10 hours
+### v1.0.0 Dotfiles Stack Migration (Complete)
 
-**By Phase:**
+| Phase | Plans | Duration | Completed |
+|-------|-------|----------|-----------|
+| 01-preparation-safety-net | 4/4 | 12 min | 2026-01-25 |
+| 02-chezmoi-foundation | 4/4 | 75 min | 2026-01-26 |
+| 03-templating-machine-detection | 4/4 | 13 min | 2026-01-26 |
+| 04-package-management-migration | 4/4 | 61 min | 2026-01-28 |
+| 05-tool-version-migration | 5/5 | 33 min | 2026-02-08 |
+| 06-security-secrets | 5/5 | 27 min | 2026-02-08 |
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 01-preparation | 4 | 12 min | 3 min |
-| 02-chezmoi-foundation | 4 | 75 min | 19 min |
-| 03-templating-machine-detection | 4 | 13 min | 3.3 min |
-| 04-package-management-migration | 4 | 61 min | 15.3 min |
-| 05-tool-version-migration | 5 | 33 min | 6.6 min |
-| 06-security-secrets | 5 | 27 min | 5.4 min |
+**Total:** 25 plans, 3.10 hours, 15 days
 
-**Recent Trend:**
-- Last 5 plans: 06-01 (6min), 06-02 (3min), 06-03 (3min), 06-04 (8min), 06-05 (7min)
-- Trend: All phases complete
-
-*Updated after each plan completion*
+See `.planning/MILESTONES.md` for details.
+See `.planning/milestones/v1.0.0-ROADMAP.md` for archived phase details.
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- All key decisions are pending (see PROJECT.md for rationale on chezmoi, mise, Homebrew, Sheldon)
-- 01-02: Six critical files defined for backup validation (.zshrc, .zshenv, .zprofile, .config/git/config, .config/sheldon/plugins.toml, .dotfiles)
-- 01-02: Backup age warning threshold set to 7 days
-- 01-03: Ubuntu 24.04 LTS chosen for Linux test container
-- 01-03: OrbStack preferred over Docker for faster startup
-- 01-03: Read-only mount for dotfiles to prevent accidental modification
-- 02-01: IDE-friendly workflow (autoCommit=true, autoPush=false, manual apply)
-- 02-01: Delta pager configured for better diff output
-- 02-02: Changed chezmoi diff pager from delta to less (delta not installed)
-- 02-02: Standalone zshrc combines Nix wrapper essentials with actual config
-- 02-03: Use --follow flag to follow symlinks when adding to chezmoi
-- 02-03: Add chezmoi header comment only to primary config files
-- 02-04: zgenom cache reset required after migration
-- 02-04: README.md excluded from chezmoi deployment via .chezmoiignore
-- 03-01: Remove stdinIsATTY check to allow --promptString values to work
-- 03-01: Include config settings in .chezmoi.yaml.tmpl for complete config generation
-- 03-01: Always call promptString functions - chezmoi handles value provision
-- 03-02: Use private_ prefix for .gitconfig_local to set 600 permissions (contains email)
-- 03-02: Template selects email based on machine_type: work_email for client, personal_email otherwise
-- 03-03: Use {{- if eq .chezmoi.os "darwin" }} for OS-conditional path configuration
-- 03-03: Wrap macOS-specific Homebrew paths in darwin conditionals (GNU tools, Homebrew Ruby)
-- 03-03: Keep cross-platform tools unconditional (nix, rbenv, npm, pnpm, volta, cargo)
-- 03-04: Docker container with read-only chezmoi mount for Linux verification
-- 03-04: Templates verified working on Ubuntu 24.04 (0 macOS paths in Linux output)
-- 04-01: Structured packages as common (all machines) vs client-specific vs fanaka-specific
-- 04-01: Excluded asdf (being replaced by mise in Phase 5)
-- 04-01: Merged Nix-managed Homebrew packages from apps.nix as most up-to-date source
-- 04-01: Deduplicated CJ-Systems/homebrew-gitflow-cjs tap (case-sensitive variants)
-- 04-02: Use run_once_before_ for Homebrew bootstrap (runs once, before other scripts)
-- 04-02: Use run_onchange_after_ with SHA256 hash for package scripts (only re-run when .chezmoidata.yaml changes)
-- 04-02: Map 'personal' machine_type to fanaka package sections (else clause handles non-client machines)
-- 04-02: Log removed packages to ~/.local/state/homebrew-cleanup.log with timestamps
-- 04-03: Print Nix removal instructions rather than auto-executing root commands
-- 04-03: Remove Nix PATH from both chezmoi template and legacy dotfiles path.zsh
-- 04-04: Always use brew bundle --global to interact with chezmoi-managed ~/.Brewfile
-- 04-04: Run brew commands from ~ to avoid confusion with old Brewfiles in subdirectories
-- 04-04: Added mise to common_brews and made activation unconditional
-- 04-04: Fixed /opt/homebrew/share permissions for oh-my-zsh completion security
-- 05-01: Global mise config with multi-language support (node, python, go, rust, java, ruby, terraform)
-- 05-01: Use private_dot_config prefix for ~/.config directory (correct permissions)
-- 05-01: Store tool versions in .chezmoidata.yaml for potential machine-specific overrides
-- 05-01: Enable idiomatic version files for node and python only
-- 05-02: mise activate over shims for zero runtime overhead in interactive shells
-- 05-02: run_once_after pattern for one-time completion generation
-- 05-03: Remove rbenv, rust, volta from client_brews (mise manages these)
-- 05-03: Remove rbenv, rust from fanaka_brews (mise manages these)
-- 05-03: Keep python@3.x in Homebrew as build dependencies (versioned paths don't conflict)
-- 05-03: Use run_once_after_ for cleanup scripts
-- 05-04: All 7 runtimes verified installed (node lts, python 3.12, go 1.22, rust stable, java temurin-21, ruby 3, terraform 1.9)
-- 05-04: Rust installed via rustup (mise standard approach) with binaries in ~/.cargo/bin
-- 05-04: Auto-install verified working with directory-based version switching
-- 05-05: All 5 ROADMAP success criteria verified passing
-- 05-05: Fixed phantom completion error (suppress broken shebang gracefully)
-- 05-05: User updated Java from temurin-21 to temurin-25
-- 05-05: Known limitation: phantom and firebase-cli broken due to Homebrew node removal
-- 06-01: Added age, bitwarden-cli, gitleaks, pre-commit to common_brews (all machines)
-- 06-01: Moved pre-commit from client_brews to common_brews for consistency
-- 06-01: Configured gitleaks allowlists for chezmoi template syntax (no false positives on .tmpl files)
-- 06-01: Pre-commit warn-then-block: pre-commit stage warns, pre-push stage blocks
-- 06-01: Scanned existing repository - 0 secrets found in 32 commits
-- 06-03: Per-machine age key pairs for isolation (key-personal.txt / key-client.txt)
-- 06-03: Age private key excluded from chezmoi source via .chezmoiignore (bootstrap key design)
-- 06-03: SSH config and public keys stored unencrypted (not sensitive)
-- 06-03: known_hosts excluded from chezmoi (machine-specific, auto-generated)
-- 06-03: PRE_COMMIT_ALLOW_NO_CONFIG=1 needed for chezmoi autoCommit operations
-- 06-04: Use YAML bitwarden.command config (not TOML) matching chezmoi config format
-- 06-04: Omit bitwarden.unlock: auto (not supported in chezmoi v2.69.3 YAML config)
-- 06-04: Keep prompt variables in .chezmoi.yaml.tmpl as fallback for other templates
-- 06-04: gitleaks:allow inline comments on bitwarden template lines
-- 06-05: Used executable_ prefix in chezmoi source for hook executability
-- 06-05: Warn-only on commit (exit 0), blocking on push (exit 1)
-- 06-05: Delegation to repo-local .git/hooks/{name} for pre-commit framework compatibility
-- 06-05: Removed ~/.zsh.d.private/extra.zsh that conflicted with Bitwarden-templated gitconfig_local
-- 06-05: OPENCODE env vars moved to chezmoi-managed variables.zsh
-
-### Completed Phases
-
-**Phase 1: Preparation & Safety Net** (2026-01-25)
-- Created backup infrastructure with rsync, exclusions, pre-flight checks
-- Created recovery infrastructure with interactive category-based restore
-- Created Linux test environment with Ubuntu 24.04 container
-- User verified all safety mechanisms work correctly
-- Requirements covered: PREP-01, PREP-02, PREP-03
-
-**Phase 2: chezmoi Foundation** (2026-01-26)
-- chezmoi installed and configured with IDE-friendly workflow
-- Shell files migrated (.zshrc, .zshenv, .zprofile, zsh.d/*.zsh)
-- Git config migrated (.gitconfig, .gitignore_global, .gitattributes_global)
-- Dotbot config updated with migration notes
-- chezmoi source under git version control (7 commits)
-- User verified shell works correctly, chezmoi verify passes
-- Requirements covered: CHEM-01
-
-**Phase 3: Templating & Machine Detection** (2026-01-26)
-- Created .chezmoi.yaml.tmpl with interactive prompts for machine type and emails
-- Created .chezmoidata.yaml for static package data structure
-- Machine identity captured: personal machine, stephan@fanaka.ch
-- OS detection working: osid=darwin on macOS, osid=linux-ubuntu on Linux
-- Created templated .gitconfig_local with machine-type-based email selection
-- Established pattern for sensitive file handling with private_ prefix (600 permissions)
-- Converted path.zsh to template with OS conditionals for cross-platform support
-- macOS gets GNU tools paths, Linux excludes macOS-specific Homebrew paths
-- Verified templates work correctly on both macOS and Linux Ubuntu 24.04
-- User verified shell works, git email correct, chezmoi data complete
-- Requirements covered: TEMP-01, TEMP-02
-
-**Phase 4: Package Management Migration** (2026-01-27 to 2026-01-28 - complete)
-- Plan 04-01: Consolidated all packages from 5 sources into .chezmoidata.yaml
-- 171 total packages: 82 common brews, 22 common casks, 12 client brews, 28 client casks, 3 fanaka brews, 17 fanaka casks
-- 16 taps, 7 fonts, 2 common MAS apps, 8 fanaka MAS apps
-- Single source of truth for Homebrew packages replacing 3 separate Brewfiles
-- Plan 04-02: Created Homebrew automation via chezmoi run scripts
-- Four templates created: Homebrew bootstrap, Brewfile generator, package installer, package cleanup
-- One-command bootstrap achieved: `chezmoi apply` installs Homebrew + all packages
-- Change-triggered installation: scripts only re-run when .chezmoidata.yaml changes
-- Cleanup audit trail: removed packages logged to ~/.local/state/homebrew-cleanup.log
-- Plan 04-03: Removed Nix completely from repository
-- Deleted nix-config/ directory (12 files) from git
-- Cleaned Nix references from chezmoi templates (path.zsh, .zshrc)
-- Created run_once_after_remove-nix-references.sh.tmpl with safe manual removal instructions
-- Nix system state documented: daemon running, /nix volume exists, hooks in /etc/zshrc
-- Plan 04-04: Verified complete package management migration
-- brew bundle check --global passes (all 171+ packages satisfied)
-- Fixed 5 issues during verification: deprecated taps, missing packages, permissions, mise
-- Shell works correctly in new terminals
-- User approved migration complete
-
-**Phase 5: Tool Version Migration** (2026-01-29 to 2026-02-08 - complete)
-- Plan 05-01: Created mise global config template with 7 runtimes
-- Chezmoi-managed ~/.config/mise/config.toml with node, python, go, rust, java, ruby, terraform
-- Java set to temurin-21 (later updated to temurin-25 by user)
-- Tool versions stored in .chezmoidata.yaml for machine-specific overrides
-- Plan 05-02: Enabled mise shell activation and completions
-- mise activate in hooks.zsh for zero-overhead runtime switching
-- Completions generated to ~/.local/share/zsh/site-functions/_mise
-- Plan 05-03: Removed conflicting Homebrew runtimes
-- Uninstalled rbenv, rust, volta, node from Homebrew
-- mise now has exclusive control over runtime versions
-- Created cleanup script for future chezmoi applies
-- Plan 05-04: Installed all 7 runtimes via mise
-- node 22.21.1, python 3.12.12, go 1.22.12, rust stable, java temurin-21, ruby 3.4.5, terraform 1.9.8
-- Rust installed via rustup with binaries in ~/.cargo/bin
-- Auto-install verified working for project directories
-- Plan 05-05: Verified all 5 ROADMAP success criteria
-- mise use, .tool-versions, asdf removed, mise install, fast switching all pass
-- Fixed phantom completion error (broken shebang from Homebrew node removal)
-- User confirmed mise working in new terminal
-- Requirements covered: All Phase 5 success criteria from ROADMAP.md
-
-**Phase 6: Security & Secrets** (2026-02-08 - complete)
-- Plan 06-01: Installed security tooling foundation
-- age 1.3.1, bitwarden-cli 2026.1.0, gitleaks 8.30.0, pre-commit 4.5.1
-- Configured gitleaks with chezmoi template allowlists (.tmpl syntax, age keys)
-- Installed pre-commit hooks in chezmoi source (warn-then-block strictness)
-- Scanned repository: 0 secrets found in 32 commits
-- Plan 06-03: Configured age encryption and encrypted SSH keys
-- Generated age key pair for personal machine (key-personal.txt)
-- Configured chezmoi age encryption with per-machine identity path
-- Encrypted 4 SSH private keys (id_rsa, id_rsa_digiocean, id_rsa_infomaniak, google_compute_engine)
-- Added 3 SSH public keys and SSH config unencrypted to chezmoi source
-- Age private key stored in Bitwarden for disaster recovery
-- Bootstrap chain established: Bitwarden -> age key -> SSH keys -> full access
-- Plan 06-04: Integrated Bitwarden as chezmoi secret source
-- Configured bitwarden.command in .chezmoi.yaml.tmpl
-- Git config name/email templated from Bitwarden vault items
-- Bitwarden naming convention documented in .chezmoidata.yaml (dotfiles/{type}/{name})
-- gitleaks:allow annotations on bitwarden template lines
-- Plan 06-05: Deployed global git hooks via chezmoi
-- Global pre-commit hook: warn-only gitleaks scanning for all repos
-- Global pre-push hook: blocking gitleaks scanning for all repos
-- Hooks delegate to repo-local .git/hooks/ if present (pre-commit framework compatible)
-- core.hooksPath = ~/.config/git/hooks set in gitconfig
-- Tested: secret detection works (warns on commit, would block on push)
-- All 5 ROADMAP success criteria verified and approved by user
-- Out-of-band fix: removed ~/.zsh.d.private/extra.zsh (was overwriting Bitwarden-templated ~/.gitconfig_local)
-- OPENCODE env vars moved to chezmoi-managed dot_zsh.d/variables.zsh
-- Requirements covered: SECU-01, SECU-02, SECU-03, SECU-04
+All v1.0.0 decisions archived. See `.planning/milestones/v1.0.0-ROADMAP.md` and `.planning/PROJECT.md` Key Decisions table.
 
 ### Pending Todos
 
@@ -236,20 +50,9 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Migration complete - all 6 phases finished
+Stopped at: v1.0.0 milestone archived
 Resume file: N/A
 
 ### Next Action
 
-Migration roadmap complete. All 25 plans across 6 phases executed successfully.
-
-Total execution time: 3.10 hours across 25 plans (average 7.4 min/plan).
-
-The dotfiles stack has been fully migrated from Nix/Dotbot/Zgenom/asdf to chezmoi/mise/Homebrew/Sheldon with:
-- chezmoi managing all dotfiles with cross-platform templates
-- mise managing 7 runtime versions (node, python, go, rust, java, ruby, terraform)
-- Homebrew managing 171+ CLI tools and casks
-- Bitwarden integration for secret templating
-- Age encryption for SSH keys (bootstrap chain)
-- Gitleaks scanning in both dotfiles repo and globally via git hooks
-- Automated permission verification on every chezmoi apply
+Plan v2 milestone (performance optimisation, mise task runner). Candidates listed in `.planning/ROADMAP.md`.
