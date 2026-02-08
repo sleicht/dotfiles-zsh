@@ -1,188 +1,259 @@
 # Project Research Summary
 
-**Project:** ZSH Dotfiles Migration (Nix/Dotbot/asdf → chezmoi/mise)
-**Domain:** Dotfiles Management & Development Environment
-**Researched:** 2026-01-25
+**Project:** dotfiles-zsh v1.1 Complete Migration
+**Domain:** Dotfiles management - completing Dotbot-to-chezmoi migration
+**Researched:** 2026-02-08
 **Confidence:** HIGH
 
 ## Executive Summary
 
-This research covers migrating from a complex multi-tool setup (Dotbot symlinks, Nix packages, asdf version management) to a modern, streamlined approach using chezmoi for dotfiles templating and mise for tool version management. The migration involves shifting from symlink-based file management to template-based file generation, consolidating package management around Homebrew, and replacing asdf with its faster Rust-based successor mise.
+This milestone completes the migration from Dotbot symlink management to chezmoi-native management for all remaining configuration files. The foundation is already solid: v1.0.0 successfully migrated core dotfiles (ZSH, git, SSH keys, mise, Brewfile) to chezmoi with proven patterns for templating, encryption, and cross-platform support. The challenge now is extending these patterns to ~30 additional config types including terminal emulators, window managers, CLI tools, development tools, and a large Claude Code directory (~50 files).
 
-The recommended approach is an incremental, phase-based migration that maintains safety nets at each step. Start with chezmoi's core file management capabilities, migrate shell configurations first, then layer in cross-platform templating, and finally transition from asdf to mise. This allows verification at each checkpoint and provides clear rollback points if issues arise.
+The recommended approach leverages existing chezmoi features exclusively—no new tools or dependencies required. Use `exact_` directories for complete ownership, `.chezmoiignore` for selective exclusions, machine-specific templates for cross-platform differences, and careful pattern matching to prevent accidental secret exposure. The critical risk is the repository-as-source architecture: the dotfiles-zsh repo IS the chezmoi source directory, so removing Dotbot infrastructure files requires careful `.chezmoiignore` setup to prevent chezmoi from misinterpreting deletions.
 
-Key risks center around workflow paradigm shifts (editing source files instead of live configs), accidental secret leakage during migration, and shell startup performance regressions. These can be mitigated through comprehensive backups, pre-commit secret scanning, incremental migration with Git checkpoints, and performance profiling at each phase. The payoff is a unified, faster, and more maintainable dotfiles system with excellent cross-platform support.
+Key risks centre on data loss and secret exposure. The `exact_` attribute can silently delete files not in source (documented incident in Issue #3414). Large directories like `.claude/` risk committing local settings with API tokens or absolute paths. The mitigation strategy is defensive: establish comprehensive `.chezmoiignore` patterns before ANY config additions, avoid `exact_` entirely during migration, always dry-run before applying, and never enable auto-push to git. Gradual phase-by-phase migration with validation at each step provides rollback points if issues arise.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The modern dotfiles stack for 2025+ centers on chezmoi for dotfiles management and mise for tool versioning, both written in performance-focused languages (Go and Rust respectively) and actively maintained with strong community adoption.
+The existing chezmoi stack from v1.0.0 requires no additions for v1.1 completion. All migrations use proven chezmoi features: `exact_` directories for complete directory management, `.chezmoiignore` for pattern-based exclusions, machine-specific templates (`.tmpl`) extending the existing `.chezmoidata.yaml` patterns, `private_` attribute for permission control, and `.chezmoiremove`/`remove_` for cleanup of deprecated configs.
 
-**Core technologies:**
-- **chezmoi 2.69.3**: Dotfiles management with templating — mature (since 2018), excellent cross-platform support, template-based instead of symlinks, built-in secret management
-- **mise 2026.1.6 or 2025.12.x**: Tool version management — 10-50x faster than asdf, backward compatible with .tool-versions, Rust-based with modern security features
-- **Homebrew (latest)**: Package management — de facto standard for macOS, good Linux support via Linuxbrew, declarative with brew bundle
-- **Sheldon 0.4.3+**: ZSH plugin manager — Rust-based and significantly faster than Oh My Zsh, TOML configuration integrates cleanly with chezmoi templates
+**Core technologies (unchanged from v1.0.0):**
+- **chezmoi** — Dotfile management with templates, encryption, Bitwarden integration — proven in v1.0.0, extending patterns to new configs
+- **mise** — Runtime version management (7 runtimes) — no changes needed
+- **Homebrew** — CLI tool packages via .chezmoidata.yaml — package definitions already exist for target configs
+- **Sheldon** — ZSH plugin management — already migrated
+- **Bitwarden** — Secret provider for chezmoi templates — will extend to atuin sync keys
+- **age** — SSH key encryption — proven pattern for any new secrets
+
+**Features NOT needed:**
+- symlink_ (breaks encryption/templates)
+- create_ (templates handle variability)
+- modify_ (not applicable to static configs)
+- run_once_ (run_onchange_ already in use)
 
 ### Expected Features
 
+The migration encompasses three tiers of functionality:
+
 **Must have (table stakes):**
-- Import existing Dotbot symlinks with `chezmoi add --follow` — preserves git history, enables incremental migration
-- asdf compatibility via .tool-versions files — mise reads them natively, zero-downtime migration possible
-- Basic templating for OS detection — `{{ if eq .chezmoi.os "darwin" }}` conditionals for macOS/Linux differences
-- Machine-specific configuration — `.chezmoidata/*.toml` for static data, `.chezmoi.toml.tmpl` for dynamic detection
-- Automated package installation — `run_onchange_` scripts with embedded Brewfiles re-run when package lists change
+- Static config file migration — Terminal emulators (kitty, ghostty, wezterm), window manager (aerospace), CLI tools (bat, lsd, btop, oh-my-posh), dev tools (lazygit, atuin, aider, finicky), basic dotfiles (.hushlogin, .inputrc, .editorconfig, .nanorc)
+- Directory structure preservation — Tools expect configs in specific XDG locations
+- Machine-specific templating — OS differences (Darwin vs Linux), machine type (client vs personal), path variations
+- GPG agent config migration — Simple config with OS-specific pinentry path
+- Dotbot retirement — Clean removal of install script, steps/, submodules
+- Drop deprecated configs — Remove nushell (unused), zgenom (replaced by sheldon)
 
-**Should have (competitive):**
-- Secret management integration — 1Password template functions (recommended for existing users) or age encryption (simpler than GPG)
-- Cross-platform file variants — `_darwin` and `_linux` suffixes for platform-specific configs, cleaner than large conditional blocks
-- Script execution system — `run_once_before_` for bootstrap, `run_onchange_` for declarative package management
-- mise environment variable management — consolidates direnv functionality into single tool
-- Shell startup optimization — lazy loading, eval caching, zsh-defer for non-critical initializations
+**Should have (differentiators):**
+- Claude Code directory with selective encryption — Share commands/skills across machines (~50 files), protect settings.json with potential tokens
+- Per-machine ignore patterns — .chezmoiignore templates exclude machine-specific state (caches, logs, local settings)
+- zsh-abbr abbreviations templating — Machine-specific abbreviations (work vs personal)
+- Karabiner config templating — Different keyboard mappings per machine (if needed)
+- Terminal emulator theme templating — Consistent theming across tools (if desired)
+- Private directory modifiers — Automatic permission protection for sensitive configs
 
-**Defer (v2+):**
-- mise task runner features — alternative to make/just, stable in 2025 but less battle-tested than dedicated tools
-- External file inclusion from URLs — share configs across repos, useful for team-wide standards but not essential for migration
-- Hooks system for chezmoi events — medium complexity, low immediate value for solo setup
-- Advanced mise backends (aqua, ubi) — automatic selection works fine, manual backend choice unnecessary for migration
+**Defer (anti-features):**
+- Migrating nushell configs — Not in use, drop entirely
+- Migrating zgenom — Replaced by sheldon, drop entirely
+- Keeping Dotbot alongside chezmoi — Dual systems create confusion
+- Templating every config — Over-engineering static files
+- Committing .chezmoi.toml to repo — Machine-specific, keep local only
+- Syncing Claude Code local state — Only sync shared config, ignore local settings
+- Exact directory modifiers on tool-modified configs — Tools like karabiner write state back
 
 ### Architecture Approach
 
-The architecture shifts from symlink-based file distribution to template-based file generation, with a clear separation between source state (`~/.local/share/chezmoi`) and target state (`~/`). Files are organized with naming conventions that convey permissions and processing rules (`dot_` for dotfiles, `.tmpl` for templates, `private_` for 600 permissions, `run_onchange_` for conditional execution). Machine-specific variation is handled through a three-tier data system: built-in variables (OS, arch, hostname), static configuration (`.chezmoidata/`), and dynamic detection (`.chezmoi.toml.tmpl`).
+The migration extends v1.0.0's proven directory structure within the existing chezmoi source tree (`~/.local/share/chezmoi` = `/Users/stephanlv_fanaka/Projects/dotfiles-zsh`). New configs integrate into `dot_config/` using established naming conventions (`dot_`, `private_`, `.tmpl` suffixes) and the existing data-driven templating system (`.chezmoidata.yaml` for static data, `chezmoi.toml` for machine-specific values).
 
 **Major components:**
-1. **chezmoi source directory** (`~/.local/share/chezmoi`) — Git repository containing templates, scripts, and data; files named with prefixes that determine target location and permissions
-2. **Template data layer** — `.chezmoidata/packages*.toml` for declarative package lists, `.chezmoi.toml.tmpl` for hostname-based machine type detection, templates access via `{{ .variableName }}`
-3. **Script execution system** — `run_once_before_` for bootstrapping (Homebrew, mise), `run_onchange_before_` for package installation (triggers on Brewfile changes), execution order controlled by numeric prefixes
-4. **mise global configuration** (`~/.config/mise/config.toml`) — managed by chezmoi as template, defines tool versions and settings, activated via `eval "$(mise activate zsh)"` in .zshrc
-5. **Package management layer** — Homebrew for system packages, mise for language toolchains, all declaratively defined in chezmoi source with OS-specific variants
+1. **Static config migration** — Direct addition of ~20 config files/directories to chezmoi source using `chezmoi add --follow` to convert existing Dotbot symlinks to regular files
+2. **Template conversion layer** — Selective `.tmpl` extension for configs with OS-specific paths (gpg-agent pinentry), machine-type routing (finicky browser rules), or secret integration (atuin sync keys from Bitwarden)
+3. **Selective ignore system** — Extended `.chezmoiignore` patterns for Dotbot infrastructure (install, steps/, dotbot/), macOS-only configs (aerospace, karabiner), local state (`.claude/settings.local.json`, cache directories), and deprecated tools (nushell, zgenom remnants)
+4. **Large directory handling** — Mirror full `.claude/` structure (~50 files across agents/, commands/, skills/) with ignore patterns for caches/logs rather than attempting selective tracking
+5. **Gradual retirement workflow** — Phase-by-phase migration validates each config type before proceeding, keeping both Dotbot and chezmoi operational until final phase, then atomic removal of Dotbot infrastructure via proper git submodule cleanup
 
 ### Critical Pitfalls
 
-1. **Workflow paradigm shift from symlinks to templates** — Dotbot allows editing files directly in `~/`, but chezmoi requires editing in `~/.local/share/chezmoi` first then applying. Use `chezmoi edit ~/.zshrc` instead of `vim ~/.zshrc` to avoid destroying templates. Set up git pre-commit hooks to detect accidental template removal. Always verify with `chezmoi diff` before `chezmoi apply`.
+Research identified 12 pitfalls spanning critical (data loss/security) to minor (maintainability). The top 5 requiring immediate mitigation:
 
-2. **Accidental secret leakage to Git during migration** — Most common security mistake is running `chezmoi add` on files containing API keys, AWS credentials, or SSH private keys. Create `.chezmoiignore` with patterns like `.env`, `.aws/credentials`, `.ssh/*_rsa` BEFORE adding any files. Use gitleaks or trufflehog to scan before first push. Prefer 1Password template functions or age encryption over committing secrets.
+1. **Repo-is-Source Deletion Cascade (CRITICAL)** — Removing Dotbot infrastructure (install, steps/, dotbot submodule) from repo = removing from chezmoi source. chezmoi may interpret as "delete from target" or track unwanted files. Mitigation: Add all Dotbot infrastructure to `.chezmoiignore` BEFORE any removal attempts. Validate with `chezmoi managed | grep -E "install|steps|dotbot"` returning nothing. Commit `.chezmoiignore` separately before cleanup phase.
 
-3. **Shell startup performance regression** — Each tool (Homebrew, mise, Starship, etc.) adds 50-200ms initialization time. Combined, shell startup can go from 50ms to 2-5 seconds. Profile with `zmodload zsh/zprof`, lazy load non-essential tools, cache eval outputs, use `zsh-defer` for non-critical initializations. Target < 300ms total startup time.
+2. **Accidental Local Settings Exposure (.claude/ Risk) (CRITICAL)** — Large directory addition with `chezmoi add ~/.claude/` captures ALL 50+ files including `.claude/settings.local.json` with potential API tokens, absolute paths like `/Users/stephanlv_fanaka/`, and machine-specific state. Committed to public repo = secret leak requiring git history rewrite. Mitigation: Establish `.chezmoiignore` patterns for `**/*local*`, `**/*secret*`, `.claude/cache/` BEFORE adding directory. Add subdirectories selectively rather than entire tree. Always `git diff --staged | grep -E "token|key|password"` before pushing. Never enable auto-push.
 
-4. **asdf and mise compatibility breaking with asdf 0.16+** — mise was designed for asdf ≤0.15 (bash). The asdf 0.16+ rewrite (Go) introduced command conflicts. Do complete cut-over, not gradual: uninstall asdf entirely before activating mise in shell. mise reads existing .tool-versions files but does NOT reuse asdf installation directories — plan for full reinstallation time.
+3. **exact_ Directory Data Loss (CRITICAL)** — Using `exact_` attribute tells chezmoi to DELETE any files not in source. External tools writing cache/state to managed directories = silent file deletion on next apply. Documented data loss in Issue #3414. Mitigation: Avoid `exact_` entirely during migration. Use `.chezmoiignore` for dynamic files instead. Only reconsider `exact_` after 1+ month stability.
 
-5. **Incomplete migration creating two sources of truth** — Migrating some files to chezmoi but leaving others in Dotbot creates inconsistent state. Complete migration in phases but finish each phase fully: (1) import ALL Dotbot files, (2) verify with `chezmoi diff`, (3) remove Dotbot symlinks, (4) delete Dotbot installation script. Use Git tags for rollback points between phases.
+4. **Orphaned Symlink Accumulation (HIGH)** — After migrating configs, Dotbot symlinks remain in filesystem. If Dotbot install script runs accidentally, symlinks overwrite chezmoi-managed files. If files removed from repo before chezmoi manages them, symlinks break. Mitigation: Audit symlinks before migration with `find ~ -type l | grep dotfiles-zsh > ~/symlink-inventory.txt`. For each config: verify `--follow` flag converted symlink to file with `ls -la` showing no `->`. Never run `./install` after migration begins.
+
+5. **Permission Mismatch After Symlink Conversion (HIGH)** — Dotbot symlinks preserve target permissions. chezmoi copies files with default umask (644), losing execute bits on scripts and privacy on sensitive configs unless explicit `executable_`/`private_` prefixes used. Mitigation: Audit permissions before migration with `find ~/.config -type f -executable` and `find ~/.config -type f -perm 600`. Use `chezmoi add` with correct prefixes. Create `run_after_verify-permissions.sh` script to validate critical file modes.
 
 ## Implications for Roadmap
 
-Based on research, suggested phase structure follows the principle of "foundation first, complexity later" with clear verification and rollback points at each step.
+Based on research, the migration should follow a defensive, incremental approach with clear phase boundaries:
 
-### Phase 1: Preparation & Safety Net
-**Rationale:** Migration without backups is catastrophic if shell breaks. This phase creates recovery mechanisms before touching any live configs.
-**Delivers:** Complete backup of current state, emergency recovery scripts, migration test environment
-**Addresses:** Risk mitigation from PITFALLS.md (shell lockout, lost work)
-**Avoids:** "No backup before migration" pitfall — enables rollback to working state
+### Phase 0: Preparation (Foundation)
+**Rationale:** Repo-as-source architecture demands protective measures BEFORE any config changes
+**Delivers:** Comprehensive `.chezmoiignore` patterns preventing accidental infrastructure tracking or secret exposure
+**Addresses:** Pitfall 1 (repo-as-source), Pitfall 2 (secret exposure), Pitfall 3 (exact_ prevention)
+**Tasks:**
+- Create `.chezmoiignore` with Dotbot infrastructure (install, steps/, dotbot/), local settings (`**/*local*`, `**/*secret*`, `.env`), macOS exclusions template
+- Validate with `chezmoi managed` showing no unwanted files
+- Create symlink inventory baseline
+- Audit existing permissions and template syntax
+- Set machine_type in chezmoi config
+- Commit `.chezmoiignore` separately before proceeding
 
-### Phase 2: chezmoi Foundation
-**Rationale:** Establish core dotfiles management without complexity. Start with minimal working configuration to verify workflow before adding templates.
-**Delivers:** chezmoi initialized with Git remote, basic shell configs migrated, verification that new shell works
-**Uses:** chezmoi 2.69.3 with basic `add --follow` import pattern
-**Implements:** Source directory structure (`.chezmoi.toml.tmpl`, `.chezmoiignore`, `.chezmoidata/`)
-**Avoids:** "Incomplete migration" pitfall by migrating shell core completely before proceeding
+### Phase 1: Low-Risk Static Configs
+**Rationale:** Establish migration workflow with simplest configs (no secrets, no templating, no large directories)
+**Delivers:** Basic dotfiles and simple CLI tools validated under chezmoi management
+**Addresses:** Table stakes static config migration
+**Avoids:** Pitfall 4 (orphaned symlinks) via `--follow` validation
+**Configs:** .hushlogin, .inputrc, .editorconfig, .nanorc, .psqlrc, .sqliterc, bat, lsd, btop, lazygit
+**Pattern:** `chezmoi add --follow`, verify symlink→file transition, test tool functionality
 
-### Phase 3: Templating & Machine Detection
-**Rationale:** Once basic chezmoi works, add cross-platform support and machine-specific configuration. Dependencies from Phase 2 (working shell) required.
-**Delivers:** Platform-specific conditionals (macOS/Linux), machine type detection (client/fanaka), templated configurations
-**Addresses:** Cross-platform support from FEATURES.md
-**Implements:** Template data layer from ARCHITECTURE.md (`.chezmoidata/packages*.toml`, hostname detection)
-**Avoids:** "Template syntax errors" pitfall via incremental testing with `chezmoi execute-template`
+### Phase 2: Terminal Emulators & Window Manager
+**Rationale:** Moderate complexity (cache files, OS-specific), tests `.chezmoiignore` patterns and cross-platform handling
+**Delivers:** Terminal configs with selective cache exclusion, macOS-only window manager correctly ignored on Linux
+**Uses:** `.chezmoiignore` templates for OS detection, cache exclusion patterns
+**Addresses:** Pitfall 8 (cross-platform paths) via OS-specific ignores
+**Configs:** kitty, ghostty, wezterm (check for `.tmpl` need), aerospace (macOS-only), karabiner (macOS-only)
+**Research flag:** Investigate terminal emulator cache locations before adding
 
-### Phase 4: Package Management Migration
-**Rationale:** With templating working, migrate declarative package management. Requires working templates (Phase 3) to support OS-specific Brewfiles.
-**Delivers:** Automated package installation via `run_onchange_` scripts, Nix removal, consolidated Homebrew management
-**Uses:** Homebrew with `brew bundle --file=/dev/stdin` pattern from STACK.md
-**Implements:** Script execution system from ARCHITECTURE.md
-**Avoids:** "Package manager differences" pitfall with OS-specific package lists in `.chezmoidata/`
+### Phase 3: Dev Tools with Secrets
+**Rationale:** Requires Bitwarden integration and careful secret handling before large directory migration
+**Delivers:** Development tools with template-based secret injection, validates password manager workflow
+**Uses:** Bitwarden templating pattern from v1.0.0 (git config), `private_` attribute for GPG
+**Implements:** Secret management architecture extension
+**Addresses:** Pitfall 2 (secret exposure) via Bitwarden templates and permission verification
+**Configs:** atuin (Bitwarden sync key), aider (check for API keys), finicky, gpg-agent (OS-specific pinentry), zsh-abbr
+**Research flag:** Audit dev tool configs for embedded secrets before adding
 
-### Phase 5: Tool Version Migration (mise)
-**Rationale:** Final major component. Kept separate from earlier phases because asdf→mise is independent of dotfiles management and has distinct failure modes.
-**Delivers:** mise installed and activated, all project .tool-versions working, asdf removed
-**Uses:** mise 2026.1.6 or 2025.12.x with global config templated by chezmoi
-**Implements:** mise global configuration component from ARCHITECTURE.md
-**Avoids:** "asdf/mise running simultaneously" pitfall with parallel installation then clean cut-over
-**Addresses:** Performance requirements from FEATURES.md (10-50x faster than asdf)
+### Phase 4: Large Directory (.claude/)
+**Rationale:** Highest risk due to size (~50 files) and mixed shared/local content, deferred until patterns proven
+**Delivers:** Claude Code configs synced across machines with local state properly excluded
+**Addresses:** Pitfall 2 (local settings exposure), Pitfall 7 (performance degradation)
+**Avoids:** Pitfall 3 (exact_ data loss) by using ignore patterns instead
+**Pattern:** Selective subdirectory addition (agents/, commands/, skills/), `.chezmoiignore` for settings.local.json and cache/
+**Research flag:** Audit .claude/ contents to categorize shared vs local files before migration
+**Performance check:** Monitor `time chezmoi diff` before/after, should stay <2s
 
-### Phase 6: Secrets & Security Hardening
-**Rationale:** After migration working, address security. Kept late because requires stable foundation and can use various strategies based on preference.
-**Delivers:** Secret management strategy implemented (1Password or age), file permissions verified, pre-commit hooks installed
-**Addresses:** Secret management from FEATURES.md (should have)
-**Avoids:** "Secret leakage" and "insecure permissions" pitfalls from PITFALLS.md
-
-### Phase 7: Performance Optimization
-**Rationale:** Final phase focuses on polish. Only after everything works should we optimize startup time.
-**Delivers:** Shell startup < 300ms, lazy loading for non-critical tools, eval caching
-**Addresses:** Performance requirements from FEATURES.md
-**Avoids:** "Slow startup" pitfall with profiling (zprof) and targeted optimizations
+### Phase 5: Dotbot Retirement (Cleanup)
+**Rationale:** Only safe after ALL configs migrated and validated, atomic removal with no rollback
+**Delivers:** Clean chezmoi-only repository with Dotbot infrastructure removed
+**Addresses:** Pitfall 9 (submodule removal), Pitfall 12 (dead references)
+**Validation:** Compare symlink inventory (should be empty), verify `chezmoi managed` covers all configs, test fresh apply on clean machine
+**Tasks:**
+- Verify no Dotbot symlinks remain: `find ~ -type l | grep dotfiles-zsh`
+- Remove nushell/zgenom configs and references
+- Proper git submodule removal (deinit, rm, clean .git/modules)
+- Remove install script and steps/
+- Archive old Brewfiles
+- Update README with chezmoi-only workflow
 
 ### Phase Ordering Rationale
 
-- **Foundation → Complexity**: Start with working shell (Phase 2), add templates (Phase 3), then advanced features (Phases 4-5)
-- **Independent failures**: mise migration (Phase 5) separated from dotfiles migration (Phases 2-4) so failure in one doesn't block the other
-- **Verification points**: Each phase ends with working system and Git tag for rollback
-- **Dependencies respected**: Templates (Phase 3) required before package scripts (Phase 4); working chezmoi (Phase 2) required before templates (Phase 3)
-- **Risk mitigation**: Backups and recovery (Phase 1) before any changes; secrets (Phase 6) after stable foundation; performance (Phase 7) as final polish
+- **Phase 0 first:** Repository structure requires protective `.chezmoiignore` before ANY file operations to prevent infrastructure tracking
+- **Phases 1-2 build confidence:** Simple configs validate workflow, OS detection, permission handling without secret/size risks
+- **Phase 3 before 4:** Secret management patterns must be proven before handling large directory with potential embedded tokens
+- **Phase 4 isolated:** Largest risk surface isolated from other migrations, can rollback without affecting proven configs
+- **Phase 5 last:** Point of no return, only execute after extensive validation confirms full migration success
 
 ### Research Flags
 
-Phases likely needing deeper research during planning:
-- **Phase 4 (Package Management)**: Machine-specific Brewfile patterns need validation — Brewfile_Client and Brewfile_Fanaka have real packages that need mapping to .chezmoidata format
-- **Phase 5 (mise Migration)**: Verify asdf plugin compatibility — some current .tool-versions entries may use plugins not available in mise
-- **Phase 6 (Secrets)**: 1Password integration testing required — existing secrets need catalog before deciding encryption strategy
+Phases needing deeper research during planning:
+
+- **Phase 2 (Terminal emulators):** LOW priority — Need to investigate cache file locations for kitty/ghostty/wezterm to ensure `.chezmoiignore` patterns are complete. Standard pattern likely works, but validate before applying.
+
+- **Phase 3 (zsh-abbr):** MEDIUM priority — Storage format unknown, may contain shell syntax (`${}`, `$()`) conflicting with chezmoi templates. Investigate format with `cat ~/.config/zsh-abbr/user-abbreviations` before migration to determine if `.tmpl` extension needed.
+
+- **Phase 4 (.claude/ directory):** HIGH priority — Requires full file audit to categorize shared vs local. Run `tree ~/.claude/` and categorize each file/directory. Confirm settings.local.json location and any other machine-specific state. Map out exact `.chezmoiignore` patterns needed.
+
+- **Phase 3 (Dev tools):** MEDIUM priority — Audit each tool config for embedded secrets: `grep -ri "token\|key\|password" ~/.config/{atuin,aider,lazygit,finicky}`. Determine which need Bitwarden templating vs encryption vs simple ignore.
 
 Phases with standard patterns (skip research-phase):
-- **Phase 1 (Preparation)**: Backup and recovery scripts follow documented patterns
-- **Phase 2 (chezmoi Foundation)**: Basic import documented in official chezmoi migration guide
-- **Phase 3 (Templating)**: OS detection and machine types are well-documented chezmoi patterns
-- **Phase 7 (Performance)**: Shell profiling and optimization techniques are established
+
+- **Phase 1 (Static configs):** Well-documented pattern, basic `chezmoi add --follow` workflow, no special handling required
+
+- **Phase 5 (Dotbot retirement):** Standard git submodule removal, documented in git documentation and chezmoi FAQ
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | **HIGH** | All tools have official documentation, active maintenance, and production usage examples; version recommendations based on current stable releases |
-| Features | **HIGH** | Feature requirements derived from official docs and real-world migration examples; must-have vs should-have distinction clear from migration complexity analysis |
-| Architecture | **HIGH** | Directory structure and integration patterns validated against official chezmoi architecture docs and multiple real-world examples (shunk031/dotfiles, mizchi/chezmoi-dotfiles) |
-| Pitfalls | **HIGH** | All pitfalls sourced from documented migration issues, community discussions, and specific GitHub issues; prevention strategies tested in production by community |
+| Stack | HIGH | All features exist in chezmoi, no new tools needed, patterns proven in v1.0.0 |
+| Features | HIGH | Clear inventory from Dotbot steps/ configs, MVP vs nice-to-have well-defined |
+| Architecture | HIGH | Extends proven v1.0.0 patterns, file mapping clear from existing symlinks |
+| Pitfalls | MEDIUM-HIGH | Critical pitfalls well-documented (official docs + GitHub issues), config-specific gaps require investigation |
 
-**Overall confidence:** **HIGH**
-
-All four research documents are backed by official documentation, real-world examples, and community consensus. The migration path is well-trodden with documented solutions to common issues.
+**Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **Machine-specific package lists**: Current Brewfile_Client and Brewfile_Fanaka need audit during Phase 4 planning to ensure all packages map correctly to .chezmoidata format
-- **Secret inventory**: Existing dotfiles may contain undocumented secrets; need comprehensive scan with gitleaks before Phase 2 to prevent accidental leakage
-- **mise plugin availability**: Some asdf plugins may not have mise equivalents; need to verify all .tool-versions entries during Phase 5 planning
-- **Shell startup baseline**: Current startup time unmeasured; need to profile existing shell during Phase 1 to set optimization targets for Phase 7
-- **Cross-platform testing environment**: Need Linux VM or Docker container for Phase 3 validation (macOS testing easy, Linux testing requires setup)
+Areas requiring validation during implementation:
+
+- **Terminal emulator cache behavior:** Need to identify exact cache file locations/patterns for `.chezmoiignore`. Low risk — likely follows standard XDG cache patterns, but validate before migration to prevent cache churn.
+
+- **zsh-abbr storage format:** Unknown file format/syntax. Could break abbreviations if templated incorrectly. Investigate format before migration, test expansion after apply. Medium risk — may require template escaping.
+
+- **.claude/ file categorization:** Need complete inventory of which files are shared vs machine-local. High risk if local settings accidentally committed. Requires manual audit with `tree ~/.claude/` and file-by-file review.
+
+- **Dev tool secret locations:** Need to confirm which configs (atuin, aider, lazygit, finicky) contain secrets requiring Bitwarden templating vs simple static files. Medium risk — audit with `grep` before adding.
+
+- **Performance with 50+ files:** Theoretical concern about `chezmoi diff` slowdown with large .claude/ directory. Low risk — benchmark before/after, likely acceptable given modern hardware. Mitigation via `.chezmoiignore` if needed.
+
+- **Karabiner machine-specificity:** Unknown if keyboard mappings differ per machine/keyboard. If yes, needs templating. If no, static file works. Low risk — can migrate as static first, convert to template later if needed.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [chezmoi Official Documentation](https://www.chezmoi.io/) — all core features, migration guide, templating, architecture
-- [mise Official Documentation](https://mise.jdx.dev/) — configuration, asdf comparison, migration path
-- [chezmoi GitHub Repository](https://github.com/twpayne/chezmoi) — issues, discussions, migration patterns
-- [mise GitHub Repository](https://github.com/jdx/mise) — issues, discussions, asdf compatibility notes
-- [Homebrew Official Documentation](https://docs.brew.sh/) — brew bundle, declarative package management
+
+**chezmoi Official Documentation:**
+- [Migrating from another dotfile manager](https://www.chezmoi.io/migrating-from-another-dotfile-manager/) — Symlink conversion, workflow changes
+- [Target types](https://www.chezmoi.io/reference/target-types/) — File attributes (exact_, private_, executable_)
+- [.chezmoiignore](https://www.chezmoi.io/reference/special-files/chezmoiignore/) — Pattern syntax, templating
+- [Manage machine-to-machine differences](https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/) — OS detection, machine types
+- [Templating](https://www.chezmoi.io/user-guide/templating/) — Go template syntax, variables
+- [Manage different types of file](https://www.chezmoi.io/user-guide/manage-different-types-of-file/) — Permissions, encrypted files
+- [Customize your source directory](https://www.chezmoi.io/user-guide/advanced/customize-your-source-directory/) — Repository-as-source architecture
+- [Design FAQ](https://www.chezmoi.io/user-guide/frequently-asked-questions/design/) — Philosophy, edge cases
+- [Usage FAQ](https://www.chezmoi.io/user-guide/frequently-asked-questions/usage/) — Common migration issues
+
+**Existing Project Documentation:**
+- `/Users/stephanlv_fanaka/Projects/dotfiles-zsh/README.md` — Current chezmoi setup from v1.0.0
+- `.planning/milestones/v1.0.0-ROADMAP.md` — Foundation milestone showing proven patterns
 
 ### Secondary (MEDIUM confidence)
-- [shunk031/dotfiles](https://github.com/shunk031/dotfiles) — production example of chezmoi + mise + sheldon integration
-- [mizchi/chezmoi-dotfiles](https://github.com/mizchi/chezmoi-dotfiles) — chezmoi + sheldon patterns
-- [Managing dotfiles with Chezmoi - Nathaniel Landau](https://natelandau.com/managing-dotfiles-with-chezmoi/) — comprehensive tutorial
-- [Mise vs asdf - Better Stack](https://betterstack.com/community/guides/scaling-nodejs/mise-vs-asdf/) — performance comparison
-- [Why I switched from asdf to mise](https://medium.com/@nidhivya18_77320/why-i-switched-from-asdf-to-mise-and-you-should-too-8962bf6a6308) — migration experience
 
-### Tertiary (LOW confidence)
-- [Migrating from asdf to mise without the headaches](https://dev.to/0xkoji/migrating-from-asdf-to-mise-without-the-headaches-1jp3) — migration walkthrough (single source)
-- Various GitHub issue discussions on secret management, shell performance, cross-platform patterns — validated against official docs
+**Real-world Migration Experiences:**
+- [Migrating a pre-existing dotfiles repository · Discussion #2330](https://github.com/twpayne/chezmoi/discussions/2330) — Community migration strategies
+- [How To Manage Dotfiles With Chezmoi](https://jerrynsh.com/how-to-manage-dotfiles-with-chezmoi/) — Tutorial covering templating, secrets
+- [Managing dotfiles with Chezmoi](https://natelandau.com/managing-dotfiles-with-chezmoi/) — Cross-platform patterns
+- [Taking Control of My Dotfiles with chezmoi](https://blog.cmmx.de/2026/01/13/taking-control-of-my-dotfiles-with-chezmoi/) — Recent migration experience
+
+**Documented Pitfalls:**
+- [Chezmoi confused with exact_ and externals · Issue #3414](https://github.com/twpayne/chezmoi/issues/3414) — Data loss incident, exact_ danger
+- [Persist file permissions for group and other · Issue #769](https://github.com/twpayne/chezmoi/issues/769) — Permission model limitations
+
+**Claude Code Integration:**
+- [Sync Claude Code commands and hooks across machines](https://www.arun.blog/sync-claude-code-with-chezmoi-and-age/) — .claude/ sync patterns with age encryption
+- [claude-code-mastery/docs/guides/dotfiles-sync.md](https://github.com/NovaAI-innovation/claude-code-mastery/blob/main/docs/guides/dotfiles-sync.md) — Community guide for Claude Code dotfiles
+- [.claude - Your Claude Code Directory](https://dotclaude.com/) — Directory structure reference
+
+### Tertiary (LOW confidence, needs validation)
+
+**Terminal/Window Manager Configuration:**
+- [The Modern Terminals Showdown](https://blog.codeminer42.com/modern-terminals-alacritty-kitty-and-ghostty/) — Terminal emulator comparison (cache behavior not specified)
+- [Choosing a Terminal on macOS (2025)](https://medium.com/@dynamicy/choosing-a-terminal-on-macos-2025-iterm2-vs-ghostty-vs-wezterm-vs-kitty-vs-alacritty-d6a5e42fd8b3) — Feature comparison (config structure not detailed)
+- [AeroSpace Tiling Window Manager](https://github.com/nikitabobko/AeroSpace) — Documentation confirms macOS-only, config structure
+- [How To Setup And Use The Aerospace Tiling Window Manager](https://www.josean.com/posts/how-to-setup-aerospace-tiling-window-manager) — Configuration tutorial
+
+**Gaps requiring direct investigation:**
+- zsh-abbr storage format — No documentation found, requires `cat ~/.config/zsh-abbr/user-abbreviations` inspection
+- Exact .claude/ file inventory — Needs `tree ~/.claude/` output and per-file categorization
+- Terminal emulator cache locations — Needs per-tool investigation in `~/.config/{kitty,ghostty}` and `~/.cache/`
 
 ---
-*Research completed: 2026-01-25*
+
+*Research completed: 2026-02-08*
 *Ready for roadmap: yes*
+*Recommended approach: Gradual 5-phase migration with defensive .chezmoiignore setup, extensive validation, Dotbot retirement only after full verification*

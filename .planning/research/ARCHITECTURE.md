@@ -1,815 +1,957 @@
-# Architecture Patterns for chezmoi + mise Dotfiles Migration
+# Architecture Integration: Complete chezmoi Migration
+
+**Domain:** Dotfiles management completion
+**Researched:** 2026-02-08
+**Context:** Subsequent milestone building on existing chezmoi foundation (v1.0.0)
 
 ## Executive Summary
 
-This document outlines the architecture for migrating from Dotbot + Nix to chezmoi + mise for dotfiles management. The migration preserves the current modular structure while adopting chezmoi's file-based approach (replacing symlinks) and mise for tool version management.
+This architecture document defines how remaining Dotbot-managed configurations integrate with the existing chezmoi source tree established in milestone v1.0.0. The focus is on extending proven patterns rather than redesigning the foundation.
 
-**Key Architectural Decisions:**
-- **Source Directory**: `~/.local/share/chezmoi` (chezmoi default)
-- **Target Directory**: `~` (user home directory)
-- **Machine Configuration**: `.chezmoidata/*.toml` for static data, `.chezmoi.toml.tmpl` for dynamic
-- **Package Management**: `run_onchange_` scripts with embedded Brewfiles
-- **Tool Versions**: Global mise config in `~/.config/mise/config.toml`
+**Key Integration Points:**
+- Existing chezmoi source: `~/.local/share/chezmoi` (= `/Users/stephanlv_fanaka/Projects/dotfiles-zsh`)
+- Naming conventions: Already established (`dot_`, `private_`, `.tmpl` patterns)
+- Data-driven config: `.chezmoidata.yaml` pattern proven in v1.0.0
+- Machine detection: `.chezmoi.yaml.tmpl` handles OS and machine type
+- Secrets: age encryption + Bitwarden integration working
 
-## Recommended Directory Structure
+**Migration Scope:**
+- Terminal emulator configs (kitty, ghostty, wezterm)
+- Window manager (aerospace)
+- CLI tool configs (bat, lsd, btop, oh-my-posh)
+- Dev tool configs (lazygit, atuin, psqlrc, sqliterc, aider, finicky)
+- Basic dotfiles (.hushlogin, .inputrc, .editorconfig, .nanorc)
+- GPG agent, karabiner
+- Claude Code (.claude/ directory — large config with 50+ files)
+- zsh-abbr abbreviations
+- zgenom plugin manager config
 
-Based on [chezmoi's architecture documentation](https://www.chezmoi.io/developer-guide/architecture/) and [best practices](https://www.chezmoi.io/user-guide/advanced/customize-your-source-directory/), here's the proposed source directory layout:
+**Out of Scope:**
+- Nushell (to be dropped)
+- Neovim (stays separate as external directory)
+
+## Existing Architecture Foundation
+
+From v1.0.0 milestone completion (see `.planning/milestones/v1.0.0-ROADMAP.md`):
+
+### Current chezmoi Source Tree
+
+```
+~/.local/share/chezmoi/ (= /Users/stephanlv_fanaka/Projects/dotfiles-zsh)
+├── .chezmoi.yaml.tmpl              # Machine identity (OS, machine type)
+├── .chezmoidata.yaml               # Package lists + config data
+├── .chezmoiignore                  # Exclusions
+├── .gitleaks.toml                  # Secret scanning config
+├── .pre-commit-config.yaml         # Pre-commit hooks for repo
+│
+├── dot_zshrc                       # Shell config (static in v1.0.0)
+├── dot_zshenv                      # Shell environment
+├── dot_zprofile                    # Shell profile
+├── dot_zsh.d/                      # Modular shell configs
+│   ├── aliases.zsh
+│   ├── functions.zsh
+│   ├── variables.zsh
+│   ├── (... other shell modules)
+│
+├── dot_gitconfig                   # Global git config
+├── private_dot_gitconfig_local.tmpl # Git user/email from Bitwarden
+├── dot_Brewfile.tmpl               # Generated from .chezmoidata.yaml
+│
+├── private_dot_ssh/                # SSH keys (age-encrypted)
+│   ├── encrypted_private_*.age     # Private keys
+│   ├── private_*.pub               # Public keys
+│   └── private_config              # SSH host config
+│
+├── private_dot_config/
+│   ├── git/hooks/                  # Global git hooks (gitleaks)
+│   └── mise/config.toml.tmpl       # Tool version management
+│
+└── run_*.sh.tmpl                   # Automation scripts
+    ├── run_once_before_install-homebrew
+    ├── run_onchange_after_01-install-packages
+    ├── run_onchange_after_02-cleanup-packages
+    ├── run_once_after_generate-mise-completions
+    └── run_after_10-verify-permissions
+```
+
+### Proven Patterns from v1.0.0
+
+**1. Static vs Template Decision:**
+- Static files: No machine-specific values, faster processing
+- Templates (`.tmpl`): Machine-specific paths, conditionals, Bitwarden secrets
+
+**2. Directory Organization:**
+- `private_dot_config/` for configs needing restricted permissions
+- `dot_config/` for standard configs
+- Top-level `dot_*` for home directory dotfiles
+
+**3. Machine Detection:**
+```yaml
+# .chezmoi.yaml.tmpl
+data:
+  machineType: "personal" | "client"
+  os: "darwin" | "linux"
+```
+
+**4. Data-Driven Config:**
+```yaml
+# .chezmoidata.yaml
+darwin:
+  common_brews: [...]
+  client_brews: [...]
+  fanaka_brews: [...]
+```
+
+## Recommended Integration Architecture
+
+### Directory Layout Extension
+
+Building on existing structure, add:
 
 ```
 ~/.local/share/chezmoi/
-├── .chezmoi.toml.tmpl              # Dynamic machine config (hostname, OS detection)
-├── .chezmoiignore                  # Files to exclude from target
-├── .chezmoiroot                    # Optional: specify subdirectory as root
 │
-├── .chezmoidata/                   # Static configuration data
-│   ├── packages.toml               # Package declarations (common)
-│   ├── packages_client.toml        # Client-specific packages
-│   └── packages_fanaka.toml        # Fanaka-specific packages
+├── [EXISTING v1.0.0 FILES...]
 │
-├── .chezmoiscripts/                # Reusable script libraries
-│   └── install-helpers.sh          # Common installation functions
+├── dot_hushlogin                   # NEW: Basic dotfile (static)
+├── dot_inputrc                     # NEW: Basic dotfile (static)
+├── dot_editorconfig                # NEW: Basic dotfile (static)
+├── dot_nanorc                      # NEW: Basic dotfile (static)
+├── dot_psqlrc                      # NEW: DB CLI config (static)
+├── dot_sqliterc                    # NEW: DB CLI config (static)
+├── dot_aider.conf.yml              # NEW: Aider config (static or .tmpl if API keys)
+├── dot_finicky.js                  # NEW: macOS browser picker (static)
+├── dot_wezterm.lua                 # NEW: Terminal config (static or .tmpl)
 │
-├── .chezmoitemplates/              # Template fragments
-│   ├── brewfile.tmpl               # Reusable Brewfile template
-│   └── zsh-header.tmpl             # Common ZSH file headers
+├── dot_gnupg/                      # NEW: GPG directory
+│   └── gpg-agent.conf              # GPG agent config
 │
-├── run_once_before_00-install-homebrew.sh    # One-time Homebrew installation
-├── run_once_before_01-install-mise.sh        # One-time mise installation
-├── run_onchange_before_install-packages.sh.tmpl  # Package installation (runs on changes)
+├── dot_config/                     # EXTEND: XDG config directory
+│   ├── aerospace/                  # NEW: macOS window manager
+│   │   └── aerospace.toml          # (static, macOS-only via .chezmoiignore)
+│   │
+│   ├── bat/                        # NEW: cat replacement
+│   │   └── config                  # (static)
+│   │
+│   ├── lsd/                        # NEW: ls replacement
+│   │   └── config.yaml             # (static)
+│   │
+│   ├── btop/                       # NEW: System monitor
+│   │   └── btop.conf               # (static)
+│   │
+│   ├── oh-my-posh/                 # NEW: Shell prompt (if used)
+│   │   └── config.omp.json         # (static or .tmpl for machine-specific themes)
+│   │
+│   ├── kitty/                      # NEW: Terminal emulator
+│   │   └── kitty.conf              # (static or .tmpl for font paths)
+│   │
+│   ├── ghostty/                    # NEW: Terminal emulator
+│   │   └── config                  # (static)
+│   │
+│   ├── wezterm/                    # Alternative: if using directory structure
+│   │   └── wezterm.lua             # (vs top-level dot_wezterm.lua)
+│   │
+│   ├── karabiner/                  # NEW: Keyboard remapping (macOS)
+│   │   └── karabiner.json          # (static, complex JSON)
+│   │
+│   ├── lazygit/                    # NEW: Git TUI
+│   │   └── config.yml              # (static)
+│   │
+│   ├── atuin/                      # NEW: Shell history
+│   │   ├── config.toml.tmpl        # (template for sync key/server)
+│   │   └── encrypted_private_key.age # (if storing key)
+│   │
+│   ├── zsh-abbr/                   # NEW: ZSH abbreviations
+│   │   └── user-abbreviations      # (static)
+│   │
+│   ├── zgenom/                     # NEW: ZSH plugin manager
+│   │   └── zgenomrc.zsh            # (static plugin list)
+│   │
+│   └── claude/                     # NEW: Large directory structure
+│       ├── CLAUDE.md               # (static global instructions)
+│       ├── settings.json           # (static or .tmpl for auth)
+│       ├── agents/                 # (directory with ~10+ files)
+│       ├── commands/               # (directory with ~10+ files)
+│       ├── skills/                 # (directory with ~30+ files)
+│       └── [...other subdirs]
 │
-├── dot_zshrc.tmpl                  # ~/.zshrc (templated for machine-specific vars)
-├── dot_zshenv                      # ~/.zshenv (static)
-├── dot_zprofile                    # ~/.zprofile (static)
-│
-├── dot_zsh.d/                      # ~/.zsh.d/ (modular shell config)
-│   ├── aliases.zsh                 # Static file
-│   ├── functions.zsh               # Static file
-│   ├── variables.zsh.tmpl          # Templated for machine-specific values
-│   ├── path.zsh.tmpl               # Templated for different paths
-│   ├── atuin.zsh                   # Static file
-│   ├── carapace.zsh                # Static file
-│   ├── completions.zsh             # Static file
-│   ├── external.zsh                # Static file
-│   ├── hooks.zsh                   # Static file
-│   ├── keybinds.zsh                # Static file
-│   ├── ssh.zsh                     # Static file
-│   ├── wt.zsh                      # Static file
-│   ├── xlaude.zsh                  # Static file
-│   ├── intelli-shell.zsh           # Static file
-│   └── lens-completion.zsh         # Static file
-│
-├── dot_config/                     # ~/.config/ directory
-│   ├── mise/
-│   │   └── config.toml.tmpl        # Global mise configuration (templated)
-│   │
-│   ├── aerospace/
-│   │   └── aerospace.toml          # Static config
-│   │
-│   ├── atuin/
-│   │   ├── config.toml.tmpl        # Templated for sync settings
-│   │   └── private_key             # Use encrypted_ prefix for secrets
-│   │
-│   ├── bat/
-│   │   └── config                  # Static config
-│   │
-│   ├── btop/
-│   │   └── btop.conf               # Static config
-│   │
-│   ├── claude/
-│   │   ├── CLAUDE.md               # Static config
-│   │   ├── settings.json           # Static config
-│   │   ├── agents/                 # Directory
-│   │   ├── commands/               # Directory
-│   │   └── skills/                 # Directory
-│   │
-│   ├── git/
-│   │   ├── gitconfig.tmpl          # Templated for name/email
-│   │   ├── gitignore               # Static
-│   │   └── gitattributes           # Static
-│   │
-│   ├── ghostty/
-│   │   └── config                  # Static config
-│   │
-│   ├── karabiner/
-│   │   └── karabiner.json          # Static config
-│   │
-│   ├── kitty/
-│   │   └── kitty.conf              # Static config (currently .config/kitty.conf)
-│   │
-│   ├── lazygit/
-│   │   └── config.yml              # Static config (currently lazygit.yml)
-│   │
-│   ├── lsd/
-│   │   └── config.yaml             # Static config
-│   │
-│   ├── nushell/                    # Directory
-│   │   └── (nushell configs)
-│   │
-│   ├── zsh-abbr/
-│   │   └── user-abbreviations      # Static config
-│   │
-│   └── zgenom/
-│       └── zgenomrc.zsh            # Static config
-│
-├── dot_hushlogin                   # ~/.hushlogin
-├── dot_inputrc                     # ~/.inputrc
-├── dot_wezterm.lua                 # ~/.wezterm.lua
-├── dot_editorconfig                # ~/.editorconfig
-├── dot_nanorc                      # ~/.nanorc
-├── dot_psqlrc                      # ~/.psqlrc
-├── dot_sqliterc                    # ~/.sqliterc
-├── dot_aider.conf.yml              # ~/.aider.conf.yml
-├── dot_finicky.js                  # ~/.finicky.js
-├── dot_gitconfig -> dot_config/git/gitconfig.tmpl  # Symlink in source
-│
-├── dot_gnupg/
-│   └── gpg-agent.conf              # ~/.gnupg/gpg-agent.conf
-│
-├── zgenom/                         # ~/.zgenom (external directory)
-│   └── (zgenom content)
-│
-└── nvim/                           # ~/.config/nvim (external directory)
-    └── (nvim config)
+└── [REMOVE when complete:]
+    ├── install                     # Dotbot entry point
+    ├── steps/                      # Dotbot YAML configs
+    ├── dotbot/                     # Dotbot submodule
+    ├── dotbot-brew/                # Plugin submodule
+    └── dotbot-asdf/                # Plugin submodule
 ```
 
-### File Naming Conventions
+### File-by-File Integration Map
 
-As documented in [chezmoi's source state attributes](https://www.chezmoi.io/reference/source-state-attributes/):
+| Current Location | chezmoi Source Path | Type | Notes |
+|------------------|---------------------|------|-------|
+| **Basic Dotfiles** |
+| `.config/hushlogin` | `dot_hushlogin` | static | Suppress login message |
+| `.config/inputrc` | `dot_inputrc` | static | Readline config |
+| `.config/editorconfig` | `dot_editorconfig` | static | Editor config |
+| `.config/nanorc` | `dot_nanorc` | static | Nano config |
+| **Database Tools** |
+| `.config/psqlrc` | `dot_psqlrc` | static | PostgreSQL CLI |
+| `.config/sqliterc` | `dot_sqliterc` | static | SQLite CLI |
+| **Dev Tools** |
+| `.config/aider.conf.yml` | `dot_aider.conf.yml` OR `.tmpl` | depends | Check for API keys |
+| `.config/finicky.js` | `dot_finicky.js` | static | macOS browser picker |
+| `.config/lazygit.yml` | `dot_config/lazygit/config.yml` | static | Git TUI config |
+| **Terminal Emulators** |
+| `.config/kitty.conf` | `dot_config/kitty/kitty.conf` | static/tmpl | Check font paths |
+| `.config/ghostty/config` | `dot_config/ghostty/config` | static | Terminal config |
+| `.config/wezterm.lua` | `dot_wezterm.lua` | static/tmpl | Terminal config |
+| **Window/Input Management** |
+| `.config/aerospace/aerospace.toml` | `dot_config/aerospace/aerospace.toml` | static | macOS-only (add to .chezmoiignore for Linux) |
+| `.config/karabiner/karabiner.json` | `dot_config/karabiner/karabiner.json` | static | macOS-only, large JSON |
+| **CLI Tools** |
+| `.config/bat/config` | `dot_config/bat/config` | static | cat replacement |
+| `.config/lsd/config.yaml` | `dot_config/lsd/config.yaml` | static | ls replacement |
+| `.config/btop/btop.conf` | `dot_config/btop/btop.conf` | static | System monitor |
+| `.config/oh-my-posh.omp.json` | `dot_config/oh-my-posh/config.omp.json` | static | Shell prompt |
+| **Shell Plugins** |
+| `.config/zsh-abbr/user-abbreviations` | `dot_config/zsh-abbr/user-abbreviations` | static | ZSH abbreviations |
+| `.config/zgenom/zgenomrc.zsh` | `dot_config/zgenom/zgenomrc.zsh` | static | Plugin manager config |
+| **Security/Crypto** |
+| `.config/gpgagent` | `dot_gnupg/gpg-agent.conf` | static | GPG agent config |
+| **Atuin (History)** |
+| `.config/atuin/config.toml` | `dot_config/atuin/config.toml.tmpl` | template | Sync server/key from Bitwarden |
+| **Claude Code** |
+| `.config/claude/CLAUDE.md` | `dot_config/claude/CLAUDE.md` | static | Global instructions |
+| `.config/claude/settings.json` | `dot_config/claude/settings.json` | static/tmpl | Check for auth tokens |
+| `.config/claude/agents/*` | `dot_config/claude/agents/` | directory | ~10 files |
+| `.config/claude/commands/*` | `dot_config/claude/commands/` | directory | ~10 files |
+| `.config/claude/skills/*` | `dot_config/claude/skills/` | directory | ~30 files |
+| **External (NOT in chezmoi)** |
+| `.config/nushell/*` | — | DROP | Not in use |
+| `nvim/*` | — | EXTERNAL | Stays separate, symlinked manually |
+| `zgenom/*` | — | EXTERNAL | Plugin manager cache, not tracked |
 
-- `dot_` prefix → `.` in target (e.g., `dot_zshrc` → `~/.zshrc`)
-- `.tmpl` suffix → File processed as template
-- `executable_` prefix → File gets executable permissions
-- `private_` prefix → File gets 0600 permissions
-- `readonly_` prefix → File gets read-only permissions
-- `encrypted_` prefix → File stored encrypted (for secrets)
-- `run_once_` prefix → Script runs once successfully
-- `run_onchange_` prefix → Script runs when contents change
-- `before_`/`after_` modifiers → Control script execution order
+### Static vs Template Decision Matrix
 
-## Template Organisation
+| Config Type | Template? | Rationale |
+|-------------|-----------|-----------|
+| **Basic dotfiles** (hushlogin, inputrc, editorconfig, nanorc) | NO | No machine-specific values |
+| **DB CLI** (psqlrc, sqliterc) | NO | Standard config, no secrets in file |
+| **Terminal emulators** (kitty, ghostty, wezterm) | DEPENDS | Template if font paths differ by OS or machine |
+| **CLI tools** (bat, lsd, btop) | NO | Tool defaults work across machines |
+| **Window manager** (aerospace) | NO | Static config, macOS-only via .chezmoiignore |
+| **Keyboard** (karabiner) | NO | Large static JSON, macOS-only |
+| **Git TUI** (lazygit) | NO | Standard config |
+| **Shell plugins** (zsh-abbr, zgenom) | NO | Plugin lists same across machines |
+| **Atuin** | YES | Sync server + key from Bitwarden |
+| **Aider** | DEPENDS | Template if API keys present, otherwise static |
+| **Claude Code** | DEPENDS | Template if auth tokens, otherwise static |
+| **GPG** | NO | Standard agent config |
+| **Finicky** | NO | Browser rules same across machines |
 
-### Static vs Templated Files Decision Tree
+### Template Examples
 
-Based on [chezmoi's templating guide](https://www.chezmoi.io/user-guide/templating/):
-
-```
-Does file contain machine-specific values?
-├─ YES → Use .tmpl suffix
-│   ├─ Examples: .zshrc, git config, mise config
-│   ├─ Access data via {{ .variableName }}
-│   └─ Can use conditionals: {{ if eq .chezmoi.os "darwin" }}
-│
-└─ NO → Keep as static file
-    ├─ Examples: aliases.zsh, bat config, static tool configs
-    └─ Faster processing, simpler maintenance
-```
-
-### Template Categories
-
-**1. Static Files** (no .tmpl suffix)
-- Pure configuration with no machine-specific values
-- Shell aliases, functions (unless machine-specific paths)
-- Tool configurations that are identical across machines
-- Examples: `dot_zsh.d/aliases.zsh`, `dot_config/bat/config`
-
-**2. Templated Files** (.tmpl suffix)
-- Files with machine-specific paths, hostnames, or credentials
-- Conditional content based on OS or hostname
-- Files using data from `.chezmoidata/`
-- Examples: `dot_zshrc.tmpl`, `dot_config/git/gitconfig.tmpl`
-
-**3. Template Fragments** (.chezmoitemplates/)
-- Reusable template snippets included in multiple files
-- Common headers, footers, or configuration blocks
-- Accessed via `{{ template "brewfile.tmpl" . }}`
-- Examples: Brewfile template, common script headers
-
-### Template Data Flow
-
-According to [chezmoi's data sources documentation](https://www.chezmoi.io/reference/special-directories/chezmoidata/):
-
-```mermaid
-graph TD
-    A[.chezmoidata/*.toml] -->|Static Data| D[Template Engine]
-    B[.chezmoi.toml.tmpl] -->|Dynamic Data| D
-    C[Built-in Variables] -->|OS, Arch, Hostname| D
-    D -->|Process Templates| E[Target Files]
-    F[.chezmoitemplates/] -->|Template Fragments| D
-```
-
-**Data Sources Priority:**
-1. Built-in variables (`{{ .chezmoi.os }}`, `{{ .chezmoi.hostname }}`)
-2. `.chezmoidata/` files (merged alphabetically)
-3. `.chezmoi.toml.tmpl` (dynamic configuration)
-4. Command-line overrides
-
-## Machine Configuration Pattern
-
-### Machine-Specific Data Architecture
-
-As described in [machine-to-machine differences guide](https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/):
-
-**Option 1: Static Data (.chezmoidata/)** - RECOMMENDED for packages
+**1. Atuin with Bitwarden Secrets**
 
 ```toml
-# .chezmoidata/packages.toml
-[common]
-brews = [
-    "atuin",
-    "bat",
-    "bottom",
-    "carapace",
-    "duf",
-    "dust",
-    "eza",
-    "fd",
-    "fzf",
-    "gh",
-    "git",
-    "git-delta",
-    "lazygit",
-    "lsd",
-    "mise",
-    "ripgrep",
-    "zoxide"
-]
+# dot_config/atuin/config.toml.tmpl
+{{- if (bitwarden "item" "dotfiles/shared/atuin-sync") }}
+sync_address = "{{ (bitwardenFields "item" "dotfiles/shared/atuin-sync").server.value }}"
+sync_key = "{{ (bitwardenFields "item" "dotfiles/shared/atuin-sync").key.value }}"
+{{- end }}
 
-casks = [
-    "aerospace",
-    "ghostty",
-    "karabiner-elements"
-]
-
-# .chezmoidata/packages_client.toml
-[client]
-brews = [
-    "argocd",
-    "docker",
-    "docker-compose",
-    "kubernetes-cli"
-]
-
-casks = [
-    "slack",
-    "zoom"
-]
-
-# .chezmoidata/packages_fanaka.toml
-[fanaka]
-brews = [
-    "postgresql@14",
-    "redis"
-]
+auto_sync = true
+update_check = false
 ```
 
-**Option 2: Dynamic Config (.chezmoi.toml.tmpl)** - For runtime detection
+**2. Conditional macOS-only Config**
+
+```lua
+-- dot_wezterm.lua.tmpl
+local wezterm = require 'wezterm'
+
+return {
+  font = wezterm.font 'JetBrains Mono',
+  {{- if eq .chezmoi.os "darwin" }}
+  font_size = 14.0,
+  {{- else }}
+  font_size = 12.0,
+  {{- end }}
+}
+```
+
+**3. Machine-Type Specific Values**
 
 ```toml
-{{- $hostname := .chezmoi.hostname -}}
-{{- $isClient := contains "client" (lower $hostname) -}}
-{{- $isFanaka := contains "fanaka" (lower $hostname) -}}
-
-[data]
-    hostname = {{ $hostname | quote }}
-    isClient = {{ $isClient }}
-    isFanaka = {{ $isFanaka }}
-
-    {{- if $isClient }}
-    machine_type = "client"
-    {{- else if $isFanaka }}
-    machine_type = "fanaka"
-    {{- else }}
-    machine_type = "personal"
-    {{- end }}
-
-    [data.paths]
-    {{- if eq .chezmoi.os "darwin" }}
-    homebrew = "/opt/homebrew"
-    {{- else }}
-    homebrew = "/home/linuxbrew/.linuxbrew"
-    {{- end }}
+# dot_config/aerospace/aerospace.toml
+# Static file, but excluded for Linux via .chezmoiignore
 ```
 
-### Machine Type Detection Pattern
-
-```zsh
-# In dot_zshrc.tmpl
-{{- if eq .machine_type "client" }}
-# Client-specific configurations
-export CLIENT_MODE=1
-{{- else if eq .machine_type "fanaka" }}
-# Fanaka-specific configurations
-export FANAKA_MODE=1
+```
+# .chezmoiignore
+{{- if ne .chezmoi.os "darwin" }}
+.config/aerospace
+.config/karabiner
 {{- end }}
-
-# Common configurations for all machines
-export EDITOR="{{ .editor | default "nvim" }}"
 ```
 
-## Script Organisation
+## Large Directory Handling: Claude Code
 
-### Script Execution Order
+### Challenge
 
-Following [chezmoi's script usage guide](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/):
+`.claude/` contains ~50+ files across multiple subdirectories:
+- `agents/` — ~10 Python agent scripts
+- `commands/` — ~10 custom command definitions
+- `skills/` — ~30 skill modules
+- Top-level: `CLAUDE.md`, `settings.json`, other config files
+
+### Integration Strategy
+
+**Option 1: Mirror Directory Structure (RECOMMENDED)**
 
 ```
-Execution Flow:
-1. run_once_before_* (alphabetically)
-   → run_once_before_00-install-homebrew.sh
-   → run_once_before_01-install-mise.sh
-
-2. Apply file changes
-   → Create/update dotfiles
-
-3. run_onchange_before_* (if content changed)
-   → run_onchange_before_install-packages.sh.tmpl
-
-4. run_after_* (alphabetically)
-   → run_after_reload-shell.sh
-
-5. run_once_after_* (alphabetically)
-   → run_once_after_setup-complete.sh
+dot_config/claude/
+├── CLAUDE.md                    # Static global instructions
+├── settings.json                # Static or .tmpl if contains auth
+├── agents/
+│   ├── agent1.py
+│   ├── agent2.py
+│   └── [...]
+├── commands/
+│   ├── command1.yaml
+│   ├── command2.yaml
+│   └── [...]
+└── skills/
+    ├── skill1.py
+    ├── skill2.py
+    └── [...]
 ```
 
-### Package Installation Scripts
+**Add to chezmoi:**
+```bash
+chezmoi add --follow ~/.config/claude
+# OR add recursively
+chezmoi add --recursive ~/.config/claude
+```
 
-**1. Homebrew Bootstrap** (`run_once_before_00-install-homebrew.sh`)
+**Pros:**
+- Preserves directory structure
+- Easy to maintain
+- Matches other tool configs
+
+**Cons:**
+- Many files in source tree
+- Potential for large git commits
+
+**Option 2: Selective Addition**
+
+Only track critical files, ignore generated/cache:
+
+```
+# .chezmoiignore
+.config/claude/cache/
+.config/claude/*.log
+.config/claude/temp/
+```
+
+**Option 3: External Directory (NOT RECOMMENDED)**
+
+Keep `.claude/` as external symlink like nvim:
+
+**Cons:**
+- Doesn't align with "everything in chezmoi" goal
+- Loses cross-machine sync benefits
+- Requires separate versioning
+
+### Recommendation
+
+Use **Option 1** (mirror structure) with selective ignores. Claude Code configs are valuable to version and sync across machines.
+
+## Build Order and Dependencies
+
+### Migration Phases
+
+Based on dependencies between configs:
+
+**Phase 1: Basic Dotfiles (No Dependencies)**
+```
+Priority: High
+Files:
+  - dot_hushlogin
+  - dot_inputrc
+  - dot_editorconfig
+  - dot_nanorc
+  - dot_psqlrc
+  - dot_sqliterc
+  - dot_finicky.js
+
+Dependencies: None
+Verification: File presence, content match
+```
+
+**Phase 2: CLI Tool Configs (Depends on Homebrew packages)**
+```
+Priority: High
+Files:
+  - dot_config/bat/config
+  - dot_config/lsd/config.yaml
+  - dot_config/btop/btop.conf
+  - dot_config/lazygit/config.yml
+
+Dependencies:
+  - Homebrew packages installed (bat, lsd, btop, lazygit)
+  - run_onchange_after_01-install-packages.sh completed
+
+Verification: Tools work with configs
+```
+
+**Phase 3: Terminal Emulators (Depends on CLI tools)**
+```
+Priority: Medium
+Files:
+  - dot_config/kitty/kitty.conf
+  - dot_config/ghostty/config
+  - dot_wezterm.lua
+
+Dependencies:
+  - Fonts installed (via Homebrew casks)
+  - CLI tools configured (bat, lsd for shell integration)
+
+Verification: Launch terminal, check theme/fonts
+```
+
+**Phase 4: Shell Plugin Configs (Depends on plugin managers)**
+```
+Priority: Medium
+Files:
+  - dot_config/zsh-abbr/user-abbreviations
+  - dot_config/zgenom/zgenomrc.zsh
+  - dot_config/oh-my-posh/config.omp.json (if used)
+
+Dependencies:
+  - zsh-abbr installed via Homebrew
+  - zgenom directory exists (external)
+  - oh-my-posh installed
+
+Verification: Source shell, test abbreviations
+```
+
+**Phase 5: Security/Secrets (Depends on Bitwarden + age)**
+```
+Priority: High
+Files:
+  - dot_config/atuin/config.toml.tmpl
+  - dot_aider.conf.yml.tmpl (if secrets present)
+  - dot_gnupg/gpg-agent.conf
+
+Dependencies:
+  - Bitwarden CLI installed + authenticated
+  - age key present (~/.config/age/key-*.txt)
+  - BW_SESSION environment variable set
+
+Verification:
+  - chezmoi apply works without errors
+  - atuin sync works
+  - gpg-agent starts
+```
+
+**Phase 6: macOS-Specific (Depends on OS detection)**
+```
+Priority: Low (macOS only)
+Files:
+  - dot_config/aerospace/aerospace.toml
+  - dot_config/karabiner/karabiner.json
+
+Dependencies:
+  - .chezmoiignore excludes on Linux
+  - aerospace/karabiner-elements installed
+
+Verification: Window manager/keyboard remapping works
+```
+
+**Phase 7: Large Directories (Depends on structure setup)**
+```
+Priority: Medium
+Files:
+  - dot_config/claude/* (50+ files)
+
+Dependencies:
+  - Directory structure verified
+  - .chezmoiignore patterns set
+
+Verification:
+  - Claude Code loads config
+  - All agents/commands/skills present
+```
+
+**Phase 8: Dev Tool Configs (Low Priority)**
+```
+Priority: Low
+Files:
+  - dot_aider.conf.yml (if no secrets)
+
+Dependencies:
+  - Tool installed via pipx or Homebrew
+
+Verification: Tool works with config
+```
+
+### Dependency Graph
+
+```
+run_onchange (Homebrew packages)
+  ↓
+CLI Tool Configs (bat, lsd, btop, lazygit)
+  ↓
+Terminal Emulators (kitty, ghostty, wezterm)
+  ↓
+Shell Plugins (zsh-abbr, zgenom)
+
+Parallel branch:
+Bitwarden + age setup
+  ↓
+Security/Secrets (atuin, gpg, aider if needed)
+
+Parallel branch:
+OS detection (.chezmoiignore)
+  ↓
+macOS-specific (aerospace, karabiner)
+
+Independent:
+Basic Dotfiles (hushlogin, inputrc, etc.)
+Large Directories (claude)
+Dev Tools (aider)
+```
+
+## Dotbot Retirement Strategy
+
+### Option 1: Gradual Migration (RECOMMENDED)
+
+**Approach:** Migrate configs in phases, remove Dotbot files at end
+
+**Process:**
+1. **Phase 1-7**: Migrate configs one phase at a time
+2. **After each phase**: Verify both systems work (Dotbot + chezmoi in parallel)
+3. **After Phase 7 complete**: Test full chezmoi-only setup
+4. **Final cleanup**: Remove Dotbot infrastructure
+
+**Timeline:**
+- Migration: 2-3 weeks (allows for validation)
+- Cleanup: 1 day
+
+**Pros:**
+- Low risk — can rollback to Dotbot if issues
+- Time to discover edge cases
+- Both systems work during migration
+
+**Cons:**
+- Longer timeline
+- Some configs duplicated temporarily
+
+**Dotbot Removal Steps:**
+```bash
+# After all migrations verified
+cd ~/.local/share/chezmoi
+
+# Remove Dotbot files
+rm install
+rm -rf steps/
+git rm --cached install steps/
+
+# Remove submodules
+git submodule deinit dotbot
+git submodule deinit dotbot-brew
+git submodule deinit dotbot-asdf
+git rm dotbot dotbot-brew dotbot-asdf
+rm -rf .git/modules/dotbot*
+
+# Archive old Brewfiles (reference only)
+mkdir -p archive
+git mv Brewfile Brewfile_Client Brewfile_Fanaka archive/
+
+# Update .gitmodules
+rm .gitmodules  # if no other submodules
+
+# Commit
+git add -A
+git commit -m "chore: retire Dotbot infrastructure, complete chezmoi migration"
+```
+
+### Option 2: All-at-Once Migration (NOT RECOMMENDED)
+
+**Approach:** Migrate everything, delete Dotbot same day
+
+**Pros:**
+- Clean, fast cutover
+- No hybrid state
+
+**Cons:**
+- High risk — no rollback path
+- Discover issues in production
+- Requires extensive pre-testing
+
+**Only use if:**
+- Full dry-run on VM successful
+- Backup ready
+- Comfortable with potential downtime
+
+### Recommendation
+
+Use **Option 1** (Gradual Migration):
+1. Migrate Phase 1 (basic dotfiles)
+2. Live with hybrid for 1-2 days, verify no issues
+3. Migrate Phase 2 (CLI tools)
+4. Continue through phases
+5. After Phase 7, verify everything works via chezmoi
+6. Remove Dotbot in single commit
+
+**Verification before Dotbot removal:**
+```bash
+# 1. Check all files managed by chezmoi
+chezmoi managed | wc -l  # Should cover all configs
+
+# 2. Fresh apply test
+chezmoi apply --dry-run --verbose  # No errors
+
+# 3. Compare managed vs Dotbot symlinks
+# Should be no overlap
+```
+
+## Integration Patterns
+
+### Pattern 1: Simple Static Migration
 
 ```bash
-#!/bin/bash
-set -euo pipefail
+# For basic dotfiles (hushlogin, inputrc, etc.)
+chezmoi add ~/.hushlogin
+chezmoi add ~/.inputrc
 
-# Check if Homebrew is already installed
-if command -v brew &> /dev/null; then
-    echo "Homebrew already installed"
-    exit 0
-fi
-
-# Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Set up Homebrew in PATH for current session
-if [[ "$(uname -m)" == "arm64" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-else
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
-
-echo "Homebrew installed successfully"
+# Verify
+chezmoi diff
 ```
 
-**2. mise Installation** (`run_once_before_01-install-mise.sh`)
-
-According to [mise documentation](https://mise.jdx.dev/getting-started.html):
+### Pattern 2: Directory Migration
 
 ```bash
-#!/bin/bash
-set -euo pipefail
+# For tool config directories
+chezmoi add --recursive ~/.config/bat
+chezmoi add --recursive ~/.config/lsd
 
-if command -v mise &> /dev/null; then
-    echo "mise already installed"
-    exit 0
-fi
-
-# Install mise via Homebrew (already installed in previous step)
-brew install mise
-
-echo "mise installed successfully"
+# Verify structure preserved
+ls -la ~/.local/share/chezmoi/dot_config/bat/
 ```
 
-**3. Package Installation** (`run_onchange_before_install-packages.sh.tmpl`)
-
-Using the [declarative package pattern](https://www.chezmoi.io/user-guide/advanced/install-packages-declaratively/):
+### Pattern 3: Template Conversion
 
 ```bash
-#!/bin/bash
-set -euo pipefail
+# Add file first
+chezmoi add ~/.config/atuin/config.toml
 
-# This script runs whenever package lists change
-# It uses data from .chezmoidata/packages*.toml
+# Convert to template
+chezmoi chattr +template ~/.config/atuin/config.toml
 
-echo "Installing Homebrew packages..."
+# Edit to add Bitwarden integration
+chezmoi edit ~/.config/atuin/config.toml
 
-# Create temporary Brewfile from template
-cat > /tmp/Brewfile << 'EOF'
-{{ range .common.brews -}}
-brew {{ . | quote }}
-{{ end -}}
+# Apply and verify
+chezmoi apply --dry-run --verbose
+```
 
-{{ range .common.casks -}}
-cask {{ . | quote }}
-{{ end -}}
+### Pattern 4: macOS-Only Exclusion
 
-{{- if .isClient }}
-# Client-specific packages
-{{ range .client.brews -}}
-brew {{ . | quote }}
-{{ end -}}
-{{ range .client.casks -}}
-cask {{ . | quote }}
-{{ end -}}
-{{- end }}
+```bash
+# Add config
+chezmoi add ~/.config/aerospace/aerospace.toml
 
-{{- if .isFanaka }}
-# Fanaka-specific packages
-{{ range .fanaka.brews -}}
-brew {{ . | quote }}
-{{ end -}}
-{{ range .fanaka.casks -}}
-cask {{ . | quote }}
-{{ end -}}
-{{- end }}
+# Add to .chezmoiignore
+echo '{{- if ne .chezmoi.os "darwin" }}' >> .chezmoiignore
+echo '.config/aerospace' >> .chezmoiignore
+echo '{{- end }}' >> .chezmoiignore
+```
+
+### Pattern 5: Large Directory with Ignores
+
+```bash
+# Add entire directory
+chezmoi add --recursive ~/.config/claude
+
+# Add selective ignores
+cat >> .chezmoiignore <<EOF
+.config/claude/cache/
+.config/claude/*.log
+.config/claude/temp/
 EOF
 
-# Install packages using Brewfile
-brew bundle --no-lock --file=/tmp/Brewfile
-
-# Clean up
-rm /tmp/Brewfile
-
-echo "Package installation complete"
+# Verify what's tracked
+chezmoi managed | grep claude
 ```
 
-### Script Best Practices
+## File Modification vs New Files
 
-As noted in [chezmoi's script documentation](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/):
+### Existing Files That Need Updates
 
-1. **Idempotency**: All scripts should be idempotent (safe to run multiple times)
-2. **Error Handling**: Use `set -euo pipefail` for bash scripts
-3. **Naming**: Use numeric prefixes for execution order (00, 01, 02...)
-4. **Templates**: Use `.tmpl` suffix when script needs data from chezmoi
-5. **State**: chezmoi tracks script execution in persistent state
+| File | Change Required | Why |
+|------|----------------|-----|
+| `.chezmoiignore` | Add macOS-only exclusions | aerospace, karabiner |
+| `.chezmoidata.yaml` | No change needed | Packages already defined for bat, lsd, etc. |
+| `dot_zshrc` | Possibly add zgenom init | If not present |
+| `dot_zsh.d/variables.zsh` | Possibly template | If machine-specific paths |
 
-## mise Configuration Integration
+### New Files to Create
 
-### Global mise Config Structure
+All files listed in "File-by-File Integration Map" above are NEW to chezmoi source.
 
-Based on [mise configuration documentation](https://mise.jdx.dev/configuration.html):
+## Cross-Cutting Concerns
 
-**File Location**: `~/.config/mise/config.toml` (managed by chezmoi as `dot_config/mise/config.toml.tmpl`)
+### .chezmoiignore Extensions
 
-```toml
-# dot_config/mise/config.toml.tmpl
-# Global tool versions and settings
+```
+# .chezmoiignore additions
 
-[tools]
-# Core development tools
-node = "lts"              # Use LTS version
-python = "3.12"
-ruby = "3.3"
-
-{{- if .isClient }}
-# Client-specific tool versions
-terraform = "1.9"
-kubectl = "1.30"
+# macOS-only configs
+{{- if ne .chezmoi.os "darwin" }}
+.config/aerospace
+.config/karabiner
+.finicky.js
 {{- end }}
 
-{{- if .isFanaka }}
-# Fanaka-specific tool versions
-postgresql = "14"
-{{- end }}
-
-[settings]
-experimental = true
-verbose = false
-jobs = 4                  # Parallel installation jobs
-
+# Linux-only configs (if any added later)
 {{- if eq .chezmoi.os "darwin" }}
-# macOS-specific settings
-legacy_version_file = true
-plugin_autoupdate_last_check_duration = "7d"
+# (none currently)
 {{- end }}
 
-[aliases]
-# Convenient aliases for versions
-node.lts = "lts-latest"
-python.stable = "3.12"
+# Cache/generated files
+.config/claude/cache/
+.config/claude/*.log
+.config/atuin/history.db
+.config/atuin/records.db
+
+# External directories not managed by chezmoi
+.config/nvim
+.zgenom
 ```
 
-### mise Integration with Shell
+### Permission Verification Script Updates
 
-In `dot_zshrc.tmpl`:
+`run_after_10-verify-permissions.sh` may need extension:
 
-```zsh
-# Initialise mise (replaces asdf)
-if command -v mise &> /dev/null; then
-    eval "$(mise activate zsh)"
-fi
+```bash
+# Add to permission checks
+check_file_permission "$HOME/.gnupg/gpg-agent.conf" 600
+check_file_permission "$HOME/.config/atuin/config.toml" 600
+# (if contains secrets)
 ```
 
-### Project-Level mise Config
+### Secrets Management
 
-mise also supports project-level configuration (not managed by chezmoi):
+**Files requiring Bitwarden integration:**
+- `dot_config/atuin/config.toml.tmpl` — sync key/server
+- `dot_aider.conf.yml.tmpl` — API keys (if present)
+- `dot_config/claude/settings.json.tmpl` — auth tokens (if present)
 
-```toml
-# Project: ~/projects/my-app/.mise.toml
-[tools]
-node = "20.11.0"
-python = "3.11"
-
-[env]
-NODE_ENV = "development"
+**Pattern:**
+```yaml
+{{- if (bitwarden "item" "dotfiles/shared/tool-name") }}
+api_key = "{{ (bitwardenFields "item" "dotfiles/shared/tool-name").api_key.value }}"
+{{- end }}
 ```
 
-## Migration Order
+## Testing Strategy
 
-### Phase 1: Preparation (Pre-Migration)
+### Pre-Migration Verification
 
-**Research Complete** ✓
-- [x] Document architecture patterns
-- [x] Review chezmoi documentation
-- [x] Plan directory structure
+```bash
+# 1. Document current Dotbot symlinks
+cd ~/.dotfiles
+./install --dry-run  # (if supported)
+# OR manually verify:
+ls -la ~ | grep "^l" > /tmp/dotbot-symlinks.txt
 
-**Next Steps:**
+# 2. Backup current state
+tar -czf ~/dotfile-backup-$(date +%Y%m%d).tar.gz ~/.dotfiles
+tar -czf ~/home-backup-$(date +%Y%m%d).tar.gz \
+  ~/.zshrc ~/.config ~/.claude ~/.gnupg ~/.inputrc ~/.hushlogin ~/.psqlrc ~/.sqliterc
+```
 
-1. **Audit Current State**
-   ```bash
-   # Document all current symlinks
-   cd ~/.dotfiles
-   find . -type l > /tmp/current-symlinks.txt
+### Per-Phase Verification
 
-   # List all configuration files
-   find .config -type f > /tmp/current-configs.txt
-   ```
+```bash
+# After adding configs to chezmoi
+chezmoi managed | grep "config-name"  # Verify tracked
 
-2. **Backup Current Setup**
-   ```bash
-   # Create backup
-   tar -czf ~/dotfiles-backup-$(date +%Y%m%d).tar.gz ~/.dotfiles
+# Dry run
+chezmoi apply --dry-run --verbose
 
-   # Backup live configs
-   tar -czf ~/home-configs-backup-$(date +%Y%m%d).tar.gz \
-     ~/.zshrc ~/.zshenv ~/.zprofile ~/.config
-   ```
+# Apply
+chezmoi apply
 
-3. **Install chezmoi**
-   ```bash
-   brew install chezmoi
-   ```
+# Verify tool works
+<tool> --version
+<tool> --help  # Check config loaded
 
-### Phase 2: Initial Setup
+# Compare with original
+diff ~/.config/tool/config ~/.dotfiles/.config/tool/config
+```
 
-1. **Initialise chezmoi Repository**
-   ```bash
-   # Initialise with existing dotfiles repo
-   chezmoi init --apply git@github.com:sleicht/dotfiles-zsh.git
-   ```
+### Post-Migration Verification
 
-2. **Create Base Structure**
-   ```bash
-   cd ~/.local/share/chezmoi
+```bash
+# 1. Check all expected files present
+chezmoi managed | wc -l  # Should match migration count
 
-   # Create special directories
-   mkdir -p .chezmoidata
-   mkdir -p .chezmoiscripts
-   mkdir -p .chezmoitemplates
+# 2. Fresh machine test (VM or Docker)
+docker run -it ubuntu:latest /bin/bash
+# Install chezmoi + dependencies
+# chezmoi init --apply <repo>
+# Verify everything applied
 
-   # Create base config files
-   touch .chezmoi.toml.tmpl
-   touch .chezmoiignore
-   ```
+# 3. Shell functionality test
+# Start new shell
+zsh -l
+# Test abbreviations, aliases, functions
+# Test tool integrations (bat, lsd, atuin, lazygit)
 
-3. **Add Machine Configuration**
-   - Create `.chezmoi.toml.tmpl` with hostname detection
-   - Create `.chezmoidata/packages.toml` with common packages
-   - Create machine-specific package files
+# 4. Check no Dotbot remnants
+ls -la ~ | grep "^l" | grep -v ".local/share/chezmoi"
+# Should be minimal/none
+```
 
-### Phase 3: Migration (File by File)
+## Rollback Strategy
 
-**Order of Migration:**
+### If Migration Issues Discovered
 
-1. **Shell Core** (Highest Priority)
-   ```bash
-   # Add with --follow to dereference symlinks
-   chezmoi add --follow ~/.zshrc
-   chezmoi add --follow ~/.zshenv
-   chezmoi add --follow ~/.zprofile
+**Option 1: Revert Individual File**
+```bash
+# Remove from chezmoi
+chezmoi forget ~/.config/tool/config
 
-   # Convert to templates if needed
-   chezmoi chattr +template ~/.zshrc
+# Restore Dotbot symlink
+cd ~/.dotfiles
+./install  # Re-creates symlink
+```
 
-   # Migrate zsh.d/ directory
-   chezmoi add --follow ~/.zsh.d
-   ```
+**Option 2: Full Rollback (Nuclear)**
+```bash
+# 1. Restore from backup
+cd ~
+tar -xzf ~/home-backup-YYYYMMDD.tar.gz
 
-2. **Static Configs** (Medium Priority)
-   ```bash
-   # Add tool configs
-   chezmoi add --follow ~/.config/bat/config
-   chezmoi add --follow ~/.config/lsd/config.yaml
-   chezmoi add --follow ~/.hushlogin
-   chezmoi add --follow ~/.inputrc
-   ```
+# 2. Re-run Dotbot
+cd ~/.dotfiles
+./install
 
-3. **Templated Configs** (Medium Priority)
-   ```bash
-   # Add and template git config
-   chezmoi add --follow ~/.gitconfig
-   chezmoi chattr +template ~/.gitconfig
+# 3. Remove chezmoi-applied files (if needed)
+chezmoi managed | xargs rm
 
-   # Edit template to use variables
-   chezmoi edit ~/.gitconfig
-   ```
+# 4. Investigate issue before retry
+```
 
-4. **Tool Configurations** (Low Priority)
-   ```bash
-   # Add complex tool configs
-   chezmoi add --follow ~/.config/nvim
-   chezmoi add --follow ~/.config/atuin
-   chezmoi add --follow ~/.config/claude
-   ```
+## Success Criteria
 
-### Phase 4: Script Development
+Migration complete when:
 
-1. **Create Installation Scripts**
-   - Write `run_once_before_00-install-homebrew.sh`
-   - Write `run_once_before_01-install-mise.sh`
-   - Write `run_onchange_before_install-packages.sh.tmpl`
+- [ ] All files from `steps/terminal.yml` migrated to chezmoi source
+- [ ] All configs in `.config/` migrated (except nvim, nushell)
+- [ ] Claude Code directory fully tracked (~/.claude/)
+- [ ] Basic dotfiles tracked (hushlogin, inputrc, etc.)
+- [ ] macOS-only configs properly excluded on Linux
+- [ ] Security configs use Bitwarden templates
+- [ ] All phases verified working
+- [ ] Dotbot infrastructure removed (install, steps/, submodules)
+- [ ] Old Brewfiles archived
+- [ ] README updated with chezmoi-only instructions
+- [ ] Fresh machine test successful
 
-2. **Create mise Configuration**
-   ```bash
-   # Add mise config
-   chezmoi add ~/.config/mise/config.toml
-   chezmoi chattr +template ~/.config/mise/config.toml
-   ```
+## Architecture Decision Records
 
-3. **Test Scripts**
-   ```bash
-   # Dry run to preview changes
-   chezmoi apply --dry-run --verbose
+### ADR-1: Mirror Directory Structure for Large Configs
 
-   # Test on a VM or separate user account first
-   ```
+**Context:** `.claude/` has 50+ files across subdirectories
 
-### Phase 5: Package Migration
+**Decision:** Mirror entire structure in chezmoi source as `dot_config/claude/`
 
-1. **Migrate Brewfile Data**
-   - Extract packages from `Brewfile`, `Brewfile_Client`, `Brewfile_Fanaka`
-   - Populate `.chezmoidata/packages*.toml` files
-   - Create templated installation script
+**Rationale:**
+- Preserves organization
+- Easier to maintain
+- Consistent with other tool configs
+- chezmoi handles directories efficiently
 
-2. **Remove Nix Configuration**
-   ```bash
-   # Document what's being removed
-   ls -la nix-config/ > /tmp/nix-config-manifest.txt
+**Alternatives Considered:**
+- External symlink: Loses sync benefits
+- Selective tracking: Too manual, error-prone
 
-   # Remove from chezmoi (after confirming packages moved to Homebrew)
-   chezmoi forget nix-config/
-   ```
+### ADR-2: Gradual Dotbot Retirement
 
-### Phase 6: Testing & Validation
+**Context:** Risk of breaking working setup
 
-1. **Test on Clean Machine** (or VM)
-   ```bash
-   # Clone and apply
-   chezmoi init --apply git@github.com:sleicht/dotfiles-zsh.git
+**Decision:** Migrate in phases, run both systems in parallel, remove Dotbot at end
 
-   # Verify all files created
-   chezmoi managed
+**Rationale:**
+- Low risk — can rollback per phase
+- Time to discover issues
+- Validates each integration independently
 
-   # Check differences
-   chezmoi diff
-   ```
+**Alternatives Considered:**
+- All-at-once: Too risky, no rollback
 
-2. **Validate Package Installation**
-   ```bash
-   # Check Homebrew packages
-   brew list
+### ADR-3: Static Configs Unless Machine-Specific
 
-   # Check mise tools
-   mise list
+**Context:** Template processing has overhead
 
-   # Verify shell functions
-   source ~/.zshrc
-   ```
+**Decision:** Keep configs static unless they contain machine-specific values or secrets
 
-3. **Compare with Original**
-   ```bash
-   # Compare key files
-   diff ~/.zshrc ~/.dotfiles/.config/zshrc
-   diff ~/.gitconfig ~/.dotfiles/.config/git/gitconfig
-   ```
+**Rationale:**
+- Faster chezmoi apply
+- Simpler to maintain
+- Follows principle of least complexity
 
-### Phase 7: Finalisation
+**Identified Templates:**
+- atuin config (sync secrets)
+- wezterm (font size by OS)
+- aider (API keys if present)
+- claude settings (auth tokens if present)
 
-1. **Clean Up Old System**
-   ```bash
-   # Remove Dotbot files (after confirming everything works)
-   rm ~/.dotfiles/install
-   rm -rf ~/.dotfiles/steps/
+### ADR-4: Use .chezmoiignore for macOS-Only Configs
 
-   # Keep as reference initially
-   mv ~/.dotfiles/Brewfile* ~/.dotfiles/archive/
-   ```
+**Context:** aerospace, karabiner are macOS-only
 
-2. **Update Documentation**
-   - Update README.md with chezmoi instructions
-   - Document machine setup process
-   - Update CLAUDE.md with new structure
+**Decision:** Add to chezmoi source, exclude on Linux via `.chezmoiignore` template
 
-3. **Commit Migration**
-   ```bash
-   cd ~/.local/share/chezmoi
-   git add .
-   git commit -m "feat: migrate from Dotbot+Nix to chezmoi+mise"
-   git push
-   ```
+**Rationale:**
+- Single source tree for all platforms
+- Automatic exclusion based on OS detection
+- Follows chezmoi best practices
 
-## Migration Checklist
+**Alternatives Considered:**
+- Separate branches: Too complex
+- Manual exclusion: Error-prone
 
-### Pre-Migration
-- [ ] Read all chezmoi documentation
-- [ ] Backup current dotfiles
-- [ ] Backup live home directory configs
-- [ ] Install chezmoi
-- [ ] Test chezmoi on sample files
+## References
 
-### Core Migration
-- [ ] Create `.chezmoi.toml.tmpl` with machine detection
-- [ ] Create `.chezmoidata/` package declarations
-- [ ] Migrate shell configs (zshrc, zshenv, zprofile)
-- [ ] Migrate `zsh.d/` modular configs
-- [ ] Migrate static tool configs
-- [ ] Migrate templated configs (git, mise)
+### Existing Documentation
+- `/Users/stephanlv_fanaka/Projects/dotfiles-zsh/README.md` — Current chezmoi setup
+- `.planning/milestones/v1.0.0-ROADMAP.md` — Foundation milestone
+- `.planning/research/ARCHITECTURE.md` — Previous research (v1.0.0)
 
-### Script Development
-- [ ] Create Homebrew installation script
-- [ ] Create mise installation script
-- [ ] Create package installation script
-- [ ] Test all scripts in dry-run mode
+### chezmoi Documentation
+- [chezmoi Architecture](https://www.chezmoi.io/developer-guide/architecture/)
+- [Manage Machine Differences](https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/)
+- [Use Scripts](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/)
+- [Templating Guide](https://www.chezmoi.io/user-guide/templating/)
+- [Customize Source Directory](https://www.chezmoi.io/user-guide/advanced/customize-your-source-directory/)
 
-### Package Management
-- [ ] Extract packages from Brewfiles
-- [ ] Populate `.chezmoidata/packages*.toml`
-- [ ] Test package installation on clean system
-- [ ] Remove nix-config/ directory
+### Confidence Level
 
-### Validation
-- [ ] Test on clean VM/user account
-- [ ] Verify all managed files applied
-- [ ] Verify all packages installed
-- [ ] Verify shell functions work
-- [ ] Compare with original configs
-
-### Finalisation
-- [ ] Update documentation
-- [ ] Remove Dotbot files
-- [ ] Archive old Brewfiles
-- [ ] Commit and push changes
-- [ ] Update repository README
-
-## Key Differences from Current Setup
-
-| Aspect | Current (Dotbot) | New (chezmoi) |
-|--------|------------------|---------------|
-| File Storage | Symlinks to repo | Files copied to home |
-| Config Location | `~/.dotfiles` | `~/.local/share/chezmoi` |
-| Symlink Method | Explicit in `terminal.yml` | Not used (files copied) |
-| Machine-Specific | Separate Brewfiles | `.chezmoidata/*.toml` |
-| Package Install | Manual `brew bundle` | Automatic via `run_onchange_` |
-| Tool Versions | Nix + asdf | mise only |
-| Templating | None (static files) | Go templates with conditionals |
-| State Tracking | None | chezmoi persistent state |
-
-## Benefits of New Architecture
-
-1. **No Symlinks**: Files exist directly in home directory (cleaner, fewer edge cases)
-2. **Templating**: Machine-specific values without file duplication
-3. **Automatic Installation**: Scripts run when configs change
-4. **State Tracking**: chezmoi knows what's been applied/run
-5. **Better Secrets**: Encrypted file support for sensitive data
-6. **Tool Versioning**: mise replaces both asdf and Nix for simpler setup
-7. **Portability**: Works on any Unix system (not just macOS)
-
-## Recommended Reading
-
-### Essential Documentation
-- [chezmoi Quick Start](https://www.chezmoi.io/quick-start/) - Get started guide
-- [chezmoi Architecture](https://www.chezmoi.io/developer-guide/architecture/) - How chezmoi works
-- [Manage Machine Differences](https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/) - Machine-specific configs
-- [Use Scripts](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/) - Script execution
-- [Install Packages Declaratively](https://www.chezmoi.io/user-guide/advanced/install-packages-declaratively/) - Package management
-- [Templating Guide](https://www.chezmoi.io/user-guide/templating/) - Template syntax
-- [macOS Guide](https://www.chezmoi.io/user-guide/machines/macos/) - macOS-specific patterns
-- [Migrating from Another Manager](https://www.chezmoi.io/migrating-from-another-dotfile-manager/) - Migration strategies
-- [mise Configuration](https://mise.jdx.dev/configuration.html) - mise setup
-
-### Real-World Examples
-- [shunk031/dotfiles](https://github.com/shunk031/dotfiles) - Well-structured chezmoi setup
-- [How To Manage Dotfiles With Chezmoi](https://jerrynsh.com/how-to-manage-dotfiles-with-chezmoi/) - Tutorial
-- [Managing dotfiles with Chezmoi](https://natelandau.com/managing-dotfiles-with-chezmoi/) - Practical guide
+| Area | Confidence | Notes |
+|------|------------|-------|
+| Directory structure | HIGH | Extends proven v1.0.0 patterns |
+| File mapping | HIGH | Clear from steps/terminal.yml |
+| Template decisions | MEDIUM | Some configs may need templating discovered during migration |
+| Build order | HIGH | Clear dependency graph |
+| Dotbot retirement | HIGH | Low-risk gradual approach |
+| Large directory handling | MEDIUM | Claude Code structure confirmed but not tested |
 
 ## Next Steps
 
-1. Review this architecture document
-2. Proceed to Phase 1: Preparation
-3. Create detailed migration plan for specific files
-4. Begin incremental migration (shell configs first)
-5. Test thoroughly before removing old system
-
-## Notes
-
-- Keep both systems running in parallel during migration for safety
-- Test each phase on a VM or secondary machine first
-- Document any issues or deviations from this plan
-- Update this document as patterns emerge during migration
+1. Review this architecture with milestone orchestrator
+2. Use this document to inform roadmap creation
+3. Create detailed per-phase plans referencing these patterns
+4. Begin Phase 1 (basic dotfiles) migration
