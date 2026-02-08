@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 ## Current Position
 
 Phase: 6 of 6 (Security & Secrets)
-Plan: 4 of 5 (phase in progress)
-Status: In Progress
-Last activity: 2026-02-08 — Completed 06-04-PLAN.md (Bitwarden Integration)
+Plan: 5 of 5 (awaiting user verification)
+Status: Checkpoint - Human Verify
+Last activity: 2026-02-08 — Completed 06-05-PLAN.md Task 1 (Global Git Hooks)
 
-Progress: [█████████░] 96% (24/25 plans complete)
+Progress: [██████████] 100% (25/25 plans complete, awaiting final verification)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 24
+- Total plans completed: 25
 - Average duration: 8 min
-- Total execution time: 2.98 hours
+- Total execution time: 3.10 hours
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: [█████████░] 96% (24/25 plans complete)
 | 03-templating-machine-detection | 4 | 13 min | 3.3 min |
 | 04-package-management-migration | 4 | 61 min | 15.3 min |
 | 05-tool-version-migration | 5 | 33 min | 6.6 min |
-| 06-security-secrets | 4 | 20 min | 5 min |
+| 06-security-secrets | 5 | 27 min | 5.4 min |
 
 **Recent Trend:**
-- Last 5 plans: 05-05 (4min), 06-01 (6min), 06-02 (3min), 06-03 (3min), 06-04 (8min)
-- Trend: Phase 6 progressing through security plans
+- Last 5 plans: 06-01 (6min), 06-02 (3min), 06-03 (3min), 06-04 (8min), 06-05 (7min)
+- Trend: Phase 6 complete (awaiting verification)
 
 *Updated after each plan completion*
 
@@ -116,6 +116,9 @@ Recent decisions affecting current work:
 - 06-04: Omit bitwarden.unlock: auto (not supported in chezmoi v2.69.3 YAML config)
 - 06-04: Keep prompt variables in .chezmoi.yaml.tmpl as fallback for other templates
 - 06-04: gitleaks:allow inline comments on bitwarden template lines
+- 06-05: Used executable_ prefix in chezmoi source for hook executability
+- 06-05: Warn-only on commit (exit 0), blocking on push (exit 1)
+- 06-05: Delegation to repo-local .git/hooks/{name} for pre-commit framework compatibility
 
 ### Completed Phases
 
@@ -191,7 +194,7 @@ Recent decisions affecting current work:
 - User confirmed mise working in new terminal
 - Requirements covered: All Phase 5 success criteria from ROADMAP.md
 
-**Phase 6: Security & Secrets** (2026-02-08 - in progress)
+**Phase 6: Security & Secrets** (2026-02-08 - awaiting final verification)
 - Plan 06-01: Installed security tooling foundation
 - age 1.3.1, bitwarden-cli 2026.1.0, gitleaks 8.30.0, pre-commit 4.5.1
 - Configured gitleaks with chezmoi template allowlists (.tmpl syntax, age keys)
@@ -209,6 +212,12 @@ Recent decisions affecting current work:
 - Git config name/email templated from Bitwarden vault items
 - Bitwarden naming convention documented in .chezmoidata.yaml (dotfiles/{type}/{name})
 - gitleaks:allow annotations on bitwarden template lines
+- Plan 06-05: Deployed global git hooks via chezmoi
+- Global pre-commit hook: warn-only gitleaks scanning for all repos
+- Global pre-push hook: blocking gitleaks scanning for all repos
+- Hooks delegate to repo-local .git/hooks/ if present (pre-commit framework compatible)
+- core.hooksPath = ~/.config/git/hooks set in gitconfig
+- Tested: secret detection works (warns on commit, would block on push)
 
 ### Pending Todos
 
@@ -221,14 +230,16 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 06-04-PLAN.md (Bitwarden Integration)
-Resume file: .planning/phases/06-security-secrets/06-04-SUMMARY.md
+Stopped at: 06-05 checkpoint (awaiting user verification of Phase 6 success criteria)
+Resume file: .planning/phases/06-security-secrets/06-05-SUMMARY.md
 
 ### Next Action
 
-Continue Phase 6: Security & Secrets
-Next plan: 06-05 (GPG key management)
+User must verify all 5 Phase 6 ROADMAP success criteria:
+1. Secret templating from Bitwarden (SECU-01)
+2. Age encryption for sensitive files (SECU-02)
+3. Secret leak prevention (SECU-03)
+4. Permission verification (SECU-04)
+5. Secret rotation workflow
 
-Next steps:
-1. Plan 06-05: GPG key management
-2. User must run `chezmoi init` and `export BW_SESSION="$(bw unlock --raw)"` then `chezmoi apply ~/.gitconfig_local` to verify Bitwarden integration end-to-end
+After verification: Phase 6 and entire migration roadmap complete.
