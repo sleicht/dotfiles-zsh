@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 ## Current Position
 
 Phase: 6 of 6 (Security & Secrets)
-Plan: 1 of 5 (phase in progress)
+Plan: 3 of 5 (phase in progress)
 Status: In Progress
-Last activity: 2026-02-08 — Completed 06-01-PLAN.md (Security Tooling Foundation)
+Last activity: 2026-02-08 — Completed 06-03-PLAN.md (Age Encryption & SSH Keys)
 
-Progress: [█████████░] 88% (22/25 plans complete)
+Progress: [█████████░] 92% (23/25 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 22
+- Total plans completed: 23
 - Average duration: 8 min
-- Total execution time: 2.8 hours
+- Total execution time: 2.85 hours
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: [█████████░] 88% (22/25 plans complete)
 | 03-templating-machine-detection | 4 | 13 min | 3.3 min |
 | 04-package-management-migration | 4 | 61 min | 15.3 min |
 | 05-tool-version-migration | 5 | 33 min | 6.6 min |
-| 06-security-secrets | 1 | 6 min | 6 min |
+| 06-security-secrets | 3 | 12 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 05-03 (5min), 05-04 (21min), 05-05 (4min), 06-01 (6min)
-- Trend: Phase 5 complete, Phase 6 started with security tooling
+- Last 5 plans: 05-04 (21min), 05-05 (4min), 06-01 (6min), 06-02 (3min), 06-03 (3min)
+- Trend: Phase 6 progressing rapidly through security plans
 
 *Updated after each plan completion*
 
@@ -107,6 +107,11 @@ Recent decisions affecting current work:
 - 06-01: Configured gitleaks allowlists for chezmoi template syntax (no false positives on .tmpl files)
 - 06-01: Pre-commit warn-then-block: pre-commit stage warns, pre-push stage blocks
 - 06-01: Scanned existing repository - 0 secrets found in 32 commits
+- 06-03: Per-machine age key pairs for isolation (key-personal.txt / key-client.txt)
+- 06-03: Age private key excluded from chezmoi source via .chezmoiignore (bootstrap key design)
+- 06-03: SSH config and public keys stored unencrypted (not sensitive)
+- 06-03: known_hosts excluded from chezmoi (machine-specific, auto-generated)
+- 06-03: PRE_COMMIT_ALLOW_NO_CONFIG=1 needed for chezmoi autoCommit operations
 
 ### Completed Phases
 
@@ -188,6 +193,13 @@ Recent decisions affecting current work:
 - Configured gitleaks with chezmoi template allowlists (.tmpl syntax, age keys)
 - Installed pre-commit hooks in chezmoi source (warn-then-block strictness)
 - Scanned repository: 0 secrets found in 32 commits
+- Plan 06-03: Configured age encryption and encrypted SSH keys
+- Generated age key pair for personal machine (key-personal.txt)
+- Configured chezmoi age encryption with per-machine identity path
+- Encrypted 4 SSH private keys (id_rsa, id_rsa_digiocean, id_rsa_infomaniak, google_compute_engine)
+- Added 3 SSH public keys and SSH config unencrypted to chezmoi source
+- Age private key stored in Bitwarden for disaster recovery
+- Bootstrap chain established: Bitwarden -> age key -> SSH keys -> full access
 
 ### Pending Todos
 
@@ -200,15 +212,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 06-01-PLAN.md (Security Tooling Foundation)
-Resume file: .planning/phases/06-security-secrets/06-01-SUMMARY.md
+Stopped at: Completed 06-03-PLAN.md (Age Encryption & SSH Keys)
+Resume file: .planning/phases/06-security-secrets/06-03-SUMMARY.md
 
 ### Next Action
 
 Continue Phase 6: Security & Secrets
-Next plan: 06-02 (next security plan in sequence)
+Next plan: 06-04 (Bitwarden integration for secrets)
 
 Next steps:
-1. Plan 06-03: SSH config templating
-2. Plan 06-04: Bitwarden integration for secrets
-3. Plan 06-05: GPG key management
+1. Plan 06-04: Bitwarden integration for secrets
+2. Plan 06-05: GPG key management
