@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 ## Current Position
 
 Phase: 6 of 6 (Security & Secrets)
-Plan: 2 of 5 (in progress)
+Plan: 1 of 5 (phase in progress)
 Status: In Progress
-Last activity: 2026-02-08 — Completed 06-02-PLAN.md (Permission Verification)
+Last activity: 2026-02-08 — Completed 06-01-PLAN.md (Security Tooling Foundation)
 
 Progress: [█████████░] 88% (22/25 plans complete)
 
@@ -32,11 +32,11 @@ Progress: [█████████░] 88% (22/25 plans complete)
 | 03-templating-machine-detection | 4 | 13 min | 3.3 min |
 | 04-package-management-migration | 4 | 61 min | 15.3 min |
 | 05-tool-version-migration | 5 | 33 min | 6.6 min |
-| 06-security-secrets | 1 | 3 min | 3 min |
+| 06-security-secrets | 1 | 6 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 05-02 (3min), 05-03 (5min), 05-04 (21min), 05-05 (4min), 06-02 (3min)
-- Trend: Phase 5 complete, Phase 6 progressing quickly
+- Last 5 plans: 05-03 (5min), 05-04 (21min), 05-05 (4min), 06-01 (6min)
+- Trend: Phase 5 complete, Phase 6 started with security tooling
 
 *Updated after each plan completion*
 
@@ -102,10 +102,11 @@ Recent decisions affecting current work:
 - 05-05: Fixed phantom completion error (suppress broken shebang gracefully)
 - 05-05: User updated Java from temurin-21 to temurin-25
 - 05-05: Known limitation: phantom and firebase-cli broken due to Homebrew node removal
-- 06-02: SSH config requires 600 permissions on macOS (not 644)
-- 06-02: Use run_after_ (not run_once_after_) for permission verification on every apply
-- 06-02: Permission fixes logged to ~/.local/state/chezmoi/permission-fixes.log
-- 06-02: All chezmoi source files audited - no hardcoded secrets found
+- 06-01: Added age, bitwarden-cli, gitleaks, pre-commit to common_brews (all machines)
+- 06-01: Moved pre-commit from client_brews to common_brews for consistency
+- 06-01: Configured gitleaks allowlists for chezmoi template syntax (no false positives on .tmpl files)
+- 06-01: Pre-commit warn-then-block: pre-commit stage warns, pre-push stage blocks
+- 06-01: Scanned existing repository - 0 secrets found in 32 commits
 
 ### Completed Phases
 
@@ -182,14 +183,11 @@ Recent decisions affecting current work:
 - Requirements covered: All Phase 5 success criteria from ROADMAP.md
 
 **Phase 6: Security & Secrets** (2026-02-08 - in progress)
-- Plan 06-02: Created permission verification post-apply hook
-- run_after_10-verify-permissions.sh.tmpl runs on every chezmoi apply
-- Verifies and auto-fixes permissions on 13 sensitive file patterns
-- Cross-platform stat detection (macOS vs Linux)
-- Logs all fixes to ~/.local/state/chezmoi/permission-fixes.log with timestamps
-- Audited all chezmoi source files - no hardcoded secrets found
-- All sensitive files use private_ prefix correctly
-- SSH and GPG excluded from chezmoi (will be managed in Plans 03/04)
+- Plan 06-01: Installed security tooling foundation
+- age 1.3.1, bitwarden-cli 2026.1.0, gitleaks 8.30.0, pre-commit 4.5.1
+- Configured gitleaks with chezmoi template allowlists (.tmpl syntax, age keys)
+- Installed pre-commit hooks in chezmoi source (warn-then-block strictness)
+- Scanned repository: 0 secrets found in 32 commits
 
 ### Pending Todos
 
@@ -202,12 +200,13 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 06-02-PLAN.md (Permission Verification)
-Resume file: .planning/phases/06-security-secrets/06-02-SUMMARY.md
+Stopped at: Completed 06-01-PLAN.md (Security Tooling Foundation)
+Resume file: .planning/phases/06-security-secrets/06-01-SUMMARY.md
 
 ### Next Action
 
 Continue Phase 6: Security & Secrets
+Next plan: 06-02 (next security plan in sequence)
 
 Next steps:
 1. Plan 06-03: SSH config templating
