@@ -28,9 +28,24 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 ### Active
 
-None -- planning next milestone.
+## Current Milestone: v1.1 Complete Migration
 
-### Candidates (v2)
+**Goal:** Migrate all remaining Dotbot-managed configs to chezmoi and retire Dotbot entirely.
+
+**Target features:**
+- Migrate terminal emulator configs (kitty, ghostty, wezterm)
+- Migrate window manager config (aerospace)
+- Migrate CLI tool configs (bat, lsd, btop, oh-my-posh)
+- Migrate dev tool configs (lazygit, atuin, psqlrc, sqliterc, aider, finicky)
+- Migrate basic dotfiles (.hushlogin, .inputrc, .editorconfig, .nanorc)
+- Migrate GPG agent and karabiner configs
+- Migrate Claude Code config (.claude/)
+- Migrate zsh-abbr config
+- Drop nushell config (not in use)
+- Drop zgenom remnants (replaced by Sheldon)
+- Retire Dotbot infrastructure (install script, steps/, submodules)
+
+### Candidates (future)
 
 - [ ] Set up mise task runner for common development tasks (MISE-03, deferred from v1)
 - [ ] Profile shell startup with zprof and establish baseline (PERF-01)
@@ -43,7 +58,7 @@ None -- planning next milestone.
 - Moving all Homebrew packages to mise -- most CLI tools work fine in Homebrew
 - Windows support -- not a current need
 - Nix-style reproducibility -- accepting Homebrew version drift as trade-off
-- Changing terminal emulator setup -- keep current Ghostty/WezTerm/Kitty configs
+- Neovim config -- stays separate from chezmoi (own repo/submodule)
 
 ## Context
 
@@ -88,11 +103,10 @@ None -- planning next milestone.
 
 ## Known Limitations
 
-1. **Shell startup time**: 0.87s (pre-existing, not caused by migration). Target < 300ms deferred to v2.
+1. **Shell startup time**: 0.87s (pre-existing, not caused by migration). Target < 300ms deferred to future milestone.
 2. **Phantom/firebase-cli broken**: Shebangs point to removed Homebrew node. Work via mise node when called directly.
-3. **Nix system cleanup deferred**: /nix synthetic firmlink requires sudo + reboot. Instructions provided.
-4. **Dual mise activation**: hooks.zsh and external.zsh both activate mise. Harmless but redundant.
-5. **Many configs still in Dotbot**: Editor (nvim), terminal emulators (aerospace, kitty, ghostty, wezterm), and some tool configs not yet migrated to chezmoi.
+3. **Dual mise activation**: hooks.zsh and external.zsh both activate mise. Harmless but redundant.
+4. **Many configs still in Dotbot**: Terminal emulators (aerospace, kitty, ghostty, wezterm), CLI tools, dev tools, Claude Code, and more not yet migrated to chezmoi. (v1.1 target)
 
 ---
-*Last updated: 2026-02-08 after v1.0.0 milestone completion*
+*Last updated: 2026-02-08 after v1.1 milestone start*
