@@ -121,10 +121,14 @@ Plans:
   3. User cannot commit secrets accidentally (pre-commit hooks with gitleaks block pushes containing secrets)
   4. User can verify all credential files have correct permissions (600 for private keys, tokens, etc.)
   5. User can rotate secrets via Bitwarden and re-run `chezmoi apply` to update configurations
-**Plans**: TBD
+**Plans**: 5 plans in 4 waves
 
 Plans:
-- TBD (will be created during planning)
+- [ ] 06-01-PLAN.md — Install security tools and configure leak prevention
+- [ ] 06-02-PLAN.md — Create permission verification post-apply hook
+- [ ] 06-03-PLAN.md — Configure age encryption and encrypt SSH keys
+- [ ] 06-04-PLAN.md — Integrate Bitwarden for secret templating
+- [ ] 06-05-PLAN.md — Deploy global git hooks and verify phase (checkpoint)
 
 ## Progress
 
@@ -138,4 +142,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Templating & Machine Detection | 4/4 | Complete | 2026-01-26 |
 | 4. Package Management Migration | 4/4 | Complete | 2026-01-28 |
 | 5. Tool Version Migration (mise) | 5/5 | Complete | 2026-02-08 |
-| 6. Security & Secrets | 0/TBD | Not started | - |
+| 6. Security & Secrets | 0/5 | In progress | - |
