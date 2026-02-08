@@ -28,10 +28,11 @@ Complete migration from Nix/Dotbot/Zgenom/asdf to chezmoi/mise/Homebrew/Sheldon 
   1. chezmoi apply ignores all Dotbot infrastructure files without user intervention
   2. All configs cleared of embedded secrets before migration (audit complete)
   3. Verification script confirms migrated configs deploy correctly after chezmoi apply
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: TBD
+- [ ] 07-01-PLAN.md — Comprehensive .chezmoiignore setup with OS-conditional templates
+- [ ] 07-02-PLAN.md — Secret audit script and plugin-based verification framework
 
 #### Phase 8: Basic Configs & CLI Tools
 **Goal**: Migrate low-risk static configuration files to chezmoi
@@ -119,7 +120,7 @@ Phases execute in numeric order: 7 → 8 → 9 → 10 → 11 → 12
 | 4. Homebrew Automation | v1.0.0 | 4/4 | Complete | 2026-02-02 |
 | 5. Secret Management | v1.0.0 | 4/4 | Complete | 2026-02-05 |
 | 6. Security & Verification | v1.0.0 | 4/4 | Complete | 2026-02-08 |
-| 7. Preparation | v1.1 | 0/TBD | Not started | - |
+| 7. Preparation | v1.1 | 0/2 | Planned | - |
 | 8. Basic Configs & CLI Tools | v1.1 | 0/TBD | Not started | - |
 | 9. Terminal Emulators | v1.1 | 0/TBD | Not started | - |
 | 10. Dev Tools with Secrets | v1.1 | 0/TBD | Not started | - |
