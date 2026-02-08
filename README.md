@@ -1,124 +1,299 @@
-<p align="center"><img src="art/banner-2x.png"></p>
+# Dotfiles
 
-## Introduction
+ZSH dotfiles for macOS, managed by **chezmoi** with cross-platform templating, **mise** for runtime versions, and **Bitwarden** for secrets.
 
-This repository contains my ZSH dotfiles for macOS configuration. It automates the setup and maintenance of my Mac, taking the effort out of installing everything manually. Everything needed to install my preferred macOS setup is detailed in this readme. Feel free to explore, learn and copy parts for your own dotfiles. Enjoy!
+## Quick Reference
 
-## A Fresh macOS Setup
-
-These instructions are for setting up new Mac devices. Instead, if you want to get started building your own dotfiles, you can [find those instructions below](#your-own-dotfiles).
-
-### Backup your data
-
-If you're migrating from an existing Mac, you should first make sure to backup all of your existing data. Go through the checklist below to make sure you didn't forget anything before you migrate.
-
-- Did you commit and push any changes/branches to your git repositories?
-- Did you remember to save all important documents from non-iCloud directories?
-- Did you save all of your work from apps which aren't synced through iCloud?
-- Did you remember to export important data from your local database?
-- Did you update [mackup](https://github.com/lra/mackup) to the latest version and ran `mackup backup`?
-
-### Setting up your Mac
-
-After backing up your old Mac you may now follow these install instructions to setup a new one.
-
-1. Update macOS to the latest version through system preferences
-2. Setup an SSH key by using one of the two following methods
-   2.1. If you use 1Password, install it with the 1Password [SSH agent](https://developer.1password.com/docs/ssh/get-started/#step-3-turn-on-the-1password-ssh-agent) and sync your SSH keys locally.
-   2.2. Otherwise [generate a new public and private SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) by running:
-
-   ```zsh
-   curl https://raw.githubusercontent.com/sleicht/dotfiles-zsh/HEAD/ssh.sh | sh -s "<your-email-address>"
-   ```
-
-3. Clone this repo to `~/.dotfiles` with:
-
-    ```zsh
-    git clone --recursive git@github.com:sleicht/dotfiles-zsh.git ~/.dotfiles
-    ```
-
-4. Run the installation with:
-
-    ```zsh
-    cd ~/.dotfiles && ./install
-    ```
-
-5. After mackup is synced with your cloud storage, restore preferences by running `mackup restore`
-6. Restart your computer to finalize the process
-
-Your Mac is now ready to use!
-
-> 💡 You can use a different location than `~/.dotfiles` if you want. Make sure you also update the references in the [`.zshrc`](./.zshrc#L2) and [`fresh.sh`](./fresh.sh#L20) files.
-
-### Cleaning your old Mac (optionally)
-
-After you've set up your new Mac you may want to wipe and clean install your old Mac. Follow [this article](https://support.apple.com/guide/mac-help/erase-and-reinstall-macos-mh27903/mac) to do that. Remember to [backup your data](#backup-your-data) first!
-
-## Your Own Dotfiles
-
-**Please note that the instructions below assume you already have set up Oh My Zsh so make sure to first [install Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh#getting-started) before you continue.**
-
-If you want to start with your own dotfiles from this setup, it's pretty easy to do so. First of all you'll need to fork this repo. After that you can tweak it the way you want.
-
-Go through the [`.macos`](./.macos) file and adjust the settings to your liking. You can find much more settings at [the original script by Mathias Bynens](https://github.com/mathiasbynens/dotfiles/blob/master/.macos) and [Kevin Suttle's macOS Defaults project](https://github.com/kevinSuttle/MacOS-Defaults).
-
-Check out the [`Brewfile`](./Brewfile) file and adjust the apps you want to install for your machine. Use [their search page](https://formulae.brew.sh/cask/) to check if the app you want to install is available.
-
-Check out the [`aliases.zsh`](./aliases.zsh) file and add your own aliases. If you need to tweak your `$PATH` check out the [`path.zsh`](./path.zsh) file. These files get loaded in because the `$ZSH_CUSTOM` setting points to the `.dotfiles` directory. You can adjust the [`.zshrc`](./.zshrc) file to your liking to tweak your Oh My Zsh setup. More info about how to customize Oh My Zsh can be found [here](https://github.com/robbyrussell/oh-my-zsh/wiki/Customization).
-
-When installing these dotfiles for the first time you'll need to backup all of your settings with Mackup. Install Mackup and backup your settings with the commands below. Your settings will be synced to iCloud so you can use them to sync between computers and reinstall them when reinstalling your Mac. If you want to save your settings to a different directory or different storage than iCloud, [checkout the documentation](https://github.com/lra/mackup/blob/master/doc/README.md#storage). Also make sure your `.zshrc` file is symlinked from your dotfiles repo to your home directory.
-
-```zsh
-brew install mackup
-mackup backup
+```bash
+chezmoi apply                   # Apply dotfiles changes
+chezmoi edit ~/.zshrc           # Edit a managed file
+chezmoi diff                    # Preview what would change
+chezmoi add ~/.config/foo/bar   # Add a new file to chezmoi
+chezmoi init                    # Re-initialise (after config changes)
 ```
 
-You can tweak the shell theme, the Oh My Zsh settings and much more. Go through the files in this repo and tweak everything to your liking.
+## Fresh Machine Setup
 
-Enjoy your own Dotfiles!
+```bash
+# 1. Install chezmoi and clone
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init sleicht/dotfiles-zsh
+
+# 2. Answer prompts (machine type, email)
+
+# 3. Get age key from Bitwarden (needed to decrypt SSH keys)
+mkdir -p ~/.config/age
+bw login
+export BW_SESSION="$(bw unlock --raw)"
+bw get notes "dotfiles/personal/age-private-key" > ~/.config/age/key-personal.txt
+chmod 600 ~/.config/age/key-personal.txt
+
+# 4. Apply everything
+chezmoi apply
+
+# 5. Open a new terminal — done
+```
+
+## Architecture
+
+```
+chezmoi source (~/.local/share/chezmoi/)
+├── .chezmoi.yaml.tmpl          # Config: machine type, encryption, Bitwarden
+├── .chezmoidata.yaml           # Package lists (Homebrew taps, brews, casks)
+├── .chezmoiignore              # Files excluded from chezmoi management
+├── .gitleaks.toml              # Secret scanning allowlists
+├── .pre-commit-config.yaml     # Pre-commit hooks for this repo
+│
+├── dot_zshrc                   # Shell config
+├── dot_zshenv                  # Shell environment
+├── dot_zprofile                # Shell profile
+├── dot_zsh.d/                  # Modular shell configs (aliases, functions, etc.)
+│
+├── dot_gitconfig               # Global git config (aliases, core.hooksPath)
+├── private_dot_gitconfig_local.tmpl  # Git user/email from Bitwarden
+├── dot_Brewfile.tmpl           # Generated Homebrew bundle
+│
+├── private_dot_ssh/            # SSH keys (encrypted) + config
+│   ├── encrypted_private_*.age # Age-encrypted private keys
+│   ├── private_*.pub           # Public keys (unencrypted)
+│   └── private_config          # SSH host config
+│
+├── private_dot_config/
+│   ├── git/hooks/              # Global git hooks (gitleaks)
+│   └── mise/config.toml.tmpl   # Runtime version management
+│
+└── run_*.sh.tmpl               # Automation scripts
+```
+
+## Tools
+
+### chezmoi — Dotfiles Manager
+
+chezmoi manages dotfiles via a source directory under git. Files are templated and deployed to `$HOME` on `chezmoi apply`.
+
+**File naming conventions:**
+
+| Prefix/Suffix | Meaning |
+|---------------|---------|
+| `dot_` | Deployed as `.` (e.g. `dot_zshrc` → `~/.zshrc`) |
+| `private_` | Deployed with `600` permissions |
+| `encrypted_` | Decrypted with age before deploying |
+| `executable_` | Deployed with execute permission |
+| `.tmpl` suffix | Processed as Go template |
+
+**Workflow:**
+
+```bash
+# Option A: edit in source, then apply
+chezmoi edit ~/.zshrc
+chezmoi diff
+chezmoi apply
+
+# Option B: edit target directly, then sync back
+vim ~/.zshrc
+chezmoi re-add ~/.zshrc
+```
+
+Changes to the source directory are **auto-committed** to git but NOT auto-pushed. Push manually:
+
+```bash
+cd ~/.local/share/chezmoi && git push
+```
+
+### mise — Runtime Version Manager
+
+mise replaces asdf/nvm/pyenv/rbenv. Global config is chezmoi-managed at `~/.config/mise/config.toml`.
+
+**Global runtimes:**
+
+| Runtime | Version |
+|---------|---------|
+| Node.js | LTS |
+| Python | 3.12 |
+| Go | 1.22 |
+| Rust | stable |
+| Java | temurin-25 |
+| Ruby | 3 |
+| Terraform | 1.9 |
+
+**Usage:**
+
+```bash
+mise use --global node@22       # Change global version
+mise use node@20                # Use version in current project
+mise install                    # Install all versions from config
+mise ls                         # List installed runtimes
+```
+
+mise reads `.tool-versions`, `.nvmrc`, and `.python-version` files automatically.
+
+### Bitwarden — Secret Management
+
+Secrets live in Bitwarden and are pulled into chezmoi templates at apply time. No secrets are committed to git.
+
+**Naming convention:**
+
+```
+dotfiles/shared/git-config        # Shared across machine types
+dotfiles/personal/age-private-key # Personal machine only
+dotfiles/client/...               # Client/work machine only
+```
+
+**Using secrets in templates:**
+
+```
+{{ (bitwarden "item" "dotfiles/shared/git-config").login.username }}
+{{ (bitwardenFields "item" "dotfiles/shared/git-config").personal_email.value }}
+```
+
+**Before applying templates that use Bitwarden:**
+
+```bash
+export BW_SESSION="$(bw unlock --raw)"
+chezmoi apply
+```
+
+### age — File Encryption
+
+SSH private keys are encrypted with age and stored safely in git. The age private key is the "root of trust" — it exists only on the local filesystem and in Bitwarden, never in the repo.
+
+**Bootstrap chain:** Bitwarden → age key → SSH keys → full access
+
+```bash
+chezmoi add --encrypt ~/.ssh/id_ed25519   # Encrypt and add a key
+chezmoi diff ~/.ssh/id_ed25519            # Verify decryption (no diff = OK)
+```
+
+Age key location: `~/.config/age/key-personal.txt` (or `key-client.txt`)
+
+### gitleaks — Secret Scanning
+
+gitleaks prevents accidentally committing secrets. It runs at two levels:
+
+**Global git hooks** (all repos via `core.hooksPath = ~/.config/git/hooks`):
+- **Pre-commit**: Warns about detected secrets, allows commit
+- **Pre-push**: Blocks push if secrets detected
+
+**Handling false positives:**
+
+```bash
+# Inline suppression
+password = {{ (bitwarden "item" "x").login.password }} # gitleaks:allow
+
+# Skip for one command
+SKIP=gitleaks git commit -m "message"
+SKIP=gitleaks git push
+```
+
+If a repo has its own `.git/hooks/pre-commit` (e.g. pre-commit framework), the global hooks delegate to it instead.
+
+## Automation Scripts
+
+These run automatically during `chezmoi apply`:
+
+| Script | When | What |
+|--------|------|------|
+| `run_once_before_install-homebrew` | First apply | Installs Homebrew if missing |
+| `run_onchange_after_01-install-packages` | Package list changes | Runs `brew bundle --global` |
+| `run_onchange_after_02-cleanup-packages` | Package list changes | Removes stale packages |
+| `run_once_after_generate-mise-completions` | First apply | Generates mise ZSH completions |
+| `run_after_10-verify-permissions` | Every apply | Fixes permissions on sensitive files |
+
+## Machine Types
+
+chezmoi prompts for a machine type during `chezmoi init`:
+
+| Type | Git email | Packages | Age key |
+|------|-----------|----------|---------|
+| `personal` | Personal email | common + fanaka | `key-personal.txt` |
+| `client` | Work email | common + client | `key-client.txt` |
+
+## Package Management
+
+Packages are defined in `.chezmoidata.yaml` and installed via Homebrew:
+
+```bash
+chezmoi edit ~/.local/share/chezmoi/.chezmoidata.yaml   # Edit package list
+chezmoi apply                                            # Triggers install if changed
+brew bundle check --global                               # Verify everything installed
+```
+
+**Structure in `.chezmoidata.yaml`:**
+
+```yaml
+darwin:
+  taps: [...]
+  common_brews: [...]     # All machines
+  common_casks: [...]
+  client_brews: [...]     # Client machines only
+  client_casks: [...]
+  fanaka_brews: [...]     # Personal machines only
+  fanaka_casks: [...]
+```
+
+## Common Tasks
+
+### Add a new package
+
+```bash
+chezmoi edit ~/.local/share/chezmoi/.chezmoidata.yaml
+# Add to common_brews, common_casks, etc.
+chezmoi apply
+```
+
+### Add a new dotfile
+
+```bash
+chezmoi add ~/.config/tool/config.toml
+# For sensitive files:
+chezmoi add --encrypt ~/.config/tool/secrets.conf
+```
+
+### Rotate a secret
+
+1. Update the value in Bitwarden
+2. `export BW_SESSION="$(bw unlock --raw)"`
+3. `chezmoi apply`
+
+### Update runtime versions
+
+```bash
+chezmoi edit ~/.local/share/chezmoi/.chezmoidata.yaml
+# Change tool versions under the tools section
+chezmoi apply && mise install
+```
+
+### Run gitleaks manually
+
+```bash
+cd ~/.local/share/chezmoi
+pre-commit run gitleaks --all-files
+```
+
+## File Permissions
+
+The permission verification script runs on every `chezmoi apply` and ensures:
+
+| Path | Permission |
+|------|-----------|
+| `~/.ssh/id_*` | 600 |
+| `~/.ssh/config` | 600 |
+| `~/.config/age/key-*.txt` | 600 |
+| `~/.kube/config` | 600 |
+| `~/.aws/credentials` | 600 |
+| `~/.docker/config.json` | 600 |
+| `~/.gnupg/private-keys-v1.d` | 700 |
+| `~/.gitconfig_local` | 600 |
+
+Fixes are logged to `~/.local/state/chezmoi/permission-fixes.log`.
 
 ## Claude Code Plugin
 
-This dotfiles repository includes a custom Claude Code plugin for managing git commits and GitLab merge requests following Conventional Commits specification with Jira ticket prefixes.
+This repository includes a custom Claude Code plugin for git commits and GitLab merge requests following Conventional Commits with Jira ticket prefixes.
 
-### Available Commands
+**Commands:** `/commit_message`, `/rewrite_commit_message`, `/merge_request_md`, `/create_merge_request`
 
-The plugin provides four slash commands:
+Plugin location: `.config/claude/plugins/git-conventional-commits/`
 
-- **`/commit_message`** - Generate improved commit messages following Conventional Commits
-- **`/rewrite_commit_message`** - Rewrite commit messages in git history (destructive)
-- **`/merge_request_md`** - Generate merge request title and description
-- **`/create_merge_request`** - Create and submit GitLab merge requests
+## Credits
 
-### Plugin Location
-
-The plugin is located at `.config/claude/plugins/git-conventional-commits/` and is automatically synced to `~/.claude/plugins/` via Dotbot's glob pattern for `.config/claude/**`.
-
-### Requirements
-
-- **MCP Git Server**: Configured in Claude Code settings for safe git operations
-- **GitLab CLI (`glab`)**: Required for merge request commands
-  ```bash
-  brew install glab
-  glab auth login
-  ```
-
-### Commit Message Format
-
-All commands enforce Jira ticket prefixes and Conventional Commits:
-
-```
-MLE-999: feat(scope): description
-
-Optional body with details
-
-Optional footers
-```
-
-For complete documentation, see [.config/claude/plugins/git-conventional-commits/README.md](marketplace/.claude-plugin/git-conventional-commits/README.md)
-
-## Thanks To...
-
-I first got the idea for starting this project by visiting the [GitHub does dotfiles](https://dotfiles.github.io/) project. Both [Zach Holman](https://github.com/holman/dotfiles) and [Mathias Bynens](https://github.com/mathiasbynens/dotfiles) were great sources of inspiration. [Sourabh Bajaj](https://twitter.com/sb2nov/)'s [Mac OS X Setup Guide](http://sourabhbajaj.com/mac-setup/) proved to be invaluable. Thanks to [@subnixr](https://github.com/subnixr) for [his awesome Zsh theme](https://github.com/subnixr/minimal)! Thanks to [Caneco](https://twitter.com/caneco) for the header in this readme. And lastly, I'd like to thank [Emma Fabre](https://twitter.com/anahkiasen) for [her excellent presentation on Homebrew](https://speakerdeck.com/anahkiasen/a-storm-homebrewin) which made me migrate a lot to a [`Brewfile`](./Brewfile) and [Mackup](https://github.com/lra/mackup).
-
-In general, I'd like to thank every single one who open-sources their dotfiles for their effort to contribute something to the open-source community.
+Inspired by [GitHub does dotfiles](https://dotfiles.github.io/), [Zach Holman](https://github.com/holman/dotfiles), [Mathias Bynens](https://github.com/mathiasbynens/dotfiles), and [Sourabh Bajaj's Mac Setup Guide](http://sourabhbajaj.com/mac-setup/).
