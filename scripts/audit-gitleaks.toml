@@ -1,0 +1,81 @@
+# =============================================================================
+# audit-gitleaks.toml — Custom gitleaks rules for dotfile secret scanning
+# =============================================================================
+# Used by scripts/audit-secrets.sh to scan the dotfiles-zsh repo BEFORE
+# configs are migrated to chezmoi. Extends default gitleaks rules with
+# dotfile-specific patterns (user paths, emails, IPs, hostnames).
+#
+# NOTE: This is SEPARATE from the chezmoi source .gitleaks.toml which
+# handles commit-time scanning. This config is for the audit script.
+# =============================================================================
+
+[extend]
+useDefault = true
+
+# --- Custom rules for dotfile-specific patterns ---
+
+[[rules]]
+id = "user-path-macos"
+description = "Hardcoded macOS user path (portability issue)"
+regex = '''/Users/[a-zA-Z0-9_-]+'''
+tags = ["portability", "user-path"]
+
+[[rules]]
+id = "user-path-linux"
+description = "Hardcoded Linux user path (portability issue)"
+regex = '''/home/[a-zA-Z0-9_-]+'''
+tags = ["portability", "user-path"]
+
+[[rules]]
+id = "email-address"
+description = "Email address detected (PII)"
+regex = '''[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'''
+tags = ["pii", "email"]
+
+[[rules]]
+id = "private-ip-192"
+description = "Private IP address (192.168.x.x)"
+regex = '''192\.168\.\d{1,3}\.\d{1,3}'''
+tags = ["network", "private-ip"]
+
+[[rules]]
+id = "private-ip-10"
+description = "Private IP address (10.x.x.x)"
+regex = '''10\.\d{1,3}\.\d{1,3}\.\d{1,3}'''
+tags = ["network", "private-ip"]
+
+[[rules]]
+id = "hostname-pattern"
+description = "Server hostname assignment"
+regex = '''hostname\s*=\s*["'][a-zA-Z0-9.-]+\.[a-zA-Z]{2,}["']'''
+tags = ["network", "hostname"]
+
+# --- Global allowlist ---
+
+[allowlist]
+paths = [
+  '''\.git/''',
+  '''\.planning/''',
+  '''LICENSE\.md''',
+  '''README\.md''',
+  '''AGENTS\.md''',
+  '''AIDER\.md''',
+  '''CLAUDE\.md''',
+  '''\.md$''',
+  '''audit-gitleaks\.toml''',
+  '''audit-secrets\.sh''',
+  '''node_modules/''',
+  '''logs/''',
+  '''dotbot/''',
+  '''dotbot-asdf/''',
+  '''dotbot-brew/''',
+  '''dotfiles-marketplace/''',
+  '''nvim/''',
+  '''art/''',
+  '''__pycache__/''',
+  '''\.pyc$''',
+  '''\.idea/''',
+  '''firebase-debug\.log''',
+  '''zgenom/''',
+  '''\.log$''',
+]

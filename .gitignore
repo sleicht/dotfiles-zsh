@@ -22,3 +22,6 @@ Thumbs.db
 extra.zsh
 .aider*
 .commit-message.txt
+
+# Secret audit reports (may contain excerpts of detected secrets)
+scripts/audit-report-*.md
