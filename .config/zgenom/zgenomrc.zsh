@@ -41,11 +41,11 @@ EOPLUGINS
       fi
     done
 
-    for script in ~/.zsh.d.private/*.zsh; do
-      if [[ -r "$script" ]]; then
-        zgenom load "$script"
-      fi
-    done
+#    for script in ~/.zsh.d.private/*.zsh; do
+#      if [[ -r "$script" ]]; then
+#        zgenom load "$script"
+#      fi
+#    done
 
     # completions
     zgenom load zsh-users/zsh-completions
@@ -64,5 +64,5 @@ EOPLUGINS
     # You can perform other "time consuming" maintenance tasks here as well.
     # If you use `zgenom autoupdate` you're making sure it gets
     # executed every 7 days.
-    rbenv rehash
+#    rbenv rehash
 fi
