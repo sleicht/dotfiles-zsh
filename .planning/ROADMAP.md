@@ -60,10 +60,11 @@ Plans:
   2. ghostty terminal launches with chezmoi-managed configuration
   3. wezterm terminal launches with chezmoi-managed configuration
   4. Terminal cache files do not trigger chezmoi diff changes
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: TBD
+- [ ] 09-01-PLAN.md — Migrate 3 terminal emulator configs to chezmoi and update .chezmoiignore cache exclusions
+- [ ] 09-02-PLAN.md — Create verification check file and run full verification
 
 #### Phase 10: Dev Tools with Secrets
 **Goal**: Migrate development tool configs with Bitwarden secret integration
@@ -124,10 +125,10 @@ Phases execute in numeric order: 7 → 8 → 9 → 10 → 11 → 12
 | 6. Security & Verification | v1.0.0 | 4/4 | Complete | 2026-02-08 |
 | 7. Preparation | v1.1 | 2/2 | Complete | 2026-02-08 |
 | 8. Basic Configs & CLI Tools | v1.1 | 2/3 | UAT gap closure | - |
-| 9. Terminal Emulators | v1.1 | 0/TBD | Not started | - |
+| 9. Terminal Emulators | v1.1 | 0/2 | Planned | - |
 | 10. Dev Tools with Secrets | v1.1 | 0/TBD | Not started | - |
 | 11. Claude Code | v1.1 | 0/TBD | Not started | - |
 | 12. Dotbot Retirement | v1.1 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-09 (Phase 8 UAT gap closure plan created)*
+*Last updated: 2026-02-09 (Phase 9 plans created)*
