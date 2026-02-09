@@ -147,14 +147,15 @@ else
   echo "    (kitty not installed, skipping parsability check)"
 fi
 
-# Check 5: Cache exclusion (kitty cache files do not appear in chezmoi managed/diff)
+# Check 5: Cache exclusion (kitty cache files do not appear in chezmoi managed)
 echo "Check 5: Cache file exclusion..."
 
 # Check if kitty cache files appear in chezmoi managed output
+# NOTE: Use 'chezmoi managed' instead of 'chezmoi diff' to avoid triggering
+# the Bitwarden auth gate (diff evaluates templates, managed does not).
 if command -v chezmoi &>/dev/null; then
-  # Check for kitty cache patterns in chezmoi diff
-  if chezmoi diff 2>/dev/null | grep -qE '(current-theme\.conf|theme\.auto\.conf)'; then
-    check_fail "Kitty cache files appear in chezmoi diff (cache exclusion not working)"
+  if chezmoi managed --include=files 2>/dev/null | grep -qE '(current-theme\.conf|theme\.auto\.conf)'; then
+    check_fail "Kitty cache files appear in chezmoi managed (cache exclusion not working)"
   else
     check_pass
   fi
