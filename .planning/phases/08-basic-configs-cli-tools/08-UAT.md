@@ -1,5 +1,5 @@
 ---
-status: complete
+status: diagnosed
 phase: 08-basic-configs-cli-tools
 source: [08-01-SUMMARY.md, 08-02-SUMMARY.md]
 started: 2026-02-09T20:15:00Z
@@ -65,7 +65,12 @@ skipped: 0
   reason: "User reported: changing the theme to Dracula doesn't change it in the bat output"
   severity: major
   test: 2
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "BAT_THEME env var exported in zsh.d/variables.zsh (line 95) set to gruvbox-dark overrides the --theme=Dracula in ~/.config/bat/config. Environment variables take precedence over config file settings in bat."
+  artifacts:
+    - path: "zsh.d/variables.zsh"
+      issue: "Line 95 exports BAT_THEME=$SOBOLE_SYNTAX_THEME which overrides bat config file"
+    - path: "~/.config/bat/config"
+      issue: "Theme setting correct but overridden by environment variable"
+  missing:
+    - "Remove BAT_THEME export from zsh.d/variables.zsh to let config file control bat theme, OR sync SOBOLE_SYNTAX_THEME to match desired theme"
+  debug_session: ".planning/debug/bat-theme-not-applying.md"
