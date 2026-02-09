@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 ## Current Position
 
 Phase: 8 of 12 (Basic Configs & CLI Tools)
-Plan: 1 of 1
-Status: Phase 8 Plan 1 complete
-Last activity: 2026-02-09 -- Phase 8 Plan 1 (Basic Configs & CLI Tools) verified complete
+Plan: 2 of 2
+Status: Phase 8 complete
+Last activity: 2026-02-09 -- Phase 8 Plan 2 (Verification) complete
 
-Progress: [███░░░░░░░] 28/31+ plans complete (v1.0.0 done, v1.1 Phase 7-8 done)
+Progress: [███░░░░░░░] 29/31+ plans complete (v1.0.0 done, v1.1 Phase 7-8 complete)
 
 ## Performance Metrics
 
@@ -35,12 +35,18 @@ Progress: [███░░░░░░░] 28/31+ plans complete (v1.0.0 done, v
 | 6. Security & Verification | 4 | ~0.5h | ~7.5min |
 
 | 7. Preparation | 2 | ~0.2h | ~6min |
-| 8. Basic Configs & CLI Tools | 1 | ~0.1h | ~6min |
+| 8. Basic Configs & CLI Tools | 2 | ~0.2h | ~4.5min |
 
 **Recent Trend:**
 - v1.0.0 completion: Stable velocity maintained throughout
-- v1.1 Phase 7-8: 3 plans completed
+- v1.1 Phase 7-8: 4 plans completed (Phase 8 complete)
 - Trend: Stable
+
+**Recent execution details:**
+| Plan | Duration (sec) | Tasks | Files |
+|------|---------------|-------|-------|
+| Phase 08 P01 | 371 | 2 | 14 |
+| Phase 08 P02 | 173 | 2 | 1 |
 
 ## Accumulated Context
 
@@ -58,6 +64,8 @@ All v1.0.0 decisions archived. See `.planning/milestones/v1.0.0-ROADMAP.md` and 
 - Used manual cp -L workaround for chezmoi add --follow limitation with directories
 - Removed .editorconfig from Section 2 of .chezmoiignore to resolve conflict with home-level .editorconfig
 - Applied configs with targeted --force flag to bypass Bitwarden auth gate
+- Skip template error check for oh-my-posh.omp.json (uses Go templates legitimately)
+- Make app parsability checks non-fatal when app not installed
 
 ### Pending Todos
 
@@ -70,7 +78,7 @@ None. Research phase completed with HIGH confidence. All critical pitfalls docum
 ## Session Continuity
 
 Last session: 2026-02-09
-Stopped at: Phase 8 Plan 1 complete - all 13 basic configs migrated to chezmoi
+Stopped at: Phase 8 complete - all configs migrated and verified
 Resume file: None
 
 ### Next Action
