@@ -44,11 +44,12 @@ Plans:
   3. Window manager (aerospace) config deploys on macOS machines only
   4. Database tools (psql, sqlite) load chezmoi-managed configs
   5. Shell abbreviations (zsh-abbr) expand correctly after chezmoi apply
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [x] 08-01-PLAN.md — Migrate all 13 configs to chezmoi source and update .chezmoiignore
 - [x] 08-02-PLAN.md — Create verification check file and run full verification
+- [ ] 08-03-PLAN.md — Fix bat theme override (UAT gap closure)
 
 #### Phase 9: Terminal Emulators
 **Goal**: Migrate terminal emulator configs with cache exclusion patterns
@@ -122,11 +123,11 @@ Phases execute in numeric order: 7 → 8 → 9 → 10 → 11 → 12
 | 5. Secret Management | v1.0.0 | 4/4 | Complete | 2026-02-05 |
 | 6. Security & Verification | v1.0.0 | 4/4 | Complete | 2026-02-08 |
 | 7. Preparation | v1.1 | 2/2 | Complete | 2026-02-08 |
-| 8. Basic Configs & CLI Tools | v1.1 | 2/2 | Complete | 2026-02-09 |
+| 8. Basic Configs & CLI Tools | v1.1 | 2/3 | UAT gap closure | - |
 | 9. Terminal Emulators | v1.1 | 0/TBD | Not started | - |
 | 10. Dev Tools with Secrets | v1.1 | 0/TBD | Not started | - |
 | 11. Claude Code | v1.1 | 0/TBD | Not started | - |
 | 12. Dotbot Retirement | v1.1 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-09 (Phase 8 complete)*
+*Last updated: 2026-02-09 (Phase 8 UAT gap closure plan created)*
