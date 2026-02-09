@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 ## Current Position
 
 Phase: 8 of 12 (Basic Configs & CLI Tools)
-Plan: Ready to plan
-Status: Phase 7 complete, ready to plan Phase 8
-Last activity: 2026-02-08 -- Phase 7 (Preparation) verified complete
+Plan: 1 of 1
+Status: Phase 8 Plan 1 complete
+Last activity: 2026-02-09 -- Phase 8 Plan 1 (Basic Configs & CLI Tools) verified complete
 
-Progress: [███░░░░░░░] 27/31+ plans complete (v1.0.0 done, v1.1 Phase 7 done)
+Progress: [███░░░░░░░] 28/31+ plans complete (v1.0.0 done, v1.1 Phase 7-8 done)
 
 ## Performance Metrics
 
@@ -35,10 +35,11 @@ Progress: [███░░░░░░░] 27/31+ plans complete (v1.0.0 done, v
 | 6. Security & Verification | 4 | ~0.5h | ~7.5min |
 
 | 7. Preparation | 2 | ~0.2h | ~6min |
+| 8. Basic Configs & CLI Tools | 1 | ~0.1h | ~6min |
 
 **Recent Trend:**
 - v1.0.0 completion: Stable velocity maintained throughout
-- v1.1 Phase 7: 2 plans completed
+- v1.1 Phase 7-8: 3 plans completed
 - Trend: Stable
 
 ## Accumulated Context
@@ -53,6 +54,11 @@ All v1.0.0 decisions archived. See `.planning/milestones/v1.0.0-ROADMAP.md` and 
 - Dotbot retirement (Phase 12) is point of no return -- only executes after full validation
 - All migrations use proven v1.0.0 patterns (no new tools/dependencies)
 
+**Phase 8 decisions:**
+- Used manual cp -L workaround for chezmoi add --follow limitation with directories
+- Removed .editorconfig from Section 2 of .chezmoiignore to resolve conflict with home-level .editorconfig
+- Applied configs with targeted --force flag to bypass Bitwarden auth gate
+
 ### Pending Todos
 
 None.
@@ -63,10 +69,10 @@ None. Research phase completed with HIGH confidence. All critical pitfalls docum
 
 ## Session Continuity
 
-Last session: 2026-02-08
-Stopped at: Phase 7 verified complete
+Last session: 2026-02-09
+Stopped at: Phase 8 Plan 1 complete - all 13 basic configs migrated to chezmoi
 Resume file: None
 
 ### Next Action
 
-Execute: `/gsd:plan-phase 8` to create execution plan for Basic Configs & CLI Tools phase.
+Execute: `/gsd:plan-phase 9` to create execution plan for Terminal Emulators phase.
