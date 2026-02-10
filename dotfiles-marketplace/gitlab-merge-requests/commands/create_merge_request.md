@@ -1,5 +1,6 @@
 ---
 description: Create and submit GitLab merge request
+model: sonnet
 ---
 
 # Create and Submit GitLab Merge Request

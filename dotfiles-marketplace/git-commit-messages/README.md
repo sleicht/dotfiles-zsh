@@ -9,12 +9,13 @@ This plugin provides two powerful slash commands for managing git commit message
 - **`/commit_message`** - Generate improved commit messages following Conventional Commits
 - **`/rewrite_commit_message`** - Rewrite commit messages in git history
 
-All commands enforce:
-- Jira ticket prefixes (e.g., MLE-999, TE-222)
-- Conventional Commits specification
-- Consistent commit message style
+All commands:
+- Use Haiku model for fast, cost-effective commit message generation
+- Enforce Jira ticket prefixes (e.g., MLE-999, TE-222)
+- Follow Conventional Commits specification
+- Maintain consistent commit message style
 - Focus on business value and "WHY" over implementation details
-- Concise messages (prefer 2-3 high-level bullet points)
+- Generate concise messages (prefer 2-3 high-level bullet points)
 
 ## Installation
 
@@ -137,11 +138,15 @@ MLE-999: docs: correct spelling of CHANGELOG
 
 For the complete specification, see: [docs/conventional-commits-spec.md](docs/conventional-commits-spec.md)
 
-## Requirements
+## Model Selection
 
-### MCP Git Server
+This plugin uses the **Haiku** model for all commands, optimized for:
 
-This plugin uses Model Context Protocol (MCP) git tools for safe and consistent git operations. Ensure the git MCP server is configured in your Claude Code settings.
+- **Fast execution** - Haiku processes commit messages ~5x faster than Sonnet
+- **Cost efficiency** - Significantly lower API costs for high-frequency operations
+- **Quality** - More than sufficient for structured commit message generation following well-defined patterns
+
+The Conventional Commits format is a well-defined specification that Haiku handles excellently. For tasks requiring deeper reasoning or complex context analysis, consider using the companion GitLab merge requests plugin which uses Sonnet.
 
 ## Configuration
 

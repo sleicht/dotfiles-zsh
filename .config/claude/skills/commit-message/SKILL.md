@@ -1,6 +1,7 @@
 ---
 name: Generating Commit Messages
 description: Generates Conventional Commit messages from git diffs with Jira ticket prefix. Use when the user requests to commit changes, write commit messages, or review staged changes. Invoked for phrases like "commit these changes", "write a commit message", or "help me commit".
+model: haiku
 ---
 
 # Generate Git Commit Message Skill

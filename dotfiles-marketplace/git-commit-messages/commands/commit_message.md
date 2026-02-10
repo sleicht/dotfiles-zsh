@@ -1,5 +1,6 @@
 ---
 description: Generate improved commit messages following Conventional Commits
+model: haiku
 ---
 
 # Write Git Commit Message Command

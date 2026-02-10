@@ -9,12 +9,13 @@ This plugin provides two powerful slash commands for managing GitLab merge reque
 - **`/merge_request_md`** - Generate merge request title and description to file
 - **`/create_merge_request`** - Create and submit GitLab merge requests
 
-All commands enforce:
-- Jira ticket prefixes (e.g., MLE-999, TE-222)
-- Conventional Commits philosophy (business value focus)
-- Comprehensive MR descriptions
+All commands:
+- Use Sonnet model for comprehensive MR descriptions and context understanding
+- Enforce Jira ticket prefixes (e.g., MLE-999, TE-222)
+- Follow Conventional Commits philosophy (business value focus)
+- Generate comprehensive MR descriptions
 - Focus on "WHY" over implementation details
-- Clear test plans and checklists
+- Include clear test plans and checklists
 
 ## Prerequisites
 
@@ -149,6 +150,17 @@ For the complete Conventional Commits specification, see the companion plugin:
 - **@dotfiles-marketplace/git-commit-messages** - Full specification and commit message tools
 
 For a brief overview, see: [docs/conventional-commits-overview.md](docs/conventional-commits-overview.md)
+
+## Model Selection
+
+This plugin uses the **Sonnet** model for all commands, optimized for:
+
+- **Context understanding** - Better synthesis of changes across multiple commits
+- **Comprehensive descriptions** - More sophisticated writing for MR summaries focused on "WHY"
+- **Workflow orchestration** - Handles multi-step processes (analyze, generate, push, create MR)
+- **Quality over speed** - MR descriptions are written once and reviewed by humans, so quality matters more than execution speed
+
+For simpler, structured tasks like commit messages, consider using the companion git-commit-messages plugin which uses the faster Haiku model.
 
 ## Configuration
 

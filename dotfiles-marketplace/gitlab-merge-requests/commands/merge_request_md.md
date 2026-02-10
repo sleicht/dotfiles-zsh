@@ -1,5 +1,6 @@
 ---
 description: Generate GitLab merge request title and description
+model: sonnet
 ---
 
 # Create GitLab Merge Request Title & Description

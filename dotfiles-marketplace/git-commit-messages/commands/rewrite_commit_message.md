@@ -1,5 +1,6 @@
 ---
 description: Rewrite git commit message in history following Conventional Commits
+model: haiku
 ---
 
 # Rewrite Git Commit Message Command
