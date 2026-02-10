@@ -1,9 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "mcp__git__git_diff",
-      "mcp__git__git_log",
       "Bash(cat:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
       "Bash(tree:*)"
     ]
   },

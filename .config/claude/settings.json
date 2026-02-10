@@ -8,32 +8,26 @@
       "Bash(awk:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
+      "Bash(git add:*)",
+      "Bash(git branch:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git status:*)",
       "Bash(grep:*)",
+      "Bash(just compile:*)",
+      "Bash(just test:*)",
+      "Bash(just unit:*)",
       "Bash(ls:*)",
       "Bash(rg:*)",
       "Bash(sed:*)",
       "Bash(test:*)",
-      "Bash(just compile:*)",
-      "Bash(just test:*)",
-      "Bash(just unit:*)",
-      "mcp__git-mcp-server__git_diff",
-      "mcp__git-mcp-server__git_log",
-      "mcp__git-mcp-server__git_set_working_dir",
-      "mcp__git-mcp-server__git_show",
-      "mcp__git__git_add",
-      "mcp__git__git_branch",
-      "mcp__git__git_diff",
-      "mcp__git__git_log",
-      "mcp__git__git_set_working_dir",
-      "mcp__git__git_show",
-      "mcp__git__git_status",
       "mcp__ide__getDiagnostics",
       "WebFetch(domain:errorprone.info)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:openapiprocessor.io)"
     ],
     "deny": [
-      "Bash(git:*)",
       "Bash(rm -rf /:*)",
       "Bash(rm -rf /)",
       "Bash(sudo rm -rf /:*)",
@@ -114,6 +108,7 @@
     ],
     "defaultMode": "default"
   },
+  "model": "claude-opus-4-6",
   "enableAllProjectMcpServers": false,
   "hooks": {},
   "statusLine": {
@@ -137,5 +132,6 @@
     "git-commit-messages@dotfiles-marketplace": true,
     "gitlab-merge-requests@dotfiles-marketplace": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "medium"
 }
