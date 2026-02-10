@@ -124,9 +124,9 @@ cask "ghostty"
 cask "git-credential-manager" if OS.mac?
 cask "istat-menus" if OS.mac?
 cask "jetbrains-toolbox" if OS.mac?
-cask "jordanbaird-ice" if OS.mac?
 cask "karabiner-elements" if OS.mac?
 cask "logi-options+" if OS.mac?
+cask "luxury-yacht" if OS.mac? # Desktop app for managing Kubernetes clusters
 cask "raindropio" if OS.mac?
 cask "raycast" if OS.mac?
 cask "slack" if OS.mac?
