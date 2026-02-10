@@ -79,8 +79,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 10-01-PLAN.md — Migrate 5 dev tool configs to chezmoi with gpg-agent OS-conditional template
-- [ ] 10-02-PLAN.md — Create verification check file and run full verification
+- [x] 10-01-PLAN.md — Migrate 5 dev tool configs to chezmoi with gpg-agent OS-conditional template
+- [x] 10-02-PLAN.md — Create verification check file and run full verification
 
 #### Phase 11: Claude Code
 **Goal**: Migrate Claude Code directory with selective sync and local state exclusion
@@ -127,9 +127,9 @@ Phases execute in numeric order: 7 → 8 → 9 → 10 → 11 → 12
 | 7. Preparation | v1.1 | 2/2 | Complete | 2026-02-08 |
 | 8. Basic Configs & CLI Tools | v1.1 | 2/3 | UAT gap closure | - |
 | 9. Terminal Emulators | v1.1 | 2/2 | Complete | 2026-02-09 |
-| 10. Dev Tools with Secrets | v1.1 | 0/2 | Planned | - |
+| 10. Dev Tools with Secrets | v1.1 | 2/2 | Complete | 2026-02-10 |
 | 11. Claude Code | v1.1 | 0/TBD | Not started | - |
 | 12. Dotbot Retirement | v1.1 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-09 (Phase 10 planned)*
+*Last updated: 2026-02-10 (Phase 10 complete)*
