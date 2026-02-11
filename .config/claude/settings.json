@@ -11,21 +11,28 @@
       "Bash(git add:*)",
       "Bash(git branch:*)",
       "Bash(git diff:*)",
+      "Bash(git fetch:*)",
       "Bash(git log:*)",
       "Bash(git show:*)",
       "Bash(git status:*)",
       "Bash(grep:*)",
       "Bash(just compile:*)",
+      "Bash(just generate-openapi-spec:*)",
+      "Bash(just it-local:*)",
+      "Bash(just recompile:*)",
+      "Bash(just run:*)",
       "Bash(just test:*)",
       "Bash(just unit:*)",
       "Bash(ls:*)",
+      "Bash(mvn dependency:tree:*)",
       "Bash(rg:*)",
       "Bash(sed:*)",
       "Bash(test:*)",
       "mcp__ide__getDiagnostics",
       "WebFetch(domain:errorprone.info)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:openapiprocessor.io)"
+      "WebFetch(domain:openapiprocessor.io)",
+      "WebSearch"
     ],
     "deny": [
       "Bash(rm -rf /:*)",
@@ -132,5 +139,6 @@
     "gitlab-merge-requests@dotfiles-marketplace": true
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "medium"
+  "effortLevel": "medium",
+  "outputStyle": "Learning"
 }
