@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-02-08)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 8: Basic Configs & CLI Tools
+**Current focus:** Phase 12: Dotbot Retirement
 
 ## Current Position
 

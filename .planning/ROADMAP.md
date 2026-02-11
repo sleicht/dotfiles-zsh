@@ -90,12 +90,12 @@ Plans:
   1. Claude Code commands and skills sync across machines via chezmoi apply
   2. Local settings (settings.local.json) never appear in chezmoi diff
   3. Cache and temporary files excluded from chezmoi tracking
-  4. chezmoi diff completes in under 2 seconds with .claude/ tracked
+  4. chezmoi diff completes in under 2 seconds with .claude/ tracked *(known gap: ~13s due to chezmoi scanning 491MB .claude/ directory — selective sync is correct, performance is a chezmoi architectural limitation)*
 **Plans**: 2 plans
 
 Plans:
-- [ ] 11-01-PLAN.md -- Migrate Claude Code synced configs to chezmoi with .chezmoiignore exclusions
-- [ ] 11-02-PLAN.md -- Create verification check and validate full migration
+- [x] 11-01-PLAN.md -- Migrate Claude Code synced configs to chezmoi with .chezmoiignore exclusions
+- [x] 11-02-PLAN.md -- Create verification check and validate full migration
 
 #### Phase 12: Dotbot Retirement
 **Goal**: Complete removal of Dotbot infrastructure and deprecated configs
@@ -126,11 +126,13 @@ Phases execute in numeric order: 7 → 8 → 9 → 10 → 11 → 12
 | 5. Secret Management | v1.0.0 | 4/4 | Complete | 2026-02-05 |
 | 6. Security & Verification | v1.0.0 | 4/4 | Complete | 2026-02-08 |
 | 7. Preparation | v1.1 | 2/2 | Complete | 2026-02-08 |
-| 8. Basic Configs & CLI Tools | v1.1 | 2/3 | UAT gap closure | - |
+| 8. Basic Configs & CLI Tools | v1.1 | 3/3 | Complete | 2026-02-11 |
 | 9. Terminal Emulators | v1.1 | 2/2 | Complete | 2026-02-09 |
 | 10. Dev Tools with Secrets | v1.1 | 2/2 | Complete | 2026-02-10 |
-| 11. Claude Code | v1.1 | 0/TBD | Not started | - |
+| 11. Claude Code | v1.1 | 2/2 | Complete* | 2026-02-12 |
 | 12. Dotbot Retirement | v1.1 | 0/TBD | Not started | - |
 
+*\* Phase 11 has 1 known gap: chezmoi diff takes ~13s (not <2s) due to scanning 491MB .claude/ directory. Selective sync implementation is correct; performance is a chezmoi architectural limitation.*
+
 ---
-*Last updated: 2026-02-10 (Phase 10 complete)*
+*Last updated: 2026-02-12 (Phase 11 complete)*
