@@ -171,6 +171,14 @@ else
   echo "    (btop not installed, skipping parsability check)"
 fi
 
+# Check 5: BAT_THEME not exported (regression check for UAT gap)
+echo "Check 5: BAT_THEME not exported in zsh.d/variables.zsh..."
+if grep -q 'export BAT_THEME' "$HOME/.dotfiles/zsh.d/variables.zsh"; then
+  check_fail "BAT_THEME export found in zsh.d/variables.zsh (overrides config file)"
+else
+  check_pass
+fi
+
 # --- Results ---
 
 echo ""
