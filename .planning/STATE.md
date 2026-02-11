@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 
 ## Current Position
 
-Phase: 10 of 12 (Dev Tools with Secrets)
-Plan: 2 of 2 (complete)
-Status: Phase 10 complete
-Last activity: 2026-02-10 -- Phase 10 Plan 2 (Verification Check) complete
+Phase: 8 of 12 (Basic Configs & CLI Tools)
+Plan: 3 of 3 (complete)
+Status: Phase 8 UAT gap closed
+Last activity: 2026-02-11 -- Phase 8 Plan 3 (bat Theme Fix) complete
 
-Progress: [███░░░░░░░] 33/31+ plans complete (v1.0.0 done, v1.1 Phase 7-10 complete)
+Progress: [███░░░░░░░] 34/31+ plans complete (v1.0.0 done, v1.1 Phase 7-10 complete, Phase 8 UAT closed)
 
 ## Performance Metrics
 
@@ -35,13 +35,14 @@ Progress: [███░░░░░░░] 33/31+ plans complete (v1.0.0 done, v
 | 6. Security & Verification | 4 | ~0.5h | ~7.5min |
 
 | 7. Preparation | 2 | ~0.2h | ~6min |
-| 8. Basic Configs & CLI Tools | 2 | ~0.2h | ~4.5min |
+| 8. Basic Configs & CLI Tools | 3 | ~0.21h | ~4.2min |
 | 9. Terminal Emulators | 2 | ~0.1h | ~3min |
 | 10. Dev Tools with Secrets | 2 | ~0.06h | ~1.8min |
 
 **Recent Trend:**
 - v1.0.0 completion: Stable velocity maintained throughout
 - v1.1 Phase 7-10: 8 plans completed (Phase 10 complete)
+- Phase 8 UAT: 1 additional plan completed (2min)
 - Trend: Excellent (improving velocity, Phase 10 averaged 1.8min/plan)
 
 **Recent execution details:**
@@ -49,10 +50,11 @@ Progress: [███░░░░░░░] 33/31+ plans complete (v1.0.0 done, v
 |------|---------------|-------|-------|
 | Phase 08 P01 | 371 | 2 | 14 |
 | Phase 08 P02 | 173 | 2 | 1 |
+| Phase 08 P03 | 120 | 2 | 2 |
 | Phase 09 P01 | 249 | 2 | 4 |
 | Phase 09 P02 | 112 | 2 | 1 |
 | Phase 10 P01 | 146 | 2 | 7 |
-| Phase 10 P02 | 67 | 2 tasks | 1 files |
+| Phase 10 P02 | 67 | 2 | 1 |
 
 ## Accumulated Context
 
@@ -72,6 +74,8 @@ All v1.0.0 decisions archived. See `.planning/milestones/v1.0.0-ROADMAP.md` and 
 - Applied configs with targeted --force flag to bypass Bitwarden auth gate
 - Skip template error check for oh-my-posh.omp.json (uses Go templates legitimately)
 - Make app parsability checks non-fatal when app not installed
+- Removed BAT_THEME env var to allow bat config file precedence (UAT gap fix)
+- Added regression check to verification script to prevent BAT_THEME re-introduction
 
 **Phase 9 decisions:**
 - Adjusted execution order: update .chezmoiignore before adding files (files were being ignored by Phase 9 patterns)
@@ -97,8 +101,8 @@ None. Research phase completed with HIGH confidence. All critical pitfalls docum
 
 ## Session Continuity
 
-Last session: 2026-02-10
-Stopped at: Phase 10 complete - all dev tool configs verified, full test suite passing
+Last session: 2026-02-11
+Stopped at: Phase 8 Plan 3 complete - bat theme UAT gap closed, all verification checks passing
 Resume file: None
 
 ### Next Action
