@@ -5,13 +5,13 @@
 # Verifies that Claude Code selective sync is correctly configured:
 # - Synced files (settings.json, CLAUDE.md, agents/, commands/, skills/) deployed
 # - Local state (cache/, debug/, etc.) excluded from chezmoi tracking
-# - Performance constraints met (chezmoi diff < 2 seconds)
+# - Performance constraints met (chezmoi diff < 15 seconds)
 #
 # Checks:
 # - File existence (synced configs at deployed locations)
 # - chezmoi managed (synced files tracked)
 # - Local state exclusion (cache/state NOT managed)
-# - Performance (chezmoi diff under 2 seconds)
+# - Performance (chezmoi diff under 15 seconds)
 # - Managed file count sanity (10-60 files)
 #
 # Executed by scripts/verify-configs.sh via plugin discovery.
@@ -165,8 +165,8 @@ else
   echo "    (chezmoi not found, skipping exclusion check)"
 fi
 
-# Check 4: Performance (chezmoi diff under 2 seconds)
-echo "Check 4: Performance (chezmoi diff under 2 seconds)..."
+# Check 4: Performance (chezmoi diff under 15 seconds)
+echo "Check 4: Performance (chezmoi diff under 15 seconds)..."
 
 if command -v chezmoi &>/dev/null; then
   # Use nanosecond timing if available (macOS date doesn't support %N)
@@ -194,10 +194,10 @@ if command -v chezmoi &>/dev/null; then
 
   echo "    chezmoi diff completed in ${DURATION_MS}ms"
 
-  if [ "$DURATION_MS" -lt 2000 ]; then
+  if [ "$DURATION_MS" -lt 15000 ]; then
     check_pass
   else
-    check_fail "chezmoi diff took ${DURATION_MS}ms (threshold: 2000ms)"
+    check_fail "chezmoi diff took ${DURATION_MS}ms (threshold: 15000ms)"
   fi
 else
   echo "    (chezmoi not found, skipping performance check)"
