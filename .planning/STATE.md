@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 
 ## Current Position
 
-Phase: 8 of 12 (Basic Configs & CLI Tools)
-Plan: 3 of 3 (complete)
-Status: Phase 8 UAT gap closed
-Last activity: 2026-02-11 -- Phase 8 Plan 3 (bat Theme Fix) complete
+Phase: 11 of 12 (Claude Code)
+Plan: 1 of 1 (complete)
+Status: Phase 11 complete
+Last activity: 2026-02-12 -- Phase 11 Plan 1 (Claude Code Selective Sync) complete
 
-Progress: [███░░░░░░░] 34/31+ plans complete (v1.0.0 done, v1.1 Phase 7-10 complete, Phase 8 UAT closed)
+Progress: [███░░░░░░░] 35/31+ plans complete (v1.0.0 done, v1.1 Phase 7-11 complete)
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Progress: [███░░░░░░░] 34/31+ plans complete (v1.0.0 done, v
 | Phase 09 P02 | 112 | 2 | 1 |
 | Phase 10 P01 | 146 | 2 | 7 |
 | Phase 10 P02 | 67 | 2 | 1 |
+| Phase 11 P01 | 165 | 2 | 48 |
 
 ## Accumulated Context
 
@@ -91,6 +92,12 @@ All v1.0.0 decisions archived. See `.planning/milestones/v1.0.0-ROADMAP.md` and 
 - Used manual cp -L workaround for all static configs (proven Phase 8-9 pattern)
 - Applied configs with targeted --force flag to bypass Bitwarden auth gate
 
+**Phase 11 decisions:**
+- Used manual cp -L workaround for all files (chezmoi add --follow failed even for individual files)
+- Exclusion-first order: update .chezmoiignore BEFORE adding files to prevent 85MB cache tracking
+- Applied 43 specific .claude exclusion patterns for selective sync (not blanket ignore)
+- Targeted --force deployment to bypass Bitwarden auth gate (proven Phase 8-10 pattern)
+
 ### Pending Todos
 
 None.
@@ -101,10 +108,10 @@ None. Research phase completed with HIGH confidence. All critical pitfalls docum
 
 ## Session Continuity
 
-Last session: 2026-02-11
-Stopped at: Phase 8 Plan 3 complete - bat theme UAT gap closed, all verification checks passing
+Last session: 2026-02-12
+Stopped at: Phase 11 Plan 1 complete - Claude Code selective sync migration complete, 47 files tracked
 Resume file: None
 
 ### Next Action
 
-Execute: `/gsd:plan-phase 11` to create execution plan for Claude Code directory migration.
+Execute: `/gsd:plan-phase 12` to create execution plan for Dotbot retirement and cleanup.
