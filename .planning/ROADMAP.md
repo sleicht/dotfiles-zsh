@@ -91,10 +91,11 @@ Plans:
   2. Local settings (settings.local.json) never appear in chezmoi diff
   3. Cache and temporary files excluded from chezmoi tracking
   4. chezmoi diff completes in under 2 seconds with .claude/ tracked
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 11-01: TBD
+- [ ] 11-01-PLAN.md -- Migrate Claude Code synced configs to chezmoi with .chezmoiignore exclusions
+- [ ] 11-02-PLAN.md -- Create verification check and validate full migration
 
 #### Phase 12: Dotbot Retirement
 **Goal**: Complete removal of Dotbot infrastructure and deprecated configs
