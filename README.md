@@ -64,6 +64,8 @@ chezmoi source (~/.local/share/chezmoi/)
 └── run_*.sh.tmpl               # Automation scripts
 ```
 
+**Note:** nvim configuration is intentionally managed outside chezmoi via a symlink (`~/.config/nvim -> ~/Projects/dotfiles-zsh/nvim`). This allows nvim plugins to be managed by their own plugin manager without interference from chezmoi's template processing.
+
 ## Tools
 
 ### chezmoi — Dotfiles Manager
