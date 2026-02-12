@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0.0 Dotfiles Stack Migration** - Phases 1-6 (shipped 2026-02-08)
-- 🚧 **v1.1 Complete Migration** - Phases 7-12 (in progress)
+- ✅ **v1.1 Complete Migration** - Phases 7-12 (shipped 2026-02-12)
 
 ## Phases
 
@@ -16,7 +16,7 @@ Complete migration from Nix/Dotbot/Zgenom/asdf to chezmoi/mise/Homebrew/Sheldon 
 
 </details>
 
-### 🚧 v1.1 Complete Migration (In Progress)
+### ✅ v1.1 Complete Migration (Shipped 2026-02-12)
 
 **Milestone Goal:** Migrate all remaining Dotbot-managed configs to chezmoi and retire Dotbot entirely.
 
@@ -49,7 +49,7 @@ Plans:
 Plans:
 - [x] 08-01-PLAN.md — Migrate all 13 configs to chezmoi source and update .chezmoiignore
 - [x] 08-02-PLAN.md — Create verification check file and run full verification
-- [ ] 08-03-PLAN.md — Fix bat theme override (UAT gap closure)
+- [x] 08-03-PLAN.md — Fix bat theme override (UAT gap closure)
 
 #### Phase 9: Terminal Emulators
 **Goal**: Migrate terminal emulator configs with cache exclusion patterns
@@ -110,8 +110,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 12-01-PLAN.md — Remove deprecated configs (nushell, zgenom) and Dotbot infrastructure (submodules, install, steps)
-- [ ] 12-02-PLAN.md — Create verification check script and update README for chezmoi-only workflow
+- [x] 12-01-PLAN.md — Remove deprecated configs (nushell, zgenom) and Dotbot infrastructure (submodules, install, steps)
+- [x] 12-02-PLAN.md — Create verification check script and update README for chezmoi-only workflow
 
 ## Progress
 
@@ -131,9 +131,9 @@ Phases execute in numeric order: 7 → 8 → 9 → 10 → 11 → 12
 | 9. Terminal Emulators | v1.1 | 2/2 | Complete | 2026-02-09 |
 | 10. Dev Tools with Secrets | v1.1 | 2/2 | Complete | 2026-02-10 |
 | 11. Claude Code | v1.1 | 2/2 | Complete* | 2026-02-12 |
-| 12. Dotbot Retirement | v1.1 | 0/2 | Not started | - |
+| 12. Dotbot Retirement | v1.1 | 2/2 | Complete | 2026-02-12 |
 
 *\* Phase 11 has 1 known gap: chezmoi diff takes ~13s (not <2s) due to scanning 491MB .claude/ directory. Selective sync implementation is correct; performance is a chezmoi architectural limitation.*
 
 ---
-*Last updated: 2026-02-12 (Phase 12 planned)*
+*Last updated: 2026-02-12 (v1.1 complete)*
