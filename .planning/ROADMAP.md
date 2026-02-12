@@ -107,10 +107,11 @@ Plans:
   3. Deprecated configs (nushell, zgenom) removed from repo and target
   4. chezmoi-only workflow documented in README
   5. Fresh chezmoi apply on clean machine deploys all configs correctly
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 12-01: TBD
+- [ ] 12-01-PLAN.md — Remove deprecated configs (nushell, zgenom) and Dotbot infrastructure (submodules, install, steps)
+- [ ] 12-02-PLAN.md — Create verification check script and update README for chezmoi-only workflow
 
 ## Progress
 
@@ -130,9 +131,9 @@ Phases execute in numeric order: 7 → 8 → 9 → 10 → 11 → 12
 | 9. Terminal Emulators | v1.1 | 2/2 | Complete | 2026-02-09 |
 | 10. Dev Tools with Secrets | v1.1 | 2/2 | Complete | 2026-02-10 |
 | 11. Claude Code | v1.1 | 2/2 | Complete* | 2026-02-12 |
-| 12. Dotbot Retirement | v1.1 | 0/TBD | Not started | - |
+| 12. Dotbot Retirement | v1.1 | 0/2 | Not started | - |
 
 *\* Phase 11 has 1 known gap: chezmoi diff takes ~13s (not <2s) due to scanning 491MB .claude/ directory. Selective sync implementation is correct; performance is a chezmoi architectural limitation.*
 
 ---
-*Last updated: 2026-02-12 (Phase 11 complete)*
+*Last updated: 2026-02-12 (Phase 12 planned)*
