@@ -24,3 +24,33 @@
 **What's next:** v2 -- Performance optimisation, mise task runner
 
 ---
+
+## v1.1 Complete Migration (Shipped: 2026-02-12)
+
+**Delivered:** Migrated all remaining Dotbot-managed configs to chezmoi and retired Dotbot entirely. 69 config files migrated with 112 automated verification checks, plugin-based verification framework, and OS-conditional templating.
+
+**Phases completed:** 7-12 (13 plans total)
+
+**Key accomplishments:**
+- Migrated 69 config files from Dotbot symlinks to chezmoi-managed real files (basic dotfiles, CLI tools, terminal emulators, dev tools, Claude Code)
+- Built plugin-based verification framework with 112 automated checks across 5 phases (scripts/verify-configs.sh + verify-checks/)
+- Implemented OS-conditional templating for gpg-agent pinentry path (macOS Homebrew vs Linux system)
+- Established selective sync for .claude/ directory (47 files tracked, 43 exclusion patterns for cache/state)
+- Retired Dotbot infrastructure entirely (4 submodules, install script, steps/ directory removed)
+- Updated README to chezmoi-only workflow with 0 Dotbot references and nvim exception documented
+
+**Stats:**
+- 6 phases, 13 plans
+- 4 days from start to ship (2026-02-08 to 2026-02-12)
+- 57 commits, 310 files changed, +55,375 / -958 lines
+- 30/30 requirements satisfied (100%)
+
+**Git range:** feature/nix branch (4ed17d9..b42e4a5)
+
+**Tech debt accepted:**
+- chezmoi diff takes ~13s (vs 2s target) due to scanning 491MB .claude/ directory (upstream limitation)
+
+**What's next:** v2 -- Performance optimisation, mise task runner
+
+---
+
