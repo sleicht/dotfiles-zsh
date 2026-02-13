@@ -62,33 +62,33 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LEGACY-01 | — | Pending |
-| LEGACY-02 | — | Pending |
-| LEGACY-03 | — | Pending |
-| LEGACY-04 | — | Pending |
-| LEGACY-05 | — | Pending |
-| CHEZFIX-01 | — | Pending |
-| CHEZFIX-02 | — | Pending |
-| CHEZFIX-03 | — | Pending |
-| CHEZFIX-04 | — | Pending |
-| CHEZFIX-05 | — | Pending |
-| CHEZFIX-06 | — | Pending |
-| CHEZFIX-07 | — | Pending |
-| CHEZFIX-08 | — | Pending |
-| CHEZFIX-09 | — | Pending |
-| CHEZFIX-10 | — | Pending |
-| MISC-01 | — | Pending |
-| MISC-02 | — | Pending |
-| MISC-03 | — | Pending |
-| MISC-04 | — | Pending |
-| MISC-05 | — | Pending |
-| MISC-06 | — | Pending |
+| LEGACY-01 | Phase 13 | Pending |
+| LEGACY-02 | Phase 13 | Pending |
+| LEGACY-03 | Phase 14 | Pending |
+| LEGACY-04 | Phase 13 | Pending |
+| LEGACY-05 | Phase 13 | Pending |
+| CHEZFIX-01 | Phase 15 | Pending |
+| CHEZFIX-02 | Phase 15 | Pending |
+| CHEZFIX-03 | Phase 15 | Pending |
+| CHEZFIX-04 | Phase 15 | Pending |
+| CHEZFIX-05 | Phase 16 | Pending |
+| CHEZFIX-06 | Phase 16 | Pending |
+| CHEZFIX-07 | Phase 16 | Pending |
+| CHEZFIX-08 | Phase 16 | Pending |
+| CHEZFIX-09 | Phase 15 | Pending |
+| CHEZFIX-10 | Phase 15 | Pending |
+| MISC-01 | Phase 17 | Pending |
+| MISC-02 | Phase 17 | Pending |
+| MISC-03 | Phase 17 | Pending |
+| MISC-04 | Phase 17 | Pending |
+| MISC-05 | Phase 17 | Pending |
+| MISC-06 | Phase 17 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 21 total
-- Mapped to phases: 0
-- Unmapped: 21 ⚠️
+- Mapped to phases: 21 (100%)
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-13*
-*Last updated: 2026-02-13 after initial definition*
+*Last updated: 2026-02-13 after roadmap creation*

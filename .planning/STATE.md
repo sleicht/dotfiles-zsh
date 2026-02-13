@@ -5,14 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** v1.2 Legacy Cleanup
+**Current focus:** Phase 13 - Remove Legacy Config Files
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-02-13 — Milestone v1.2 started
+Phase: 13 of 17 (Remove Legacy Config Files)
+Plan: Ready to plan (v1.2 roadmap just created)
+Status: Ready to plan
+Last activity: 2026-02-13 -- v1.2 roadmap created with 5 phases (13-17)
+
+Progress: [████████████████░░] 92% (38/TBD plans complete across all milestones)
 
 ## Performance Metrics
 
@@ -43,12 +45,21 @@ Last activity: 2026-02-13 — Milestone v1.2 started
 | 11. Claude Code | 2 | ~0.12h | ~3.5min |
 | 12. Dotbot Retirement | 2 | ~0.12h | ~3.6min |
 
+**Recent Trend:**
+- Last milestone (v1.1): 13 plans across 6 phases, shipped 2026-02-12
+- Trend: Stable (consistent velocity)
+
 ## Accumulated Context
 
 ### Decisions
 
-All v1.0.0 decisions archived. See `.planning/milestones/v1.0.0-ROADMAP.md`.
-All v1.1 decisions archived. See `.planning/milestones/v1.1-ROADMAP.md` and `.planning/PROJECT.md` Key Decisions table.
+Decisions are logged in PROJECT.md Key Decisions table.
+Recent decisions affecting current work:
+
+- [Phase 12]: Three-step submodule removal for complete Dotbot cleanup
+- [Phase 11]: Selective sync for .claude/ directory (47 files tracked, 43 exclusion patterns)
+- [Phase 8-11]: Manual cp -L for chezmoi add (workaround for --follow limitation)
+- [Phase 7]: Plugin-based verification framework (112 checks across 5 phase check files)
 
 ### Pending Todos
 
@@ -56,14 +67,14 @@ None.
 
 ### Blockers/Concerns
 
-None.
+**Known Limitations (from PROJECT.md):**
+- Shell startup time: 0.87s (target < 300ms deferred to v2.0)
+- Dual mise activation: Targeted for removal in Phase 15
+- Stale PATH entries: Targeted for removal in Phase 15
+- Legacy .config/ artifacts: Targeted for removal in Phase 13
 
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: v1.2 milestone — defining requirements
-Resume file: None
-
-### Next Action
-
-Define requirements and create roadmap for v1.2 Legacy Cleanup.
+Stopped at: Created v1.2 roadmap with 5 phases (13-17), covering 21 requirements
+Resume file: None (start Phase 13 planning with /gsd:plan-phase 13)
