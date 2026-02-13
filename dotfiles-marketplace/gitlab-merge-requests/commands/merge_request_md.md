@@ -1,5 +1,6 @@
 ---
 description: Generate GitLab merge request title and description
+model: sonnet
 ---
 
 # Create GitLab Merge Request Title & Description
@@ -9,44 +10,46 @@ This command generates a comprehensive GitLab merge request title and descriptio
 ## Overview
 
 Generates merge request documentation by:
-1. Analyzing changes using MCP git tools
+1. Analyzing changes using standard git commands
 2. Writing a comprehensive MR description to `MERGE_REQUEST.md`
 
 ## Execution Instructions
 
 Follow these steps in order:
 
-### 1. Initialize Repository Context (REQUIRED FIRST)
+### 1. Analyze Changes
 
-Use **`mcp__git__git_set_working_dir`**:
-- Pass `path: "."`
-- Pass `includeMetadata: true`
-- This validates the git repository, sets the session working directory, and returns repository metadata
-- The metadata includes current branch, status, and recent commits - use this context for subsequent operations
+Based on `$ARGUMENTS` (defaults to HEAD if not specified), use `Bash` tool:
 
-### 2. Analyze Changes
+- **If empty or "HEAD"**:
+  ```bash
+  git show HEAD
+  ```
+- **If commit range**:
+  ```bash
+  git diff <range>
+  ```
+- **If branch name**:
+  ```bash
+  git diff <branch>..HEAD
+  ```
 
-Based on `$ARGUMENTS` (defaults to HEAD if not specified). Note: path parameter omitted - uses session working directory:
+Additionally, review recent commits for context:
+```bash
+git log --oneline -10
+```
+- Understand the full scope of changes
+- Extract commit messages
+- Identify patterns and related work
 
-- **If empty or "HEAD"**: Use `mcp__git__git_show` to analyze the latest commit
-- **If commit range**: Use `mcp__git__git_diff` to see full changes
-- **If branch name**: Use `mcp__git__git_diff` comparing against target branch
-
-Additionally:
-- **`mcp__git__git_log`**: Review recent commits for context (path parameter omitted)
-  - Pass `maxCount: 10` to limit results
-  - Understand the full scope of changes
-  - Extract commit messages
-  - Identify patterns and related work
-
-### 3. Check for MR Template
+### 2. Check for MR Template
 
 Use `Read` tool to:
 - Check if `.gitlab/merge_request_templates/Feature_to_Develop.md` exists
 - Read the template if available
 - Follow the template structure in the generated description
 
-### 4. Generate MR Description
+### 3. Generate MR Description
 
 Create comprehensive content including:
 - **Title**: `<TICKET>: <type>: <concise description>` (e.g., "MLE-999: feat: add user authentication")

@@ -1,6 +1,6 @@
 # GitLab Merge Requests Plugin
 
-An OpenCode plugin that creates GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy.
+A Claude Code plugin that creates GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy.
 
 ## Features
 
@@ -9,12 +9,13 @@ This plugin provides two powerful slash commands for managing GitLab merge reque
 - **`/merge_request_md`** - Generate merge request title and description to file
 - **`/create_merge_request`** - Create and submit GitLab merge requests
 
-All commands enforce:
-- Jira ticket prefixes (e.g., MLE-999, TE-222)
-- Conventional Commits philosophy (business value focus)
-- Comprehensive MR descriptions
+All commands:
+- Use Sonnet model for comprehensive MR descriptions and context understanding
+- Enforce Jira ticket prefixes (e.g., MLE-999, TE-222)
+- Follow Conventional Commits philosophy (business value focus)
+- Generate comprehensive MR descriptions
 - Focus on "WHY" over implementation details
-- Clear test plans and checklists
+- Include clear test plans and checklists
 
 ## Prerequisites
 
@@ -31,6 +32,7 @@ glab auth login
 You must also:
 - Be working in a GitLab repository
 - Have appropriate push permissions
+- Have the git MCP server configured in Claude Code settings
 
 ## Installation
 
@@ -41,24 +43,23 @@ If this plugin is part of your dotfiles setup, it should be automatically instal
 ### Manual Installation
 
 ```bash
-# Create OpenCode directories if they don't exist
-mkdir -p ~/.config/opencode/command
+# Create plugins directory if it doesn't exist
+mkdir -p ~/.claude/plugins
 
-# Symlink the commands
-ln -s /path/to/dotfiles/dotfiles-marketplace/gitlab-merge-requests/.opencode/command/merge_request_md.md ~/.config/opencode/command/
-ln -s /path/to/dotfiles/dotfiles-marketplace/gitlab-merge-requests/.opencode/command/create_merge_request.md ~/.config/opencode/command/
+# Clone or symlink the plugin
+ln -s /path/to/dotfiles/dotfiles-marketplace/gitlab-merge-requests ~/.claude/plugins/gitlab-merge-requests
 ```
 
-### Project-Level Installation
+### Installation in Other Projects
 
-To use this plugin in a specific project:
+To use this plugin in other projects:
 
 ```bash
-# Create project-level OpenCode directory
-mkdir -p .opencode/command
+# Option 1: Copy the plugin directory
+cp -r /path/to/dotfiles/dotfiles-marketplace/gitlab-merge-requests ~/.claude/plugins/
 
-# Copy or symlink the commands
-cp -r /path/to/dotfiles/dotfiles-marketplace/gitlab-merge-requests/.opencode/command/* .opencode/command/
+# Option 2: Create a symlink (recommended)
+ln -s /path/to/dotfiles/dotfiles-marketplace/gitlab-merge-requests ~/.claude/plugins/gitlab-merge-requests
 ```
 
 ## Commands
@@ -121,9 +122,9 @@ Generates merge request description, pushes changes, and creates a GitLab merge 
 **Example:**
 ```bash
 $ /create_merge_request HEAD
-Pushed branch feature/MLE-999-jwt-validation
-Created merge request !123
-https://gitlab.com/org/project/-/merge_requests/123
+✓ Pushed branch feature/MLE-999-jwt-validation
+✓ Created merge request !123
+→ https://gitlab.com/org/project/-/merge_requests/123
 ```
 
 ## Conventional Commits Philosophy
@@ -150,6 +151,17 @@ For the complete Conventional Commits specification, see the companion plugin:
 
 For a brief overview, see: [docs/conventional-commits-overview.md](docs/conventional-commits-overview.md)
 
+## Model Selection
+
+This plugin uses the **Sonnet** model for all commands, optimized for:
+
+- **Context understanding** - Better synthesis of changes across multiple commits
+- **Comprehensive descriptions** - More sophisticated writing for MR summaries focused on "WHY"
+- **Workflow orchestration** - Handles multi-step processes (analyze, generate, push, create MR)
+- **Quality over speed** - MR descriptions are written once and reviewed by humans, so quality matters more than execution speed
+
+For simpler, structured tasks like commit messages, consider using the companion git-commit-messages plugin which uses the faster Haiku model.
+
 ## Configuration
 
 ### Jira Ticket Prefix
@@ -174,31 +186,42 @@ If a template exists, the plugin will read it and incorporate relevant sections 
 
 By default, merge requests target the `develop` branch. You can modify this in the command execution if your project uses a different default branch (e.g., `main`, `master`).
 
-## Plugin Structure
+## Development
+
+### Plugin Structure
 
 ```
 dotfiles-marketplace/gitlab-merge-requests/
-├── .opencode/
-│   └── command/
-│       ├── merge_request_md.md
-│       └── create_merge_request.md
-├── .claude-plugin/               # Legacy Claude Code format
-│   └── plugin.json
-├── commands/                     # Legacy Claude Code format
-│   ├── create_merge_request.md
-│   └── merge_request_md.md
-├── docs/
-│   └── conventional-commits-overview.md
-└── README.md
+├── .claude-plugin/
+│   └── plugin.json                 # Plugin manifest
+├── README.md                        # This file
+├── commands/                        # Slash commands
+│   ├── merge_request_md.md
+│   └── create_merge_request.md
+└── docs/                            # Documentation
+    └── conventional-commits-overview.md
 ```
+
+### Updating Commands
+
+To modify a command:
+1. Edit the corresponding `.md` file in `commands/`
+2. Commands use YAML frontmatter for configuration (allowed-tools, description)
+3. Use `${CLAUDE_PLUGIN_ROOT}` to reference plugin resources
 
 ## Troubleshooting
 
 ### Commands not appearing
 
-1. Verify commands are in `~/.config/opencode/command/` (global) or `.opencode/command/` (project)
-2. Check that the markdown files have valid frontmatter
-3. Restart OpenCode if necessary
+1. Verify plugin is installed in `~/.claude/plugins/`
+2. Check that `plugin.json` is valid JSON
+3. Restart Claude Code if necessary
+
+### MCP git tools not working
+
+1. Ensure git MCP server is configured in Claude Code settings
+2. Verify you're in a git repository
+3. Check that you have appropriate git permissions
 
 ### GitLab commands failing
 

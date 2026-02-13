@@ -1,9 +1,9 @@
 {
   "name": "gitlab-merge-requests",
-  "version": "1.0.0",
-  "description": "Create GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy",
+  "version": "1.2.0",
+  "description": "Create GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy. Uses Sonnet model for quality MR generation.",
   "author": {
     "name": "Stephan Leicht Vogt"
   },
-  "keywords": ["gitlab", "merge-request", "glab", "conventional-commits"]
+  "keywords": ["gitlab", "merge-request", "glab", "conventional-commits", "sonnet"]
 }
