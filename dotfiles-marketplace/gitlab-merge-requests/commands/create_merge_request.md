@@ -5,22 +5,13 @@ model: sonnet
 
 # Create and Submit GitLab Merge Request
 
-This command creates a comprehensive merge request in GitLab by generating the MR description, pushing the branch, and creating the MR via `glab` CLI.
-
-## Overview
-
-Creates a GitLab merge request by:
-1. Analyzing changes using standard git commands
-2. Writing a comprehensive MR description to `MERGE_REQUEST.md`
-3. Pushing the current branch to remote if needed
-4. Creating the merge request using `glab mr create`
-5. Opening the MR in the browser
+Creates a GitLab merge request by analysing changes, generating the MR description, pushing the branch, and creating the MR via `glab` CLI.
 
 ## Execution Instructions
 
 Follow these steps in order:
 
-### 1. Analyze Changes
+### 1. Analyse Changes
 
 Based on `$ARGUMENTS` (defaults to HEAD if not specified), use `Bash` tool:
 
@@ -41,9 +32,6 @@ Additionally, review recent commits for context:
 ```bash
 git log --oneline -10
 ```
-- Understand the full scope of changes
-- Extract commit messages
-- Identify patterns and related work
 
 ### 2. Check for MR Template
 
@@ -120,59 +108,14 @@ Report to the user:
 
 ## Input Format
 
-**Changes to include:** `$ARGUMENTS` (default: HEAD if not specified)
-
-The argument can be:
-- Empty or "HEAD" - Latest commit
-- `<branch-name>` - Compare against branch
-- `<commit-hash>` - Specific commit
-- `<ref1>..<ref2>` - Range of commits
-
-## Output Format
-
-The `MERGE_REQUEST.md` file should contain:
-
-```markdown
-# <TICKET>: <type>: <title>
-
-## Summary
-- Business reason or problem being solved
-- User impact and benefits
-- High-level approach (avoid implementation details)
-
-## Test Plan
-- Step-by-step testing instructions
-- Expected outcomes
-- Edge cases to verify
-
-## Checklist
-- [ ] Tests added/updated
-- [ ] Documentation updated
-- [ ] No breaking changes (or documented)
-- [ ] Code reviewed
-```
-
-## Usage Examples
-
-**Example 1: Create MR for current branch**
-```
-/create_merge_request HEAD
-```
-
-**Example 2: Create MR with all changes since develop**
-```
-/create_merge_request develop..HEAD
-```
-
-**Example 3: Create MR (default to HEAD)**
-```
-/create_merge_request
-```
+`$ARGUMENTS` (default: HEAD) — can be empty/HEAD, a branch name, a commit hash, or a range like `<ref1>..<ref2>`.
 
 ## Important Notes
 
 - The `--web` flag automatically opens the MR in browser
-- Do NOT call `glab mr view` after creation - MR is already opened
+- Do NOT call `glab mr view` after creation — MR is already opened
 - Use `glab mr list` with `--per-page 1` to limit output
 - If branch is already pushed, skip the push step
 - Handle errors gracefully (e.g., if glab is not installed or authenticated)
+
+Here are the changes: $ARGUMENTS

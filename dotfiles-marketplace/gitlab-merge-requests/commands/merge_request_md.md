@@ -5,19 +5,13 @@ model: sonnet
 
 # Create GitLab Merge Request Title & Description
 
-This command generates a comprehensive GitLab merge request title and description, then writes it to `MERGE_REQUEST.md`.
-
-## Overview
-
-Generates merge request documentation by:
-1. Analyzing changes using standard git commands
-2. Writing a comprehensive MR description to `MERGE_REQUEST.md`
+Generates a comprehensive GitLab merge request title and description, then writes it to `MERGE_REQUEST.md`.
 
 ## Execution Instructions
 
 Follow these steps in order:
 
-### 1. Analyze Changes
+### 1. Analyse Changes
 
 Based on `$ARGUMENTS` (defaults to HEAD if not specified), use `Bash` tool:
 
@@ -38,9 +32,6 @@ Additionally, review recent commits for context:
 ```bash
 git log --oneline -10
 ```
-- Understand the full scope of changes
-- Extract commit messages
-- Identify patterns and related work
 
 ### 2. Check for MR Template
 
@@ -67,53 +58,6 @@ Use `Write` tool to:
 
 ## Input Format
 
-**Changes to include:** `$ARGUMENTS` (default: HEAD if not specified)
-
-The argument can be:
-- Empty or "HEAD" - Latest commit
-- `<branch-name>` - Compare against branch
-- `<commit-hash>` - Specific commit
-- `<ref1>..<ref2>` - Range of commits
-
-## Output Format
-
-The `MERGE_REQUEST.md` file should contain:
-
-```markdown
-# <TICKET>: <type>: <title>
-
-## Summary
-- Business reason or problem being solved
-- User impact and benefits
-- High-level approach (avoid implementation details)
-
-## Test Plan
-- Step-by-step testing instructions
-- Expected outcomes
-- Edge cases to verify
-
-## Checklist
-- [ ] Tests added/updated
-- [ ] Documentation updated
-- [ ] No breaking changes (or documented)
-- [ ] Code reviewed
-```
-
-## Usage Examples
-
-**Example 1: Generate MR for current branch**
-```
-/merge_request_md HEAD
-```
-
-**Example 2: Generate MR with all changes since develop**
-```
-/merge_request_md develop..HEAD
-```
-
-**Example 3: Generate MR (default to HEAD)**
-```
-/merge_request_md
-```
+`$ARGUMENTS` (default: HEAD) — can be empty/HEAD, a branch name, a commit hash, or a range like `<ref1>..<ref2>`.
 
 Here are the changes: $ARGUMENTS
