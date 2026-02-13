@@ -25,3 +25,6 @@ extra.zsh
 
 # Secret audit reports (may contain excerpts of detected secrets)
 scripts/audit-report-*.md
+
+# Legacy directories (prevent accidental re-creation)
+zsh.d/
