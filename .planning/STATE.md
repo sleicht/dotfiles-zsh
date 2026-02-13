@@ -2,19 +2,17 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-12)
+See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Planning next milestone
+**Current focus:** v1.2 Legacy Cleanup
 
 ## Current Position
 
-Phase: N/A -- between milestones
-Plan: N/A
-Status: v1.1 shipped, v1.0.0 + v1.1 archived
-Last activity: 2026-02-12 -- v1.1 milestone completed and archived
-
-Progress: [##########] 38/38 plans complete (v1.0.0 + v1.1 both shipped)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-13 — Milestone v1.2 started
 
 ## Performance Metrics
 
@@ -62,12 +60,10 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-12
-Stopped at: v1.1 milestone archived
+Last session: 2026-02-13
+Stopped at: v1.2 milestone — defining requirements
 Resume file: None
 
 ### Next Action
 
-**Both milestones shipped.** Dotfiles fully migrated from Nix/Dotbot to chezmoi.
-
-To start next milestone: `/gsd:new-milestone`
+Define requirements and create roadmap for v1.2 Legacy Cleanup.

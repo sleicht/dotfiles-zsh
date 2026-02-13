@@ -40,6 +40,19 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 ### Active
 
+#### Current Milestone: v1.2 Legacy Cleanup
+
+**Goal:** Remove all pre-chezmoi artifacts from the repo and fix stale code in the chezmoi source, so the repository reflects reality.
+
+**Target:**
+- Remove legacy .config/ directories and flat files (Dotbot-era source files)
+- Remove redundant zsh.d/ and Brewfile (chezmoi equivalents exist)
+- Fix stale PATH entries, aliases, and Python 2 code in chezmoi source
+- Migrate san-proxy from .config/profile to chezmoi (client-only)
+- Clean audit scripts of retired directory references
+- Resolve dual mise activation and other known limitations
+
+#### Deferred to future milestone
 - [ ] Set up mise task runner for common development tasks (MISE-03, deferred from v1)
 - [ ] Profile shell startup with zprof and establish baseline (PERF-01)
 - [ ] Implement lazy loading for non-critical tool initialisation (PERF-02)
@@ -106,9 +119,11 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 1. **Shell startup time**: 0.87s (pre-existing, not caused by migration). Target < 300ms deferred to future milestone.
 2. **Phantom/firebase-cli broken**: Shebangs point to removed Homebrew node. Work via mise node when called directly.
-3. **Dual mise activation**: hooks.zsh and external.zsh both activate mise. Harmless but redundant.
+3. ~~**Dual mise activation**: hooks.zsh and external.zsh both activate mise. Harmless but redundant.~~ → Targeted in v1.2
 4. **chezmoi diff performance**: ~13s with .claude/ tracked (491MB directory). Selective sync correct; upstream chezmoi limitation.
 5. **Neovim exception**: nvim config stays as symlink outside chezmoi management (intentional, documented in README).
+6. **Legacy .config/ artifacts**: Dotbot-era source files still in repo, superseded by chezmoi. → Targeted in v1.2
+7. **Stale PATH entries**: Volta, rbenv PATH additions deployed via chezmoi source despite being replaced by mise. → Targeted in v1.2
 
 ---
-*Last updated: 2026-02-12 after v1.1 milestone shipped*
+*Last updated: 2026-02-13 after v1.2 milestone started*
