@@ -41,7 +41,7 @@ Migrated all remaining Dotbot-managed configs to chezmoi and retired Dotbot enti
 
 </details>
 
-### 🚧 v1.2 Legacy Cleanup (In Progress)
+### v1.2 Legacy Cleanup (In Progress)
 
 **Milestone Goal:** Remove all pre-chezmoi artifacts from the repo and fix stale code in the chezmoi source, so the repository reflects reality.
 
@@ -54,10 +54,11 @@ Migrated all remaining Dotbot-managed configs to chezmoi and retired Dotbot enti
   2. Repository contains no .config/ flat files from Dotbot era (17 files removed)
   3. Repository contains no redundant zsh.d/ directory (chezmoi manages dot_zsh.d/)
   4. Repository contains no legacy Brewfiles (3 files removed, .chezmoidata.yaml is sole source)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 13-01: TBD
+- [ ] 13-01-PLAN.md -- Scan repository for legacy file references
+- [ ] 13-02-PLAN.md -- Remove all legacy files (4 commits by category)
 
 #### Phase 14: Migrate san-proxy to chezmoi
 **Goal**: san-proxy sourcing managed by chezmoi with client-only template
@@ -115,7 +116,7 @@ Plans:
 Plans:
 - [ ] 17-01: TBD
 
-### 📋 v2.0 Performance (Planned)
+### v2.0 Performance (Planned)
 
 **Milestone Goal:** Optimize shell startup time to < 300ms and add mise task runner.
 
@@ -124,7 +125,7 @@ Phases TBD.
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 13 → 14 → 15 → 16 → 17
+Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -140,11 +141,11 @@ Phases execute in numeric order: 13 → 14 → 15 → 16 → 17
 | 10. Dev Tools with Secrets | v1.1 | 2/2 | Complete | 2026-02-10 |
 | 11. Claude Code | v1.1 | 2/2 | Complete | 2026-02-12 |
 | 12. Dotbot Retirement | v1.1 | 2/2 | Complete | 2026-02-12 |
-| 13. Remove Legacy Config Files | v1.2 | 0/TBD | Not started | - |
+| 13. Remove Legacy Config Files | v1.2 | 0/2 | Not started | - |
 | 14. Migrate san-proxy to chezmoi | v1.2 | 0/TBD | Not started | - |
 | 15. Fix PATH and Version Manager Code | v1.2 | 0/TBD | Not started | - |
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 0/TBD | Not started | - |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-13 after v1.2 roadmap created*
+*Last updated: 2026-02-13 after Phase 13 planned (2 plans)*
