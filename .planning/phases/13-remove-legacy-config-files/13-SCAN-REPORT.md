@@ -130,37 +130,34 @@ All 15 files in `zsh.d/` have corresponding files in chezmoi `dot_zsh.d/`:
 
 ## Summary
 
-| Category | Total | SAFE | BLOCKED |
-|----------|-------|------|---------|
-| .config/ directories | 10 | 1 | 9 |
-| .config/ flat files | 17 | 3 | 14 |
-| zsh.d/ directory | 1 | 0 | 1 |
-| Brewfiles | 3 | 2 | 1 |
-| **TOTAL** | **31** | **6** | **25** |
+| Category | Total | SAFE | BLOCKED → OVERRIDE |
+|----------|-------|------|---------------------|
+| .config/ directories | 10 | 10 | 0 |
+| .config/ flat files | 17 | 17 | 0 |
+| zsh.d/ directory | 1 | 1 | 0 |
+| Brewfiles | 3 | 3 | 0 |
+| **TOTAL** | **31** | **31** | **0** |
 
-### Files Safe to Delete (6)
+### User Decision Override (2026-02-13)
 
-1. `.config/claude`
-2. `.config/gpgagent`
-3. `.config/lazygit.yml`
-4. `.config/ssh_config`
-5. `Brewfile_Client`
-6. `Brewfile_Fanaka`
+**Original scan:** 6 SAFE, 25 BLOCKED.
 
-### Files Blocked from Deletion (25)
+**User decision:** Delete all + remove blocking scripts. Rationale:
+1. **Verification scripts** (`scripts/verify-checks/08-*.sh`, `09-*.sh`, `10-*.sh`) are Phase 8-10 migration checks — legacy themselves, scheduled for Phase 17 removal. Pull forward.
+2. **Backup/Restore scripts** (`scripts/backup-dotfiles.sh`, `scripts/restore-dotfiles.sh`, `scripts/verify-backup.sh`) are Dotbot-era artifacts — also legacy.
+3. **Chezmoi `dot_*` references** are the REPLACEMENT files, not dependencies on the legacy copies.
+4. **Sheldon `~/.zsh.d`** points to the deployed HOME directory target (managed by chezmoi `dot_zsh.d/`), not the repo's `zsh.d/`.
+5. **Chezmoi cleanup script** references `Brewfile` — will need updating.
 
-**Primary blockers:**
-1. **Verification scripts** (`scripts/verify-checks/*.sh`) - Reference 15+ legacy files
-2. **Backup/Restore scripts** (`scripts/backup-dotfiles.sh`, `scripts/restore-dotfiles.sh`, `scripts/verify-backup.sh`) - Reference 8+ legacy files
-3. **Sheldon configuration** - References `~/.zsh.d` directory
-4. **Chezmoi source files** - Many legacy files have corresponding `dot_*` files in chezmoi source
-5. **Cleanup script** - References `Brewfile` for package cleanup
+**Blocking scripts to remove FIRST (before legacy files):**
+- `scripts/verify-checks/08-basic-configs.sh`
+- `scripts/verify-checks/09-terminal-emulators.sh`
+- `scripts/verify-checks/10-dev-tools-secrets.sh`
+- `scripts/backup-dotfiles.sh`
+- `scripts/restore-dotfiles.sh`
+- `scripts/verify-backup.sh`
 
-**Detailed blocked items:**
-- All 9 blocked .config/ directories
-- All 14 blocked .config/ flat files
-- The `zsh.d/` directory (actively used by sheldon)
-- The `Brewfile` (referenced by cleanup script)
+**All 31 files are now SAFE to delete.**
 
 ---
 

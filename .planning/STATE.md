@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 13 - Remove Legacy Config Files
+**Current focus:** Phase 14 - Migrate san-proxy to chezmoi
 
 ## Current Position
 
-Phase: 13 of 17 (Remove Legacy Config Files)
-Plan: 2 of TBD complete
-Status: In progress
-Last activity: 2026-02-13 -- Completed 13-02-PLAN.md (deleted 104 legacy Dotbot-era files)
+Phase: 14 of 17 (Migrate san-proxy to chezmoi)
+Plan: Ready to plan
+Status: Ready to plan
+Last activity: 2026-02-13 -- Phase 13 complete (104 legacy files removed, verified)
 
 Progress: [████████████████░░] 93% (40/TBD plans complete across all milestones)
 
@@ -80,5 +80,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 13-02-PLAN.md (deleted 104 legacy Dotbot-era files)
-Resume file: None (continue with Plan 03 or next phase planning)
+Stopped at: Phase 13 complete, verified, and approved
+Resume file: None (start Phase 14 planning with /gsd:plan-phase 14)

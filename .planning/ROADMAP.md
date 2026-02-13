@@ -45,20 +45,21 @@ Migrated all remaining Dotbot-managed configs to chezmoi and retired Dotbot enti
 
 **Milestone Goal:** Remove all pre-chezmoi artifacts from the repo and fix stale code in the chezmoi source, so the repository reflects reality.
 
-#### Phase 13: Remove Legacy Config Files
+#### Phase 13: Remove Legacy Config Files ✓
 **Goal**: Clean Dotbot-era artifacts from repository
 **Depends on**: Phase 12 (Dotbot retired)
 **Requirements**: LEGACY-01, LEGACY-02, LEGACY-04, LEGACY-05
 **Success Criteria** (what must be TRUE):
-  1. Repository contains no .config/ directories from Dotbot era (10 directories removed)
-  2. Repository contains no .config/ flat files from Dotbot era (17 files removed)
-  3. Repository contains no redundant zsh.d/ directory (chezmoi manages dot_zsh.d/)
-  4. Repository contains no legacy Brewfiles (3 files removed, .chezmoidata.yaml is sole source)
+  1. ✓ Repository contains no .config/ directories from Dotbot era (10 directories removed)
+  2. ✓ Repository contains no .config/ flat files from Dotbot era (17 files removed)
+  3. ✓ Repository contains no redundant zsh.d/ directory (chezmoi manages dot_zsh.d/)
+  4. ✓ Repository contains no legacy Brewfiles (3 files removed, .chezmoidata.yaml is sole source)
 **Plans**: 2 plans
+**Note**: Also removed 7 legacy verification/backup scripts (pulled forward from Phase 17 scope)
 
 Plans:
-- [ ] 13-01-PLAN.md -- Scan repository for legacy file references
-- [ ] 13-02-PLAN.md -- Remove all legacy files (4 commits by category)
+- [x] 13-01-PLAN.md -- Scan repository for legacy file references
+- [x] 13-02-PLAN.md -- Remove all legacy files (5 commits: scripts + 4 categories)
 
 #### Phase 14: Migrate san-proxy to chezmoi
 **Goal**: san-proxy sourcing managed by chezmoi with client-only template
@@ -110,7 +111,7 @@ Plans:
   2. Repository contains no firebase-debug.log (added to .gitignore)
   3. audit-gitleaks.toml contains no references to dotbot/zgenom directories
   4. audit-secrets.sh contains no references to dotbot directory
-  5. verify-backup.sh critical files list reflects chezmoi layout (not Dotbot)
+  5. ~~verify-backup.sh critical files list reflects chezmoi layout~~ (DONE: script removed in Phase 13)
 **Plans**: TBD
 
 Plans:
@@ -141,11 +142,11 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 | 10. Dev Tools with Secrets | v1.1 | 2/2 | Complete | 2026-02-10 |
 | 11. Claude Code | v1.1 | 2/2 | Complete | 2026-02-12 |
 | 12. Dotbot Retirement | v1.1 | 2/2 | Complete | 2026-02-12 |
-| 13. Remove Legacy Config Files | v1.2 | 0/2 | Not started | - |
+| 13. Remove Legacy Config Files | v1.2 | 2/2 | Complete | 2026-02-13 |
 | 14. Migrate san-proxy to chezmoi | v1.2 | 0/TBD | Not started | - |
 | 15. Fix PATH and Version Manager Code | v1.2 | 0/TBD | Not started | - |
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 0/TBD | Not started | - |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-13 after Phase 13 planned (2 plans)*
+*Last updated: 2026-02-13 after Phase 13 complete (104 files removed)*
