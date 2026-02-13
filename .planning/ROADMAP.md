@@ -69,10 +69,10 @@ Plans:
   1. san-proxy sourcing removed from legacy .config/profile
   2. san-proxy sourcing added to chezmoi source with client-only conditional
   3. Client machine sources san-proxy, personal machine does not
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 14-01: TBD
+- [ ] 14-01-PLAN.md -- Template zshrc with client-only san-proxy and clean up legacy profile
 
 #### Phase 15: Fix PATH and Version Manager Code
 **Goal**: Remove stale version manager code from chezmoi source
