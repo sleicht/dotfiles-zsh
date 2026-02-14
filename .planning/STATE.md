@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 24 of 25 (Dotfiles Operations)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-02-14 — Phase 23 complete (Task Infrastructure)
+Plan: 1 of TBD in current phase
+Status: In progress
+Last activity: 2026-02-14 — Completed 24-01-PLAN.md (Dotfiles Operations)
 
 Progress: [████████████████████░░░░] 92% (23 of 25 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 54
-- Average duration: 6.4 min
-- Total execution time: 5.78 hours
+- Total plans completed: 55
+- Average duration: 6.35 min
+- Total execution time: 5.82 hours
 
 **By Milestone:**
 
@@ -31,11 +31,11 @@ Progress: [████████████████████░░░
 | v1.1 | 6 | 13 | 1.35h | 6.2 min |
 | v1.2 | 6 | 7 | 0.82h | 7.0 min |
 | v2.0 | 4 | 8 | 0.48h | 3.6 min |
-| v2.1 | 3 | 1 | 0.03h | 2.0 min |
+| v2.1 | 3 | 2 | 0.07h | 2.1 min |
 
 **Recent Trend:**
-- Last 5 plans: [3.8, 3.2, 4.0, 3.5, 2.0] min
-- Trend: Improving (v2.1 current avg 2.0 min, v2.0 averaged 3.6 min)
+- Last 5 plans: [3.2, 4.0, 3.5, 2.0, 2.5] min
+- Trend: Improving (v2.1 current avg 2.1 min, v2.0 averaged 3.6 min)
 
 *Updated after each plan completion*
 
@@ -50,6 +50,8 @@ Recent decisions affecting current work:
 - [Phase 21]: Sync/defer Sheldon architecture — Two plugin groups: immediate sync + zsh-defer. Result: ~70ms to prompt, deferred work invisible
 - [Phase 22]: chezmoi run_onchange_ for cache invalidation — Track tool versions, auto-clear evalcache. Result: Zero-maintenance cache lifecycle
 - [Phase 23]: File-based mise tasks with chezmoi deployment — Use executable_ prefix pattern for automatic chmod +x, #MISE directives for metadata. Result: Task pipeline ready for Phase 24/25
+- [Phase 24]: Remove sources/outputs from user-triggered tasks — Verification tasks should always run when requested. Result: Predictable behaviour for interactive commands
+- [Phase 24]: Use explicit mise run calls for task composition — Avoid mise depends field due to timing issues. Result: Deterministic sequential execution in sync workflow
 
 ### Pending Todos
 
@@ -64,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Phase 23 complete — ready to plan Phase 24
+Stopped at: Completed 24-01-PLAN.md — dotfiles operations tasks implemented
 Resume file: None
