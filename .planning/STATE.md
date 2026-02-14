@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 16 - Fix Python 2 and Shell Utilities
+**Current focus:** Phase 17 - Clean Audit Scripts and Artifacts
 
 ## Current Position
 
-Phase: 16 of 17 (Fix Python 2 and Shell Utilities)
-Plan: 1 of 1 complete
-Status: Phase complete
-Last activity: 2026-02-14 -- Phase 16 Plan 01 complete (Python 2 and shell utilities modernised)
+Phase: 17 of 17 (Clean Audit Scripts and Artifacts)
+Plan: Ready to plan
+Status: Ready to plan
+Last activity: 2026-02-14 -- Phase 16 complete (4/4 must-haves verified)
 
 Progress: [████████████████░░] 95% (43/TBD plans complete across all milestones)
 
@@ -86,5 +86,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 16-01-PLAN.md (Python 2 and shell utilities modernised)
-Resume file: None (start Phase 17 planning)
+Stopped at: Phase 16 complete, verified, roadmap updated
+Resume file: None (start Phase 17 planning with /gsd:plan-phase 17)

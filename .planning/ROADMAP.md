@@ -88,19 +88,19 @@ Plans:
 Plans:
 - [x] 15-01-PLAN.md -- Remove stale Volta, rbenv, asdf, and duplicate mise code from chezmoi source
 
-#### Phase 16: Fix Python 2 and Shell Utilities
+#### Phase 16: Fix Python 2 and Shell Utilities ✓
 **Goal**: Modernize Python 3 usage and shell aliases in chezmoi source
 **Depends on**: Nothing (independent fixes)
 **Requirements**: CHEZFIX-05, CHEZFIX-06, CHEZFIX-07, CHEZFIX-08
 **Success Criteria** (what must be TRUE):
-  1. server() function uses Python 3 http.server (not Python 2 SimpleHTTPServer)
-  2. urlencode alias uses Python 3 urllib.parse (not Python 2 urllib)
-  3. omz reload alias uses exec shell reload (not stale omz command)
-  4. update alias contains no stale npm/gem commands (mise handles these)
+  1. ✓ server() function uses Python 3 http.server (not Python 2 SimpleHTTPServer)
+  2. ✓ urlencode alias uses Python 3 urllib.parse (not Python 2 urllib)
+  3. ✓ omz reload alias uses exec shell reload (not stale omz command)
+  4. ✓ update alias contains no stale npm/gem commands (mise handles these)
 **Plans**: 1 plan
 
 Plans:
-- [ ] 16-01-PLAN.md -- Fix Python 2 code, stale omz reload, and npm/gem commands
+- [x] 16-01-PLAN.md -- Fix Python 2 code, stale omz reload, and npm/gem commands
 
 #### Phase 17: Clean Audit Scripts and Artifacts
 **Goal**: Remove stale directories and fix audit script references
@@ -145,8 +145,8 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 | 13. Remove Legacy Config Files | v1.2 | 2/2 | Complete | 2026-02-13 |
 | 14. Migrate san-proxy to chezmoi | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 15. Fix PATH and Version Manager Code | v1.2 | 1/1 | Complete | 2026-02-14 |
-| 16. Fix Python 2 and Shell Utilities | v1.2 | 0/1 | Not started | - |
+| 16. Fix Python 2 and Shell Utilities | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-14 after Phase 16 planned (1 plan, 2 tasks)*
+*Last updated: 2026-02-14 after Phase 16 executed and verified (4/4 must-haves passed)*
