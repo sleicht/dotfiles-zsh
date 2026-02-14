@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 
 ## Current Position
 
-Phase: 19 of 22 (v2.0 roadmap defined)
-Plan: N/A (ready for /gsd:plan-phase 19)
-Status: Research complete, roadmap approved, ready for execution
-Last activity: 2026-02-14 -- v2.0 roadmap defined
+Phase: 19 of 22 (19-baseline-quick-wins)
+Plan: 01 of 02 (baseline measurement complete)
+Status: Executing phase 19 - baseline established, ready for quick wins
+Last activity: 2026-02-14 -- baseline measurement completed
 
-Progress: [░░░░░░░░░░░░░░░░░░░░] 0% (4 phases: 19-22)
+Progress: [█████░░░░░░░░░░░░░░░] 25% (1 of 4 phase 19 plans complete)
 
 ## Performance Metrics
 
@@ -34,11 +34,17 @@ Progress: [░░░░░░░░░░░░░░░░░░░░] 0% (4 p
 - Timeline: 2 days (2026-02-13 to 2026-02-14)
 - Net lines removed: -16,609
 
+**Velocity (v2.0):**
+- Total plans completed: 1
+- Total commits: 1
+- Latest plan: 19-01 (6 min, 2 tasks, 1 file)
+
 ## Accumulated Context
 
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
+- [Phase 19-01]: Three-stage baseline established: 314.6ms startup (5% above 300ms target) with phantom completion (112ms), mise (29ms), oh-my-posh (28ms) as primary optimisation targets
 
 ### Key Findings (v2.0 Startup Analysis)
 
@@ -64,11 +70,11 @@ None.
 ### Blockers/Concerns
 
 **Known Limitations (from PROJECT.md):**
-- Shell startup time: 0.87s (target < 300ms — this milestone's goal)
+- Shell startup time: 314.6ms (baseline established 2026-02-14, target < 300ms — 5% gap)
 - chezmoi diff performance: ~13s (upstream limitation with .claude/ directory)
 
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: v2.0 milestone planning started
+Stopped at: Completed 19-01-PLAN.md (baseline measurement)
 Resume file: None
