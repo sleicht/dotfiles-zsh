@@ -144,7 +144,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 - [x] Phase 21: Sync/Defer Architecture Split — **Plans:** 2 plans — completed 2026-02-14
   - [x] 21-01-PLAN.md — Split zsh.d files into sync/defer pairs, add mise shims to .zprofile
   - [x] 21-02-PLAN.md — Reconfigure Sheldon plugins.toml with sync/defer groups and measure
-- [ ] Phase 22: Monitoring & Hardening
+- [ ] Phase 22: Monitoring & Hardening — **Plans:** 2 plans
+  - [ ] 22-01-PLAN.md — Self-monitoring, conditional zprof, and evalcache invalidation hook
+  - [ ] 22-02-PLAN.md — Smoke test script and final three-stage performance measurement
 
 ## Progress
 
