@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 
 ## Current Position
 
-Phase: 19 of 22 (19-baseline-quick-wins)
-Plan: 02 of 02 (quick wins applied, target achieved)
-Status: Phase 19 complete - 300ms startup target achieved (283.7ms)
-Last activity: 2026-02-14 -- quick wins applied, 30.9ms improvement
+Phase: 20 of 22 (20-eval-caching-layer)
+Plan: 01 of 02 (evalcache foundation complete)
+Status: Phase 20 in progress - eval caching layer implementation
+Last activity: 2026-02-14 -- evalcache plugin added, compinit simplified, sheldon source cached
 
-Progress: [██████████░░░░░░░░░░] 50% (2 of 4 phase 19 plans complete)
+Progress: [██████████░░░░░░░░░░] 50% (1 of 2 phase 20 plans complete)
 
 ## Performance Metrics
 
@@ -35,9 +35,9 @@ Progress: [██████████░░░░░░░░░░] 50% (2 
 - Net lines removed: -16,609
 
 **Velocity (v2.0):**
-- Total plans completed: 2
-- Total commits: 3
-- Latest plan: 19-02 (20 min, 2 tasks, 9 files)
+- Total plans completed: 3
+- Total commits: 5
+- Latest plan: 20-01 (3 min, 2 tasks, 3 files)
 
 ## Accumulated Context
 
@@ -46,6 +46,7 @@ Progress: [██████████░░░░░░░░░░] 50% (2 
 Decisions are logged in PROJECT.md Key Decisions table.
 - [Phase 19-01]: Three-stage baseline established: 314.6ms startup (5% above 300ms target) with phantom completion (112ms), mise (29ms), oh-my-posh (28ms) as primary optimisation targets
 - [Phase 19-02]: Applied four zero-risk quick wins achieving 30.9ms improvement (9.8% faster) and 300ms target (283.7ms) via duplicate load removal, pure-zsh SSH parsing, command check optimisation, and PATH deduplication
+- [Phase 20-01]: Use -C flag universally for compinit (skip security checks in single-user dotfiles), cache sheldon source with lock file mtime invalidation, background zcompdump compilation in .zlogin to never block startup
 
 ### Key Findings (v2.0 Startup Analysis)
 
@@ -77,5 +78,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 19-02-PLAN.md (quick wins application)
+Stopped at: Completed 20-01-PLAN.md (evalcache foundation)
 Resume file: None
