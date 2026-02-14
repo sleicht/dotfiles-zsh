@@ -138,7 +138,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 - [x] Phase 19: Baseline & Quick Wins — **Plans:** 2 plans — completed 2026-02-14
   - [x] 19-01-PLAN.md — Establish three-stage performance baseline
   - [x] 19-02-PLAN.md — Apply quick wins (QUICK-01 to QUICK-04) and re-measure
-- [ ] Phase 20: Eval Caching Layer
+- [ ] Phase 20: Eval Caching Layer — **Plans:** 2 plans
+  - [ ] 20-01-PLAN.md — Add evalcache plugin, simplify compinit, cache sheldon source, background zcompile
+  - [ ] 20-02-PLAN.md — Convert eval init calls to evalcache and measure improvement
 - [ ] Phase 21: Sync/Defer Architecture Split
 - [ ] Phase 22: Monitoring & Hardening
 
