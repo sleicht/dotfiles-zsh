@@ -138,9 +138,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 - [x] Phase 19: Baseline & Quick Wins — **Plans:** 2 plans — completed 2026-02-14
   - [x] 19-01-PLAN.md — Establish three-stage performance baseline
   - [x] 19-02-PLAN.md — Apply quick wins (QUICK-01 to QUICK-04) and re-measure
-- [ ] Phase 20: Eval Caching Layer — **Plans:** 2 plans
-  - [ ] 20-01-PLAN.md — Add evalcache plugin, simplify compinit, cache sheldon source, background zcompile
-  - [ ] 20-02-PLAN.md — Convert eval init calls to evalcache and measure improvement
+- [x] Phase 20: Eval Caching Layer — **Plans:** 2 plans — completed 2026-02-14
+  - [x] 20-01-PLAN.md — Add evalcache plugin, simplify compinit, cache sheldon source, background zcompile
+  - [x] 20-02-PLAN.md — Convert eval init calls to evalcache and measure improvement
 - [ ] Phase 21: Sync/Defer Architecture Split
 - [ ] Phase 22: Monitoring & Hardening
 
@@ -167,9 +167,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 18. Clean Tech Debt from Audit | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 19. Baseline & Quick Wins | v2.0 | 2/2 | Complete | 2026-02-14 |
-| 20. Eval Caching Layer | v2.0 | 0/? | Planned | — |
+| 20. Eval Caching Layer | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 21. Sync/Defer Architecture Split | v2.0 | 0/? | Planned | — |
 | 22. Monitoring & Hardening | v2.0 | 0/? | Planned | — |
 
 ---
-*Last updated: 2026-02-14 — Phase 19 complete (283.7ms startup, target achieved)*
+*Last updated: 2026-02-14 — Phase 20 complete (131.2ms startup, 53.8% improvement from eval caching)*
