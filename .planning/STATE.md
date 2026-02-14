@@ -60,8 +60,8 @@ Progress: [████████████████░░] 95% (42/TBD p
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- [Phase 15]: Remove stale tool references immediately upon migration to prevent dead code accumulation
 - [Phase 15]: Consolidate version manager activation to external.zsh only
+- [Phase 15]: Keep Volta and rbenv PATH entries unconditionally — add_to_path guards missing dirs, and Volta may be used on client machine
 - [Phase 14]: Template pattern for machine-type conditional config ({{- if eq .machine_type "client" }})
 - [Phase 13]: Removed 104 legacy files in 5 atomic commits (blocking scripts + 4 file categories)
 - [Phase 13]: Pull forward script removal from Phase 17 to unblock legacy file deletions
@@ -79,7 +79,7 @@ None.
 **Known Limitations (from PROJECT.md):**
 - Shell startup time: 0.87s (target < 300ms deferred to v2.0)
 - Dual mise activation: RESOLVED in Phase 15 (now single activation in external.zsh)
-- Stale PATH entries: RESOLVED in Phase 15 (Volta, rbenv, asdf references removed)
+- Stale PATH entries: PARTIALLY RESOLVED in Phase 15 (asdf removed; Volta and rbenv restored — kept unconditionally as add_to_path is safe)
 - Legacy .config/profile: san-proxy removed in Phase 14 (file still exists with remaining content)
 
 ## Session Continuity

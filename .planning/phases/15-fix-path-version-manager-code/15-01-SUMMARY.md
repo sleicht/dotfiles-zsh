@@ -57,10 +57,10 @@ completed: 2026-02-14
 - **Files modified:** 3
 
 ## Accomplishments
-- Eliminated 8 lines of stale PATH setup for replaced version managers (Volta, rbenv)
+- Eliminated stale PATH setup for asdf; Volta and rbenv restored post-execution (user decision)
 - Removed duplicate mise activation from hooks.zsh (now activates only in external.zsh)
 - Cleaned up empty section headers and stale npm PATH from x86 Homebrew era
-- All 6 requirements (CHEZFIX-01, -02, -03, -04, -09, -10) satisfied
+- 4 of 6 requirements satisfied (CHEZFIX-03, -04, -09, -10); CHEZFIX-01, -02 rescinded
 
 ## Task Commits
 
@@ -79,7 +79,7 @@ None - plan executed exactly as specified.
 
 ## Deviations from Plan
 
-None - plan executed exactly as written.
+**Post-execution correction:** Volta and rbenv PATH entries restored unconditionally (commit `0e3ed79`). User uses Volta on client machine, and `add_to_path` already guards against missing directories. CHEZFIX-01 and CHEZFIX-02 rescinded.
 
 ## Issues Encountered
 None.

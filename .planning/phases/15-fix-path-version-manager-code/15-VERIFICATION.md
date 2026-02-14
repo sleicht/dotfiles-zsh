@@ -2,7 +2,7 @@
 phase: 15-fix-path-version-manager-code
 verified: 2026-02-14T09:00:00Z
 status: passed
-score: 5/5 must-haves verified
+score: 4/5 must-haves verified, 1 rescinded
 re_verification: false
 ---
 
@@ -19,13 +19,13 @@ re_verification: false
 
 | #   | Truth                                                                  | Status      | Evidence                                                                                                |
 | --- | ---------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
-| 1   | chezmoi path.zsh contains no Volta or rbenv PATH entries               | ✓ VERIFIED  | grep returned no output; file contains only npm, pnpm, bun, cargo, GNU tools, Homebrew Ruby            |
+| 1   | ~~chezmoi path.zsh contains no Volta or rbenv PATH entries~~           | RESCINDED   | Post-execution: user restored Volta and rbenv unconditionally (add_to_path guards missing dirs, Volta used on client) |
 | 2   | chezmoi variables.zsh contains no hardcoded /usr/local npm PATH        | ✓ VERIFIED  | grep returned no output; no /usr/local/share/npm PATH entry found                                       |
 | 3   | chezmoi variables.zsh contains no empty Version managers section       | ✓ VERIFIED  | grep returned no output; section header removed, file jumps directly from PATH section to Histories     |
 | 4   | mise activation occurs only in external.zsh, not duplicated in hooks.zsh | ✓ VERIFIED  | grep count shows external.zsh:1, hooks.zsh:0; single activation point confirmed at external.zsh line 65 |
 | 5   | chezmoi hooks.zsh contains no commented-out asdf activation            | ✓ VERIFIED  | grep returned no output; no asdf references in hooks.zsh                                                |
 
-**Score:** 5/5 truths verified
+**Score:** 4/5 truths verified, 1 rescinded
 
 ### Required Artifacts
 
@@ -61,14 +61,14 @@ hooks.zsh:0
 
 | Requirement   | Description                                                      | Status        | Blocking Issue |
 | ------------- | ---------------------------------------------------------------- | ------------- | -------------- |
-| CHEZFIX-01    | Remove Volta PATH and VOLTA_HOME from chezmoi path.zsh.tmpl     | ✓ SATISFIED   | None           |
-| CHEZFIX-02    | Remove rbenv PATH from chezmoi path.zsh.tmpl                     | ✓ SATISFIED   | None           |
+| CHEZFIX-01    | ~~Remove Volta PATH and VOLTA_HOME from chezmoi path.zsh.tmpl~~ | RESCINDED     | User restored — Volta used on client, add_to_path is safe |
+| CHEZFIX-02    | ~~Remove rbenv PATH from chezmoi path.zsh.tmpl~~                 | RESCINDED     | User restored — rbenv kept unconditionally |
 | CHEZFIX-03    | Remove dual mise activation (keep in external.zsh, remove from hooks.zsh) | ✓ SATISFIED | None           |
 | CHEZFIX-04    | Remove commented-out asdf activation from chezmoi hooks.zsh      | ✓ SATISFIED   | None           |
 | CHEZFIX-09    | Remove empty "Version managers" section from chezmoi variables.zsh | ✓ SATISFIED | None           |
 | CHEZFIX-10    | Remove hardcoded /usr/local npm PATH from chezmoi variables.zsh  | ✓ SATISFIED   | None           |
 
-**Requirements Score:** 6/6 requirements satisfied
+**Requirements Score:** 4/6 requirements satisfied, 2 rescinded
 
 ### Anti-Patterns Found
 
