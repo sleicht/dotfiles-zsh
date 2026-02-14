@@ -11,8 +11,8 @@ See: .planning/PROJECT.md (updated 2026-02-13)
 
 Phase: 18 of 18 (Clean Tech Debt)
 Plan: 1 of 1 complete
-Status: Phase 18 complete
-Last activity: 2026-02-14 -- Phase 18 Plan 01 complete, 11 orphaned files removed
+Status: v1.2 Legacy Cleanup milestone complete
+Last activity: 2026-02-14 -- Phase 18 complete, v1.2 milestone shipped
 
 Progress: [████████████████████] 100% (45 plans complete across v1.0-v1.2)
 
@@ -51,7 +51,7 @@ Progress: [████████████████████] 100% (4
 
 **Recent Trend:**
 - Last milestone (v1.1): 13 plans across 6 phases, shipped 2026-02-12
-- Current milestone (v1.2): 6 plans complete
+- Current milestone (v1.2): 7 plans complete, shipped 2026-02-14
 - Trend: Stable (consistent velocity)
 
 | Phase | Plans | Total | Avg/Plan |
@@ -94,10 +94,10 @@ None.
 - Shell startup time: 0.87s (target < 300ms deferred to v2.0)
 - Dual mise activation: RESOLVED in Phase 15 (now single activation in external.zsh)
 - Stale PATH entries: PARTIALLY RESOLVED in Phase 15 (asdf removed; Volta and rbenv restored — kept unconditionally as add_to_path is safe)
-- Legacy .config/profile: san-proxy removed in Phase 14 (file still exists with remaining content)
+- Legacy .config/profile: RESOLVED in Phase 18 (file and directory removed)
 
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Phase 18-01 complete (11 orphaned files removed)
-Resume file: None (Phase 18 complete)
+Stopped at: v1.2 Legacy Cleanup milestone complete
+Resume file: None (start v2.0 with /gsd:new-milestone)
