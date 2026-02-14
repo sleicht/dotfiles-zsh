@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 17 - Clean Audit Scripts and Artifacts
+**Current focus:** v1.2 Legacy Cleanup milestone complete — v2.0 Performance planned
 
 ## Current Position
 
 Phase: 17 of 17 (Clean Audit Scripts and Artifacts)
 Plan: 1 of 1 complete
-Status: Phase complete
-Last activity: 2026-02-14 -- Phase 17 Plan 01 complete (all tasks verified)
+Status: Milestone v1.2 complete
+Last activity: 2026-02-14 -- Phase 17 complete, v1.2 Legacy Cleanup milestone shipped
 
-Progress: [████████████████░░] 95% (44/TBD plans complete across all milestones)
+Progress: [████████████████████] 100% (44 plans complete across v1.0-v1.2)
 
 ## Performance Metrics
 
@@ -97,5 +97,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Phase 17 Plan 01 complete, verified, STATE.md updated
-Resume file: None (all phases complete)
+Stopped at: v1.2 Legacy Cleanup milestone complete
+Resume file: None (start v2.0 with /gsd:new-milestone)

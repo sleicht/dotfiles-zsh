@@ -4,7 +4,7 @@
 
 - ✅ **v1.0.0 Dotfiles Stack Migration** -- Phases 1-6 (shipped 2026-02-08)
 - ✅ **v1.1 Complete Migration** -- Phases 7-12 (shipped 2026-02-12)
-- 🚧 **v1.2 Legacy Cleanup** -- Phases 13-17 (in progress)
+- ✅ **v1.2 Legacy Cleanup** -- Phases 13-17 (shipped 2026-02-14)
 - 📋 **v2.0 Performance** -- Phases TBD (planned)
 
 ## Phases
@@ -102,20 +102,20 @@ Plans:
 Plans:
 - [x] 16-01-PLAN.md -- Fix Python 2 code, stale omz reload, and npm/gem commands
 
-#### Phase 17: Clean Audit Scripts and Artifacts
+#### Phase 17: Clean Audit Scripts and Artifacts ✓
 **Goal**: Remove stale directories and fix audit script references
 **Depends on**: Phase 13 (references to removed directories)
 **Requirements**: MISC-01, MISC-02, MISC-03, MISC-04, MISC-05, MISC-06
 **Success Criteria** (what must be TRUE):
-  1. Repository contains no empty bin/ or logs/ directories
-  2. Repository contains no firebase-debug.log (added to .gitignore)
-  3. audit-gitleaks.toml contains no references to dotbot/zgenom directories
-  4. audit-secrets.sh contains no references to dotbot directory
+  1. ✓ Repository contains no empty bin/ or logs/ directories
+  2. ✓ Repository contains no firebase-debug.log (added to .gitignore)
+  3. ✓ audit-gitleaks.toml contains no references to dotbot/zgenom directories
+  4. ✓ audit-secrets.sh contains no references to dotbot directory
   5. ~~verify-backup.sh critical files list reflects chezmoi layout~~ (DONE: script removed in Phase 13)
 **Plans**: 1 plan
 
 Plans:
-- [ ] 17-01-PLAN.md -- Remove stale directories/files, update .gitignore, fix audit script references
+- [x] 17-01-PLAN.md -- Remove stale directories/files, update .gitignore, fix audit script references
 
 ### v2.0 Performance (Planned)
 
@@ -146,7 +146,7 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 | 14. Migrate san-proxy to chezmoi | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 15. Fix PATH and Version Manager Code | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 1/1 | Complete | 2026-02-14 |
-| 17. Clean Audit Scripts and Artifacts | v1.2 | 0/TBD | Not started | - |
+| 17. Clean Audit Scripts and Artifacts | v1.2 | 1/1 | Complete | 2026-02-14 |
 
 ---
-*Last updated: 2026-02-14 after Phase 16 executed and verified (4/4 must-haves passed)*
+*Last updated: 2026-02-14 after Phase 17 executed and verified (5/5 must-haves passed) — v1.2 Legacy Cleanup milestone complete*
