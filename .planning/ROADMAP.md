@@ -83,10 +83,10 @@ Plans:
   2. chezmoi variables.zsh contains no hardcoded npm PATH or empty version manager section
   3. mise activation occurs once in external.zsh (not duplicated in hooks.zsh)
   4. chezmoi hooks.zsh contains no commented-out asdf activation
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 15-01: TBD
+- [ ] 15-01-PLAN.md -- Remove stale Volta, rbenv, asdf, and duplicate mise code from chezmoi source
 
 #### Phase 16: Fix Python 2 and Shell Utilities
 **Goal**: Modernize Python 3 usage and shell aliases in chezmoi source
