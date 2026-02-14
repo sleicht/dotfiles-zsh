@@ -1,213 +1,284 @@
-# Feature Landscape
+# Feature Research
 
-**Domain:** chezmoi dotfiles migration (subsequent milestone)
-**Researched:** 2026-02-08
+**Domain:** mise Task Runner for Dotfiles Management and Dev Workflows
+**Researched:** 2026-02-14
+**Confidence:** HIGH
 
-## Table Stakes
+## Feature Landscape
 
-Features users expect for dotfiles migration to chezmoi. Missing these = incomplete migration.
+### Table Stakes (Users Expect These)
+
+Features users assume exist. Missing these = product feels incomplete.
 
 | Feature | Why Expected | Complexity | Notes |
 |---------|--------------|------------|-------|
-| Static config file migration | Basic chezmoi functionality | Low | Terminal emulators (kitty, ghostty, wezterm), window managers (aerospace), CLI tools (bat, lsd, btop, oh-my-posh) |
-| Directory structure preservation | Maintains tool expectations | Low | Tools expect configs in specific locations (~/.config/xyz, ~/.xyzrc) |
-| Machine-specific templating | Cross-platform/multi-machine setup | Medium | OS differences (Darwin vs Linux), machine type (client vs personal), paths |
-| Dev tool configs migration | Complete development environment | Low | lazygit, atuin, psqlrc, sqliterc, aider, finicky - mostly static |
-| Basic dotfiles migration | Standard Unix dotfiles | Low | .hushlogin, .inputrc, .editorconfig, .nanorc - simple copies |
-| GPG agent config | Security/encryption workflow | Low | Simple config with machine-specific pinentry path |
-| Dotbot retirement | Clean up old system | Low | Remove install script, steps/, zgenom/dotbot submodules |
-| Drop deprecated configs | Housekeeping | Low | Remove nushell (not using), zgenom (using sheldon instead) |
+| File-based tasks in `.mise/tasks/` | Standard convention for mise tasks, users expect this structure | LOW | Tasks are executable scripts in `.mise/tasks/`, `mise-tasks/`, `mise/tasks/`, or `.config/mise/tasks`. Must be executable. Subdirectories auto-prefix task names (e.g., `test/unit` → `test:unit`) |
+| Task discovery via `mise tasks` | Users need to see what tasks are available | LOW | `mise tasks` lists current hierarchy, `mise tasks --all` lists entire monorepo. Task `description` field is critical for AI agent discoverability |
+| Task composition with `depends` | Tasks need to chain together (e.g., `test` depends on `build`) | LOW | `depends` runs tasks first, fails if dependency fails. `depends_post` runs after main task. `wait_for` waits for optional dependencies |
+| Environment variable injection | Tasks need access to project paths and context | LOW | Auto-injected: `MISE_PROJECT_ROOT`, `MISE_CONFIG_ROOT`, `MISE_ORIGINAL_CWD`, `MISE_TASK_NAME`, `MISE_TASK_DIR`. Custom env via `env` field |
+| Task arguments via `usage` field | Tasks need to accept parameters | MEDIUM | Positional args: `arg "<name>"` (required), `arg "[name]"` (optional). Flags: `flag "--name"`. Available as `$usage_name` env vars. Tera templates deprecated in 2026.11.0 |
+| Parallel execution by default | Users expect fast task runs | LOW | Default 4 parallel jobs, configurable via `--jobs`, `jobs` setting, or `MISE_JOBS`. Use `depends` to control execution order |
+| Task aliases for short names | Users want `mise run b` not `mise run build` | LOW | Define `alias = "b"` in TOML or `#MISE alias="b"` in file tasks |
+| Task hiding with `hide = true` | Internal helper tasks shouldn't clutter `mise tasks` output | LOW | Add `hide = true` to task config. Show with `mise tasks --hidden` |
+| Cross-platform shell scripts | Dotfiles run on macOS and Linux | MEDIUM | Bash is default, but use shebang for other interpreters: `#!/usr/bin/env python`. Tasks run with `set -e` for sh/bash/zsh |
+| Auto-installation of tools | Tasks should auto-install tools defined in mise.toml | LOW | File tasks now auto-install tools (2026 feature). Matches inline task behaviour |
 
-## Differentiators
+### Differentiators (Competitive Advantage)
 
-Features that improve the migration beyond basic functionality.
+Features that set the product apart. Not required, but valuable.
 
 | Feature | Value Proposition | Complexity | Notes |
 |---------|-------------------|------------|-------|
-| Claude Code directory with selective encryption | Share commands/skills across machines, protect sensitive settings | Medium | Age-encrypt settings.json (may contain tokens), sync CLAUDE.md, commands/, agents/, skills/ |
-| Per-machine ignore patterns | Keep local overrides separate | Low | Use .chezmoiignore with templates to exclude machine-specific state files |
-| zsh-abbr abbreviations templating | Machine-specific abbreviations | Low | Work vs personal abbreviations, OS-specific commands |
-| Karabiner config templating | Different keyboard mappings per machine | Medium | Complex JSON, may differ between keyboards/machines |
-| Terminal emulator theme templating | Consistent themes across tools | Medium | Font/color coordination across kitty/ghostty/wezterm |
-| Aerospace workspace config templating | Monitor setup varies by machine | Low | Laptop vs desktop workspace layouts |
-| Run-once install scripts | Automate missing tool installation | Medium | Check and install terminal emulators, window managers if missing |
-| Private directory modifiers | Protect sensitive configs automatically | Low | Use private_ for .gnupg/, .ssh/ related configs |
-| Finicky browser rules templating | Different work/personal browser routing | Low | Chrome vs other browsers, work domains route to specific profiles |
+| File-based rebuild detection with `sources`/`outputs` | Skip expensive tasks when files haven't changed | MEDIUM | Task only runs if newest source > oldest output (mtime comparison). Uses `sources = ['src/**/*.rs']`, `outputs = ['target/debug/mycli']` glob patterns |
+| `mise watch` for auto-rebuild | Automatic task re-run on file changes | LOW | Uses `sources` from task definition. `mise watch build` watches sources and rebuilds on change. `-r` flag for continuous restart |
+| Working directory control with `dir` | Run tasks in specific directories | LOW | Default: directory of `mise.toml`. Override with `dir = "{{cwd}}"` for user's current working directory. `MISE_TASK_DIR` available |
+| Multiple interpreter support via shebang | Tasks in Python, Node, Ruby, etc. | MEDIUM | Use `#!/usr/bin/env python` or advanced `#!/usr/bin/env -S uv run --script` for multi-arg interpreters. Full script control |
+| Monorepo task patterns | Discover and run tasks across subdirectories | HIGH | `experimental_monorepo_root` enables auto-discovery with path prefixing. Pattern-based execution with wildcards: `mise run test:**:local` |
+| Task templates for monorepos | Reusable task definitions across projects | HIGH | Define at monorepo root, extend in subdirs. Reduces duplication for similar projects |
+| Semantic grouping with colon namespacing | Organize tasks hierarchically (e.g., `test:unit`, `test:integration`, `git:commit`) | LOW | Convention: use colons for grouping. Enables pattern matching: `mise run test:**` runs all test tasks |
+| Configurable concurrency control | Fine-tune parallel execution | MEDIUM | Default 4 jobs. Override with `--jobs N` or `MISE_JOBS`. `--raw` forces serial execution (jobs=1) for clean stdio |
+| TOML-based task definition | Alternative to file-based tasks for inline config | LOW | Define in `mise.toml` with `[tasks.name]` sections. Good for simple tasks, file-based better for complex scripts |
+| Task output control | Manage stdio connection | LOW | `--raw` connects stdin/stdout/stderr to terminal (forces serial). Default buffers output for parallel runs |
 
-## Anti-Features
+### Anti-Features (Commonly Requested, Often Problematic)
 
-Features to explicitly NOT build.
+Features that seem good but create problems.
 
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| Migrating nushell configs | Not actively using nushell | Drop entirely - clutters dotfiles |
-| Migrating zgenom | Replaced by sheldon | Drop entirely - already migrated to sheldon |
-| Keeping Dotbot alongside chezmoi | Dual systems create confusion | Full cutover - retire Dotbot completely |
-| Templating every config file | Over-engineering static configs | Template only when machine differences exist |
-| Committing .chezmoi.toml to repo | Machine-specific, may contain local paths | Keep in ~/.config/chezmoi/, gitignore it |
-| Syncing Claude Code local state | Session-specific data shouldn't roam | Only sync CLAUDE.md, commands/, agents/, skills/ - ignore settings.local.json |
-| Managing Homebrew Brewfiles in two places | Already handled via mise/chezmoi data | Brewfiles stay in current location, not duplicated |
-| Exact directory modifiers on configs that tools modify | Tools like karabiner write state back | Let tools manage their own state files |
+| Feature | Why Requested | Why Problematic | Alternative |
+|---------|---------------|-----------------|-------------|
+| Tera template functions in scripts | Legacy feature for arguments | Deprecated in 2026.5.0, removed in 2026.11.0. Creates coupling to mise-specific syntax | Use `usage` field instead. Arguments become env vars (`$usage_name`). More standard, better shellcheck support |
+| Complex task interdependencies | Want to orchestrate everything | Creates fragile dependency graphs, hard to debug, serial bottlenecks | Keep tasks focused. Use `depends` sparingly. Prefer composable small tasks that can run independently |
+| Running tasks without description | Faster to write | AI agents (and humans) can't discover task purpose. `mise tasks ls` output useless | ALWAYS write descriptions. It's the ONLY context for discoverability. Answer: what, why, inputs, outputs, when to run |
+| Using `mise run` for general automation | Task runner as catch-all script executor | mise tasks optimised for project workflows, not general automation. Overhead for simple scripts | Use tasks for project-specific workflows (build, test, deploy). Use shell functions/aliases for general commands |
+| Global mise tasks | Want tasks available everywhere | Tasks tied to project context (MISE_PROJECT_ROOT). Global tasks lose context | Keep tasks in project directories. Use shell aliases/functions for global commands. mise is project-scoped |
+| Mixing file and TOML tasks with same name | Want flexibility | Confusing which runs, override behaviour unclear | Pick one convention per project. File-based for complex, TOML for simple. Don't mix for same task name |
 
 ## Feature Dependencies
 
 ```
-Static config migration (table stakes)
-  ↓
-Machine-specific templating (table stakes)
-  ↓
-Per-machine ignore patterns (differentiator)
+[Task Arguments (usage field)]
+    └──requires──> [Environment Variable Injection]
 
-Dotbot retirement (table stakes)
-  ↓
-Drop deprecated configs (table stakes)
+[File-based Rebuild Detection]
+    └──requires──> [sources/outputs configuration]
+    └──enhances──> [mise watch]
 
-Claude Code migration (differentiator)
-  ↓
-Selective encryption setup (differentiator)
-  ↓
-Age key management (already exists from Phase 3)
+[Parallel Execution]
+    ──conflicts──> [--raw flag (forces serial)]
+
+[depends]
+    └──requires──> [Task Discovery]
+
+[Monorepo Task Patterns]
+    └──requires──> [experimental_monorepo_root setting]
+    └──enhances──> [Semantic Grouping with Colons]
+
+[Auto-install Tools]
+    └──requires──> [Tools defined in mise.toml]
+
+[Multiple Interpreters]
+    └──requires──> [Shebang support]
+    └──enhances──> [File-based Tasks]
 ```
 
-## MVP Recommendation
+### Dependency Notes
 
-Prioritize for immediate migration:
+- **Task Arguments requires Environment Variable Injection:** Arguments defined in `usage` field become environment variables prefixed with `usage_`. The env injection system is foundational.
+- **File-based Rebuild Detection enhances mise watch:** Watch uses the `sources` field to determine which files to monitor. Rebuild detection optimises when tasks run.
+- **Parallel Execution conflicts with --raw flag:** Raw mode connects stdio to terminal, which requires serial execution to prevent output interleaving.
+- **depends requires Task Discovery:** Can't depend on tasks that aren't discoverable. Task naming and location conventions enable dependency resolution.
+- **Monorepo Task Patterns requires experimental setting:** Must enable `experimental_monorepo_root` in root `mise.toml`. Without it, subdirectory tasks aren't auto-discovered.
+- **Auto-install Tools requires tools in mise.toml:** File tasks now auto-install tools, matching inline task behaviour. But tools must be defined in the config first.
 
-1. **Static configs** - Terminal emulators, window manager, CLI tools, dev tools, basic dotfiles (table stakes)
-2. **GPG agent** - Simple, needed for security workflow (table stakes)
-3. **Machine-specific templating** - OS detection for paths (table stakes - needed for cross-platform)
-4. **Dotbot retirement** - Clean up old system once configs migrated (table stakes)
-5. **Drop deprecated** - Remove nushell/zgenom configs (table stakes)
+## MVP Definition
 
-Defer to "nice-to-have":
+### Launch With (v1)
 
-- **Claude Code selective encryption**: Medium complexity, requires age key setup consideration. Start with unencrypted sync, add encryption later if needed.
-- **Theme coordination**: Nice-to-have, can start with static themes and coordinate later if desired.
-- **Run-once scripts**: Tools should already be installed via Brewfile, scripts add complexity.
-- **Karabiner templating**: Complex JSON, likely static per machine anyway.
+Minimum viable product — what's needed to validate the concept.
 
-## Complexity Analysis
+- [x] File-based tasks in `.mise/tasks/` — Essential convention, enables all task functionality
+- [x] Task discovery via `mise tasks` — Users need to see available tasks
+- [x] Basic task descriptions — AI agent and human discoverability
+- [x] Environment variable injection (`MISE_PROJECT_ROOT`, etc.) — Tasks need project context
+- [x] Simple task composition with `depends` — Core workflow chaining (e.g., `verify` depends on `apply`)
+- [x] Colon-based namespacing for organisation — `dotfiles:apply`, `git:commit`, etc. Clean structure
+- [x] Bash script execution — Default interpreter, works everywhere
+- [x] Task aliases — Short names for common operations (`mise run a` for `dotfiles:apply`)
 
-### Low Complexity (straightforward copy/template)
-- Terminal emulator configs (kitty, ghostty, wezterm)
-- Aerospace config
-- CLI tool configs (bat, lsd, btop, oh-my-posh)
-- Dev tools (lazygit, atuin, psqlrc, sqliterc, aider)
-- Basic dotfiles (.hushlogin, .inputrc, .editorconfig, .nanorc)
-- Finicky config
-- zsh-abbr abbreviations
-- GPG agent config
-- Dotbot/zgenom/nushell removal
+### Add After Validation (v1.x)
 
-### Medium Complexity (requires templating/encryption decisions)
-- Claude Code directory (encryption decision, what to sync vs ignore)
-- Karabiner config (complex JSON structure)
-- OS-specific path templating (pinentry, tool paths)
+Features to add once core is working.
 
-### Dependencies on Existing Setup
-- **Age encryption**: Already set up in Phase 3 for SSH keys
-- **Machine type detection**: Already configured via .chezmoidata.yaml (client vs personal)
-- **OS detection**: Built-in chezmoi variable (.chezmoi.os)
-- **Bitwarden templating**: Already working for git config
-- **Homebrew package management**: Already handled via mise and run scripts
+- [ ] Task arguments via `usage` field — Add when tasks need parameters (e.g., `mise run git:commit "feat: message"`)
+- [ ] File-based rebuild detection (`sources`/`outputs`) — Add when tasks become expensive and need smart skip logic
+- [ ] `mise watch` integration — Add when rapid iteration workflows emerge
+- [ ] Parallel execution tuning — Add if default 4 jobs causes issues or bottlenecks
+- [ ] `depends_post` for cleanup tasks — Add when cleanup patterns emerge
+- [ ] Task hiding with `hide = true` — Add when internal helper tasks clutter output
+- [ ] Working directory control with `dir` — Add if tasks need to run from specific locations
 
-## Migration Strategy
+### Future Consideration (v2+)
 
-### Phase 1: Core Configs (Low-Hanging Fruit)
-1. Add static configs to chezmoi (no templating needed):
-   - Terminal emulators: `chezmoi add ~/.config/kitty/kitty.conf ~/.config/ghostty/config ~/.wezterm.lua`
-   - Window manager: `chezmoi add ~/.config/aerospace/aerospace.toml`
-   - CLI tools: `chezmoi add ~/.config/{bat,lsd,btop}/config* ~/.config/oh-my-posh.omp.json`
-   - Dev tools: `chezmoi add ~/.config/lazygit/config.yml ~/.config/atuin ~/.psqlrc ~/.sqliterc ~/.aider.conf.yml ~/.finicky.js`
-   - Basic: `chezmoi add ~/.hushlogin ~/.inputrc ~/.editorconfig ~/.nanorc`
-   - zsh-abbr: `chezmoi add ~/.config/zsh-abbr/user-abbreviations`
+Features to defer until product-market fit is established.
 
-### Phase 2: Templating for Machine Differences
-2. Add templating where needed:
-   - GPG agent: Template pinentry path (Darwin: /run/current-system/sw/bin/pinentry-mac, Linux: varies)
-   - Finicky: Template default browser (work vs personal)
-   - Aerospace: Template workspace layout (laptop vs desktop)
-   - zsh-abbr: Template work-specific vs personal abbreviations
+- [ ] Multiple interpreter support (Python, Node) — Add only if non-bash workflows emerge
+- [ ] Monorepo task patterns — Not applicable for single dotfiles repo
+- [ ] Task templates — Not needed without monorepo
+- [ ] TOML-based tasks — File-based sufficient, adds complexity
+- [ ] Advanced concurrency control — Default behaviour sufficient
+- [ ] `wait_for` optional dependencies — Rare use case, adds complexity
 
-### Phase 3: Claude Code Directory
-3. Handle Claude Code configs:
-   - Add CLAUDE.md, commands/, agents/, skills/ to chezmoi
-   - Decision: Encrypt settings.json or use .chezmoiignore?
-   - Add settings.local.json to .chezmoiignore (local overrides)
+## Feature Prioritisation Matrix
 
-### Phase 4: Cleanup
-4. Remove deprecated systems:
-   - Delete .config/nushell/
-   - Delete zgenom submodule
-   - Delete Dotbot install script and steps/
-   - Delete Dotbot submodule
-   - Update README to reflect chezmoi-only setup
+| Feature | User Value | Implementation Cost | Priority |
+|---------|------------|---------------------|----------|
+| File-based tasks in `.mise/tasks/` | HIGH | LOW | P1 |
+| Task discovery and descriptions | HIGH | LOW | P1 |
+| Environment variable injection | HIGH | LOW | P1 |
+| Task composition with `depends` | HIGH | LOW | P1 |
+| Colon-based namespacing | HIGH | LOW | P1 |
+| Task aliases | MEDIUM | LOW | P1 |
+| Task arguments via `usage` | MEDIUM | MEDIUM | P2 |
+| File-based rebuild detection | MEDIUM | MEDIUM | P2 |
+| `mise watch` integration | MEDIUM | LOW | P2 |
+| Parallel execution tuning | LOW | LOW | P2 |
+| Task hiding | LOW | LOW | P2 |
+| Working directory control | LOW | LOW | P2 |
+| Multiple interpreters | LOW | MEDIUM | P3 |
+| Monorepo patterns | LOW | HIGH | P3 |
+| TOML-based tasks | LOW | MEDIUM | P3 |
 
-## Machine-Specific Considerations
+**Priority key:**
+- P1: Must have for launch — Core task runner functionality
+- P2: Should have, add when possible — Optimisations and ergonomics
+- P3: Nice to have, future consideration — Not applicable or rare use cases
 
-### What Needs Templating?
+## Competitor Feature Analysis
 
-| Config | Template? | Why |
-|--------|-----------|-----|
-| kitty.conf | Maybe | Font paths, theme might differ |
-| ghostty config | Maybe | Font paths, theme might differ |
-| wezterm.lua | Maybe | Font paths, theme might differ |
-| aerospace.toml | Yes | Monitor/workspace setup differs laptop vs desktop |
-| bat config | No | Static theme/style |
-| lsd config | No | Static icons/layout |
-| btop.conf | Maybe | Color theme coordination |
-| oh-my-posh.omp.json | Maybe | Theme differs work vs personal |
-| lazygit.yml | No | Git workflow consistent |
-| atuin config.toml | No | History settings consistent |
-| psqlrc | No | PostgreSQL formatting consistent |
-| sqliterc | No | SQLite formatting consistent |
-| aider.conf.yml | Maybe | Model selection work vs personal |
-| finicky.js | Yes | Browser routing differs work vs personal |
-| .hushlogin | No | Static |
-| .inputrc | No | Static readline config |
-| .editorconfig | No | Static editor defaults |
-| .nanorc | No | Static nano config |
-| gpg-agent.conf | Yes | Pinentry path differs by OS |
-| karabiner.json | Maybe | Keyboard mappings per machine/keyboard |
-| zsh-abbr | Yes | Work abbreviations vs personal |
-| Claude Code | Partial | CLAUDE.md/commands sync, settings.json might need encryption |
+| Feature | make (traditional) | just (modern alternative) | mise tasks (our approach) |
+|---------|-------------------|---------------------------|---------------------------|
+| Task definition | Makefile with targets | Justfile with recipes | `.mise/tasks/` directory + executable scripts OR `mise.toml` TOML tasks |
+| Task discovery | `make help` (manual) | `just --list` | `mise tasks` / `mise tasks --all` |
+| Dependencies | Prerequisites in target line | `recipe: dep1 dep2` | `depends = ["dep1", "dep2"]` in config or script comments |
+| Parallel execution | `make -j4` | Sequential by default | Parallel by default (4 jobs), `--jobs N` to configure |
+| File watching | External tools | `just --watch` | `mise watch taskname` using `sources` field |
+| Rebuild detection | Timestamp-based (built-in) | Manual checks | `sources`/`outputs` with mtime comparison |
+| Arguments | Makefile variables `make VAR=value` | Recipe parameters `just recipe arg` | `usage` field → `$usage_arg` env vars |
+| Multiple interpreters | Shell only | Shell only | Any interpreter via shebang |
+| Project context | Manual `$(pwd)` | `justfile_directory()` | Auto-injected `MISE_PROJECT_ROOT`, `MISE_CONFIG_ROOT` |
+| Cross-platform | Poor (GNU make vs BSD make) | Good (written in Rust) | Good (written in Rust) |
 
-### Template Variables Needed
+**Our differentiation:**
+- **Language-agnostic task execution:** Shebang support for Python, Node, Ruby, etc. (vs make/just shell-only)
+- **Smart rebuild detection:** File-based `sources`/`outputs` with mtime checking (vs make's target-based approach)
+- **Integrated with tool management:** Tasks auto-install tools from `mise.toml` (vs make/just separate tool installation)
+- **Parallel by default:** Optimised for modern multi-core systems (vs make manual `-j`, just sequential)
+- **AI agent friendly:** Task descriptions for discoverability (vs make/just manual docs)
 
-Already available from existing setup:
-- `.chezmoi.os` - "darwin" or "linux"
-- `.machine_type` - "client" or "personal" (from .chezmoidata.yaml)
-- `.chezmoi.hostname` - For very specific machine differences
+## Implementation Patterns for This Project
 
-May need to add:
-- `.monitor_setup` - "laptop" or "desktop" (for aerospace)
-- `.terminal_theme` - Coordinated theme name
+### Dotfiles Operations Tasks
+
+**Expected tasks:**
+- `dotfiles:apply` — Run `chezmoi apply` with verification
+- `dotfiles:verify` — Run `scripts/verify-configs.sh` (112 checks)
+- `dotfiles:smoke-test` — Run `scripts/zsh-smoke-test.sh` (13 checks)
+- `dotfiles:update-packages` — Update Homebrew packages via chezmoi run_onchange scripts
+- `dotfiles:sync` — Composite task: verify → apply → smoke-test
+
+**Complexity:** LOW-MEDIUM
+- File-based tasks for scripts that already exist
+- `depends` for composition (`sync` depends on `verify`, `apply`, `smoke-test`)
+- No arguments needed initially
+- Environment vars for paths (`MISE_PROJECT_ROOT`)
+
+**Dependencies on existing infrastructure:**
+- Relies on chezmoi being installed (via mise.toml tools)
+- Wraps existing scripts (`verify-configs.sh`, `zsh-smoke-test.sh`)
+- Homebrew automation already via chezmoi `run_onchange_` scripts
+
+### Git Workflow Tasks
+
+**Expected tasks:**
+- `git:commit` — Conventional commit with Jira ticket prefix (`MLE-999: feat: message`)
+- `git:branch` — Create feature branch with naming convention (`feature/MLE-999-description`)
+- `git:cleanup` — Prune merged branches
+- `git:pr` — Create pull request with template
+- `git:bootstrap` — Set up git hooks (gitleaks), configure git settings
+
+**Complexity:** MEDIUM
+- Need arguments for commit messages, branch names (`usage` field)
+- Interactive prompts for PR creation
+- Integration with gh CLI for PR creation
+- gitleaks hook installation (already exists globally)
+
+**Dependencies on existing infrastructure:**
+- gh CLI installed (add to mise.toml tools if needed)
+- git obviously required
+- Global gitleaks hooks already configured
+- Branch naming conventions from CLAUDE.md
+
+### Task Organisation Pattern
+
+```
+.mise/tasks/
+├── dotfiles/
+│   ├── apply          # chezmoi apply wrapper
+│   ├── verify         # run verify-configs.sh
+│   ├── smoke-test     # run zsh-smoke-test.sh
+│   ├── update         # update Homebrew packages
+│   └── sync           # composite: verify → apply → smoke-test
+└── git/
+    ├── commit         # conventional commit helper
+    ├── branch         # create feature branch
+    ├── cleanup        # prune merged branches
+    ├── pr             # create pull request
+    └── bootstrap      # setup git hooks and config
+```
+
+**Naming rationale:**
+- Colon namespacing (`dotfiles:apply`, `git:commit`) from directory structure
+- Short, action-oriented names
+- Aliases for common operations: `apply` → `a`, `commit` → `c`, `pr` → `p`
+
+### Cross-Platform Considerations
+
+**macOS vs Linux:**
+- Bash scripts portable across both
+- Homebrew works on both (via chezmoi conditional scripts)
+- Paths resolved via `MISE_PROJECT_ROOT` (cross-platform)
+- Tool installation via mise.toml handles platform differences
+
+**Implementation strategy:**
+- Use `/usr/bin/env bash` shebang
+- Avoid macOS-specific commands (prefer cross-platform alternatives)
+- Use chezmoi's platform detection for platform-specific tasks (already implemented)
+- Test on both platforms (existing infrastructure supports this)
 
 ## Sources
 
-### Chezmoi Documentation
-- [Templating - chezmoi](https://www.chezmoi.io/user-guide/templating/)
-- [Manage machine-to-machine differences - chezmoi](https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/)
-- [Manage different types of file - chezmoi](https://www.chezmoi.io/user-guide/manage-different-types-of-file/)
-- [Use scripts to perform actions - chezmoi](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/)
-- [.chezmoiignore - chezmoi](https://www.chezmoi.io/reference/special-files/chezmoiignore/)
-- [Target types - chezmoi](https://www.chezmoi.io/reference/target-types/)
+**Official mise documentation:**
+- [Tasks Overview](https://mise.jdx.dev/tasks/)
+- [File Tasks](https://mise.jdx.dev/tasks/file-tasks.html)
+- [TOML-based Tasks](https://mise.jdx.dev/tasks/toml-tasks.html)
+- [Task Configuration](https://mise.jdx.dev/tasks/task-configuration.html)
+- [Running Tasks](https://mise.jdx.dev/tasks/running-tasks.html)
+- [Task Arguments](https://mise.jdx.dev/tasks/task-arguments.html)
+- [Task System Architecture](https://mise.jdx.dev/tasks/architecture.html)
+- [Monorepo Tasks](https://mise.jdx.dev/tasks/monorepo.html)
 
-### Migration Best Practices
-- [Migrating a pre-existing dotfiles repository · twpayne/chezmoi · Discussion #2330](https://github.com/twpayne/chezmoi/discussions/2330)
-- [How To Manage Dotfiles With Chezmoi](https://jerrynsh.com/how-to-manage-dotfiles-with-chezmoi/)
-- [Managing dotfiles with Chezmoi | Nathaniel Landau](https://natelandau.com/managing-dotfiles-with-chezmoi/)
-- [Taking Control of My Dotfiles with chezmoi](https://blog.cmmx.de/2026/01/13/taking-control-of-my-dotfiles-with-chezmoi/)
+**Community resources:**
+- [Using mise-en-place for dotfiles — Sympolymathesy](https://v5.chriskrycho.com/notes/using-mise-en-place-for-dotfiles/)
+- [Continuous Improvement in DevOps: Streamlining with chezmoi and mise](https://manuelchichi.com.ar/blog/personal-toolset-2025/)
+- [Using Mise for All the Things](https://jarv.org/posts/mise/)
+- [Getting Started with Mise | Better Stack Community](https://betterstack.com/community/guides/scaling-nodejs/mise-explained/)
+- [Best Practices for Using Mise to Maintain Project Structure and Manage Environment Variables](https://combray.prose.sh/2025-11-26-mise-project-structure-env-vars)
 
-### Claude Code Configuration
-- [Sync Claude Code commands and hooks across machines](https://www.arun.blog/sync-claude-code-with-chezmoi-and-age/)
-- [claude-code-mastery/docs/guides/dotfiles-sync.md](https://github.com/NovaAI-innovation/claude-code-mastery/blob/main/docs/guides/dotfiles-sync.md)
-- [.claude - Your Claude Code Directory](https://dotclaude.com/)
+**GitHub discussions:**
+- [Introducing Monorepo Tasks · Discussion #6564](https://github.com/jdx/mise/discussions/6564)
+- [Deprecation Announcement: Tera Template Functions for Task Arguments · Discussion #6766](https://github.com/jdx/mise/discussions/6766)
+- [method for running tasks in series · Discussion #3761](https://github.com/jdx/mise/discussions/3761)
 
-### Terminal Emulators
-- [The Modern Terminals Showdown: Alacritty, Kitty, and Ghostty](https://blog.codeminer42.com/modern-terminals-alacritty-kitty-and-ghostty/)
-- [Choosing a Terminal on macOS (2025): iTerm2 vs Ghostty vs WezTerm vs kitty vs Alacritty](https://medium.com/@dynamicy/choosing-a-terminal-on-macos-2025-iterm2-vs-ghostty-vs-wezterm-vs-kitty-vs-alacritty-d6a5e42fd8b3)
-
-### Window Manager
-- [GitHub - nikitabobko/AeroSpace: AeroSpace is an i3-like tiling window manager for macOS](https://github.com/nikitabobko/AeroSpace)
-- [How To Setup And Use The Aerospace Tiling Window Manager On macOS](https://www.josean.com/posts/how-to-setup-aerospace-tiling-window-manager)
+---
+*Feature research for: mise Task Runner for Dotfiles Management and Dev Workflows*
+*Researched: 2026-02-14*
