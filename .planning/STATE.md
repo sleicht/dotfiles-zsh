@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 
 ## Current Position
 
-Phase: 21 of 22 (21-sync-defer-architecture-split)
-Plan: 02 of 02 (COMPLETE)
-Status: Complete - sync/defer architecture fully implemented and verified
-Last activity: 2026-02-14 -- reconfigured Sheldon with dotfiles-sync and dotfiles-defer plugin groups; achieved 128.7ms total startup
+Phase: 22 of 22 (22-monitoring-hardening)
+Plan: 01 of 02
+Status: In progress - startup monitoring implemented
+Last activity: 2026-02-14 -- added EPOCHREALTIME startup monitoring with 300ms threshold warnings and chezmoi evalcache invalidation hook
 
-Progress: [██████████████████████] 100% (2 of 2 phase 21 plans complete)
+Progress: [███████████░░░░░░░░░░░] 50% (1 of 2 phase 22 plans complete)
 
 ## Performance Metrics
 
@@ -35,9 +35,9 @@ Progress: [██████████████████████] 1
 - Net lines removed: -16,609
 
 **Velocity (v2.0):**
-- Total plans completed: 6
-- Total commits: 10
-- Latest plan: 21-02 (7.8 min, 2 tasks, 1 file)
+- Total plans completed: 7
+- Total commits: 12
+- Latest plan: 22-01 (2.1 min, 2 tasks, 3 files)
 
 ## Accumulated Context
 
@@ -50,6 +50,7 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - [Phase 20-02]: Use _evalcache for all static eval init calls (oh-my-posh, zoxide, atuin, carapace, intelli-shell); leave mise uncached due to directory-dependent output generation
 - [Phase 21-01]: Split zsh.d files into sync (prompt-critical: oh-my-posh, FZF/atuin keybindings) and defer (deferrable: zoxide, mise, SSH hosts) variants to enable Sheldon plugin group separation; added mise shims to .zprofile for immediate PATH access
 - [Phase 21-02]: Reconfigured Sheldon with dotfiles-sync (immediate source) and dotfiles-defer (zsh-defer source) plugin groups, achieving two-tier loading architecture with 128.7ms total startup (1.9% improvement) and ~47% perceived improvement (70ms to prompt vs 131ms total)
+- [Phase 22-01]: Use EPOCHREALTIME for microsecond-precision startup timing with 300ms threshold warning; track only evalcache-relevant tools (oh-my-posh, zoxide, atuin, carapace) via chezmoi run_onchange_ hook for automatic cache invalidation
 
 ### Key Findings (v2.0 Startup Analysis)
 
@@ -82,5 +83,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 21-02-PLAN.md (Sheldon sync/defer configuration)
+Stopped at: Completed 22-01-PLAN.md (Startup monitoring and evalcache invalidation)
 Resume file: None
