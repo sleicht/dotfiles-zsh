@@ -54,3 +54,30 @@
 
 ---
 
+
+## v1.2 Legacy Cleanup (Shipped: 2026-02-14)
+
+**Delivered:** Removed all pre-chezmoi artifacts from the repository and fixed stale code in the chezmoi source, so the repository reflects reality. Net -16,609 lines removed.
+
+**Phases completed:** 13-18 (7 plans total)
+
+**Key accomplishments:**
+- Removed 104+ legacy Dotbot-era files (10 directories, 17 flat files, 3 Brewfiles, zsh.d/)
+- Migrated san-proxy to chezmoi with client-only conditional template
+- Unified mise activation to single location, removed stale asdf/Volta/npm PATH code
+- Modernised Python 2 code to Python 3 (http.server, urllib.parse) and fixed stale aliases
+- Cleaned audit scripts of retired directory references, added .gitignore prevention patterns
+- Resolved all tech debt identified by milestone audit (orphaned files, obsolete scripts)
+
+**Stats:**
+- 6 phases, 7 plans
+- 2 days from start to ship (2026-02-13 to 2026-02-14)
+- 40 commits, 154 files changed, +3,791 / -20,400 lines
+- 19/21 requirements satisfied (2 rescinded by user decision)
+
+**Git range:** feature/nix branch
+
+**What's next:** v2.0 -- Performance optimisation, mise task runner
+
+---
+

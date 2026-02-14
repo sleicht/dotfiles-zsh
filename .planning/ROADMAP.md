@@ -4,7 +4,7 @@
 
 - ✅ **v1.0.0 Dotfiles Stack Migration** -- Phases 1-6 (shipped 2026-02-08)
 - ✅ **v1.1 Complete Migration** -- Phases 7-12 (shipped 2026-02-12)
-- 🔧 **v1.2 Legacy Cleanup** -- Phases 13-18 (in progress)
+- ✅ **v1.2 Legacy Cleanup** -- Phases 13-18 (shipped 2026-02-14)
 - 📋 **v2.0 Performance** -- Phases TBD (planned)
 
 ## Phases
@@ -41,107 +41,29 @@ Migrated all remaining Dotbot-managed configs to chezmoi and retired Dotbot enti
 
 </details>
 
-### v1.2 Legacy Cleanup (In Progress)
+<details>
+<summary>✅ v1.2 Legacy Cleanup (Phases 13-18) -- SHIPPED 2026-02-14</summary>
 
-**Milestone Goal:** Remove all pre-chezmoi artifacts from the repo and fix stale code in the chezmoi source, so the repository reflects reality.
+Removed all pre-chezmoi artifacts from the repository and fixed stale code in the chezmoi source. Net -16,609 lines removed. See `.planning/milestones/v1.2-ROADMAP.md` for full details.
 
-#### Phase 13: Remove Legacy Config Files ✓
-**Goal**: Clean Dotbot-era artifacts from repository
-**Depends on**: Phase 12 (Dotbot retired)
-**Requirements**: LEGACY-01, LEGACY-02, LEGACY-04, LEGACY-05
-**Success Criteria** (what must be TRUE):
-  1. ✓ Repository contains no .config/ directories from Dotbot era (10 directories removed)
-  2. ✓ Repository contains no .config/ flat files from Dotbot era (17 files removed)
-  3. ✓ Repository contains no redundant zsh.d/ directory (chezmoi manages dot_zsh.d/)
-  4. ✓ Repository contains no legacy Brewfiles (3 files removed, .chezmoidata.yaml is sole source)
-**Plans**: 2 plans
-**Note**: Also removed 7 legacy verification/backup scripts (pulled forward from Phase 17 scope)
+**Stats:** 6 phases, 7 plans, 40 commits, 19/21 requirements satisfied (2 rescinded)
 
-Plans:
-- [x] 13-01-PLAN.md -- Scan repository for legacy file references
-- [x] 13-02-PLAN.md -- Remove all legacy files (5 commits: scripts + 4 categories)
+- [x] Phase 13: Remove Legacy Config Files (2/2 plans) -- completed 2026-02-13
+- [x] Phase 14: Migrate san-proxy to chezmoi (1/1 plan) -- completed 2026-02-14
+- [x] Phase 15: Fix PATH and Version Manager Code (1/1 plan) -- completed 2026-02-14
+- [x] Phase 16: Fix Python 2 and Shell Utilities (1/1 plan) -- completed 2026-02-14
+- [x] Phase 17: Clean Audit Scripts and Artifacts (1/1 plan) -- completed 2026-02-14
+- [x] Phase 18: Clean Tech Debt from Audit (1/1 plan) -- completed 2026-02-14
 
-#### Phase 14: Migrate san-proxy to chezmoi ✓
-**Goal**: san-proxy sourcing managed by chezmoi with client-only template
-**Depends on**: Phase 13 (clean separation from legacy .config/profile)
-**Requirements**: LEGACY-03
-**Success Criteria** (what must be TRUE):
-  1. ✓ san-proxy sourcing removed from legacy .config/profile
-  2. ✓ san-proxy sourcing added to chezmoi source with client-only conditional
-  3. ✓ Client machine sources san-proxy, personal machine does not
-**Plans:** 1 plan
-
-Plans:
-- [x] 14-01-PLAN.md -- Template zshrc with client-only san-proxy and clean up legacy profile
-
-#### Phase 15: Fix PATH and Version Manager Code ✓
-**Goal**: Remove stale version manager code from chezmoi source
-**Depends on**: Nothing (works on chezmoi source)
-**Requirements**: ~~CHEZFIX-01~~, ~~CHEZFIX-02~~, CHEZFIX-03, CHEZFIX-04, CHEZFIX-09, CHEZFIX-10
-**Success Criteria** (what must be TRUE):
-  1. ✓ ~~chezmoi path.zsh contains no Volta or rbenv PATH entries~~ — RESCINDED: Volta and rbenv kept unconditionally (add_to_path guards missing dirs)
-  2. ✓ chezmoi variables.zsh contains no hardcoded npm PATH or empty version manager section
-  3. ✓ mise activation occurs once in external.zsh (not duplicated in hooks.zsh)
-  4. ✓ chezmoi hooks.zsh contains no commented-out asdf activation
-**Plans**: 1 plan
-
-Plans:
-- [x] 15-01-PLAN.md -- Remove stale Volta, rbenv, asdf, and duplicate mise code from chezmoi source
-
-#### Phase 16: Fix Python 2 and Shell Utilities ✓
-**Goal**: Modernize Python 3 usage and shell aliases in chezmoi source
-**Depends on**: Nothing (independent fixes)
-**Requirements**: CHEZFIX-05, CHEZFIX-06, CHEZFIX-07, CHEZFIX-08
-**Success Criteria** (what must be TRUE):
-  1. ✓ server() function uses Python 3 http.server (not Python 2 SimpleHTTPServer)
-  2. ✓ urlencode alias uses Python 3 urllib.parse (not Python 2 urllib)
-  3. ✓ omz reload alias uses exec shell reload (not stale omz command)
-  4. ✓ update alias contains no stale npm/gem commands (mise handles these)
-**Plans**: 1 plan
-
-Plans:
-- [x] 16-01-PLAN.md -- Fix Python 2 code, stale omz reload, and npm/gem commands
-
-#### Phase 17: Clean Audit Scripts and Artifacts ✓
-**Goal**: Remove stale directories and fix audit script references
-**Depends on**: Phase 13 (references to removed directories)
-**Requirements**: MISC-01, MISC-02, MISC-03, MISC-04, MISC-05, MISC-06
-**Success Criteria** (what must be TRUE):
-  1. ✓ Repository contains no empty bin/ or logs/ directories
-  2. ✓ Repository contains no firebase-debug.log (added to .gitignore)
-  3. ✓ audit-gitleaks.toml contains no references to dotbot/zgenom directories
-  4. ✓ audit-secrets.sh contains no references to dotbot directory
-  5. ~~verify-backup.sh critical files list reflects chezmoi layout~~ (DONE: script removed in Phase 13)
-**Plans**: 1 plan
-
-Plans:
-- [x] 17-01-PLAN.md -- Remove stale directories/files, update .gitignore, fix audit script references
-
-#### Phase 18: Clean Tech Debt from Audit ✓
-**Goal**: Delete orphaned files and obsolete scripts identified by milestone audit
-**Depends on**: Phase 17 (audit identified these items)
-**Requirements**: None (tech debt cleanup)
-**Success Criteria** (what must be TRUE):
-  1. ✓ Repository contains no `.config/profile` or empty `.config/` directory
-  2. ✓ Repository contains no `audit-report-*.md` files in `scripts/`
-  3. ✓ Repository contains no obsolete verify-checks (`11-claude-code.sh`, `12-dotbot-retirement.sh`)
-  4. ✓ `scripts/test-linux.sh` reviewed and removed if unused
-  5. ✓ `.gitignore` prevents future `audit-report-*.md` accumulation
-**Plans**: 1 plan
-
-Plans:
-- [x] 18-01-PLAN.md -- Delete orphaned files, obsolete scripts, update .gitignore
+</details>
 
 ### v2.0 Performance (Planned)
 
-**Milestone Goal:** Optimize shell startup time to < 300ms and add mise task runner.
+**Milestone Goal:** Optimise shell startup time to < 300ms and add mise task runner.
 
 Phases TBD.
 
 ## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -165,4 +87,4 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18
 | 18. Clean Tech Debt from Audit | v1.2 | 1/1 | Complete | 2026-02-14 |
 
 ---
-*Last updated: 2026-02-14 after Phase 18 complete — v1.2 Legacy Cleanup milestone shipped*
+*Last updated: 2026-02-14 after v1.2 Legacy Cleanup milestone shipped*
