@@ -72,7 +72,7 @@ Achieved 139.8ms shell startup (55.6% faster than 314.6ms baseline, 53.4% better
 
 </details>
 
-### 🚧 v2.1 Mise Task Runner (In Progress)
+### v2.1 Mise Task Runner (In Progress)
 
 **Milestone Goal:** Implement mise task runner for dotfiles operations and development workflows, providing user-friendly commands for chezmoi operations, verification workflows, and conventional git commits.
 
@@ -81,15 +81,15 @@ Achieved 139.8ms shell startup (55.6% faster than 314.6ms baseline, 53.4% better
 **Depends on**: Phase 22
 **Requirements**: INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05
 **Success Criteria** (what must be TRUE):
-  1. Task files deploy from chezmoi source to ~/.mise/tasks/ with executable permissions
+  1. Task files deploy from chezmoi source to ~/.config/mise/tasks/ with executable permissions
   2. mise tasks command shows all available tasks with descriptions
   3. Tasks namespaced by subdirectory structure (dotfiles:apply, git:commit)
   4. Task aliases work for common commands (mise run a for dotfiles:apply)
   5. Expensive tasks skip when sources unchanged via rebuild detection
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 23-01: TBD
+- [ ] 23-01-PLAN.md -- Create task directory structure with stub tasks, deploy and verify all INFRA requirements
 
 #### Phase 24: Dotfiles Operations
 **Goal**: Wrap dotfiles workflows as mise tasks for user-friendly commands
@@ -148,9 +148,9 @@ Plans:
 | 20. Eval Caching Layer | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 21. Sync/Defer Architecture Split | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 22. Monitoring & Hardening | v2.0 | 2/2 | Complete | 2026-02-14 |
-| 23. Task Infrastructure | v2.1 | 0/TBD | Not started | - |
+| 23. Task Infrastructure | v2.1 | 0/1 | Not started | - |
 | 24. Dotfiles Operations | v2.1 | 0/TBD | Not started | - |
 | 25. Git Workflow Tasks | v2.1 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-14 — v2.1 Mise Task Runner roadmap created (3 phases, 15 requirements)*
+*Last updated: 2026-02-14 -- Phase 23 planned (1 plan, 2 tasks)*
