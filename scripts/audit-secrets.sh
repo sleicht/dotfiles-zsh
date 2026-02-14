@@ -3,7 +3,7 @@
 # audit-secrets.sh — Secret and sensitive data scanner for dotfiles-zsh
 # =============================================================================
 # Scans ALL config files in the dotfiles-zsh repo for secrets, PII, and
-# portability issues BEFORE they are migrated to chezmoi.
+# portability issues.
 #
 # Uses:
 #   - gitleaks with custom rules (audit-gitleaks.toml)
@@ -112,9 +112,6 @@ run_custom_patterns() {
     --glob '!scripts/audit-report-*.md'
     --glob '!node_modules/'
     --glob '!logs/'
-    --glob '!dotbot/'
-    --glob '!dotbot-asdf/'
-    --glob '!dotbot-brew/'
     --glob '!dotfiles-marketplace/'
     --glob '!nvim/'
     --glob '!art/'

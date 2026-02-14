@@ -1,8 +1,8 @@
 # =============================================================================
 # audit-gitleaks.toml — Custom gitleaks rules for dotfile secret scanning
 # =============================================================================
-# Used by scripts/audit-secrets.sh to scan the dotfiles-zsh repo BEFORE
-# configs are migrated to chezmoi. Extends default gitleaks rules with
+# Used by scripts/audit-secrets.sh to scan the dotfiles-zsh repo for
+# secrets and portability issues. Extends default gitleaks rules with
 # dotfile-specific patterns (user paths, emails, IPs, hostnames).
 #
 # NOTE: This is SEPARATE from the chezmoi source .gitleaks.toml which
@@ -66,9 +66,6 @@ paths = [
   '''audit-secrets\.sh''',
   '''node_modules/''',
   '''logs/''',
-  '''dotbot/''',
-  '''dotbot-asdf/''',
-  '''dotbot-brew/''',
   '''dotfiles-marketplace/''',
   '''nvim/''',
   '''art/''',
@@ -76,6 +73,5 @@ paths = [
   '''\.pyc$''',
   '''\.idea/''',
   '''firebase-debug\.log''',
-  '''zgenom/''',
   '''\.log$''',
 ]
