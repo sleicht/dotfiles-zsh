@@ -77,9 +77,9 @@ Plans:
 #### Phase 15: Fix PATH and Version Manager Code ✓
 **Goal**: Remove stale version manager code from chezmoi source
 **Depends on**: Nothing (works on chezmoi source)
-**Requirements**: CHEZFIX-01, CHEZFIX-02, CHEZFIX-03, CHEZFIX-04, CHEZFIX-09, CHEZFIX-10
+**Requirements**: ~~CHEZFIX-01~~, ~~CHEZFIX-02~~, CHEZFIX-03, CHEZFIX-04, CHEZFIX-09, CHEZFIX-10
 **Success Criteria** (what must be TRUE):
-  1. ✓ chezmoi path.zsh contains no Volta or rbenv PATH entries (replaced by mise)
+  1. ✓ ~~chezmoi path.zsh contains no Volta or rbenv PATH entries~~ — RESCINDED: Volta and rbenv kept unconditionally (add_to_path guards missing dirs)
   2. ✓ chezmoi variables.zsh contains no hardcoded npm PATH or empty version manager section
   3. ✓ mise activation occurs once in external.zsh (not duplicated in hooks.zsh)
   4. ✓ chezmoi hooks.zsh contains no commented-out asdf activation
@@ -97,10 +97,10 @@ Plans:
   2. urlencode alias uses Python 3 urllib.parse (not Python 2 urllib)
   3. omz reload alias uses exec shell reload (not stale omz command)
   4. update alias contains no stale npm/gem commands (mise handles these)
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 16-01: TBD
+- [ ] 16-01-PLAN.md -- Fix Python 2 code, stale omz reload, and npm/gem commands
 
 #### Phase 17: Clean Audit Scripts and Artifacts
 **Goal**: Remove stale directories and fix audit script references
@@ -145,8 +145,8 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 | 13. Remove Legacy Config Files | v1.2 | 2/2 | Complete | 2026-02-13 |
 | 14. Migrate san-proxy to chezmoi | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 15. Fix PATH and Version Manager Code | v1.2 | 1/1 | Complete | 2026-02-14 |
-| 16. Fix Python 2 and Shell Utilities | v1.2 | 0/TBD | Not started | - |
+| 16. Fix Python 2 and Shell Utilities | v1.2 | 0/1 | Not started | - |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-14 after Phase 15 complete (stale version manager code removed)*
+*Last updated: 2026-02-14 after Phase 16 planned (1 plan, 2 tasks)*
