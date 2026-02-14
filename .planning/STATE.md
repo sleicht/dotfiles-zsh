@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-14)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** No active milestone — all planned work complete
+**Current focus:** v2.1 Mise Task Runner
 
 ## Current Position
 
-Phase: 22 of 22 (all milestones complete)
-Plan: N/A
-Status: v2.0 Performance milestone shipped
-Last activity: 2026-02-14 -- v2.0 milestone archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-14 — Milestone v2.1 started
 
-Progress: All 4 milestones shipped (v1.0.0, v1.1, v1.2, v2.0)
+Progress: 4 milestones shipped (v1.0.0, v1.1, v1.2, v2.0), v2.1 in progress
 
 ## Performance Metrics
 

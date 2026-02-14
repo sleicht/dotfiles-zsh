@@ -62,9 +62,9 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 ### Active
 
-#### Deferred to future milestone
+#### v2.1 — Mise Task Runner
 
-- [ ] Set up mise task runner for common development tasks (MISE-03)
+- [ ] Set up mise task runner for dotfiles operations and dev workflows (MISE-03)
 
 ### Out of Scope
 
@@ -77,7 +77,7 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 ## Context
 
-**Current milestone:** None active — all planned work complete
+**Current milestone:** v2.1 — Mise Task Runner
 
 **Current state (post v2.0):**
 - chezmoi manages 135 files with cross-platform templates and OS-conditional configs
@@ -147,4 +147,4 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 4. **Neovim exception**: nvim config stays as symlink outside chezmoi management (intentional, documented in README).
 
 ---
-*Last updated: 2026-02-14 after v2.0 Performance milestone shipped*
+*Last updated: 2026-02-14 after v2.1 Mise Task Runner milestone started*
