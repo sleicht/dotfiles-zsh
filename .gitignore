@@ -28,6 +28,8 @@ scripts/audit-report-*.md
 
 # Legacy directories (prevent accidental re-creation)
 zsh.d/
+.config/
+.docker/
 
 # Legacy Brewfiles (prevent accidental brew bundle dump commits)
 Brewfile*
