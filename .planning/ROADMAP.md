@@ -117,10 +117,11 @@ Plans:
   3. User can run git:cleanup to prune merged local branches
   4. User can run git:pr to create pull request with template via gh CLI
   5. Shell startup time remains under 300ms with mise activation enabled
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 25-01: TBD
+- [ ] 25-01-PLAN.md -- Implement git:commit and git:branch tasks (interactive commit + branch creation)
+- [ ] 25-02-PLAN.md -- Implement git:cleanup and git:pr tasks (branch pruning + PR creation)
 
 ## Progress
 
