@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 14 - Migrate san-proxy to chezmoi
+**Current focus:** Phase 15 - Fix PATH and Version Manager Code
 
 ## Current Position
 
-Phase: 14 of 17 (Migrate san-proxy to chezmoi)
-Plan: 1 of 1 complete
-Status: Phase complete
-Last activity: 2026-02-14 -- Phase 14 Plan 01 complete (san-proxy templated, legacy profile cleaned)
+Phase: 15 of 17 (Fix PATH and Version Manager Code)
+Plan: Ready to plan
+Status: Ready to plan
+Last activity: 2026-02-14 -- Phase 14 complete (san-proxy migrated to chezmoi, verified)
 
 Progress: [████████████████░░] 94% (41/TBD plans complete across all milestones)
 
@@ -77,10 +77,10 @@ None.
 - Shell startup time: 0.87s (target < 300ms deferred to v2.0)
 - Dual mise activation: Targeted for removal in Phase 15
 - Stale PATH entries: Targeted for removal in Phase 15
-- Legacy .config/profile: Targeted for removal in Phase 14
+- Legacy .config/profile: san-proxy removed in Phase 14 (file still exists with remaining content)
 
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Phase 14 Plan 01 complete (san-proxy templated, legacy profile cleaned)
-Resume file: None (Phase 14 complete)
+Stopped at: Phase 14 complete, verified, roadmap updated
+Resume file: None (start Phase 15 planning with /gsd:plan-phase 15)

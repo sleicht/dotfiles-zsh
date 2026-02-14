@@ -61,18 +61,18 @@ Plans:
 - [x] 13-01-PLAN.md -- Scan repository for legacy file references
 - [x] 13-02-PLAN.md -- Remove all legacy files (5 commits: scripts + 4 categories)
 
-#### Phase 14: Migrate san-proxy to chezmoi
+#### Phase 14: Migrate san-proxy to chezmoi ✓
 **Goal**: san-proxy sourcing managed by chezmoi with client-only template
 **Depends on**: Phase 13 (clean separation from legacy .config/profile)
 **Requirements**: LEGACY-03
 **Success Criteria** (what must be TRUE):
-  1. san-proxy sourcing removed from legacy .config/profile
-  2. san-proxy sourcing added to chezmoi source with client-only conditional
-  3. Client machine sources san-proxy, personal machine does not
+  1. ✓ san-proxy sourcing removed from legacy .config/profile
+  2. ✓ san-proxy sourcing added to chezmoi source with client-only conditional
+  3. ✓ Client machine sources san-proxy, personal machine does not
 **Plans:** 1 plan
 
 Plans:
-- [ ] 14-01-PLAN.md -- Template zshrc with client-only san-proxy and clean up legacy profile
+- [x] 14-01-PLAN.md -- Template zshrc with client-only san-proxy and clean up legacy profile
 
 #### Phase 15: Fix PATH and Version Manager Code
 **Goal**: Remove stale version manager code from chezmoi source
@@ -143,10 +143,10 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 | 11. Claude Code | v1.1 | 2/2 | Complete | 2026-02-12 |
 | 12. Dotbot Retirement | v1.1 | 2/2 | Complete | 2026-02-12 |
 | 13. Remove Legacy Config Files | v1.2 | 2/2 | Complete | 2026-02-13 |
-| 14. Migrate san-proxy to chezmoi | v1.2 | 0/TBD | Not started | - |
+| 14. Migrate san-proxy to chezmoi | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 15. Fix PATH and Version Manager Code | v1.2 | 0/TBD | Not started | - |
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 0/TBD | Not started | - |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-13 after Phase 13 complete (104 files removed)*
+*Last updated: 2026-02-14 after Phase 14 complete (san-proxy migrated to chezmoi)*
