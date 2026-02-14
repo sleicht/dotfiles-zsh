@@ -102,10 +102,10 @@ Plans:
   4. User can run dotfiles:diff to preview changes before applying
   5. User can run dotfiles:update to pull and apply in one command
   6. User can run dotfiles:sync to backup, pull, apply, and verify in single workflow
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 24-01: TBD
+- [ ] 24-01-PLAN.md -- Implement all six dotfiles operation tasks (apply, verify, smoke-test, diff, update, sync)
 
 #### Phase 25: Git Workflow Tasks
 **Goal**: Provide git helpers enforcing conventional commits and branch naming
