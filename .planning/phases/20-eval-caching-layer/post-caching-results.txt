@@ -1,0 +1,101 @@
+Shell Startup Performance Results - Phase 20-02 (Post-Evalcache)
+=================================================================
+
+Date: 2026-02-14
+Measurement tool: hyperfine 1.x
+
+
+HYPERFINE OUTPUT (Full)
+=======================
+
+Command: hyperfine --warmup 3 --runs 10 'zsh -i -c exit'
+
+Benchmark 1: zsh -i -c exit
+  Time (mean ± σ):     131.2 ms ±   2.2 ms    [User: 64.0 ms, System: 56.0 ms]
+  Range (min … max):   128.7 ms … 136.3 ms    10 runs
+
+
+COMPARISON TABLE
+================
+
+Metric                  | Baseline (19-02) | Post-Caching (20-02) | Improvement
+------------------------|------------------|----------------------|------------------
+Mean startup time       | 283.7 ms         | 131.2 ms             | -152.5 ms (-53.8%)
+Std deviation           | ~3-5 ms          | 2.2 ms               | More consistent
+Min time                | ~278 ms          | 128.7 ms             | -149.3 ms
+Max time                | ~290 ms          | 136.3 ms             | -154 ms
+
+
+WHAT WAS CACHED
+===============
+
+Tool           | Original Cost | Cache Status | Estimated Savings
+---------------|---------------|--------------|------------------
+oh-my-posh     | 50-200 ms     | CACHED       | ~100-150 ms
+zoxide         | 20-40 ms      | CACHED       | ~30 ms
+atuin          | 15-30 ms      | CACHED       | ~20 ms
+carapace       | 20-50 ms      | CACHED       | ~30 ms
+intelli-shell  | 10-20 ms      | CACHED       | ~15 ms (if installed)
+mise           | 30-80 ms      | NOT CACHED   | 0 ms (directory-dependent)
+
+Total cached: ~195-245 ms
+Actual improvement: 152.5 ms
+
+Note: The actual improvement is lower than total cached cost because:
+1. Baseline measurements already included some plugin deferral via sheldon
+2. Some overhead remains from evalcache itself (cache lookup + sourcing)
+3. Other shell startup costs (compinit, sourcing files) unchanged
+
+
+CACHE VERIFICATION
+==================
+
+Cache files created in ~/.zsh-evalcache/:
+
+- init-oh-my-posh-2f6d4db86ce789c1b8e11fce00d2b384.sh (143 bytes)
+- init-oh-my-posh-2f6d4db86ce789c1b8e11fce00d2b384.sh.zwc (compiled)
+- init-zoxide-762c3239798fcef6c0e22b89a680055a.sh (4.4 KB)
+- init-zoxide-762c3239798fcef6c0e22b89a680055a.sh.zwc (compiled)
+- init-atuin-789333aadb3102c453268d0d956b6e99.sh (6.1 KB)
+- init-atuin-789333aadb3102c453268d0d956b6e99.sh.zwc (compiled)
+- init-carapace-21ee5703a7e8caa0e36d084e71355d61.sh (8.0 KB)
+- init-carapace-21ee5703a7e8caa0e36d084e71355d61.sh.zwc (compiled)
+
+All cache files have both .sh (source) and .zwc (compiled) versions for maximum performance.
+
+
+VERIFICATION STATUS
+===================
+
+✓ Shell starts without errors
+✓ oh-my-posh prompt renders correctly
+✓ zoxide navigation works (z command)
+✓ atuin history search functional (Ctrl+R)
+✓ carapace completions work
+✓ mise NOT cached (confirmed via grep)
+✓ Caches warm up on first run, used on subsequent runs
+✓ Startup time improved by 53.8% from baseline
+
+
+TARGET ASSESSMENT
+=================
+
+Target: 40-80ms improvement from 283.7ms baseline
+Achieved: 152.5ms improvement (53.8% faster)
+Status: EXCEEDED - nearly 2x the upper target
+
+Final startup time: 131.2ms (well below 300ms target, approaching sub-150ms milestone)
+
+
+SUMMARY
+=======
+
+Phase 20 eval caching layer delivered exceptional results:
+- Converted 5 eval init calls to evalcache (oh-my-posh, zoxide, atuin, carapace, intelli-shell)
+- Left mise uncached due to directory-dependent output
+- Achieved 152.5ms improvement (53.8% reduction)
+- Shell startup now 131.2ms (from 283.7ms baseline)
+- All tools fully functional with cached initialization
+- Cache files compiled to .zwc for maximum performance
+
+This phase alone delivered more improvement than all Phase 19 quick wins combined.
