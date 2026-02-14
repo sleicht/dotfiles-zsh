@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 20 of 22 (20-eval-caching-layer)
-Plan: 01 of 02 (evalcache foundation complete)
-Status: Phase 20 in progress - eval caching layer implementation
-Last activity: 2026-02-14 -- evalcache plugin added, compinit simplified, sheldon source cached
+Plan: 02 of 02 (eval caching layer complete)
+Status: Phase 20 complete - all static eval calls cached, 131.2ms startup achieved
+Last activity: 2026-02-14 -- converted oh-my-posh, zoxide, atuin, carapace, intelli-shell to evalcache; 152.5ms improvement
 
-Progress: [██████████░░░░░░░░░░] 50% (1 of 2 phase 20 plans complete)
+Progress: [████████████████████] 100% (2 of 2 phase 20 plans complete)
 
 ## Performance Metrics
 
@@ -35,9 +35,9 @@ Progress: [██████████░░░░░░░░░░] 50% (1 
 - Net lines removed: -16,609
 
 **Velocity (v2.0):**
-- Total plans completed: 3
-- Total commits: 5
-- Latest plan: 20-01 (3 min, 2 tasks, 3 files)
+- Total plans completed: 4
+- Total commits: 7
+- Latest plan: 20-02 (3 min, 2 tasks, 5 files)
 
 ## Accumulated Context
 
@@ -47,14 +47,15 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - [Phase 19-01]: Three-stage baseline established: 314.6ms startup (5% above 300ms target) with phantom completion (112ms), mise (29ms), oh-my-posh (28ms) as primary optimisation targets
 - [Phase 19-02]: Applied four zero-risk quick wins achieving 30.9ms improvement (9.8% faster) and 300ms target (283.7ms) via duplicate load removal, pure-zsh SSH parsing, command check optimisation, and PATH deduplication
 - [Phase 20-01]: Use -C flag universally for compinit (skip security checks in single-user dotfiles), cache sheldon source with lock file mtime invalidation, background zcompdump compilation in .zlogin to never block startup
+- [Phase 20-02]: Use _evalcache for all static eval init calls (oh-my-posh, zoxide, atuin, carapace, intelli-shell); leave mise uncached due to directory-dependent output generation
 
 ### Key Findings (v2.0 Startup Analysis)
 
 **Identified sync bottlenecks in shell startup chain:**
-- oh-my-posh init: 50-200ms (hooks.zsh line 11)
-- mise activate: 30-80ms (external.zsh line 65)
-- carapace _carapace: 20-50ms (carapace.zsh)
-- zoxide init: 20-40ms (external.zsh line 56)
+- ~~oh-my-posh init: 50-200ms (hooks.zsh line 11)~~ [FIXED 20-02: cached via evalcache]
+- mise activate: 30-80ms (external.zsh line 65) [NOT CACHED: directory-dependent output]
+- ~~carapace _carapace: 20-50ms (carapace.zsh)~~ [FIXED 20-02: cached via evalcache]
+- ~~zoxide init: 20-40ms (external.zsh line 56)~~ [FIXED 20-02: cached via evalcache]
 - ssh-add --apple-load-keychain: unknown (ssh.zsh)
 - ~~ruby SSH host parsing: unknown (completions.zsh line 16)~~ [FIXED 19-02: replaced with pure-zsh]
 - Large completion scripts: wt.zsh (214 lines), lens-completion.zsh (214 lines)
@@ -72,11 +73,11 @@ None.
 ### Blockers/Concerns
 
 **Known Limitations (from PROJECT.md):**
-- Shell startup time: 283.7ms (post-quick-wins, 2026-02-14, target < 300ms ACHIEVED ✓)
+- Shell startup time: 131.2ms (post-evalcache, 2026-02-14, 58.3% improvement from 314.6ms baseline)
 - chezmoi diff performance: ~13s (upstream limitation with .claude/ directory)
 
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 20-01-PLAN.md (evalcache foundation)
+Stopped at: Completed 20-02-PLAN.md (eval caching layer conversion)
 Resume file: None
