@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 
 ## Current Position
 
-Phase: 20 of 22 (20-eval-caching-layer)
-Plan: 02 of 02 (eval caching layer complete)
-Status: Phase 20 complete - all static eval calls cached, 131.2ms startup achieved
-Last activity: 2026-02-14 -- converted oh-my-posh, zoxide, atuin, carapace, intelli-shell to evalcache; 152.5ms improvement
+Phase: 21 of 22 (21-sync-defer-architecture-split)
+Plan: 01 of 02 (sync/defer file structure complete)
+Status: In progress - separated prompt-critical from deferrable initialisation
+Last activity: 2026-02-14 -- split hooks, external, completions into sync/defer pairs; added mise shims to .zprofile
 
-Progress: [████████████████████] 100% (2 of 2 phase 20 plans complete)
+Progress: [█████████████████████] 50% (1 of 2 phase 21 plans complete)
 
 ## Performance Metrics
 
@@ -35,9 +35,9 @@ Progress: [████████████████████] 100% (2
 - Net lines removed: -16,609
 
 **Velocity (v2.0):**
-- Total plans completed: 4
-- Total commits: 7
-- Latest plan: 20-02 (3 min, 2 tasks, 5 files)
+- Total plans completed: 5
+- Total commits: 9
+- Latest plan: 21-01 (3.5 min, 2 tasks, 11 files)
 
 ## Accumulated Context
 
@@ -48,6 +48,7 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - [Phase 19-02]: Applied four zero-risk quick wins achieving 30.9ms improvement (9.8% faster) and 300ms target (283.7ms) via duplicate load removal, pure-zsh SSH parsing, command check optimisation, and PATH deduplication
 - [Phase 20-01]: Use -C flag universally for compinit (skip security checks in single-user dotfiles), cache sheldon source with lock file mtime invalidation, background zcompdump compilation in .zlogin to never block startup
 - [Phase 20-02]: Use _evalcache for all static eval init calls (oh-my-posh, zoxide, atuin, carapace, intelli-shell); leave mise uncached due to directory-dependent output generation
+- [Phase 21-01]: Split zsh.d files into sync (prompt-critical: oh-my-posh, FZF/atuin keybindings) and defer (deferrable: zoxide, mise, SSH hosts) variants to enable Sheldon plugin group separation; added mise shims to .zprofile for immediate PATH access
 
 ### Key Findings (v2.0 Startup Analysis)
 
@@ -79,5 +80,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 20-02-PLAN.md (eval caching layer conversion)
+Stopped at: Completed 21-01-PLAN.md (sync/defer architecture split)
 Resume file: None
