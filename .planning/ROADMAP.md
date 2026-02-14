@@ -135,9 +135,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 **Risk:** LOW — monitoring only
 **Dependency:** Phase 21 (all optimisations in place)
 
-- [ ] Phase 19: Baseline & Quick Wins — **Plans:** 2 plans
-  - [ ] 19-01-PLAN.md — Establish three-stage performance baseline
-  - [ ] 19-02-PLAN.md — Apply quick wins (QUICK-01 to QUICK-04) and re-measure
+- [x] Phase 19: Baseline & Quick Wins — **Plans:** 2 plans — completed 2026-02-14
+  - [x] 19-01-PLAN.md — Establish three-stage performance baseline
+  - [x] 19-02-PLAN.md — Apply quick wins (QUICK-01 to QUICK-04) and re-measure
 - [ ] Phase 20: Eval Caching Layer
 - [ ] Phase 21: Sync/Defer Architecture Split
 - [ ] Phase 22: Monitoring & Hardening
@@ -164,10 +164,10 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 18. Clean Tech Debt from Audit | v1.2 | 1/1 | Complete | 2026-02-14 |
-| 19. Baseline & Quick Wins | v2.0 | 0/? | Planned | — |
+| 19. Baseline & Quick Wins | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 20. Eval Caching Layer | v2.0 | 0/? | Planned | — |
 | 21. Sync/Defer Architecture Split | v2.0 | 0/? | Planned | — |
 | 22. Monitoring & Hardening | v2.0 | 0/? | Planned | — |
 
 ---
-*Last updated: 2026-02-14 — v2.0 Performance roadmap defined*
+*Last updated: 2026-02-14 — Phase 19 complete (283.7ms startup, target achieved)*
