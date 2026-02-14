@@ -141,7 +141,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 - [x] Phase 20: Eval Caching Layer — **Plans:** 2 plans — completed 2026-02-14
   - [x] 20-01-PLAN.md — Add evalcache plugin, simplify compinit, cache sheldon source, background zcompile
   - [x] 20-02-PLAN.md — Convert eval init calls to evalcache and measure improvement
-- [ ] Phase 21: Sync/Defer Architecture Split
+- [ ] Phase 21: Sync/Defer Architecture Split — **Plans:** 2 plans
+  - [ ] 21-01-PLAN.md — Split zsh.d files into sync/defer pairs, add mise shims to .zprofile
+  - [ ] 21-02-PLAN.md — Reconfigure Sheldon plugins.toml with sync/defer groups and measure
 - [ ] Phase 22: Monitoring & Hardening
 
 ## Progress
