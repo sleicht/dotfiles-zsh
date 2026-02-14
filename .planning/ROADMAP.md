@@ -74,19 +74,19 @@ Plans:
 Plans:
 - [x] 14-01-PLAN.md -- Template zshrc with client-only san-proxy and clean up legacy profile
 
-#### Phase 15: Fix PATH and Version Manager Code
+#### Phase 15: Fix PATH and Version Manager Code ✓
 **Goal**: Remove stale version manager code from chezmoi source
 **Depends on**: Nothing (works on chezmoi source)
 **Requirements**: CHEZFIX-01, CHEZFIX-02, CHEZFIX-03, CHEZFIX-04, CHEZFIX-09, CHEZFIX-10
 **Success Criteria** (what must be TRUE):
-  1. chezmoi path.zsh contains no Volta or rbenv PATH entries (replaced by mise)
-  2. chezmoi variables.zsh contains no hardcoded npm PATH or empty version manager section
-  3. mise activation occurs once in external.zsh (not duplicated in hooks.zsh)
-  4. chezmoi hooks.zsh contains no commented-out asdf activation
+  1. ✓ chezmoi path.zsh contains no Volta or rbenv PATH entries (replaced by mise)
+  2. ✓ chezmoi variables.zsh contains no hardcoded npm PATH or empty version manager section
+  3. ✓ mise activation occurs once in external.zsh (not duplicated in hooks.zsh)
+  4. ✓ chezmoi hooks.zsh contains no commented-out asdf activation
 **Plans**: 1 plan
 
 Plans:
-- [ ] 15-01-PLAN.md -- Remove stale Volta, rbenv, asdf, and duplicate mise code from chezmoi source
+- [x] 15-01-PLAN.md -- Remove stale Volta, rbenv, asdf, and duplicate mise code from chezmoi source
 
 #### Phase 16: Fix Python 2 and Shell Utilities
 **Goal**: Modernize Python 3 usage and shell aliases in chezmoi source
@@ -144,9 +144,9 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 | 12. Dotbot Retirement | v1.1 | 2/2 | Complete | 2026-02-12 |
 | 13. Remove Legacy Config Files | v1.2 | 2/2 | Complete | 2026-02-13 |
 | 14. Migrate san-proxy to chezmoi | v1.2 | 1/1 | Complete | 2026-02-14 |
-| 15. Fix PATH and Version Manager Code | v1.2 | 0/TBD | Not started | - |
+| 15. Fix PATH and Version Manager Code | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 0/TBD | Not started | - |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-14 after Phase 14 complete (san-proxy migrated to chezmoi)*
+*Last updated: 2026-02-14 after Phase 15 complete (stale version manager code removed)*

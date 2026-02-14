@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 15 - Fix PATH and Version Manager Code
+**Current focus:** Phase 16 - Fix Python 2 and Shell Utilities
 
 ## Current Position
 
-Phase: 15 of 17 (Fix PATH and Version Manager Code)
-Plan: 1 of 1 complete
-Status: Phase complete
-Last activity: 2026-02-14 -- Phase 15 complete (stale version manager code removed from chezmoi source)
+Phase: 16 of 17 (Fix Python 2 and Shell Utilities)
+Plan: Ready to plan
+Status: Ready to plan
+Last activity: 2026-02-14 -- Phase 15 complete (stale version manager code removed, verified)
 
 Progress: [████████████████░░] 95% (42/TBD plans complete across all milestones)
 
@@ -85,5 +85,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 15-01-PLAN.md
-Resume file: None (Phase 15 complete, ready for next phase)
+Stopped at: Phase 15 complete, verified, roadmap updated
+Resume file: None (start Phase 16 planning with /gsd:plan-phase 16)
