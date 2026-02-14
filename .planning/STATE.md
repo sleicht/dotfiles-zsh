@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-13)
 ## Current Position
 
 Phase: 16 of 17 (Fix Python 2 and Shell Utilities)
-Plan: Ready to plan
-Status: Ready to plan
-Last activity: 2026-02-14 -- Phase 15 complete (stale version manager code removed, verified)
+Plan: 1 of 1 complete
+Status: Phase complete
+Last activity: 2026-02-14 -- Phase 16 Plan 01 complete (Python 2 and shell utilities modernised)
 
-Progress: [████████████████░░] 95% (42/TBD plans complete across all milestones)
+Progress: [████████████████░░] 95% (43/TBD plans complete across all milestones)
 
 ## Performance Metrics
 
@@ -47,10 +47,11 @@ Progress: [████████████████░░] 95% (42/TBD p
 | 13. Remove Legacy Config Files | 2 | ~0.125h | ~3.75min |
 | 14. Migrate san-proxy to chezmoi | 1 | ~0.03h | ~1.7min |
 | 15. Fix PATH and Version Manager Code | 1 | ~0.017h | ~1min |
+| 16. Fix Python 2 and Shell Utilities | 1 | ~0.022h | ~1.3min |
 
 **Recent Trend:**
 - Last milestone (v1.1): 13 plans across 6 phases, shipped 2026-02-12
-- Current milestone (v1.2): 4 plans complete
+- Current milestone (v1.2): 5 plans complete
 - Trend: Stable (consistent velocity)
 
 ## Accumulated Context
@@ -85,5 +86,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Phase 15 complete, verified, roadmap updated
-Resume file: None (start Phase 16 planning with /gsd:plan-phase 16)
+Stopped at: Completed 16-01-PLAN.md (Python 2 and shell utilities modernised)
+Resume file: None (start Phase 17 planning)
