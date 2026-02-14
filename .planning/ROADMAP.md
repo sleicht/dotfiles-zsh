@@ -144,9 +144,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 - [x] Phase 21: Sync/Defer Architecture Split — **Plans:** 2 plans — completed 2026-02-14
   - [x] 21-01-PLAN.md — Split zsh.d files into sync/defer pairs, add mise shims to .zprofile
   - [x] 21-02-PLAN.md — Reconfigure Sheldon plugins.toml with sync/defer groups and measure
-- [ ] Phase 22: Monitoring & Hardening — **Plans:** 2 plans
-  - [ ] 22-01-PLAN.md — Self-monitoring, conditional zprof, and evalcache invalidation hook
-  - [ ] 22-02-PLAN.md — Smoke test script and final three-stage performance measurement
+- [x] Phase 22: Monitoring & Hardening — **Plans:** 2 plans — completed 2026-02-14
+  - [x] 22-01-PLAN.md — Self-monitoring, conditional zprof, and evalcache invalidation hook
+  - [x] 22-02-PLAN.md — Smoke test script and final three-stage performance measurement
 
 ## Progress
 
@@ -173,7 +173,7 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 | 19. Baseline & Quick Wins | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 20. Eval Caching Layer | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 21. Sync/Defer Architecture Split | v2.0 | 2/2 | Complete | 2026-02-14 |
-| 22. Monitoring & Hardening | v2.0 | 0/? | Planned | — |
+| 22. Monitoring & Hardening | v2.0 | 2/2 | Complete | 2026-02-14 |
 
 ---
-*Last updated: 2026-02-14 — Phase 21 complete (128.7ms total / ~70ms perceived startup, sync/defer architecture split)*
+*Last updated: 2026-02-14 — Phase 22 complete (139.8ms total startup, monitoring & hardening in place, v2.0 milestone achieved)*
