@@ -1,0 +1,77 @@
+ZSH Startup Performance Baseline - Phase 19 Plan 01
+Captured: 2026-02-14
+
+=== Stage 1: hyperfine (external timing) ===
+Command: zsh -i -c exit
+Warmup: 3 runs
+Sample size: 10 runs
+
+Results:
+  Mean:    314.6 ms ±   2.1 ms
+  Min:     311.2 ms
+  Max:     317.9 ms
+  User:    234.3 ms
+  System:   90.5 ms
+
+=== Stage 2: EPOCHREALTIME (internal profiling) ===
+Top 20 bottlenecks (milliseconds):
+
+  1. 112.3ms - phantom completion eval (completions.zsh:50)
+  2.  36.0ms - autoload colors (completions.zsh:18)
+  3.  21.6ms - PATH export (.zprofile:12)
+  4.  21.6ms - Homebrew eval (.zprofile:8)
+  5.  20.9ms - ATUIN_HISTORY_ID export (atuin precmd)
+  6.  17.4ms - oh-my-posh autoload (hooks.zsh)
+  7.  16.5ms - mise hook eval (external.zsh:65)
+  8.  12.6ms - mise deactivate (external.zsh:65)
+  9.  10.9ms - sheldon eval (.zshrc:27)
+ 10.  10.2ms - oh-my-posh init (hooks.zsh:11)
+ 11.   9.6ms - unsetopt xtrace (profiling overhead)
+ 12.   8.6ms - PATH export in mise hook
+ 13.   7.9ms - atuin eval (atuin.zsh:7)
+ 14.   6.2ms - ATUIN_SESSION export
+ 15.   5.5ms - source variables.zsh
+ 16.   5.0ms - _comps initialization (compinit)
+ 17.   3.1ms - zoxide eval (external.zsh:56)
+ 18.   3.0ms - PATH_HELPER eval (.zprofile)
+ 19.   2.9ms - zle -N autosuggestions (zsh-defer)
+ 20.   2.7ms - arch check (.profile:22)
+
+Key findings:
+- Identified all expected bottlenecks from research
+- phantom completion is the largest single bottleneck (112ms)
+- mise (29ms total), oh-my-posh (28ms total) are significant
+- Multiple PATH manipulations add overhead
+
+=== Stage 3: zsh-bench (interactive latency) ===
+Environment:
+  creates_tty: 0
+  has_compsys: 1
+  has_syntax_highlighting: 0
+  has_autosuggestions: 0
+  has_git_prompt: 1
+
+Metrics:
+  first_prompt_lag_ms:    533.518 ms
+  first_command_lag_ms:   571.858 ms
+  command_lag_ms:         153.140 ms
+  input_lag_ms:             9.886 ms
+  exit_time_ms:           402.646 ms
+
+=== Summary ===
+Current startup performance: 314.6ms (hyperfine mean)
+Target: < 300ms
+Gap: ~15ms (5% above target)
+
+Note: This is significantly better than the 870ms mentioned in STATE.md,
+suggesting previous measurements may have been from a different context
+or the shell has already been optimized.
+
+Primary optimization targets identified:
+1. phantom completion (112ms) - largest single item
+2. mise hooks (29ms total)
+3. oh-my-posh (28ms total)
+4. PATH manipulations (multiple instances)
+
+Baseline validated against known suspects from research.
+Ready to proceed with quick wins in Plan 02.
