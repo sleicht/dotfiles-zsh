@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-13)
 ## Current Position
 
 Phase: 15 of 17 (Fix PATH and Version Manager Code)
-Plan: Ready to plan
-Status: Ready to plan
-Last activity: 2026-02-14 -- Phase 14 complete (san-proxy migrated to chezmoi, verified)
+Plan: 1 of 1 complete
+Status: Phase complete
+Last activity: 2026-02-14 -- Phase 15 complete (stale version manager code removed from chezmoi source)
 
-Progress: [████████████████░░] 94% (41/TBD plans complete across all milestones)
+Progress: [████████████████░░] 95% (42/TBD plans complete across all milestones)
 
 ## Performance Metrics
 
@@ -46,10 +46,11 @@ Progress: [████████████████░░] 94% (41/TBD p
 | 12. Dotbot Retirement | 2 | ~0.12h | ~3.6min |
 | 13. Remove Legacy Config Files | 2 | ~0.125h | ~3.75min |
 | 14. Migrate san-proxy to chezmoi | 1 | ~0.03h | ~1.7min |
+| 15. Fix PATH and Version Manager Code | 1 | ~0.017h | ~1min |
 
 **Recent Trend:**
 - Last milestone (v1.1): 13 plans across 6 phases, shipped 2026-02-12
-- Current milestone (v1.2): 3 plans complete
+- Current milestone (v1.2): 4 plans complete
 - Trend: Stable (consistent velocity)
 
 ## Accumulated Context
@@ -59,6 +60,8 @@ Progress: [████████████████░░] 94% (41/TBD p
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- [Phase 15]: Remove stale tool references immediately upon migration to prevent dead code accumulation
+- [Phase 15]: Consolidate version manager activation to external.zsh only
 - [Phase 14]: Template pattern for machine-type conditional config ({{- if eq .machine_type "client" }})
 - [Phase 13]: Removed 104 legacy files in 5 atomic commits (blocking scripts + 4 file categories)
 - [Phase 13]: Pull forward script removal from Phase 17 to unblock legacy file deletions
@@ -75,12 +78,12 @@ None.
 
 **Known Limitations (from PROJECT.md):**
 - Shell startup time: 0.87s (target < 300ms deferred to v2.0)
-- Dual mise activation: Targeted for removal in Phase 15
-- Stale PATH entries: Targeted for removal in Phase 15
+- Dual mise activation: RESOLVED in Phase 15 (now single activation in external.zsh)
+- Stale PATH entries: RESOLVED in Phase 15 (Volta, rbenv, asdf references removed)
 - Legacy .config/profile: san-proxy removed in Phase 14 (file still exists with remaining content)
 
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Phase 14 complete, verified, roadmap updated
-Resume file: None (start Phase 15 planning with /gsd:plan-phase 15)
+Stopped at: Completed 15-01-PLAN.md
+Resume file: None (Phase 15 complete, ready for next phase)
