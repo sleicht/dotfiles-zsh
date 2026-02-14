@@ -141,9 +141,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 - [x] Phase 20: Eval Caching Layer — **Plans:** 2 plans — completed 2026-02-14
   - [x] 20-01-PLAN.md — Add evalcache plugin, simplify compinit, cache sheldon source, background zcompile
   - [x] 20-02-PLAN.md — Convert eval init calls to evalcache and measure improvement
-- [ ] Phase 21: Sync/Defer Architecture Split — **Plans:** 2 plans
-  - [ ] 21-01-PLAN.md — Split zsh.d files into sync/defer pairs, add mise shims to .zprofile
-  - [ ] 21-02-PLAN.md — Reconfigure Sheldon plugins.toml with sync/defer groups and measure
+- [x] Phase 21: Sync/Defer Architecture Split — **Plans:** 2 plans — completed 2026-02-14
+  - [x] 21-01-PLAN.md — Split zsh.d files into sync/defer pairs, add mise shims to .zprofile
+  - [x] 21-02-PLAN.md — Reconfigure Sheldon plugins.toml with sync/defer groups and measure
 - [ ] Phase 22: Monitoring & Hardening
 
 ## Progress
@@ -170,8 +170,8 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 | 18. Clean Tech Debt from Audit | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 19. Baseline & Quick Wins | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 20. Eval Caching Layer | v2.0 | 2/2 | Complete | 2026-02-14 |
-| 21. Sync/Defer Architecture Split | v2.0 | 0/? | Planned | — |
+| 21. Sync/Defer Architecture Split | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 22. Monitoring & Hardening | v2.0 | 0/? | Planned | — |
 
 ---
-*Last updated: 2026-02-14 — Phase 20 complete (131.2ms startup, 53.8% improvement from eval caching)*
+*Last updated: 2026-02-14 — Phase 21 complete (128.7ms total / ~70ms perceived startup, sync/defer architecture split)*
