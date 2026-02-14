@@ -31,3 +31,12 @@ zsh.d/
 
 # Legacy Brewfiles (prevent accidental brew bundle dump commits)
 Brewfile*
+
+# Firebase debug logs
+firebase-debug.log
+
+# Log files directory
+logs/
+
+# Empty bin directory
+bin/
