@@ -5,7 +5,7 @@
 - ✅ **v1.0.0 Dotfiles Stack Migration** -- Phases 1-6 (shipped 2026-02-08)
 - ✅ **v1.1 Complete Migration** -- Phases 7-12 (shipped 2026-02-12)
 - ✅ **v1.2 Legacy Cleanup** -- Phases 13-18 (shipped 2026-02-14)
-- 📋 **v2.0 Performance** -- Phases 19-22 (active)
+- ✅ **v2.0 Performance** -- Phases 19-22 (shipped 2026-02-14)
 
 ## Phases
 
@@ -57,96 +57,19 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 
 </details>
 
-### v2.0 Performance (Active)
+<details>
+<summary>✅ v2.0 Performance (Phases 19-22) -- SHIPPED 2026-02-14</summary>
 
-**Milestone Goal:** Achieve < 300ms shell startup time through profiling, lazy loading, and eval caching.
+Achieved 139.8ms shell startup (55.6% faster than 314.6ms baseline, 53.4% better than 300ms target) through eval caching, sync/defer architecture, and startup monitoring. See `.planning/milestones/v2.0-ROADMAP.md` for full details.
 
-**Target:** 870ms -> < 300ms wall-clock, < 50ms first-prompt lag (zsh-bench)
+**Stats:** 4 phases, 8 plans, 27 commits, 22/23 requirements satisfied (1 acceptable)
 
-#### Phase 19: Baseline & Quick Wins
+- [x] Phase 19: Baseline & Quick Wins (2/2 plans) -- completed 2026-02-14
+- [x] Phase 20: Eval Caching Layer (2/2 plans) -- completed 2026-02-14
+- [x] Phase 21: Sync/Defer Architecture Split (2/2 plans) -- completed 2026-02-14
+- [x] Phase 22: Monitoring & Hardening (2/2 plans) -- completed 2026-02-14
 
-**Goal:** Establish measurement baseline, apply zero-risk optimisations.
-
-**Requirements:** PROF-01, QUICK-01, QUICK-02, QUICK-03, QUICK-04
-
-**Scope:**
-- Install zsh-bench, establish three-stage baseline (hyperfine, EPOCHREALTIME, zsh-bench)
-- Remove duplicate zsh-autosuggestions + zsh-syntax-highlighting loads from hooks.zsh
-- Replace Ruby SSH config parsing with pure-zsh
-- Replace `command -v` with `(( $+commands[tool] ))`
-- Add `typeset -U PATH path FPATH fpath`
-- Re-measure after changes
-
-**Expected savings:** ~100-150ms (from removing duplicate loads + Ruby parsing)
-**Risk:** LOW — no architecture changes, all reversible
-
-#### Phase 20: Eval Caching Layer
-
-**Goal:** Cache all expensive `eval "$(tool init)"` calls and sheldon output.
-
-**Requirements:** CACHE-01, CACHE-02, CACHE-03, CACHE-04, CACHE-05, CACHE-06
-
-**Scope:**
-- Add evalcache (mroth/evalcache) as Sheldon plugin
-- Cache oh-my-posh init (sync, prompt-critical)
-- Cache zoxide, atuin, carapace, intelli-shell init
-- Cache sheldon source output to file with mtime-based invalidation
-- zcompile .zcompdump in background (.zlogin)
-- Simplify compinit to always use `-C`
-- Measure improvement
-
-**Expected savings:** ~250-400ms (brings total from ~720ms to ~320-470ms)
-**Risk:** LOW — behaviour identical, only source changes from subprocess to file
-**Dependency:** None (Phase 19 provides baseline but is not blocking)
-
-#### Phase 21: Sync/Defer Architecture Split
-
-**Goal:** Move non-critical startup work after first prompt via Sheldon plugin group split.
-
-**Requirements:** LAZY-01, LAZY-02, LAZY-03, LAZY-04, LAZY-05, LAZY-06
-
-**Scope:**
-- Split hooks.zsh into prompt.zsh (sync) and remove redundant sources
-- Split external.zsh into external-sync.zsh (FZF exports) + external-defer.zsh (zoxide, mise)
-- Split completions.zsh into sync (zstyles) + defer (SSH hosts, autoloads)
-- Update plugins.toml with dotfiles-sync and dotfiles-defer groups
-- Add `mise activate --shims` to .zprofile as immediate PATH fallback
-- Defer: ssh-add, intelli-shell, completion definitions (lens, wt, xlaude)
-- Measure improvement
-
-**Expected savings:** ~100-200ms perceived (deferred work invisible to user)
-**Risk:** MEDIUM — file refactoring, ordering constraints
-**Dependency:** Phase 20 (evalcache must be in place for cached evals in deferred files)
-
-#### Phase 22: Monitoring & Hardening
-
-**Goal:** Prevent regressions and ensure long-term maintainability.
-
-**Requirements:** PROF-02, PROF-03, PERF-01, PERF-02, PERF-03, PERF-04
-
-**Scope:**
-- Add startup time self-monitoring (warn if > 300ms)
-- Create smoke test script (prompt styled, tools on PATH, no double-loads, completions work)
-- Add chezmoi run_onchange_ hook to clear eval caches on tool version change
-- Final three-stage measurement confirming < 300ms target
-- Document benchmarking methodology
-
-**Expected savings:** 0ms (preventive)
-**Risk:** LOW — monitoring only
-**Dependency:** Phase 21 (all optimisations in place)
-
-- [x] Phase 19: Baseline & Quick Wins — **Plans:** 2 plans — completed 2026-02-14
-  - [x] 19-01-PLAN.md — Establish three-stage performance baseline
-  - [x] 19-02-PLAN.md — Apply quick wins (QUICK-01 to QUICK-04) and re-measure
-- [x] Phase 20: Eval Caching Layer — **Plans:** 2 plans — completed 2026-02-14
-  - [x] 20-01-PLAN.md — Add evalcache plugin, simplify compinit, cache sheldon source, background zcompile
-  - [x] 20-02-PLAN.md — Convert eval init calls to evalcache and measure improvement
-- [x] Phase 21: Sync/Defer Architecture Split — **Plans:** 2 plans — completed 2026-02-14
-  - [x] 21-01-PLAN.md — Split zsh.d files into sync/defer pairs, add mise shims to .zprofile
-  - [x] 21-02-PLAN.md — Reconfigure Sheldon plugins.toml with sync/defer groups and measure
-- [x] Phase 22: Monitoring & Hardening — **Plans:** 2 plans — completed 2026-02-14
-  - [x] 22-01-PLAN.md — Self-monitoring, conditional zprof, and evalcache invalidation hook
-  - [x] 22-02-PLAN.md — Smoke test script and final three-stage performance measurement
+</details>
 
 ## Progress
 
@@ -176,4 +99,4 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 | 22. Monitoring & Hardening | v2.0 | 2/2 | Complete | 2026-02-14 |
 
 ---
-*Last updated: 2026-02-14 — Phase 22 complete (139.8ms total startup, monitoring & hardening in place, v2.0 milestone achieved)*
+*Last updated: 2026-02-14 — v2.0 Performance shipped (139.8ms startup, 4 milestones complete)*

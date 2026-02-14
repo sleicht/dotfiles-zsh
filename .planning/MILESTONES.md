@@ -81,3 +81,37 @@
 
 ---
 
+
+## v2.0 Performance (Shipped: 2026-02-14)
+
+**Delivered:** Achieved 139.8ms shell startup (55.6% faster than 314.6ms baseline, 53.4% better than 300ms target) through eval caching, sync/defer architecture, and startup monitoring.
+
+**Phases completed:** 19-22 (8 plans total)
+
+**Key accomplishments:**
+- Established three-stage performance baseline (hyperfine, EPOCHREALTIME, zsh-bench) at 314.6ms
+- Applied four zero-risk quick wins reducing startup to 283.7ms (duplicate load removal, pure-zsh SSH parsing, command check optimisation, PATH deduplication)
+- Implemented evalcache layer caching oh-my-posh, zoxide, atuin, carapace — achieving sub-150ms startup
+- Split shell init into sync/defer architecture with two-tier Sheldon plugin groups (~70ms to first prompt)
+- Added startup self-monitoring (300ms threshold warning) and automatic evalcache invalidation via chezmoi hook
+- Created 13-check smoke test script validating all critical shell functionality
+
+**Stats:**
+- 4 phases, 8 plans
+- 1 day (2026-02-14)
+- 27 commits
+- 22/23 requirements satisfied (1 acceptable: PERF-02 at ~70ms vs 50ms target)
+
+**Performance progression:**
+- 314.6ms → 283.7ms (quick wins) → 131.2ms (eval caching) → 128.7ms (sync/defer) → 139.8ms (with monitoring)
+
+**Git range:** feature/nix branch
+
+**Tech debt accepted:**
+- First-prompt lag ~70ms vs 50ms target (Should priority, excellent UX)
+- Phase 20 SUMMARY references commit hashes from chezmoi source tree (documentation mismatch)
+
+**What's next:** Future milestone TBD
+
+---
+

@@ -53,14 +53,14 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 - Rescinded: Volta PATH removal (kept unconditionally -- add_to_path guards missing dirs)
 - Rescinded: rbenv PATH removal (kept unconditionally -- add_to_path guards missing dirs)
 
+#### v2.0 -- shipped 2026-02-14
+
+- ✓ Profile shell startup with zprof and establish baseline (PERF-01) -- v2.0 (314.6ms baseline established)
+- ✓ Implement lazy loading for non-critical tool initialisation (PERF-02) -- v2.0 (sync/defer architecture, ~70ms to prompt)
+- ✓ Add eval caching for expensive startup commands (PERF-03) -- v2.0 (evalcache for oh-my-posh, zoxide, atuin, carapace)
+- ✓ Achieve < 300ms total shell startup time (PERF-04) -- v2.0 (139.8ms achieved, 53.4% better than target)
+
 ### Active
-
-#### Current Milestone: v2.0 Performance
-
-- [ ] Profile shell startup with zprof and establish baseline (PERF-01)
-- [ ] Implement lazy loading for non-critical tool initialisation (PERF-02)
-- [ ] Add eval caching for expensive startup commands (PERF-03)
-- [ ] Achieve < 300ms total shell startup time (PERF-04)
 
 #### Deferred to future milestone
 
@@ -77,9 +77,9 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 ## Context
 
-**Current milestone:** v2.0 Performance — target < 300ms shell startup (currently 0.87s)
+**Current milestone:** None active — all planned work complete
 
-**Current state (post v1.2):**
+**Current state (post v2.0):**
 - chezmoi manages 135 files with cross-platform templates and OS-conditional configs
 - 171+ Homebrew packages consolidated in .chezmoidata.yaml with automated installation
 - mise manages 7 runtime versions (node, python, go, rust, java, ruby, terraform)
@@ -91,6 +91,11 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 - Dotbot fully retired -- no submodules, no install script, no steps/ directory
 - All legacy artifacts removed -- repository reflects chezmoi-only reality
 - Repository is clean: no orphaned files, no stale code, no dead references
+- Shell startup optimised: 139.8ms total (evalcache, sync/defer architecture, startup monitoring)
+- Two-tier Sheldon loading: dotfiles-sync (immediate) + dotfiles-defer (zsh-defer) plugin groups
+- Startup self-monitoring with 300ms threshold warning
+- Automatic evalcache invalidation via chezmoi run_onchange_ hook on tool version changes
+- 13-check smoke test script for ongoing validation
 
 **Architecture:**
 - chezmoi source: ~/.local/share/chezmoi (templates, data, run scripts)
@@ -129,13 +134,17 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 | Keep Volta/rbenv PATH unconditionally | add_to_path guards missing dirs; Volta may be used on client | ✓ Good -- safe, no side effects on machines without these tools |
 | Consolidate mise activation to external.zsh | Eliminated dual activation (hooks.zsh + external.zsh) | ✓ Good -- single activation point, cleaner shell init |
 | Machine-type conditional template pattern | `{{- if eq .machine_type "client" }}` for client-only config | ✓ Good -- san-proxy only sourced on client machines |
+| evalcache for tool init calls | Cache static eval outputs, skip dynamic (mise) | ✓ Good -- 152.5ms saved, sub-150ms startup |
+| Sync/defer Sheldon architecture | Two plugin groups: immediate sync + zsh-defer | ✓ Good -- ~70ms to prompt, deferred work invisible |
+| EPOCHREALTIME startup monitoring | Microsecond-precision timing with 300ms threshold | ✓ Good -- negligible overhead, catches regressions |
+| chezmoi run_onchange_ for cache invalidation | Track tool versions, auto-clear evalcache | ✓ Good -- zero-maintenance cache lifecycle |
 
 ## Known Limitations
 
-1. **Shell startup time**: 0.87s (pre-existing, not caused by migration). Target < 300ms deferred to v2.0.
+1. **Shell startup time**: 139.8ms total, ~70ms to first prompt (optimised in v2.0 from 870ms baseline).
 2. **Phantom/firebase-cli broken**: Shebangs point to removed Homebrew node. Work via mise node when called directly.
 3. **chezmoi diff performance**: ~13s with .claude/ tracked (491MB directory). Selective sync correct; upstream chezmoi limitation.
 4. **Neovim exception**: nvim config stays as symlink outside chezmoi management (intentional, documented in README).
 
 ---
-*Last updated: 2026-02-14 after v1.2 Legacy Cleanup milestone shipped*
+*Last updated: 2026-02-14 after v2.0 Performance milestone shipped*
