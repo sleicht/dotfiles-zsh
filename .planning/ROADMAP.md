@@ -6,6 +6,7 @@
 - ✅ **v1.1 Complete Migration** -- Phases 7-12 (shipped 2026-02-12)
 - ✅ **v1.2 Legacy Cleanup** -- Phases 13-18 (shipped 2026-02-14)
 - ✅ **v2.0 Performance** -- Phases 19-22 (shipped 2026-02-14)
+- 🚧 **v2.1 Mise Task Runner** -- Phases 23-25 (in progress)
 
 ## Phases
 
@@ -71,6 +72,56 @@ Achieved 139.8ms shell startup (55.6% faster than 314.6ms baseline, 53.4% better
 
 </details>
 
+### 🚧 v2.1 Mise Task Runner (In Progress)
+
+**Milestone Goal:** Implement mise task runner for dotfiles operations and development workflows, providing user-friendly commands for chezmoi operations, verification workflows, and conventional git commits.
+
+#### Phase 23: Task Infrastructure
+**Goal**: Establish mise task directory structure and deployment pipeline
+**Depends on**: Phase 22
+**Requirements**: INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05
+**Success Criteria** (what must be TRUE):
+  1. Task files deploy from chezmoi source to ~/.mise/tasks/ with executable permissions
+  2. mise tasks command shows all available tasks with descriptions
+  3. Tasks namespaced by subdirectory structure (dotfiles:apply, git:commit)
+  4. Task aliases work for common commands (mise run a for dotfiles:apply)
+  5. Expensive tasks skip when sources unchanged via rebuild detection
+**Plans**: TBD
+
+Plans:
+- [ ] 23-01: TBD
+
+#### Phase 24: Dotfiles Operations
+**Goal**: Wrap dotfiles workflows as mise tasks for user-friendly commands
+**Depends on**: Phase 23
+**Requirements**: DOT-01, DOT-02, DOT-03, DOT-04, DOT-05, DOT-06
+**Success Criteria** (what must be TRUE):
+  1. User can run dotfiles:apply to deploy configs with verbose output
+  2. User can run dotfiles:verify to check all 112 verification rules
+  3. User can run dotfiles:smoke-test to validate shell functionality
+  4. User can run dotfiles:diff to preview changes before applying
+  5. User can run dotfiles:update to pull and apply in one command
+  6. User can run dotfiles:sync to backup, pull, apply, and verify in single workflow
+**Plans**: TBD
+
+Plans:
+- [ ] 24-01: TBD
+
+#### Phase 25: Git Workflow Tasks
+**Goal**: Provide git helpers enforcing conventional commits and branch naming
+**Depends on**: Phase 24
+**Requirements**: GIT-01, GIT-02, GIT-03, GIT-04
+**Success Criteria** (what must be TRUE):
+  1. User can run git:commit to create conventional commit with Jira ticket prefix
+  2. User can run git:branch to create feature branch following naming convention
+  3. User can run git:cleanup to prune merged local branches
+  4. User can run git:pr to create pull request with template via gh CLI
+  5. Shell startup time remains under 300ms with mise activation enabled
+**Plans**: TBD
+
+Plans:
+- [ ] 25-01: TBD
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -97,6 +148,9 @@ Achieved 139.8ms shell startup (55.6% faster than 314.6ms baseline, 53.4% better
 | 20. Eval Caching Layer | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 21. Sync/Defer Architecture Split | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 22. Monitoring & Hardening | v2.0 | 2/2 | Complete | 2026-02-14 |
+| 23. Task Infrastructure | v2.1 | 0/TBD | Not started | - |
+| 24. Dotfiles Operations | v2.1 | 0/TBD | Not started | - |
+| 25. Git Workflow Tasks | v2.1 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-14 — v2.0 Performance shipped (139.8ms startup, 4 milestones complete)*
+*Last updated: 2026-02-14 — v2.1 Mise Task Runner roadmap created (3 phases, 15 requirements)*
