@@ -4,7 +4,7 @@
 
 - ✅ **v1.0.0 Dotfiles Stack Migration** -- Phases 1-6 (shipped 2026-02-08)
 - ✅ **v1.1 Complete Migration** -- Phases 7-12 (shipped 2026-02-12)
-- ✅ **v1.2 Legacy Cleanup** -- Phases 13-17 (shipped 2026-02-14)
+- 🔧 **v1.2 Legacy Cleanup** -- Phases 13-18 (in progress)
 - 📋 **v2.0 Performance** -- Phases TBD (planned)
 
 ## Phases
@@ -117,6 +117,21 @@ Plans:
 Plans:
 - [x] 17-01-PLAN.md -- Remove stale directories/files, update .gitignore, fix audit script references
 
+#### Phase 18: Clean Tech Debt from Audit
+**Goal**: Delete orphaned files and obsolete scripts identified by milestone audit
+**Depends on**: Phase 17 (audit identified these items)
+**Requirements**: None (tech debt cleanup)
+**Success Criteria** (what must be TRUE):
+  1. Repository contains no `.config/profile` or empty `.config/` directory
+  2. Repository contains no `audit-report-*.md` files in `scripts/`
+  3. Repository contains no obsolete verify-checks (`11-claude-code.sh`, `12-dotbot-retirement.sh`)
+  4. `scripts/test-linux.sh` reviewed and removed if unused
+  5. `.gitignore` prevents future `audit-report-*.md` accumulation
+**Plans**: TBD
+
+Plans:
+- [ ] 18-01-PLAN.md -- Delete orphaned files, obsolete scripts, update .gitignore
+
 ### v2.0 Performance (Planned)
 
 **Milestone Goal:** Optimize shell startup time to < 300ms and add mise task runner.
@@ -126,7 +141,7 @@ Phases TBD.
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
+Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -147,6 +162,7 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17
 | 15. Fix PATH and Version Manager Code | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 1/1 | Complete | 2026-02-14 |
+| 18. Clean Tech Debt from Audit | v1.2 | 0/1 | Pending | - |
 
 ---
-*Last updated: 2026-02-14 after Phase 17 executed and verified (5/5 must-haves passed) — v1.2 Legacy Cleanup milestone complete*
+*Last updated: 2026-02-14 after adding Phase 18 gap closure phase*
