@@ -112,10 +112,10 @@ Plans:
   3. audit-gitleaks.toml contains no references to dotbot/zgenom directories
   4. audit-secrets.sh contains no references to dotbot directory
   5. ~~verify-backup.sh critical files list reflects chezmoi layout~~ (DONE: script removed in Phase 13)
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 17-01: TBD
+- [ ] 17-01-PLAN.md -- Remove stale directories/files, update .gitignore, fix audit script references
 
 ### v2.0 Performance (Planned)
 
