@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-14)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 24 - Dotfiles Operations
+**Current focus:** Phase 25 - Git Workflow Tasks
 
 ## Current Position
 
-Phase: 24 of 25 (Dotfiles Operations)
-Plan: 1 of TBD in current phase
-Status: In progress
-Last activity: 2026-02-14 — Completed 24-01-PLAN.md (Dotfiles Operations)
+Phase: 25 of 25 (Git Workflow Tasks)
+Plan: 0 of TBD in current phase
+Status: Ready to plan
+Last activity: 2026-02-14 — Phase 24 complete (Dotfiles Operations)
 
-Progress: [████████████████████░░░░] 92% (23 of 25 phases complete)
+Progress: [████████████████████████░] 96% (24 of 25 phases complete)
 
 ## Performance Metrics
 
@@ -66,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 24-01-PLAN.md — dotfiles operations tasks implemented
+Stopped at: Phase 24 complete — ready to plan Phase 25
 Resume file: None

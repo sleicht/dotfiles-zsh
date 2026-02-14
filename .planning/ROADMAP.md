@@ -105,7 +105,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 24-01-PLAN.md -- Implement all six dotfiles operation tasks (apply, verify, smoke-test, diff, update, sync)
+- [x] 24-01-PLAN.md -- Implement all six dotfiles operation tasks (apply, verify, smoke-test, diff, update, sync) -- completed 2026-02-14
 
 #### Phase 25: Git Workflow Tasks
 **Goal**: Provide git helpers enforcing conventional commits and branch naming
@@ -149,8 +149,8 @@ Plans:
 | 21. Sync/Defer Architecture Split | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 22. Monitoring & Hardening | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 23. Task Infrastructure | v2.1 | 1/1 | Complete | 2026-02-14 |
-| 24. Dotfiles Operations | v2.1 | 0/TBD | Not started | - |
+| 24. Dotfiles Operations | v2.1 | 1/1 | Complete | 2026-02-14 |
 | 25. Git Workflow Tasks | v2.1 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-02-14 -- Phase 23 complete (1/1 plans)*
+*Last updated: 2026-02-14 -- Phase 24 complete (1/1 plans)*
