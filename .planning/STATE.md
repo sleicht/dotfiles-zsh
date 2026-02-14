@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 21 of 22 (21-sync-defer-architecture-split)
-Plan: 01 of 02 (sync/defer file structure complete)
-Status: In progress - separated prompt-critical from deferrable initialisation
-Last activity: 2026-02-14 -- split hooks, external, completions into sync/defer pairs; added mise shims to .zprofile
+Plan: 02 of 02 (COMPLETE)
+Status: Complete - sync/defer architecture fully implemented and verified
+Last activity: 2026-02-14 -- reconfigured Sheldon with dotfiles-sync and dotfiles-defer plugin groups; achieved 128.7ms total startup
 
-Progress: [█████████████████████] 50% (1 of 2 phase 21 plans complete)
+Progress: [██████████████████████] 100% (2 of 2 phase 21 plans complete)
 
 ## Performance Metrics
 
@@ -35,9 +35,9 @@ Progress: [█████████████████████] 50% 
 - Net lines removed: -16,609
 
 **Velocity (v2.0):**
-- Total plans completed: 5
-- Total commits: 9
-- Latest plan: 21-01 (3.5 min, 2 tasks, 11 files)
+- Total plans completed: 6
+- Total commits: 10
+- Latest plan: 21-02 (7.8 min, 2 tasks, 1 file)
 
 ## Accumulated Context
 
@@ -49,6 +49,7 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - [Phase 20-01]: Use -C flag universally for compinit (skip security checks in single-user dotfiles), cache sheldon source with lock file mtime invalidation, background zcompdump compilation in .zlogin to never block startup
 - [Phase 20-02]: Use _evalcache for all static eval init calls (oh-my-posh, zoxide, atuin, carapace, intelli-shell); leave mise uncached due to directory-dependent output generation
 - [Phase 21-01]: Split zsh.d files into sync (prompt-critical: oh-my-posh, FZF/atuin keybindings) and defer (deferrable: zoxide, mise, SSH hosts) variants to enable Sheldon plugin group separation; added mise shims to .zprofile for immediate PATH access
+- [Phase 21-02]: Reconfigured Sheldon with dotfiles-sync (immediate source) and dotfiles-defer (zsh-defer source) plugin groups, achieving two-tier loading architecture with 128.7ms total startup (1.9% improvement) and ~47% perceived improvement (70ms to prompt vs 131ms total)
 
 ### Key Findings (v2.0 Startup Analysis)
 
@@ -74,11 +75,12 @@ None.
 ### Blockers/Concerns
 
 **Known Limitations (from PROJECT.md):**
-- Shell startup time: 131.2ms (post-evalcache, 2026-02-14, 58.3% improvement from 314.6ms baseline)
+- Shell startup time: 128.7ms total (post-defer-architecture, 2026-02-14, 59.1% improvement from 314.6ms baseline)
+- Perceived startup time: ~70ms to prompt (zprof estimate, 77.7% improvement from 314.6ms baseline)
 - chezmoi diff performance: ~13s (upstream limitation with .claude/ directory)
 
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 21-01-PLAN.md (sync/defer architecture split)
+Stopped at: Completed 21-02-PLAN.md (Sheldon sync/defer configuration)
 Resume file: None
