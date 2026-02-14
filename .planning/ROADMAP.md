@@ -135,7 +135,9 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 **Risk:** LOW — monitoring only
 **Dependency:** Phase 21 (all optimisations in place)
 
-- [ ] Phase 19: Baseline & Quick Wins
+- [ ] Phase 19: Baseline & Quick Wins — **Plans:** 2 plans
+  - [ ] 19-01-PLAN.md — Establish three-stage performance baseline
+  - [ ] 19-02-PLAN.md — Apply quick wins (QUICK-01 to QUICK-04) and re-measure
 - [ ] Phase 20: Eval Caching Layer
 - [ ] Phase 21: Sync/Defer Architecture Split
 - [ ] Phase 22: Monitoring & Hardening
