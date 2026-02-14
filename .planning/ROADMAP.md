@@ -127,7 +127,7 @@ Plans:
   3. Repository contains no obsolete verify-checks (`11-claude-code.sh`, `12-dotbot-retirement.sh`)
   4. `scripts/test-linux.sh` reviewed and removed if unused
   5. `.gitignore` prevents future `audit-report-*.md` accumulation
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
 - [ ] 18-01-PLAN.md -- Delete orphaned files, obsolete scripts, update .gitignore
