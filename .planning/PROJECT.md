@@ -55,13 +55,16 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 ### Active
 
-#### Deferred to future milestone
+#### Current Milestone: v2.0 Performance
 
-- [ ] Set up mise task runner for common development tasks (MISE-03)
 - [ ] Profile shell startup with zprof and establish baseline (PERF-01)
 - [ ] Implement lazy loading for non-critical tool initialisation (PERF-02)
 - [ ] Add eval caching for expensive startup commands (PERF-03)
 - [ ] Achieve < 300ms total shell startup time (PERF-04)
+
+#### Deferred to future milestone
+
+- [ ] Set up mise task runner for common development tasks (MISE-03)
 
 ### Out of Scope
 
@@ -73,6 +76,8 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 - Fixing phantom/firebase-cli shebangs -- requires Homebrew node reinstall or mise shim; deferred
 
 ## Context
+
+**Current milestone:** v2.0 Performance — target < 300ms shell startup (currently 0.87s)
 
 **Current state (post v1.2):**
 - chezmoi manages 135 files with cross-platform templates and OS-conditional configs

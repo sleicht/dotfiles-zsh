@@ -5,7 +5,7 @@
 - ✅ **v1.0.0 Dotfiles Stack Migration** -- Phases 1-6 (shipped 2026-02-08)
 - ✅ **v1.1 Complete Migration** -- Phases 7-12 (shipped 2026-02-12)
 - ✅ **v1.2 Legacy Cleanup** -- Phases 13-18 (shipped 2026-02-14)
-- 📋 **v2.0 Performance** -- Phases TBD (planned)
+- 📋 **v2.0 Performance** -- Phases 19-22 (active)
 
 ## Phases
 
@@ -57,11 +57,88 @@ Removed all pre-chezmoi artifacts from the repository and fixed stale code in th
 
 </details>
 
-### v2.0 Performance (Planned)
+### v2.0 Performance (Active)
 
-**Milestone Goal:** Optimise shell startup time to < 300ms and add mise task runner.
+**Milestone Goal:** Achieve < 300ms shell startup time through profiling, lazy loading, and eval caching.
 
-Phases TBD.
+**Target:** 870ms -> < 300ms wall-clock, < 50ms first-prompt lag (zsh-bench)
+
+#### Phase 19: Baseline & Quick Wins
+
+**Goal:** Establish measurement baseline, apply zero-risk optimisations.
+
+**Requirements:** PROF-01, QUICK-01, QUICK-02, QUICK-03, QUICK-04
+
+**Scope:**
+- Install zsh-bench, establish three-stage baseline (hyperfine, EPOCHREALTIME, zsh-bench)
+- Remove duplicate zsh-autosuggestions + zsh-syntax-highlighting loads from hooks.zsh
+- Replace Ruby SSH config parsing with pure-zsh
+- Replace `command -v` with `(( $+commands[tool] ))`
+- Add `typeset -U PATH path FPATH fpath`
+- Re-measure after changes
+
+**Expected savings:** ~100-150ms (from removing duplicate loads + Ruby parsing)
+**Risk:** LOW — no architecture changes, all reversible
+
+#### Phase 20: Eval Caching Layer
+
+**Goal:** Cache all expensive `eval "$(tool init)"` calls and sheldon output.
+
+**Requirements:** CACHE-01, CACHE-02, CACHE-03, CACHE-04, CACHE-05, CACHE-06
+
+**Scope:**
+- Add evalcache (mroth/evalcache) as Sheldon plugin
+- Cache oh-my-posh init (sync, prompt-critical)
+- Cache zoxide, atuin, carapace, intelli-shell init
+- Cache sheldon source output to file with mtime-based invalidation
+- zcompile .zcompdump in background (.zlogin)
+- Simplify compinit to always use `-C`
+- Measure improvement
+
+**Expected savings:** ~250-400ms (brings total from ~720ms to ~320-470ms)
+**Risk:** LOW — behaviour identical, only source changes from subprocess to file
+**Dependency:** None (Phase 19 provides baseline but is not blocking)
+
+#### Phase 21: Sync/Defer Architecture Split
+
+**Goal:** Move non-critical startup work after first prompt via Sheldon plugin group split.
+
+**Requirements:** LAZY-01, LAZY-02, LAZY-03, LAZY-04, LAZY-05, LAZY-06
+
+**Scope:**
+- Split hooks.zsh into prompt.zsh (sync) and remove redundant sources
+- Split external.zsh into external-sync.zsh (FZF exports) + external-defer.zsh (zoxide, mise)
+- Split completions.zsh into sync (zstyles) + defer (SSH hosts, autoloads)
+- Update plugins.toml with dotfiles-sync and dotfiles-defer groups
+- Add `mise activate --shims` to .zprofile as immediate PATH fallback
+- Defer: ssh-add, intelli-shell, completion definitions (lens, wt, xlaude)
+- Measure improvement
+
+**Expected savings:** ~100-200ms perceived (deferred work invisible to user)
+**Risk:** MEDIUM — file refactoring, ordering constraints
+**Dependency:** Phase 20 (evalcache must be in place for cached evals in deferred files)
+
+#### Phase 22: Monitoring & Hardening
+
+**Goal:** Prevent regressions and ensure long-term maintainability.
+
+**Requirements:** PROF-02, PROF-03, PERF-01, PERF-02, PERF-03, PERF-04
+
+**Scope:**
+- Add startup time self-monitoring (warn if > 300ms)
+- Create smoke test script (prompt styled, tools on PATH, no double-loads, completions work)
+- Add chezmoi run_onchange_ hook to clear eval caches on tool version change
+- Final three-stage measurement confirming < 300ms target
+- Document benchmarking methodology
+
+**Expected savings:** 0ms (preventive)
+**Risk:** LOW — monitoring only
+**Dependency:** Phase 21 (all optimisations in place)
+
+- [ ] Phase 19: Baseline & Quick Wins
+- [ ] Phase 20: Eval Caching Layer
+- [ ] Phase 21: Sync/Defer Architecture Split
+- [ ] Phase 22: Monitoring & Hardening
 
 ## Progress
 
@@ -85,6 +162,10 @@ Phases TBD.
 | 16. Fix Python 2 and Shell Utilities | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 17. Clean Audit Scripts and Artifacts | v1.2 | 1/1 | Complete | 2026-02-14 |
 | 18. Clean Tech Debt from Audit | v1.2 | 1/1 | Complete | 2026-02-14 |
+| 19. Baseline & Quick Wins | v2.0 | 0/? | Planned | — |
+| 20. Eval Caching Layer | v2.0 | 0/? | Planned | — |
+| 21. Sync/Defer Architecture Split | v2.0 | 0/? | Planned | — |
+| 22. Monitoring & Hardening | v2.0 | 0/? | Planned | — |
 
 ---
-*Last updated: 2026-02-14 after v1.2 Legacy Cleanup milestone shipped*
+*Last updated: 2026-02-14 — v2.0 Performance roadmap defined*
