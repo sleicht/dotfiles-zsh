@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Source: gh CLI + glab CLI documentation
 #MISE description="Create pull/merge request via gh/glab CLI"
+#MISE dir="{{cwd}}"
 
 set -euo pipefail
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Source: Git branch cleanup best practices
 #MISE description="Prune merged local branches"
+#MISE dir="{{cwd}}"
 
 set -euo pipefail
 
