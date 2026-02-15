@@ -6,7 +6,7 @@
 - ✅ **v1.1 Complete Migration** -- Phases 7-12 (shipped 2026-02-12)
 - ✅ **v1.2 Legacy Cleanup** -- Phases 13-18 (shipped 2026-02-14)
 - ✅ **v2.0 Performance** -- Phases 19-22 (shipped 2026-02-14)
-- 🚧 **v2.1 Mise Task Runner** -- Phases 23-25 (in progress)
+- ✅ **v2.1 Mise Task Runner** -- Phases 23-25 (shipped 2026-02-15)
 
 ## Phases
 
@@ -120,8 +120,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 25-01-PLAN.md -- Implement git:commit and git:branch tasks (interactive commit + branch creation)
-- [ ] 25-02-PLAN.md -- Implement git:cleanup and git:pr tasks (branch pruning + PR creation)
+- [x] 25-01-PLAN.md -- Implement git:commit and git:branch tasks (interactive commit + branch creation) -- completed 2026-02-15
+- [x] 25-02-PLAN.md -- Implement git:cleanup and git:pr tasks (branch pruning + PR creation) -- completed 2026-02-15
 
 ## Progress
 
@@ -151,7 +151,7 @@ Plans:
 | 22. Monitoring & Hardening | v2.0 | 2/2 | Complete | 2026-02-14 |
 | 23. Task Infrastructure | v2.1 | 1/1 | Complete | 2026-02-14 |
 | 24. Dotfiles Operations | v2.1 | 1/1 | Complete | 2026-02-14 |
-| 25. Git Workflow Tasks | v2.1 | 0/TBD | Not started | - |
+| 25. Git Workflow Tasks | v2.1 | 2/2 | Complete | 2026-02-15 |
 
 ---
-*Last updated: 2026-02-14 -- Phase 24 complete (1/1 plans)*
+*Last updated: 2026-02-15 -- Phase 25 complete (2/2 plans)*

@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-14)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** Phase 25 - Git Workflow Tasks
+**Current focus:** All phases complete — milestone v2.1 ready to close
 
 ## Current Position
 
 Phase: 25 of 25 (Git Workflow Tasks)
 Plan: 2 of 2 in current phase
-Status: Complete
-Last activity: 2026-02-15 — Completed plan 25-01 (Git Commit and Branch Tasks)
+Status: Phase complete — verified and approved
+Last activity: 2026-02-15 — Phase 25 complete (Git Workflow Tasks)
 
-Progress: [████████████████████████░] 96% (24 of 25 phases complete)
+Progress: [█████████████████████████] 100% (25 of 25 phases complete)
 
 ## Performance Metrics
 
@@ -70,5 +70,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-15
-Stopped at: Completed plan 25-01 (Git Commit and Branch Tasks) - Phase 25 complete
+Stopped at: Phase 25 complete — milestone v2.1 ready for /gsd:complete-milestone
 Resume file: None
