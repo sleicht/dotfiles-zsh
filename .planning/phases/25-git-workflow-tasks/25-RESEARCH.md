@@ -296,34 +296,73 @@ echo "✓ Cleanup complete"
 
 **Why this works:** `git fetch --prune` removes stale remote tracking branches, `--merged` ensures only fully merged branches listed, protected branches (main/master/develop/current) excluded from deletion, user confirmation before destructive action, `-d` flag (not `-D`) ensures git validates merge status.
 
-### Pattern 4: CLI Tool Wrapper with Template Support
+### Pattern 4: Remote-Aware CLI Wrapper with Template Support
 
-**What:** Task wrapping gh CLI for standardised PR creation
+**What:** Task detecting GitHub vs GitLab from origin remote URL, dispatching to `gh` or `glab` accordingly
 **When to use:** GIT-04 (pr)
+
+**Remote detection logic:**
+```bash
+# Detect platform from origin remote URL
+REMOTE_URL=$(git remote get-url origin 2>/dev/null || echo "")
+if [[ "$REMOTE_URL" == *"github.com"* ]]; then
+  PLATFORM="github"
+  CLI="gh"
+elif [[ "$REMOTE_URL" == *"gitlab"* ]]; then
+  # Catches gitlab.com, gitlab.client.ch, and any self-hosted with "gitlab" in hostname
+  PLATFORM="gitlab"
+  CLI="glab"
+else
+  echo "Cannot auto-detect platform from origin: $REMOTE_URL"
+  echo "Select platform:"
+  PLATFORM=$(echo -e "github\ngitlab" | fzf --prompt="Platform: " --height=4)
+  [[ -n "$PLATFORM" ]] || { echo "ERROR: No platform selected" >&2; exit 1; }
+  CLI=$([[ "$PLATFORM" == "github" ]] && echo "gh" || echo "glab")
+fi
+```
+
+**Key differences between gh and glab:**
+- Auth check: `gh auth status` vs `glab auth status`
+- PR/MR create: `gh pr create --title --body` vs `glab mr create --title --description`
+- GitLab uses "merge request" (MR) terminology, not "pull request" (PR)
+- Both CLIs support `--push` or push-before-create workflows
 
 **Example (GIT-04: git:pr):**
 ```bash
 #!/usr/bin/env bash
-# Source: gh CLI documentation
-#MISE description="Create pull request via gh CLI"
+# Source: gh CLI + glab CLI documentation
+#MISE description="Create pull/merge request via gh/glab CLI"
 
 set -euo pipefail
 
-# Step 1: Validate gh CLI is authenticated
-if ! gh auth status &>/dev/null; then
-  echo "ERROR: gh CLI not authenticated" >&2
-  echo "Run 'gh auth login' first" >&2
+# Step 1: Detect platform from origin remote
+REMOTE_URL=$(git remote get-url origin 2>/dev/null || echo "")
+if [[ "$REMOTE_URL" == *"github.com"* ]]; then
+  PLATFORM="github"; CLI="gh"
+elif [[ "$REMOTE_URL" == *"gitlab"* ]]; then
+  PLATFORM="gitlab"; CLI="glab"
+else
+  echo "Cannot auto-detect platform from origin: $REMOTE_URL"
+  PLATFORM=$(echo -e "github\ngitlab" | fzf --prompt="Platform: " --height=4)
+  [[ -n "$PLATFORM" ]] || { echo "ERROR: No platform selected" >&2; exit 1; }
+  CLI=$([[ "$PLATFORM" == "github" ]] && echo "gh" || echo "glab")
+fi
+echo "Detected platform: $PLATFORM (using $CLI)"
+
+# Step 2: Validate CLI is authenticated
+if ! "$CLI" auth status &>/dev/null; then
+  echo "ERROR: $CLI not authenticated. Run: $CLI auth login" >&2
   exit 1
 fi
 
-# Step 2: Validate current branch is not main/master
+# Step 3: Validate current branch is not main/master
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [[ "$CURRENT_BRANCH" == "main" ]] || [[ "$CURRENT_BRANCH" == "master" ]]; then
-  echo "ERROR: Cannot create PR from main/master branch" >&2
+  echo "ERROR: Cannot create PR/MR from main/master branch" >&2
   exit 1
 fi
 
-# Step 3: Validate branch has remote tracking
+# Step 4: Validate branch has remote tracking
 if ! git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null; then
   echo "Branch has no upstream. Push first? (Y/n):"
   read -r PUSH
@@ -335,44 +374,44 @@ if ! git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null; then
   fi
 fi
 
-# Step 4: Extract Jira ticket from branch name (if present)
+# Step 5: Extract Jira ticket from branch name (if present)
 if [[ "$CURRENT_BRANCH" =~ feature/([A-Z]+-[0-9]+) ]]; then
   TICKET="${BASH_REMATCH[1]}"
   echo "Detected Jira ticket: $TICKET"
 else
-  echo "Enter Jira ticket for PR title (e.g., MLE-999):"
+  echo "Enter Jira ticket for PR/MR title (e.g., MLE-999):"
   read -r TICKET
 fi
 
-# Step 5: Get PR title
-echo "Enter PR title (will be prefixed with $TICKET:):"
+# Step 6: Get title
+PR_TYPE=$([[ "$PLATFORM" == "gitlab" ]] && echo "MR" || echo "PR")
+echo "Enter $PR_TYPE title (will be prefixed with $TICKET:):"
 read -r TITLE
 PR_TITLE="${TICKET}: ${TITLE}"
 
-# Step 6: Get PR body (multi-line)
-echo "Enter PR description (press Ctrl-D when done):"
+# Step 7: Get body (multi-line)
+echo "Enter description (press Ctrl-D when done):"
 PR_BODY=$(cat)
 
-# Step 7: Display and confirm
+# Step 8: Display and confirm
 echo ""
-echo "PR Title: $PR_TITLE"
-echo "PR Body:"
-echo "$PR_BODY"
+echo "$PR_TYPE Title: $PR_TITLE"
+echo "Body: $PR_BODY"
 echo ""
-echo "Create PR? (Y/n):"
+echo "Create $PR_TYPE? (Y/n):"
 read -r CONFIRM
+[[ "$CONFIRM" =~ ^[Nn]$ ]] && { echo "Cancelled"; exit 0; }
 
-if [[ "$CONFIRM" =~ ^[Nn]$ ]]; then
-  echo "Cancelled"
-  exit 0
+# Step 9: Create PR/MR via platform CLI
+if [[ "$PLATFORM" == "github" ]]; then
+  gh pr create --title "$PR_TITLE" --body "$PR_BODY"
+else
+  glab mr create --title "$PR_TITLE" --description "$PR_BODY"
 fi
-
-# Step 8: Create PR via gh CLI
-gh pr create --title "$PR_TITLE" --body "$PR_BODY"
-echo "✓ Pull request created"
+echo "✓ $PR_TYPE created"
 ```
 
-**Why this works:** `gh auth status` validates authentication before attempting PR creation, upstream check ensures branch is pushed, Jira ticket extraction from branch name reduces re-entry, `gh pr create` handles remote PR creation, title prefix enforces conventional format.
+**Why this works:** Remote URL detection selects the correct CLI automatically. `gh` and `glab` have near-identical auth/create flows — the main difference is `--body` vs `--description` and PR vs MR terminology. Both CLIs are installed (gh 2.86.0, glab 1.85.1). The `*"gitlab"*` glob catches `gitlab.com`, self-hosted instances like `gitlab.client.ch`, and any hostname containing "gitlab". For truly custom hostnames without "gitlab" in the name, the script falls back to a user prompt asking which platform to use.
 
 ### Anti-Patterns to Avoid
 
@@ -460,9 +499,11 @@ echo "✓ Pull request created"
 
 ## Code Examples
 
-Verified patterns from research and existing task infrastructure:
+Verified patterns from research and existing task infrastructure.
 
-### GIT-01: Interactive Commit Task
+**Hybrid AI/manual mode:** Both git:commit and git:branch offer AI-assisted generation via `claude` CLI when available, with manual fzf fallback. The mode selection prompt (`(a)i or (m)anual?`) appears early, and the AI path generates a complete message/name from the staged diff or ticket context, presented for user review before executing.
+
+### GIT-01: Interactive Commit Task (Hybrid AI/Manual)
 
 ```bash
 #!/usr/bin/env bash
@@ -486,41 +527,62 @@ if ! [[ "$TICKET" =~ ^[A-Z]+-[0-9]+$ ]]; then
   exit 1
 fi
 
-# Select type via fzf
-TYPE=$(echo -e "feat\nfix\nchore\ndocs\nstyle\nrefactor\ntest\nperf\nci\nbuild\nrevert" | \
-  fzf --prompt="Select type: " --height=12)
-[[ -n "$TYPE" ]] || { echo "ERROR: No type selected" >&2; exit 1; }
+# Choose mode: AI or manual
+MODE="manual"
+if command -v claude &>/dev/null; then
+  MODE=$(echo -e "ai\nmanual" | fzf --prompt="Mode: " --height=4)
+  [[ -n "$MODE" ]] || MODE="manual"
+fi
 
-# Optional scope
-echo "Enter scope (optional, press Enter to skip):"
-read -r SCOPE
-SCOPE_PART=$([[ -n "$SCOPE" ]] && echo "($SCOPE)" || echo "")
+if [[ "$MODE" == "ai" ]]; then
+  # AI-assisted: generate message from staged diff
+  DIFF=$(git diff --cached)
+  COMMIT_MSG=$(echo "$DIFF" | claude --print -p \
+    "Generate a single-line conventional commit message for this diff.
+Format: ${TICKET}: <type>[optional scope]: <description>
+Rules: imperative present tense, no capital first letter, no trailing period.
+Types: feat, fix, chore, docs, style, refactor, test, perf, ci, build, revert.
+Output ONLY the commit message line, nothing else.")
 
-# Description
-echo "Enter description (imperative, no capital, no period):"
-read -r DESC
+  # Validate AI output starts with ticket
+  if ! [[ "$COMMIT_MSG" == "${TICKET}:"* ]]; then
+    echo "WARNING: AI output didn't match expected format, falling back to manual" >&2
+    MODE="manual"
+  fi
+fi
 
-# Breaking change
-echo "Breaking change? (y/N):"
-read -r BREAKING
-BREAKING_MARKER=$([[ "$BREAKING" =~ ^[Yy]$ ]] && echo "!" || echo "")
+if [[ "$MODE" == "manual" ]]; then
+  # Manual: fzf type selection + prompts
+  TYPE=$(echo -e "feat\nfix\nchore\ndocs\nstyle\nrefactor\ntest\nperf\nci\nbuild\nrevert" | \
+    fzf --prompt="Select type: " --height=12)
+  [[ -n "$TYPE" ]] || { echo "ERROR: No type selected" >&2; exit 1; }
 
-# Construct message
-COMMIT_MSG="${TICKET}: ${TYPE}${SCOPE_PART}${BREAKING_MARKER}: ${DESC}"
+  echo "Enter scope (optional, press Enter to skip):"
+  read -r SCOPE
+  SCOPE_PART=$([[ -n "$SCOPE" ]] && echo "($SCOPE)" || echo "")
 
-# Confirm
+  echo "Enter description (imperative, no capital, no period):"
+  read -r DESC
+
+  echo "Breaking change? (y/N):"
+  read -r BREAKING
+  BREAKING_MARKER=$([[ "$BREAKING" =~ ^[Yy]$ ]] && echo "!" || echo "")
+
+  COMMIT_MSG="${TICKET}: ${TYPE}${SCOPE_PART}${BREAKING_MARKER}: ${DESC}"
+fi
+
+# Confirm (both paths converge here)
 echo ""
 echo "Commit message: $COMMIT_MSG"
 echo "Proceed? (Y/n):"
 read -r CONFIRM
 [[ "$CONFIRM" =~ ^[Nn]$ ]] && { echo "Cancelled"; exit 0; }
 
-# Commit
 git commit -m "$COMMIT_MSG"
 echo "✓ Commit created"
 ```
 
-### GIT-02: Branch Creation Task
+### GIT-02: Branch Creation Task (Hybrid AI/Manual)
 
 ```bash
 #!/usr/bin/env bash
@@ -546,9 +608,32 @@ if ! [[ "$TICKET" =~ ^[A-Z]+-[0-9]+$ ]]; then
   exit 1
 fi
 
-# Get description
-echo "Enter description (kebab-case, e.g., 'fix-auth-token'):"
-read -r DESC
+# Choose mode: AI or manual
+MODE="manual"
+if command -v claude &>/dev/null; then
+  MODE=$(echo -e "ai\nmanual" | fzf --prompt="Mode: " --height=4)
+  [[ -n "$MODE" ]] || MODE="manual"
+fi
+
+if [[ "$MODE" == "ai" ]]; then
+  # AI-assisted: suggest branch description from ticket
+  echo "Describe the work (free text for AI to convert to kebab-case):"
+  read -r WORK_DESC
+  DESC=$(echo "$WORK_DESC" | claude --print -p \
+    "Convert this work description into a kebab-case branch suffix (2-4 words, lowercase, hyphens).
+Output ONLY the kebab-case string, nothing else. Example: fix-auth-token")
+
+  # Validate AI output is kebab-case
+  if ! [[ "$DESC" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+    echo "WARNING: AI output not valid kebab-case, falling back to manual" >&2
+    MODE="manual"
+  fi
+fi
+
+if [[ "$MODE" == "manual" ]]; then
+  echo "Enter description (kebab-case, e.g., 'fix-auth-token'):"
+  read -r DESC
+fi
 
 # Construct branch name
 BRANCH="feature/${TICKET}-${DESC}"
@@ -620,25 +705,39 @@ echo ""
 echo "✓ Cleanup complete"
 ```
 
-### GIT-04: Pull Request Task
+### GIT-04: Pull/Merge Request Task (Remote-Aware)
 
 ```bash
 #!/usr/bin/env bash
-# Source: gh CLI documentation
-#MISE description="Create pull request via gh CLI"
+# Source: gh CLI + glab CLI documentation
+#MISE description="Create pull/merge request via gh/glab CLI"
 
 set -euo pipefail
 
-# Validate gh auth
-if ! gh auth status &>/dev/null; then
-  echo "ERROR: gh not authenticated. Run: gh auth login" >&2
+# Detect platform from origin remote
+REMOTE_URL=$(git remote get-url origin 2>/dev/null || echo "")
+if [[ "$REMOTE_URL" == *"github.com"* ]]; then
+  PLATFORM="github"; CLI="gh"
+elif [[ "$REMOTE_URL" == *"gitlab"* ]]; then
+  PLATFORM="gitlab"; CLI="glab"
+else
+  echo "Cannot auto-detect platform from origin: $REMOTE_URL"
+  PLATFORM=$(echo -e "github\ngitlab" | fzf --prompt="Platform: " --height=4)
+  [[ -n "$PLATFORM" ]] || { echo "ERROR: No platform selected" >&2; exit 1; }
+  CLI=$([[ "$PLATFORM" == "github" ]] && echo "gh" || echo "glab")
+fi
+echo "Detected platform: $PLATFORM (using $CLI)"
+
+# Validate CLI auth
+if ! "$CLI" auth status &>/dev/null; then
+  echo "ERROR: $CLI not authenticated. Run: $CLI auth login" >&2
   exit 1
 fi
 
 # Validate not on main/master
 CURRENT=$(git rev-parse --abbrev-ref HEAD)
 if [[ "$CURRENT" == "main" ]] || [[ "$CURRENT" == "master" ]]; then
-  echo "ERROR: Cannot create PR from main/master" >&2
+  echo "ERROR: Cannot create PR/MR from main/master" >&2
   exit 1
 fi
 
@@ -664,7 +763,8 @@ else
 fi
 
 # Get title
-echo "Enter PR title (will be prefixed with $TICKET:):"
+PR_TYPE=$([[ "$PLATFORM" == "gitlab" ]] && echo "MR" || echo "PR")
+echo "Enter $PR_TYPE title (will be prefixed with $TICKET:):"
 read -r TITLE
 PR_TITLE="${TICKET}: ${TITLE}"
 
@@ -674,16 +774,20 @@ PR_BODY=$(cat)
 
 # Confirm
 echo ""
-echo "Title: $PR_TITLE"
+echo "$PR_TYPE Title: $PR_TITLE"
 echo "Body: $PR_BODY"
 echo ""
-echo "Create PR? (Y/n):"
+echo "Create $PR_TYPE? (Y/n):"
 read -r CONFIRM
 [[ "$CONFIRM" =~ ^[Nn]$ ]] && { echo "Cancelled"; exit 0; }
 
-# Create
-gh pr create --title "$PR_TITLE" --body "$PR_BODY"
-echo "✓ PR created"
+# Create via platform CLI
+if [[ "$PLATFORM" == "github" ]]; then
+  gh pr create --title "$PR_TITLE" --body "$PR_BODY"
+else
+  glab mr create --title "$PR_TITLE" --description "$PR_BODY"
+fi
+echo "✓ $PR_TYPE created"
 ```
 
 ## State of the Art
@@ -693,7 +797,7 @@ echo "✓ PR created"
 | Manual git commit | Interactive guided commit | Phase 25 (2026-02-15) | Enforces conventional commits, validates Jira tickets, prevents format errors |
 | Manual branch creation | Validated branch task | Phase 25 (2026-02-15) | Enforces feature/<ticket>-<desc> format, validates starting point, prevents naming inconsistency |
 | Manual branch cleanup | Automated merged detection | Phase 25 (2026-02-15) | Safe deletion of only merged branches, remote tracking update, protected branch exclusion |
-| Browser-based PR creation | gh CLI PR task | Phase 25 (2026-02-15) | Scriptable PR workflow, template support, Jira ticket extraction from branch |
+| Browser-based PR creation | Remote-aware gh/glab PR task | Phase 25 (2026-02-15) | Auto-detects GitHub vs GitLab from origin URL, uses correct CLI (gh/glab), scriptable workflow |
 | No Jira ticket validation | Regex validation at input | Phase 25 (2026-02-15) | Prevents invalid ticket formats, ensures issue tracker integration |
 | gum for interactive prompts | fzf + bash read | Phase 25 (2026-02-15) | Use already-installed tools, fzf sufficient for selection, bash read for text |
 
