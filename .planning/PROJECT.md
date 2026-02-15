@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A complete ZSH dotfiles management system powered by chezmoi, providing cross-platform templating (macOS/Linux), machine-specific configuration (client/personal), automated Homebrew package management, mise runtime version management (7 runtimes), Bitwarden-backed secret templating with age encryption, gitleaks leak prevention, and a plugin-based verification framework with 112 automated checks. All configs (135 files) are managed by chezmoi with all legacy tooling (Nix, Dotbot, asdf) fully removed.
+A complete ZSH dotfiles management system powered by chezmoi, providing cross-platform templating (macOS/Linux), machine-specific configuration (client/personal), automated Homebrew package management, mise runtime version management (7 runtimes), Bitwarden-backed secret templating with age encryption, gitleaks leak prevention, a plugin-based verification framework with 112 automated checks, and a mise-powered task runner with 10 user-friendly commands for dotfiles operations and git workflows. All configs (135 files) are managed by chezmoi with all legacy tooling (Nix, Dotbot, asdf) fully removed.
 
 ## Core Value
 
@@ -60,11 +60,17 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 - ✓ Add eval caching for expensive startup commands (PERF-03) -- v2.0 (evalcache for oh-my-posh, zoxide, atuin, carapace)
 - ✓ Achieve < 300ms total shell startup time (PERF-04) -- v2.0 (139.8ms achieved, 53.4% better than target)
 
+#### v2.1 -- shipped 2026-02-15
+
+- ✓ Mise file-based task pipeline with chezmoi deployment (10 tasks, 8 aliases) -- v2.1
+- ✓ Dotfiles operation tasks: apply, verify, smoke-test, diff, update, sync -- v2.1
+- ✓ Git workflow tasks with hybrid AI/manual mode: commit, branch, cleanup, pr -- v2.1
+- ✓ Conventional commit enforcement with Jira ticket prefix validation -- v2.1
+- ✓ Remote-aware PR/MR creation (auto-detects GitHub vs GitLab) -- v2.1
+
 ### Active
 
-#### v2.1 — Mise Task Runner
-
-- [ ] Set up mise task runner for dotfiles operations and dev workflows (MISE-03)
+(No active requirements — start next milestone with `/gsd:new-milestone`)
 
 ### Out of Scope
 
@@ -77,9 +83,9 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 
 ## Context
 
-**Current milestone:** v2.1 — Mise Task Runner
+**Current milestone:** All milestones shipped (v1.0.0 → v2.1)
 
-**Current state (post v2.0):**
+**Current state (post v2.1):**
 - chezmoi manages 135 files with cross-platform templates and OS-conditional configs
 - 171+ Homebrew packages consolidated in .chezmoidata.yaml with automated installation
 - mise manages 7 runtime versions (node, python, go, rust, java, ruby, terraform)
@@ -96,6 +102,9 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 - Startup self-monitoring with 300ms threshold warning
 - Automatic evalcache invalidation via chezmoi run_onchange_ hook on tool version changes
 - 13-check smoke test script for ongoing validation
+- Mise task runner: 10 file-based tasks (6 dotfiles + 4 git) deployed via chezmoi
+- Hybrid AI/manual git workflows: claude CLI for AI generation, fzf for manual fallback
+- Task aliases for quick access: a (apply), v (verify), d (diff), u (update), s (sync), c (commit), b (branch)
 
 **Architecture:**
 - chezmoi source: ~/.local/share/chezmoi (templates, data, run scripts)
@@ -138,6 +147,10 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 | Sync/defer Sheldon architecture | Two plugin groups: immediate sync + zsh-defer | ✓ Good -- ~70ms to prompt, deferred work invisible |
 | EPOCHREALTIME startup monitoring | Microsecond-precision timing with 300ms threshold | ✓ Good -- negligible overhead, catches regressions |
 | chezmoi run_onchange_ for cache invalidation | Track tool versions, auto-clear evalcache | ✓ Good -- zero-maintenance cache lifecycle |
+| File-based mise tasks with chezmoi deployment | executable_ prefix for chmod +x, #MISE directives for metadata | ✓ Good -- 10 tasks deployed, all discoverable |
+| Explicit mise run calls for task composition | Avoid mise depends field due to timing issues | ✓ Good -- deterministic sequential execution in sync workflow |
+| Hybrid AI/manual mode for git workflows | AI speed when available, manual reliability as fallback | ✓ Good -- both paths converge to same preview/confirmation UX |
+| Remote-aware PR creation (gh/glab dispatch) | Parse origin URL for platform, auto-dispatch to correct CLI | ✓ Good -- works in both GitHub and GitLab environments |
 
 ## Known Limitations
 
@@ -147,4 +160,4 @@ A complete ZSH dotfiles management system powered by chezmoi, providing cross-pl
 4. **Neovim exception**: nvim config stays as symlink outside chezmoi management (intentional, documented in README).
 
 ---
-*Last updated: 2026-02-14 after v2.1 Mise Task Runner milestone started*
+*Last updated: 2026-02-15 after v2.1 Mise Task Runner milestone shipped*

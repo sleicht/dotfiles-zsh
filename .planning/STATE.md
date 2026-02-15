@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-14)
+See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Cross-platform dotfiles that "just work" -- one repository that handles Mac vs Linux differences through templating, without requiring Nix expertise to maintain.
-**Current focus:** All phases complete — milestone v2.1 ready to close
+**Current focus:** All milestones shipped (v1.0.0 → v2.1). Start next with `/gsd:new-milestone`.
 
 ## Current Position
 
-Phase: 25 of 25 (Git Workflow Tasks)
-Plan: 2 of 2 in current phase
-Status: Phase complete — verified and approved
-Last activity: 2026-02-15 — Phase 25 complete (Git Workflow Tasks)
+Phase: 25 of 25 (all complete)
+Plan: N/A
+Status: v2.1 shipped
+Last activity: 2026-02-15 — v2.1 Mise Task Runner milestone completed
 
-Progress: [█████████████████████████] 100% (25 of 25 phases complete)
+Progress: [█████████████████████████] 100% (25 of 25 phases complete, 5 milestones shipped)
 
 ## Performance Metrics
 
@@ -33,42 +33,24 @@ Progress: [███████████████████████
 | v2.0 | 4 | 8 | 0.48h | 3.6 min |
 | v2.1 | 3 | 4 | 0.14h | 2.1 min |
 
-**Recent Trend:**
-- Last 5 plans: [3.5, 2.0, 2.5, 2.0, 2.6] min
-- Trend: Stable (v2.1 current avg 2.1 min, v2.0 averaged 3.6 min)
-
-*Updated after each plan completion*
+**Overall:** 25 phases, 57 plans, 5 milestones in 22 days (2026-01-25 to 2026-02-15)
 
 ## Accumulated Context
 
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- [Phase 20]: evalcache for tool init calls — Cache static eval outputs, skip dynamic (mise). Result: 152.5ms saved, sub-150ms startup
-- [Phase 21]: Sync/defer Sheldon architecture — Two plugin groups: immediate sync + zsh-defer. Result: ~70ms to prompt, deferred work invisible
-- [Phase 22]: chezmoi run_onchange_ for cache invalidation — Track tool versions, auto-clear evalcache. Result: Zero-maintenance cache lifecycle
-- [Phase 23]: File-based mise tasks with chezmoi deployment — Use executable_ prefix pattern for automatic chmod +x, #MISE directives for metadata. Result: Task pipeline ready for Phase 24/25
-- [Phase 24]: Remove sources/outputs from user-triggered tasks — Verification tasks should always run when requested. Result: Predictable behaviour for interactive commands
-- [Phase 24]: Use explicit mise run calls for task composition — Avoid mise depends field due to timing issues. Result: Deterministic sequential execution in sync workflow
-- [Phase 25]: Hybrid AI/manual mode for git workflows — Offer AI assistance via claude CLI when available, fall back to manual fzf prompts. Result: Best of both worlds - AI speed with manual reliability
-- [Phase 25]: AI validation before acceptance — Validate AI output format (ticket prefix, kebab-case) before accepting, auto-fallback to manual if invalid. Result: Prevents malformed AI output from creating bad commits/branches
-- [Phase 25]: Use git branch -d (not -D) for branch cleanup — Safe deletion validates merge status. Result: Users cannot accidentally delete unmerged branches
-- [Phase 25]: Auto-detect GitHub vs GitLab from origin remote URL — Parse URL for platform, dispatch to correct CLI. Result: PR creation works automatically in both environments
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-**Research Flags for v2.1:**
-- Phase 25 (Git Workflows): May need phase-specific research for gh CLI integration patterns and conventional commit tooling options
-- Performance validation: Shell startup must remain under 300ms with mise activation enabled
+None — all milestones shipped.
 
 ## Session Continuity
 
 Last session: 2026-02-15
-Stopped at: Phase 25 complete — milestone v2.1 ready for /gsd:complete-milestone
+Stopped at: v2.1 milestone completed
 Resume file: None

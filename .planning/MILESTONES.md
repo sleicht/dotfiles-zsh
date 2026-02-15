@@ -115,3 +115,34 @@
 
 ---
 
+
+## v2.1 Mise Task Runner (Shipped: 2026-02-15)
+
+**Delivered:** Implemented mise task runner for dotfiles operations and git workflows, providing 10 user-friendly commands with short aliases for chezmoi operations, verification, and conventional git commits with hybrid AI/manual mode.
+
+**Phases completed:** 23-25 (4 plans total)
+
+**Key accomplishments:**
+- Established mise file-based task pipeline via chezmoi with executable deployment, namespace discovery (dotfiles:*/git:*), and 8 short aliases
+- Implemented six dotfiles operation tasks (apply, verify, smoke-test, diff, update, sync) with proper error handling and composite workflows
+- Built hybrid AI/manual git:commit with conventional commit + Jira prefix (claude CLI generation from diffs or fzf manual selection)
+- Built hybrid AI/manual git:branch with feature branch naming convention enforcement
+- Implemented git:cleanup (safe merged branch pruning) and git:pr (remote-aware GitHub/GitLab dispatch via gh/glab)
+
+**Stats:**
+- 3 phases, 4 plans
+- 2 days (2026-02-14 to 2026-02-15)
+- 15 commits, 13 files changed, +3,066 / -24 lines
+- 15/15 requirements satisfied (100%)
+
+**Git range:** feature/nix branch (b4af276..a5f0a9d)
+
+**Tech debt accepted:**
+- Alias display shows null in `mise tasks --json` (runtime works correctly)
+- PR body input via cat + Ctrl-D (adequate for MVP)
+- glab CLI required for GitLab repos (straightforward install)
+
+**What's next:** Future milestone TBD
+
+---
+
