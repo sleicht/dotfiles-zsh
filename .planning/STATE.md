@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 25 of 25 (Git Workflow Tasks)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-02-14 — Phase 24 complete (Dotfiles Operations)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-02-15 — Completed plan 25-02 (Git Workflow Tasks)
 
 Progress: [████████████████████████░] 96% (24 of 25 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 55
-- Average duration: 6.35 min
-- Total execution time: 5.82 hours
+- Total plans completed: 56
+- Average duration: 6.23 min
+- Total execution time: 5.85 hours
 
 **By Milestone:**
 
@@ -31,11 +31,11 @@ Progress: [███████████████████████
 | v1.1 | 6 | 13 | 1.35h | 6.2 min |
 | v1.2 | 6 | 7 | 0.82h | 7.0 min |
 | v2.0 | 4 | 8 | 0.48h | 3.6 min |
-| v2.1 | 3 | 2 | 0.07h | 2.1 min |
+| v2.1 | 3 | 3 | 0.10h | 2.0 min |
 
 **Recent Trend:**
-- Last 5 plans: [3.2, 4.0, 3.5, 2.0, 2.5] min
-- Trend: Improving (v2.1 current avg 2.1 min, v2.0 averaged 3.6 min)
+- Last 5 plans: [4.0, 3.5, 2.0, 2.5, 2.0] min
+- Trend: Improving (v2.1 current avg 2.0 min, v2.0 averaged 3.6 min)
 
 *Updated after each plan completion*
 
@@ -52,6 +52,8 @@ Recent decisions affecting current work:
 - [Phase 23]: File-based mise tasks with chezmoi deployment — Use executable_ prefix pattern for automatic chmod +x, #MISE directives for metadata. Result: Task pipeline ready for Phase 24/25
 - [Phase 24]: Remove sources/outputs from user-triggered tasks — Verification tasks should always run when requested. Result: Predictable behaviour for interactive commands
 - [Phase 24]: Use explicit mise run calls for task composition — Avoid mise depends field due to timing issues. Result: Deterministic sequential execution in sync workflow
+- [Phase 25]: Use git branch -d (not -D) for branch cleanup — Safe deletion validates merge status. Result: Users cannot accidentally delete unmerged branches
+- [Phase 25]: Auto-detect GitHub vs GitLab from origin remote URL — Parse URL for platform, dispatch to correct CLI. Result: PR creation works automatically in both environments
 
 ### Pending Todos
 
@@ -65,6 +67,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-14
-Stopped at: Phase 24 complete — ready to plan Phase 25
+Last session: 2026-02-15
+Stopped at: Completed plan 25-02 (Git Workflow Tasks)
 Resume file: None
