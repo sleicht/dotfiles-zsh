@@ -1,4 +1,6 @@
-# Dotfiles
+# Dotfiles (Deprecated)
+
+> **This repository is deprecated.** All dotfiles are now managed from the [chezmoi source repository](https://github.com/sleicht/chezmoi). This repo remains for git history only — no new work will happen here.
 
 ZSH dotfiles for macOS, managed by **chezmoi** with cross-platform templating, **mise** for runtime versions, and **Bitwarden** for secrets.
 
