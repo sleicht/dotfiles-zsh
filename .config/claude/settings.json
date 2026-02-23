@@ -117,7 +117,123 @@
   },
   "model": "claude-opus-4-6",
   "enableAllProjectMcpServers": false,
-  "hooks": {},
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "timeout": 86400,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ],
+        "matcher": "auto"
+      },
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ],
+        "matcher": "manual"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "python3 ~/.claude/hooks/claude-island-state.py",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
@@ -125,18 +241,18 @@
   "enabledPlugins": {
     "ast-grep@ast-grep-marketplace": true,
     "code-review@claude-code-plugins": true,
-    "plugin-dev@claude-code-plugins": true,
     "code-simplifier@claude-plugins-official": true,
     "explanatory-output-style@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
+    "git-commit-messages@dotfiles-marketplace": true,
+    "gitlab-merge-requests@dotfiles-marketplace": true,
     "jdtls-lsp@claude-plugins-official": true,
     "kotlin-lsp@claude-plugins-official": true,
     "learning-output-style@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
+    "plugin-dev@claude-code-plugins": true,
     "pyright-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "git-commit-messages@dotfiles-marketplace": true,
-    "gitlab-merge-requests@dotfiles-marketplace": true
+    "typescript-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "medium",
