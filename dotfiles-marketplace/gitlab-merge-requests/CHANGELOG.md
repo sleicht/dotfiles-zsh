@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-02-24
+
+### Changed
+
+- Remove `--web` flag from `glab mr create` command to avoid automatic browser opening
+- Clean up stale `--web` references from command instructions and notes
+
 ## [1.2.0] - 2025-02-10
 
 ### Changed
