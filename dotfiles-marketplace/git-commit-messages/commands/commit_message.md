@@ -58,9 +58,9 @@ You MUST follow these steps:
      - Prefer 2-3 high-level bullet points over detailed lists
    - Maintains consistency with the project's commit style
 
-4. **Write to File**: Use the **Write tool** to save the commit message:
-   - Write to `.commit-message.txt` in the current directory
-   - This will overwrite the file if it already exists
+4. **Write to File**:
+   - First, read `.commit-message.txt` using the **Read tool** (this satisfies the Write tool's prerequisite if the file exists from a previous run; ignore any "file not found" error)
+   - Then use the **Write tool** to save the commit message to `.commit-message.txt` in the current directory
    - Format the message as:
    ```
    MLE-999: <type>[optional scope]: <description>
