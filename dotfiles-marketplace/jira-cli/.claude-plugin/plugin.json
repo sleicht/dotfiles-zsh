@@ -1,0 +1,9 @@
+{
+  "name": "jira-cli",
+  "version": "1.0.0",
+  "description": "Manage Jira issues using jira-cli. Provides a quick reference command and auto-triggering skill for issue management.",
+  "author": {
+    "name": "Stephan Leicht Vogt"
+  },
+  "keywords": ["jira", "issue", "ticket", "sprint", "jira-cli"]
+}

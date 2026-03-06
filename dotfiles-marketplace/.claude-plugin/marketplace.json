@@ -18,6 +18,11 @@
       "name": "jdtls-lombok",
       "source": "./jdtls-lombok",
       "description": "JDTLS with Lombok annotation processor support via javaagent"
+    },
+    {
+      "name": "jira-cli",
+      "source": "./jira-cli",
+      "description": "Manage Jira issues using jira-cli with quick reference and auto-triggering skill"
     }
   ]
 }
