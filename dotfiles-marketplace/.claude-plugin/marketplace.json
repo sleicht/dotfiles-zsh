@@ -13,6 +13,11 @@
       "name": "gitlab-merge-requests",
       "source": "./gitlab-merge-requests",
       "description": "Create GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy"
+    },
+    {
+      "name": "jdtls-lombok",
+      "source": "./jdtls-lombok",
+      "description": "JDTLS with Lombok annotation processor support via javaagent"
     }
   ]
 }

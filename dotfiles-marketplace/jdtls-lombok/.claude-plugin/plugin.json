@@ -1,0 +1,9 @@
+{
+  "name": "jdtls-lombok",
+  "version": "1.0.0",
+  "description": "JDTLS with Lombok annotation processor support via javaagent",
+  "author": {
+    "name": "Stephan Leicht Vogt"
+  },
+  "keywords": ["java", "jdtls", "lombok", "lsp"]
+}

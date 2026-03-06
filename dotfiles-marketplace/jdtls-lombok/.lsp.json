@@ -1,0 +1,9 @@
+{
+  "java": {
+    "command": "/Users/c803964/git/stuff/dotfiles-zsh/dotfiles-marketplace/jdtls-lombok/jdtls-lombok.sh",
+    "args": [],
+    "extensionToLanguage": {
+      ".java": "java"
+    }
+  }
+}
