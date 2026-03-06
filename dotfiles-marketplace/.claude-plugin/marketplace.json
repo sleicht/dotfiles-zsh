@@ -10,6 +10,11 @@
       "description": "Generate and rewrite git commit messages following Conventional Commits specification with Jira ticket prefixes"
     },
     {
+      "name": "glab-cli",
+      "source": "./glab-cli",
+      "description": "Manage GitLab merge requests, issues, and CI/CD pipelines using glab CLI"
+    },
+    {
       "name": "gitlab-merge-requests",
       "source": "./gitlab-merge-requests",
       "description": "Create GitLab merge requests with comprehensive descriptions following Conventional Commits philosophy"
