@@ -1,6 +1,6 @@
 {
   "name": "glab-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Manage GitLab merge requests, issues, and CI/CD pipelines using glab CLI. Provides a quick reference command and auto-triggering skill for full GitLab workflow.",
   "author": {
     "name": "Stephan Leicht Vogt"
