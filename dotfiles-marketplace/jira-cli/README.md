@@ -7,7 +7,7 @@ A Claude Code plugin for managing Jira issues using [jira-cli](https://github.co
 - **`/jira`** slash command — quick reference for jira-cli issue commands
 - **`jira-issues`** auto-triggering skill — automatically activates when you mention ticket keys (MLE-123), ask to create/view/edit issues, or manage sprint work
 
-All commands use `--plain` or `--raw` output since the default TUI does not work in Claude Code.
+All commands use `--plain` or `--raw` output since the default TUI does not work in Claude Code. Commands are prefixed with `JIRA_INSECURE=1` to handle corporate TLS certificate verification issues.
 
 ## Prerequisites
 
